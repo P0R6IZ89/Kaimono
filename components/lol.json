@@ -1,0 +1,14 @@
+{
+  "id": "priority",
+  "depth": 0,
+  "columnDef": {
+    "filterFn": "auto",
+    "sortUndefined": 1,
+    "aggregationFn": "auto",
+    "size": 150,
+    "minSize": 20,
+    "maxSize": 9007199254740991,
+    "accessorKey": "priority"
+  },
+  "columns": []
+}
