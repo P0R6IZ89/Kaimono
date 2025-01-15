@@ -3,10 +3,10 @@
 import { Table } from "@tanstack/react-table";
 import { X } from "lucide-react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { priorities, statuses } from "@/app/data/data";
+import { statuses } from "@/app/data/data";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import DataTableFacetedSort from "./data-table-faceted-sort";
+// import DataTableFacetedSort from "./data-table-faceted-sort";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -29,7 +29,7 @@ export function DataTableToolbar<TData>({
             />
           </div>
         )}
-        {table.getColumn("priority") && (
+        {/* {table.getColumn("priority") && (
           <div>
             <DataTableFacetedFilter
               column={table.getColumn("priority")}
@@ -37,7 +37,7 @@ export function DataTableToolbar<TData>({
               options={priorities}
             />
           </div>
-        )}
+        )} */}
 
         {isFiltered && (
           <div>
@@ -52,12 +52,12 @@ export function DataTableToolbar<TData>({
           </div>
         )}
       </div>
-      <div>
+      {/* <div>
         <DataTableFacetedSort
           title="Ordenar por Prioridade"
           column={table.getColumn("priority")}
         />
-      </div>
+      </div> */}
       <div className="pt-2 max-w-sm">
         <Input
           placeholder="Pesquisar"

@@ -1,11 +1,16 @@
 import React from "react";
-import { toBuyList } from "@/util/ToBuyList";
-import { columns, ToBuy } from "@/components/columns";
+import { columns } from "@/components/essentials-columns";
 import { DataTable } from "@/components/data-table";
+import { prisma } from "@/lib/prisma";
 
-async function getData(): Promise<ToBuy[]> {
-  // Fetch data from your API here.
-  return toBuyList;
+async function getData() {
+  const data = await prisma.essentials.findMany();
+  return data.map((item) => ({
+    ...item,
+    price: item.price.toString(),
+    createdAt: item.createdAt.toISOString(),
+    updatedAt: item.updatedAt.toISOString(),
+  }));
 }
 
 export default async function Essentials() {

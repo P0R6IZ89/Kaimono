@@ -70,6 +70,22 @@ export const columns: ColumnDef<ToBuy>[] = [
     },
   },
   {
+    accessorKey: "price",
+    cell: ({ row }) => {
+      return (
+        <div className="hidden md:inline-block">{row.getValue("price")}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "quantity",
+    cell: ({ row }) => {
+      return (
+        <div className="hidden md:inline-block">{row.getValue("quantity")}</div>
+      );
+    },
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       const payment = row.original;

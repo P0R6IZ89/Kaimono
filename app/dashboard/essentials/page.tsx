@@ -1,10 +1,9 @@
 import React from "react";
 import { toBuyList } from "@/util/ToBuyList";
-import { columns, ToBuy } from "@/components/columns";
+import { columns, ToBuy } from "@/components/planned-columns";
 import { DataTable } from "@/components/data-table";
 
 async function getData(): Promise<ToBuy[]> {
-  // Fetch data from your API here.
   return toBuyList;
 }
 

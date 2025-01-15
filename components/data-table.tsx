@@ -19,22 +19,12 @@ import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { Table, TableBody, TableCell, TableRow } from "./ui/table";
+import SwipeableCard from "./ui/swipeble";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
-
-// function determineCell(value: any): string {
-//   if (value === "pending") {
-//     return "text-yellow-500 font-bold";
-//   } else if (value === "completed") {
-//     return "text-green-500 font-semibold";
-//   } else if (value === "error") {
-//     return "text-red-500 font-bold";
-//   }
-//   return ""; // Default class
-// }
 
 export function DataTable<TData, TValue>({
   columns,
@@ -45,6 +35,10 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([
     { id: "status", value: "pending" },
   ]);
+
+  const handleChange = () => console.log("Change triggered");
+  const handleDelete = () => console.log("Delete triggered");
+  const handleDesktopAction = () => console.log("Desktop action triggered");
 
   const table = useReactTable({
     data,
@@ -76,12 +70,15 @@ export function DataTable<TData, TValue>({
       </CardHeader>
       <CardContent className="space-y-4">
         <DataTableToolbar table={table} />
-        <div className="rounded-md border">
+        <div className="">
           <Table>
-            <TableBody>
+            <TableBody className="grid grid-cols-1 md:grid-cols-3 gap-1">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id}>
+                  <TableRow
+                    key={row.id}
+                    className="pt-4 pb-4 rounded-md border"
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         key={cell.id}
@@ -107,7 +104,15 @@ export function DataTable<TData, TValue>({
             </TableBody>
           </Table>
         </div>
-
+        <SwipeableCard
+          onChange={handleChange}
+          onDelete={handleDelete}
+          onDesktopAction={handleDesktopAction}
+        >
+          <div className="p-4 border rounded-md">
+            Swipe me left to reveal actions!
+          </div>
+        </SwipeableCard>
         <div className="flex items-center justify-end space-x-2 py-4">
           <Button
             variant={"outline"}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 enum Error {
   Configuration = "Configuration",
@@ -17,6 +18,15 @@ const errorMap = {
 };
 
 export default function AuthErrorPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthErrorPageInner />
+    </Suspense>
+  );
+}
+
+// Inner component actually uses the search params
+function AuthErrorPageInner() {
   const search = useSearchParams();
   const error = search.get("error") as Error;
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { toBuyList } from "@/util/ToBuyList";
-import { priorities, statuses } from "@/app/data/data";
 
 import {
   Card,
@@ -12,7 +11,7 @@ import {
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Circle, CircleCheckBig, MoreHorizontal } from "lucide-react";
+import { Circle, MoreHorizontal } from "lucide-react";
 
 async function getData() {
   // Fetch data from your API here.

@@ -1,4 +1,4 @@
-import { ToBuy } from "@/components/columns";
+import { ToBuy } from "@/components/planned-columns";
 
 export const toBuyList: ToBuy[] = [
   {
