@@ -26,7 +26,7 @@ export const columns: ColumnDef<{
       return (
         <div>
           {status.icon && (
-            <status.icon className={`h-4 w-4 ml-2 ${status.color}`} />
+            <status.icon className={`h-4 w-4 ${status.color} opacity-50`} />
           )}
         </div>
       );
@@ -41,14 +41,6 @@ export const columns: ColumnDef<{
       return <p className="truncate">{row.getValue("title")}</p>;
     },
   },
-  // {
-  //   accessorKey: "price",
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="hidden md:inline-block">{row.getValue("price")}</div>
-  //     );
-  //   },
-  // },
   {
     accessorKey: "quantity",
     cell: ({ row }) => {

@@ -3,6 +3,9 @@ import {
   ArrowRight,
   ArrowUp,
   CheckCircle,
+  Circle,
+  CircleCheck,
+  CircleMinus,
   CircleOff,
   Timer,
 } from "lucide-react";
@@ -26,21 +29,21 @@ export const statuses = [
   {
     value: "pending",
     label: "Pendente",
-    icon: Timer,
-    color: "",
+    icon: Circle,
+    color: "text-foreground",
   },
 
   {
     value: "purchased",
     label: "Comprado",
-    icon: CheckCircle,
-    color: "text-green-700",
+    icon: CircleCheck,
+    color: "text-foreground",
   },
   {
     value: "canceled",
     label: "Cancelado",
-    icon: CircleOff,
-    color: "text-destructive",
+    icon: CircleMinus,
+    color: "text-foreground",
   },
 ];
 

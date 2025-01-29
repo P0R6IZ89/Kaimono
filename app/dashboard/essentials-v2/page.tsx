@@ -15,6 +15,9 @@ async function getData() {
 
 export default async function Essentials() {
   const data = await getData();
+  if (!data) {
+    return <p>Loading...</p>;
+  }
   return (
     <div>
       <DataTable columns={columns} data={data} />

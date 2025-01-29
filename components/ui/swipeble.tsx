@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect, TouchEvent } from "react";
-import { Settings, CircleCheckBig, Info, EllipsisVertical } from "lucide-react";
+import {
+  Settings,
+  CircleCheckBig,
+  Info,
+  EllipsisVertical,
+  ChevronLeft,
+} from "lucide-react";
 
 interface SwipeableItemProps {
   children: React.ReactNode;
@@ -84,7 +90,6 @@ const SwipeableItem: React.FC<SwipeableItemProps> = ({
 
   return (
     <div className="select-none relative overflow-hidden rounded-tr-md rounded-br-md">
-      {/* Action Buttons */}
       <div
         className="absolute top-0 right-0 flex h-full"
         style={{ width: `${-maxTranslateX}px` }}
@@ -106,7 +111,6 @@ const SwipeableItem: React.FC<SwipeableItemProps> = ({
         </button>
       </div>
 
-      {/* Optional Desktop Menu Icon */}
       {isDesktop && onDesktopAction && (
         <button
           className="absolute right-3 top-0 h-full z-10 text-foreground hover:text-gray-800"
@@ -117,9 +121,16 @@ const SwipeableItem: React.FC<SwipeableItemProps> = ({
         </button>
       )}
 
-      {/* Swipeable Content */}
+      {!isDesktop && translateX === 0 && (
+        <ChevronLeft
+          size={24}
+          strokeWidth={1}
+          className="absolute z-10 right-2 top-1/2 transform -translate-y-1/2 pointer-events-none"
+        />
+      )}
+
       <div
-        className={`bg-white select-none ${
+        className={`bg-background  p-4 border rounded-md select-none ${
           isAnimating ? "transition-transform duration-200" : ""
         }`}
         style={{ transform: `translateX(${translateX}px)` }}
