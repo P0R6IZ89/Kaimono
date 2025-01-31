@@ -46,7 +46,7 @@ const Inicio = () => {
           <TableBody>
             {filterTopFive.map((toBuy, index) => (
               <TableRow key={index}>
-                <TableCell className="w-[30]">{toBuy.status}</TableCell>
+                <TableCell className="w-30">{toBuy.status}</TableCell>
                 <TableCell>{toBuy.title}</TableCell>
                 <TableCell>{formatPriceYen(toBuy.price)}</TableCell>
                 <TableCell className="text-right">{toBuy.quantity}</TableCell>

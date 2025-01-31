@@ -13,12 +13,20 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import { SidebarTrigger } from "./ui/sidebar";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { DataTableToolbar } from "./data-table-toolbar";
 import SwipeableCard from "./ui/swipeble";
+import { ShoppingCart } from "lucide-react";
+import { Progress } from "./ui/progress";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -63,40 +71,58 @@ export function DataTable<TData, TValue>({
         <Separator orientation="vertical" className="mr-2 h-4" />
         <h2 className="text-base">Pao e leite</h2>
       </div>
-      <CardHeader>
+      <CardHeader className="min-h-64 justify-center">
         <CardTitle>Pao e leite</CardTitle>
-        <CardDescription>dnsjfhdhdssdz</CardDescription>
+        <CardDescription>
+          Lista de compras de produtos essenciais.
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        <Card className="w-full lg:w-1/2">
+          <CardHeader className="space-y-2">
+            <CardTitle className="flex gap-2 items-center">
+              <ShoppingCart size={16} />
+              <p className="text-sm font-normal tracking-normal">
+                Compras Restantes.{" "}
+              </p>
+            </CardTitle>
+            <CardDescription className="flex gap-2 items-center">
+              <p className="flex-none text-xs">10 de 20</p>
+              <Progress className="h-2" value={50} />
+            </CardDescription>
+          </CardHeader>
+        </Card>
         <DataTableToolbar table={table} />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <SwipeableCard
-                key={row.id}
-                onChange={handleChange}
-                onDelete={handleDelete}
-                onDesktopAction={handleDesktopAction}
-              >
-                <div className="flex gap-2 items-center pr-4">
-                  {row.getVisibleCells().map((cell) => (
-                    <div
-                      key={cell.id}
-                      className={`${
-                        cell.column.columnDef.id === "title"
-                          ? "flex-1 truncate"
-                          : "w-auto"
-                      }`}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </SwipeableCard>
-            ))
+            table.getRowModel().rows.map((row) => {
+              return (
+                <SwipeableCard
+                  key={row.id}
+                  onChange={handleChange}
+                  onDelete={handleDelete}
+                  onDesktopAction={handleDesktopAction}
+                >
+                  <div className="flex flex-cols-3  items-center p-2 pr-4">
+                    {row.getVisibleCells().map((cell) => (
+                      <div
+                        key={cell.id}
+                        className={`${
+                          cell.column.columnDef.id === "title"
+                            ? "flex-1 truncate"
+                            : "w-auto"
+                        }`}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </SwipeableCard>
+              );
+            })
           ) : (
             <div className="h-24 text-center">No results.</div>
           )}

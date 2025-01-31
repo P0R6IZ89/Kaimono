@@ -1,7 +1,7 @@
 import React from "react";
-import { columns } from "@/components/essentials-columns";
 import { DataTable } from "@/components/data-table";
 import { prisma } from "@/lib/prisma";
+import { columns } from "@/components/essentials-columns";
 
 async function getData() {
   const data = await prisma.essentials.findMany();
