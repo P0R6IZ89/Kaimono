@@ -4,8 +4,8 @@ import { Table } from "@tanstack/react-table";
 import { Plus, X } from "lucide-react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { statuses } from "@/app/data/data";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "../ui/dialog";
 import { DialogForm } from "./dialog-form";
 // import DataTableFacetedSort from "./data-table-faceted-sort";
 
@@ -28,8 +28,8 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex flex-col space-y-2">
-      <div className="flex justify-between items-center max-w-sm">
+    <div className="flex flex-col">
+      <div className="flex justify-between items-center max-w-md">
         <div className="flex space-x-2">
           {table.getColumn("status") && (
             <div>
@@ -40,15 +40,6 @@ export function DataTableToolbar<TData>({
               />
             </div>
           )}
-          {/* {table.getColumn("priority") && (
-          <div>
-            <DataTableFacetedFilter
-              column={table.getColumn("priority")}
-              title="Prioridade"
-              options={priorities}
-            />
-          </div>
-        )} */}
 
           {isFiltered && (
             <div className="flex">
@@ -81,14 +72,10 @@ export function DataTableToolbar<TData>({
           </DialogContent>
         </Dialog>
       </div>
-      {/* <div>
-        <DataTableFacetedSort
-          title="Ordenar por Prioridade"
-          column={table.getColumn("priority")}
-        />
-      </div> */}
-      <div className="pt-2 max-w-sm">
+
+      <div className="pt-2 max-w-md">
         <Input
+          className="bg-none"
           placeholder="Pesquisar"
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>

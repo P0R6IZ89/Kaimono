@@ -6,18 +6,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "./ui/sidebar";
+} from "../ui/sidebar";
 import Link from "next/link";
 
 const NavPages = ({
-  pages,
-}: {
-  pages: {
-    title: string;
-    url: string;
-    items: { title: string; url: string; isActive: boolean }[];
-  };
-}) => {
+      pages,
+    }) => {
   return (
     <>
       <SidebarGroup key={pages.title}>

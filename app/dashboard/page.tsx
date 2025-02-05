@@ -1,7 +1,7 @@
-import GraphBasic from "@/components/graph-basic";
-import GraphPlanned from "@/components/graph-planned";
-import { GraphSpend } from "@/components/graph-spend";
-import Inicio from "@/components/inicio";
+import GraphBasic from "@/components/graph/graph-basic";
+import GraphPlanned from "@/components/graph/graph-planned";
+import { GraphSpend } from "@/components/graph/graph-spend";
+// import Inicio from "@/components/inicio";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
@@ -17,7 +17,7 @@ export default function Dashboard() {
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="grid gap-4 grid-col-span-1 md:grid-cols-2">
-          <Inicio />
+          {/* <Inicio /> */}
           <GraphBasic />
           <GraphPlanned />
           <GraphSpend />

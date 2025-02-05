@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../ui/card";
 import {
   Label,
   PolarGrid,
@@ -16,7 +16,7 @@ import {
   RadialBarChart,
 } from "recharts";
 import { TrendingUp } from "lucide-react";
-import { ChartConfig, ChartContainer } from "./ui/chart";
+import { ChartConfig, ChartContainer } from "../ui/chart";
 
 const chartData = [
   { browser: "safari", visitors: 1260, fill: "var(--color-safari)" },
@@ -32,13 +32,13 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const GraphBasic = () => {
+const GraphPlanned = () => {
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle>Pao e Leite</CardTitle>
+        <CardTitle>Planejados</CardTitle>
         <CardDescription>
-          Voce tem x compras essenciais pendentes.
+          Compras de médio e alto custo planejados pendentes.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -105,4 +105,5 @@ const GraphBasic = () => {
     </Card>
   );
 };
-export default GraphBasic;
+
+export default GraphPlanned;

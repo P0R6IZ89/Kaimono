@@ -13,20 +13,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
-import { SidebarTrigger } from "./ui/sidebar";
-import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { DataTableToolbar } from "./data-table-toolbar";
-import SwipeableCard from "./ui/swipeble";
-import { ShoppingCart } from "lucide-react";
-import { Progress } from "./ui/progress";
+import SwipeableCard from "../ui/swipeble";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -65,35 +54,10 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="flex-row">
-      <div className="flex h-16 items-center gap-2 px-4">
-        <SidebarTrigger className="-ml-1" />
-        <Separator orientation="vertical" className="mr-2 h-4" />
-        <h2 className="text-base">Pao e leite</h2>
-      </div>
-      <CardHeader className="min-h-64 justify-center">
-        <CardTitle>Pao e leite</CardTitle>
-        <CardDescription>
-          Lista de compras de produtos essenciais.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <Card className="w-full lg:w-1/2">
-          <CardHeader className="space-y-2">
-            <CardTitle className="flex gap-2 items-center">
-              <ShoppingCart size={16} />
-              <p className="text-sm font-normal tracking-normal">
-                Compras Restantes.{" "}
-              </p>
-            </CardTitle>
-            <CardDescription className="flex gap-2 items-center">
-              <p className="flex-none text-xs">10 de 20</p>
-              <Progress className="h-2" value={50} />
-            </CardDescription>
-          </CardHeader>
-        </Card>
+    <div>
+      <div className="space-y-2">
         <DataTableToolbar table={table} />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => {
               return (
@@ -103,7 +67,7 @@ export function DataTable<TData, TValue>({
                   onDelete={handleDelete}
                   onDesktopAction={handleDesktopAction}
                 >
-                  <div className="flex flex-cols-3  items-center p-2 pr-4">
+                  <div className="flex flex-cols-3 space-x-3 items-center">
                     {row.getVisibleCells().map((cell) => (
                       <div
                         key={cell.id}
@@ -146,7 +110,7 @@ export function DataTable<TData, TValue>({
             Proximo
           </Button>
         </div>
-      </CardContent>
+      </div>
     </div>
   );
 }

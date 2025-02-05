@@ -1,7 +1,7 @@
 import React from "react";
 import { toBuyList } from "@/util/ToBuyList";
 import { columns, ToBuy } from "@/components/planned-columns";
-import { DataTable } from "@/components/data-table";
+import { DataTable } from "@/components/table/data-table";
 
 async function getData(): Promise<ToBuy[]> {
   return toBuyList;

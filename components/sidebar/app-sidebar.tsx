@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import NavPages from "./nav-pages";
-import { NavUser } from "@/components/nav-user";
+import { NavUser } from "@/components/sidebar/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -27,7 +27,7 @@ const data = {
     items: [
       {
         title: "Inicio",
-        url: "/dashboard",
+        url: "#",
         isActive: false,
       },
       {
