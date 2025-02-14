@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export const essentialsSchema = z.object({
-  title: z.string().max(50, "Produto deve ter no máximo 50 caracteres"),
-  price: z.number().min(0, "Preço deve ser maior que 0"),
+  title: z
+    .string()
+    .min(1, "O Nome do produto é obrigatório")
+    .max(50, "Produto deve ter no máximo 50 caracteres"),
+  price: z.string().min(1, "O preço é obrigatório"),
   status: z.enum(["pending", "purchased", "canceled"]),
-  quantity: z
-    .number()
-    .gte(1, "Quantidade mínima é 1")
-    .lte(99, "Quantidade máxima é 99"),
+  quantity: z.string().min(1, "A quantidade é obrigatório"),
 });

@@ -15,7 +15,6 @@ import {
 
 import { Button } from "../ui/button";
 import { DataTableToolbar } from "./data-table-toolbar";
-import SwipeableCard from "../ui/swipeble";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -31,10 +30,6 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([
     { id: "status", value: "pending" },
   ]);
-
-  const handleChange = () => console.log("Change triggered");
-  const handleDelete = () => console.log("Delete triggered");
-  const handleDesktopAction = () => console.log("Desktop action triggered");
 
   const table = useReactTable({
     data,
@@ -57,16 +52,11 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="space-y-2">
         <DataTableToolbar table={table} />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 max-w-2xl pt-4 rounded-md">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => {
               return (
-                <SwipeableCard
-                  key={row.id}
-                  onChange={handleChange}
-                  onDelete={handleDelete}
-                  onDesktopAction={handleDesktopAction}
-                >
+                <div key={row.id} className="p-4">
                   <div className="flex flex-cols-3 space-x-3 items-center">
                     {row.getVisibleCells().map((cell) => (
                       <div
@@ -84,7 +74,7 @@ export function DataTable<TData, TValue>({
                       </div>
                     ))}
                   </div>
-                </SwipeableCard>
+                </div>
               );
             })
           ) : (

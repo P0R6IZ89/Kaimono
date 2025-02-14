@@ -3,7 +3,7 @@
 import { Table } from "@tanstack/react-table";
 import { Plus, X } from "lucide-react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { statuses } from "@/app/data/data";
+import { statuses } from "@/data/data";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import {
@@ -35,7 +35,7 @@ export function DataTableToolbar<TData>({
             <div>
               <DataTableFacetedFilter
                 column={table.getColumn("status")}
-                title="Status"
+                title="Filtrar"
                 options={statuses}
               />
             </div>
@@ -75,7 +75,6 @@ export function DataTableToolbar<TData>({
 
       <div className="pt-2 max-w-md">
         <Input
-          className="bg-none"
           placeholder="Pesquisar"
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>

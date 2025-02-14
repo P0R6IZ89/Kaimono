@@ -2,28 +2,10 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUp,
-  CheckCircle,
   CircleCheck,
   CircleMinus,
-  CircleOff,
   Clock,
-  Timer,
 } from "lucide-react";
-
-export const statusConfig = {
-  pending: {
-    icon: Timer,
-    text: "Pendente",
-  },
-  purchased: {
-    icon: CheckCircle,
-    text: "Comprado",
-  },
-  canceled: {
-    icon: CircleOff,
-    text: "Cancelado",
-  },
-};
 
 export const statuses = [
   {
@@ -67,3 +49,23 @@ export const priorities = [
     icon: ArrowUp,
   },
 ];
+
+export const dialog_messages = {
+  delete: {
+    title: "Deseja deletar {title}?",
+    description:
+      "Ao selecionar Deletar, o item será removido da lista de compras.",
+    action: "Deletar",
+  },
+  complete: {
+    title: "Marcar como completo {title}?",
+    description:
+      "O item marcado como completo poderá ser visualizado posteriormente.",
+    action: "Completo",
+  },
+  info: {
+    title: "{title}",
+    description: "Aqui voce pode editar o item selecionado.",
+    action: "Salvar",
+  },
+};

@@ -1,4 +1,4 @@
-import { statuses } from "@/app/data/data";
+import { statuses } from "@/data/data";
 import { Row } from "@tanstack/react-table";
 import React from "react";
 import { TableRowData } from "../essentials-columns";
@@ -13,7 +13,7 @@ const StatusCell: React.FC<StatusCellProps> = ({ row }) => {
   );
   if (!status) return null;
   return (
-    <div className="py-6 px-4">
+    <div className="">
       {status.icon && (
         <status.icon
           strokeWidth={1.3}

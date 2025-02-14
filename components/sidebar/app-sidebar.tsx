@@ -25,26 +25,26 @@ const data = {
     title: "Paginas",
     url: "#",
     items: [
+      // {
+      //   title: "Inicio",
+      //   url: "#",
+      //   isActive: false,
+      // },
       {
-        title: "Inicio",
-        url: "#",
-        isActive: false,
-      },
-      {
-        title: "Pao e leite",
+        title: "Essenciais",
         url: "/dashboard/essentials-v2",
         isActive: false,
       },
-      {
-        title: "Planejados",
-        url: "/dashboard/planned",
-        isActive: false,
-      },
-      {
-        title: "Analise",
-        url: "/dashboard/analysis",
-        isActive: false,
-      },
+      // {
+      //   title: "Planejados",
+      //   url: "/dashboard/planned",
+      //   isActive: false,
+      // },
+      // {
+      //   title: "Analise",
+      //   url: "/dashboard/analysis",
+      //   isActive: false,
+      // },
     ],
   },
   navSecondary: [

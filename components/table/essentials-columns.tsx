@@ -3,15 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import StatusCell from "./cells/status-cell";
 import TitleCell from "./cells/title-cell";
-
-import { MoreHorizontal } from "lucide-react";
 import TotalPrice from "./cells/totalPrice-cell";
+import ActionCell from "./cells/action-cell";
 
 export interface TableRowData {
   id: string;
   title: string;
   price: number;
-  status: string;
+  status: "pending" | "purchased" | "canceled";
   quantity: number;
   createdAt: string;
   updatedAt: string;
@@ -53,12 +52,6 @@ export const columns: ColumnDef<TableRowData>[] = [
   {
     id: "action",
     header: () => null,
-    cell: () => {
-      return (
-        <div className="py-6 px-4">
-          <MoreHorizontal />
-        </div>
-      );
-    },
+    cell: ActionCell,
   },
 ];

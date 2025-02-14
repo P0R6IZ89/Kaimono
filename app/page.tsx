@@ -27,7 +27,7 @@ export default function Home() {
           <div className="flex justify-center ">
             <Image alt="woman doing shopping" src={landingImage} height={200} />
           </div>
-          <Button
+          {/* <Button
             asChild
             type="submit"
             variant={"default"}
@@ -37,14 +37,14 @@ export default function Home() {
               Começar
               <ChevronRight />
             </Link>
-          </Button>
+          </Button> */}
           <Button
             asChild
             type="submit"
             variant={"default"}
             className="basis-1/2 w-full"
           >
-            <Link href="/dashboard">
+            <Link href="/dashboard/essentials-v2">
               Dashboard
               <ChevronRight />
             </Link>

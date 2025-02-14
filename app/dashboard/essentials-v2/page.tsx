@@ -8,14 +8,18 @@ import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import CounterCard from "@/components/counter-card";
 
 async function getData() {
-  const data = await prisma.essentials.findMany();
-
-  return data.map((item) => ({
-    ...item,
-    price: item.price.toNumber(),
-    createdAt: item.createdAt.toISOString(),
-    updatedAt: item.updatedAt.toISOString(),
-  }));
+  try {
+    const data = await prisma.essentials.findMany();
+    return data.map((item) => ({
+      ...item,
+      price: item.price.toNumber(),
+      createdAt: item.createdAt.toISOString(),
+      updatedAt: item.updatedAt.toISOString(),
+    }));
+  } catch (error) {
+    console.error("Error fetching essentials data:", error);
+    throw new Error("Failed to fetch essentials data.");
+  }
 }
 
 async function getCount() {
@@ -41,11 +45,11 @@ export default async function Essentials() {
       <div className="flex h-16 items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
-        <h2 className="text-base">Pao e leite</h2>
+        <h2 className="text-base">Essenciais</h2>
       </div>
       <div className="p-4 space-y-8">
         <CardHeader className="min-h-64 justify-center">
-          <CardTitle>Pao e leite</CardTitle>
+          <CardTitle>Essenciais</CardTitle>
           <CardDescription>
             Lista de compras de produtos essenciais.
           </CardDescription>

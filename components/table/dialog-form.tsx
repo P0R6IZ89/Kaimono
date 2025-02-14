@@ -24,9 +24,10 @@ import {
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
 
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { createEssentials } from "@/actions/actions";
 import { essentialsSchema } from "@/lib/schemas/essentials";
+import { useFormStatus } from "react-dom";
 
 const statusValue = [
   { label: "Pendente", value: "pending" },
@@ -39,12 +40,13 @@ export function DialogForm() {
     resolver: zodResolver(essentialsSchema),
     defaultValues: {
       title: "",
-      price: 0,
+      price: "",
       status: "pending",
-      quantity: 1,
+      quantity: "",
     },
   });
 
+  const { pending } = useFormStatus();
   return (
     <Form {...form}>
       <form action={createEssentials} className="space-y-4">
@@ -74,7 +76,7 @@ export function DialogForm() {
                   type="number"
                   placeholder="Ex: 500"
                   {...field}
-                  onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  onChange={(e) => field.onChange(e.target.value)}
                 />
               </FormControl>
               <FormDescription />
@@ -96,7 +98,7 @@ export function DialogForm() {
                   type="number"
                   placeholder="1-99"
                   {...field}
-                  onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  onChange={(e) => field.onChange(e.target.value)}
                 />
               </FormControl>
               <FormDescription />
@@ -160,7 +162,10 @@ export function DialogForm() {
         />
 
         <DialogFooter>
-          <Button type="submit">Salvar</Button>
+          <Button type="submit" disabled={pending}>
+            {pending ? <Loader2 className="animate-spin" /> : null}
+            {JSON.stringify(pending)}Salvar
+          </Button>
         </DialogFooter>
       </form>
     </Form>

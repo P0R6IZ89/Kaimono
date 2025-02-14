@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { priorities, statuses } from "@/app/data/data";
+import { priorities, statuses } from "@/data/data";
 import {
   DropdownMenu,
   DropdownMenuContent,
