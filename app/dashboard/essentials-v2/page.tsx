@@ -1,38 +1,11 @@
 import React from "react";
 import { DataTable } from "@/components/table/data-table";
-import { prisma } from "@/lib/prisma";
 import { columns } from "@/components/table/essentials-columns";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import CounterCard from "@/components/counter-card";
-
-async function getData() {
-  try {
-    const data = await prisma.essentials.findMany();
-    return data.map((item) => ({
-      ...item,
-      price: item.price.toNumber(),
-      createdAt: item.createdAt.toISOString(),
-      updatedAt: item.updatedAt.toISOString(),
-    }));
-  } catch (error) {
-    console.error("Error fetching essentials data:", error);
-    throw new Error("Failed to fetch essentials data.");
-  }
-}
-
-async function getCount() {
-  const count = {
-    fullCount: await prisma.essentials.count({}),
-    pendingCount: await prisma.essentials.count({
-      where: {
-        status: "pending",
-      },
-    }),
-  };
-  return count;
-}
+import { getCount, getData } from "@/actions/actions";
 
 export default async function Essentials() {
   const data = await getData();

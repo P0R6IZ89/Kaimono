@@ -10,6 +10,7 @@ import { useState } from "react";
 import ActionDialog from "@/components/alert-dialog/alert-dialog";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../essentials-columns";
+import { deleteEssentials, updateEssentials } from "@/actions/actions";
 
 interface ActionDialogProps {
   row: Row<TableRowData>;
@@ -27,10 +28,15 @@ function ActionCell({ row }: ActionDialogProps) {
 
   const title = row.original.title;
   const id = row.original.id;
-  if (!title || !id) return null;
 
-  const handleConfirm = () => {};
-  // Stopped Here!!!
+  async function handleConfirm() {
+    if (actionType == "delete") {
+      deleteEssentials(id);
+    } else if (actionType == "complete") {
+      updateEssentials(id, actionType);
+    }
+    setOpen(false);
+  }
 
   return (
     <DropdownMenu>
