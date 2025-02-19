@@ -20,7 +20,7 @@ interface ActionDialiogProps {
   row: Row<TableRowData>;
   open: boolean;
   setOpen: (open: boolean) => void;
-  dialogVariant: "delete" | "complete" | "info";
+  dialogVariant: "delete" | "complete" | "info" | "pending";
   itemTitle: string;
   onConfirm?: () => void;
 }

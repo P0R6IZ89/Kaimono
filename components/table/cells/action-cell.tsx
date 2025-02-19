@@ -5,7 +5,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CircleCheckBig, Info, MoreHorizontal, Trash } from "lucide-react";
+import {
+  CircleCheckBig,
+  Clock,
+  Info,
+  MoreHorizontal,
+  Trash,
+} from "lucide-react";
 import { useState } from "react";
 import ActionDialog from "@/components/alert-dialog/alert-dialog";
 import { Row } from "@tanstack/react-table";
@@ -19,23 +25,27 @@ interface ActionDialogProps {
 function ActionCell({ row }: ActionDialogProps) {
   const [open, setOpen] = useState(false);
   const [actionType, setActiontype] = useState<
-    "delete" | "complete" | "info" | null
+    "delete" | "complete" | "info" | "pending" | null
   >(null);
-  const handleActionClick = (type: "delete" | "complete" | "info") => {
+  const handleActionClick = (
+    type: "delete" | "complete" | "info" | "pending"
+  ) => {
     setActiontype(type);
     setOpen(true);
   };
 
   const title = row.original.title;
   const id = row.original.id;
+  const status = row.original.status;
 
   async function handleConfirm() {
     if (actionType == "delete") {
       deleteEssentials(id);
-    } else if (actionType == "complete") {
+    } else if (actionType === "complete" || actionType === "pending") {
       updateEssentials(id, actionType);
+
+      setOpen(false);
     }
-    setOpen(false);
   }
 
   return (
@@ -57,10 +67,17 @@ function ActionCell({ row }: ActionDialogProps) {
           <Trash className="text-destructive" />
           Deletar
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleActionClick("complete")}>
-          <CircleCheckBig className="text-green-700" />
-          Completo
-        </DropdownMenuItem>
+        {status === "pending" ? (
+          <DropdownMenuItem onSelect={() => handleActionClick("complete")}>
+            <CircleCheckBig className="text-green-700" />
+            Completo
+          </DropdownMenuItem>
+        ) : status === "complete" ? (
+          <DropdownMenuItem onSelect={() => handleActionClick("pending")}>
+            <Clock className="text-orange-700" />
+            Pendente
+          </DropdownMenuItem>
+        ) : null}
       </DropdownMenuContent>
       {actionType && (
         <ActionDialog

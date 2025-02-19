@@ -28,7 +28,7 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([
-    { id: "status", value: "pending" },
+    { id: "status", value: ["pending"] },
   ]);
 
   const table = useReactTable({
@@ -49,10 +49,10 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="max-w-xl">
       <div className="space-y-2">
         <DataTableToolbar table={table} />
-        <div className="grid grid-cols-1 gap-4 max-w-2xl pt-4 rounded-md">
+        <div className="grid grid-cols-1 gap-4  pt-4 rounded-md">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => {
               return (

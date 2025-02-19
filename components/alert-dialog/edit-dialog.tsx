@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useActionState } from "react";
 import {
   Form,
   FormControl,
@@ -23,6 +23,7 @@ interface EditDialogProps {
 }
 
 function EditDialog({ id, row }: EditDialogProps) {
+  const [state, action, isPending] = useActionState(updateEssentials, null);
   const { title, price, quantity, status } = row.original;
   const form = useForm<z.infer<typeof essentialsSchema>>({
     resolver: zodResolver(essentialsSchema),
@@ -36,7 +37,7 @@ function EditDialog({ id, row }: EditDialogProps) {
 
   return (
     <Form {...form}>
-      <form action={(formData: FormData) => updateEssentials(id, formData)}>
+      <form action={action}>
         <FormField
           control={form.control}
           name="title"
@@ -44,7 +45,45 @@ function EditDialog({ id, row }: EditDialogProps) {
             <FormItem>
               <FormLabel>Nome do produto</FormLabel>
               <FormControl>
-                <Input placeholder="Ex: Chocolate" {...field} />
+                <Input {...field} />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel>Preço</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="quantity"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel>Quantidade</FormLabel>
+              <FormControl>
+                <Input
+                  min={1}
+                  max={99}
+                  type="number"
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
               </FormControl>
               <FormDescription />
               <FormMessage />

@@ -14,7 +14,7 @@ function CounterCard({ count: { fullCount, pendingCount } }: CounterCardProps) {
   const completed = fullCount - pendingCount;
   const percentage = (completed / fullCount) * 100;
   return (
-    <Card className="w-full lg:max-w-md">
+    <Card className="w-full max-w-xl">
       <CardContent className="flex flex-col gap-4 pt-6">
         <div className="flex flex-row justify-between items-baseline">
           <span className="flex flex-row gap-2 items-baseline">

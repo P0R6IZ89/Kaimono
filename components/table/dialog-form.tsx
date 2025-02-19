@@ -24,10 +24,11 @@ import {
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
 
-import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
+import { AlertCircle, Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { createEssentials } from "@/actions/actions";
 import { essentialsSchema } from "@/lib/schemas/essentials";
-import { useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 const statusValue = [
   { label: "Pendente", value: "pending" },
@@ -46,10 +47,11 @@ export function DialogForm() {
     },
   });
 
-  const { pending } = useFormStatus();
+  const [error, action, isPending] = useActionState(createEssentials, null);
   return (
     <Form {...form}>
-      <form action={createEssentials} className="space-y-4">
+      <form action={action} className="space-y-4">
+        {/* <form onSubmit={handleSubmit} className="space-y-4"> */}
         <FormField
           control={form.control}
           name="title"
@@ -160,11 +162,19 @@ export function DialogForm() {
             </FormItem>
           )}
         />
-
+        <div>
+          {error ? (
+            <Alert variant={"destructive"}>
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Erro</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          ) : null}
+        </div>
         <DialogFooter>
-          <Button type="submit" disabled={pending}>
-            {pending ? <Loader2 className="animate-spin" /> : null}
-            {JSON.stringify(pending)}Salvar
+          <Button type="submit" disabled={isPending}>
+            {isPending ? <Loader2 className="animate-spin" /> : null}
+            Salvar
           </Button>
         </DialogFooter>
       </form>

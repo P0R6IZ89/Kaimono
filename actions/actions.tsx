@@ -30,7 +30,10 @@ export async function getCount() {
   return count;
 }
 
-export async function createEssentials(formData: FormData) {
+export async function createEssentials(
+  previousState: unknown,
+  formData: FormData
+) {
   const title = formData.get("title") as string;
   const priceString = formData.get("price") as string;
   const quantityString = formData.get("quantity") as string;
@@ -44,14 +47,19 @@ export async function createEssentials(formData: FormData) {
   if (isNaN(quantity)) {
     throw new Error("Invalid quantity value provided.");
   }
-  await prisma.essentials.create({
-    data: {
-      title,
-      price,
-      quantity,
-      status,
-    },
-  });
+  try {
+    await prisma.essentials.create({
+      data: {
+        title,
+        price,
+        quantity,
+        status,
+      },
+    });
+  } catch (e) {
+    return String(e);
+  }
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   revalidatePath("/dashboard/essentials-v2");
 }
 

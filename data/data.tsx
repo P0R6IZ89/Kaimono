@@ -13,11 +13,10 @@ export const statuses = [
     label: "Pendente",
     icon: Clock,
     color: "text-muted-foreground",
-    bg: "",
   },
 
   {
-    value: "purchased",
+    value: "complete",
     label: "Comprado",
     icon: CircleCheck,
     color: "text-green-700",
@@ -61,11 +60,16 @@ export const dialog_messages = {
     title: "Marcar como completo {title}?",
     description:
       "O item marcado como completo poderá ser visualizado posteriormente.",
-    action: "Completo",
+    action: "Marcar como Completo",
   },
   info: {
     title: "{title}",
-    description: "Aqui voce pode editar o item selecionado.",
+    description: "Aqui você pode editar o item selecionado.",
     action: "Salvar",
+  },
+  pending: {
+    title: "Marcar como pendente {title}?",
+    description: "O item será marcado como pendente.",
+    action: "Reverter para Pendente",
   },
 };

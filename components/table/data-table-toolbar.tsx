@@ -10,13 +10,12 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  // DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import { DialogForm } from "./dialog-form";
-// import DataTableFacetedSort from "./data-table-faceted-sort";
+import React from "react";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -26,16 +25,16 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
-
+  const [open, setOpen] = React.useState(false);
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between items-center max-w-md">
+      <div className="flex justify-between items-center">
         <div className="flex space-x-2">
           {table.getColumn("status") && (
             <div>
               <DataTableFacetedFilter
                 column={table.getColumn("status")}
-                title="Filtrar"
+                title="Status"
                 options={statuses}
               />
             </div>
@@ -54,7 +53,7 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button className="h-8 px-2 lg:px-3">
               <Plus />
@@ -73,7 +72,7 @@ export function DataTableToolbar<TData>({
         </Dialog>
       </div>
 
-      <div className="pt-2 max-w-md">
+      <div className="pt-2">
         <Input
           placeholder="Pesquisar"
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}

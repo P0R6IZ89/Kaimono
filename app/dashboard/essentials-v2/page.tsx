@@ -10,9 +10,7 @@ import { getCount, getData } from "@/actions/actions";
 export default async function Essentials() {
   const data = await getData();
   const count = await getCount();
-  if (!data || !count.pendingCount) {
-    return <p>Loading...</p>;
-  }
+
   return (
     <div className="flex flex-col bg-neutral-50">
       <div className="flex h-16 items-center gap-2 px-4">

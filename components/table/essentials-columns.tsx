@@ -10,7 +10,7 @@ export interface TableRowData {
   id: string;
   title: string;
   price: number;
-  status: "pending" | "purchased" | "canceled";
+  status: string;
   quantity: number;
   createdAt: string;
   updatedAt: string;
