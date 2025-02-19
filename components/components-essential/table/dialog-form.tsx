@@ -12,23 +12,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { DialogFooter } from "../ui/dialog";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+} from "../../ui/form";
+import { DialogFooter } from "../../ui/dialog";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
 
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 
 import { AlertCircle, Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { createEssentials } from "@/actions/actions";
 import { essentialsSchema } from "@/lib/schemas/essentials";
 import { useActionState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
 
 const statusValue = [
   { label: "Pendente", value: "pending" },

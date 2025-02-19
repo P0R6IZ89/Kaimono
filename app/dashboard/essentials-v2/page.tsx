@@ -1,6 +1,6 @@
 import React from "react";
-import { DataTable } from "@/components/table/data-table";
-import { columns } from "@/components/table/essentials-columns";
+import { DataTable } from "@/components/components-essential/table/data-table";
+import { columns } from "@/components/components-essential/table/essentials-columns";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { Column } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 

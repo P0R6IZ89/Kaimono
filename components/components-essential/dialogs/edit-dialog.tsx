@@ -7,15 +7,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
+} from "../../ui/form";
 import { updateEssentials } from "@/actions/actions";
-import { useForm } from "react-hook-form";
+import { FormState, useForm } from "react-hook-form";
 import { essentialsSchema } from "@/lib/schemas/essentials";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../table/essentials-columns";
+import { Button } from "../../ui/button";
 
 interface EditDialogProps {
   id: string;
@@ -23,14 +24,20 @@ interface EditDialogProps {
 }
 
 function EditDialog({ id, row }: EditDialogProps) {
-  const [state, action, isPending] = useActionState(updateEssentials, null);
   const { title, price, quantity, status } = row.original;
+
+  const [state, action, isPending] = useActionState(
+    (prevState: unknown, formData: FormData) =>
+      updateEssentials(prevState, formData, id, row).then(() => null),
+    null
+  );
+
   const form = useForm<z.infer<typeof essentialsSchema>>({
     resolver: zodResolver(essentialsSchema),
     defaultValues: {
       title: title,
       price: String(price),
-      status: status,
+      status: status as "pending" | "purchased" | "canceled" | undefined,
       quantity: String(quantity),
     },
   });
@@ -90,6 +97,15 @@ function EditDialog({ id, row }: EditDialogProps) {
             </FormItem>
           )}
         />
+        <Button type="submit">Submit?</Button>
+        {isPending && <p>Please wait...</p>}
+        {state && (
+          <div>
+            <p>
+              Action completed. The returned state is: {JSON.stringify(state)}
+            </p>
+          </div>
+        )}
       </form>
     </Form>
   );

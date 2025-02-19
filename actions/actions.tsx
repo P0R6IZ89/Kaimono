@@ -1,6 +1,8 @@
 "use server";
 
+import { TableRowData } from "@/components/components-essential/table/essentials-columns";
 import { prisma } from "@/lib/prisma";
+import { Row } from "@tanstack/react-table";
 import { revalidatePath } from "next/cache";
 
 export async function getData() {
@@ -63,21 +65,84 @@ export async function createEssentials(
   revalidatePath("/dashboard/essentials-v2");
 }
 
-export async function updateEssentials(id: string, actionType: string) {
-  await prisma.essentials.update({
-    where: { id },
-    data: {
-      status: actionType,
-    },
-  });
-  revalidatePath("/dashboard/essentials-v2");
+export async function updateStatusEssentials(
+  previusState: unknown,
+  row: Row<TableRowData>,
+  status: string
+): Promise<{ status: "success" | "error"; message: string }> {
+  const { id } = row.original;
+  try {
+    await prisma.essentials.update({
+      where: { id },
+      data: {
+        status: status,
+      },
+    });
+    revalidatePath("/dashboard/essentials-v2");
+    return {
+      status: "success",
+      message: "O Essentials foi atualizado com sucesso!",
+    };
+  } catch (error: any) {
+    return {
+      status: "error",
+      message: error?.message || "Falha ao atualizar os fundamentos.",
+    };
+  }
 }
 
-export async function deleteEssentials(id: string) {
-  await prisma.essentials.delete({
-    where: {
-      id,
-    },
-  });
-  revalidatePath("/dashboard/essentials-v2");
+export async function deleteEssentials(
+  previusState: unknown,
+  row: Row<TableRowData>
+): Promise<{ status: "success" | "error"; message: string }> {
+  try {
+    const { id } = row.original;
+    await prisma.essentials.delete({
+      where: {
+        id,
+      },
+    });
+    revalidatePath("/dashboard/essentials-v2");
+    return {
+      status: "success",
+      message: "O Essentials foi deletado com sucesso!",
+    };
+  } catch (error: any) {
+    return {
+      status: "error",
+      message: error?.message || "Falha ao atualizar os fundamentos.",
+    };
+  }
+}
+
+export async function updateEssentials(
+  previusState: unknown,
+  formData: FormData,
+  id: string
+): Promise<{ status: "success" | "error"; message: string }> {
+  try {
+    const title = formData.get("title") as string;
+    const priceString = formData.get("price") as string;
+    const quantityString = formData.get("quantity") as string;
+    const price = parseFloat(priceString);
+    const quantity = parseInt(quantityString, 10);
+    await prisma.essentials.update({
+      where: { id },
+      data: {
+        title,
+        price,
+        quantity,
+      },
+    });
+    revalidatePath("/dashboard/essentials-v2");
+    return {
+      status: "success",
+      message: "O Essentials foi atualizado com sucesso!",
+    };
+  } catch (error: any) {
+    return {
+      status: "error",
+      message: error?.message || "Falha ao atualizar os fundamentos.",
+    };
+  }
 }

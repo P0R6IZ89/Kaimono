@@ -13,10 +13,11 @@ import {
   Trash,
 } from "lucide-react";
 import { useState } from "react";
-import ActionDialog from "@/components/alert-dialog/alert-dialog";
+import ActionDialog from "@/components/components-essential/dialogs/alert-dialog";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../essentials-columns";
-import { deleteEssentials, updateEssentials } from "@/actions/actions";
+import { deleteEssentials, updateStatusEssentials } from "@/actions/actions";
+import ActionDialogV2 from "@/components/components-essential/dialogs/action-dialogv2";
 
 interface ActionDialogProps {
   row: Row<TableRowData>;
@@ -34,19 +35,16 @@ function ActionCell({ row }: ActionDialogProps) {
     setOpen(true);
   };
 
-  const title = row.original.title;
-  const id = row.original.id;
   const status = row.original.status;
 
-  async function handleConfirm() {
-    if (actionType == "delete") {
-      deleteEssentials(id);
-    } else if (actionType === "complete" || actionType === "pending") {
-      updateEssentials(id, actionType);
-
-      setOpen(false);
-    }
-  }
+  // async function handleConfirm() {
+  //   if (actionType == "delete") {
+  //     deleteEssentials(id);
+  //   } else if (actionType === "complete" || actionType === "pending") {
+  //     updateStatusEssentials(id, actionType);
+  //   }
+  //   setOpen(false);
+  // }
 
   return (
     <DropdownMenu>
@@ -80,15 +78,23 @@ function ActionCell({ row }: ActionDialogProps) {
         ) : null}
       </DropdownMenuContent>
       {actionType && (
-        <ActionDialog
-          id={id}
-          row={row}
-          dialogVariant={actionType}
-          open={open}
-          setOpen={setOpen}
-          itemTitle={title}
-          onConfirm={handleConfirm}
-        />
+        <>
+          {/* <ActionDialog
+            id={id}
+            row={row}
+            dialogVariant={actionType}
+            open={open}
+            setOpen={setOpen}
+            itemTitle={title}
+            onConfirm={handleConfirm}
+          /> */}
+          <ActionDialogV2
+            row={row}
+            dialogType={actionType}
+            open={open}
+            setOpen={setOpen}
+          />
+        </>
       )}
     </DropdownMenu>
   );

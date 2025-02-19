@@ -8,9 +8,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "../ui/alert-dialog";
+} from "../../ui/alert-dialog";
 import { dialog_messages } from "@/data/data";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import EditDialog from "./edit-dialog";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../table/essentials-columns";
@@ -55,17 +55,19 @@ function ActionDialog({
             <EditDialog id={id} row={row} />
           )}
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Voltar</AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button
-              onClick={handleAction}
-              variant={dialogVariant == "delete" ? "destructive" : "default"}
-            >
-              {message.action}
-            </Button>
-          </AlertDialogAction>
-        </AlertDialogFooter>
+        {dialogVariant === "info" ? null : (
+          <AlertDialogFooter>
+            <AlertDialogCancel>Voltar</AlertDialogCancel>
+            <AlertDialogAction asChild>
+              <Button
+                onClick={handleAction}
+                variant={dialogVariant == "delete" ? "destructive" : "default"}
+              >
+                {message.action}
+              </Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        )}
       </AlertDialogContent>
     </AlertDialog>
   );
