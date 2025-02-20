@@ -13,13 +13,13 @@ import { Button } from "@/components/ui/button";
 import { updateStatusEssentials } from "@/actions/actions";
 import { useToast } from "@/hooks/use-toast";
 
+interface StateType {
+  status: "success" | "error";
+  message: string;
+}
+
 function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   const { toast } = useToast();
-
-  interface StateType {
-    status: "success" | "error";
-    message: string;
-  }
 
   const [state, action, isPending] = useActionState<StateType | null>(
     (prevState: unknown) =>

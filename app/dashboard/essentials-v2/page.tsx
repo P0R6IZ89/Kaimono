@@ -12,7 +12,7 @@ export default async function Essentials() {
   const count = await getCount();
 
   return (
-    <div className="flex flex-col bg-neutral-50">
+    <div className="flex flex-col">
       <div className="flex h-16 items-center gap-2 px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />

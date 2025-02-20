@@ -13,6 +13,7 @@ import {
 import { NavSecondary } from "./nav-secondary";
 import { Send } from "lucide-react";
 import { VersionSwitcher } from "./version-switcher";
+import { ModeToggle } from "../theme-toggle";
 
 const data = {
   user: {
@@ -67,6 +68,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavPages pages={data.navPages} />
+        <ModeToggle />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

@@ -81,12 +81,12 @@ export async function updateStatusEssentials(
     revalidatePath("/dashboard/essentials-v2");
     return {
       status: "success",
-      message: "O Essentials foi atualizado com sucesso!",
+      message: "O item foi atualizado com sucesso!",
     };
   } catch (error: any) {
     return {
       status: "error",
-      message: error?.message || "Falha ao atualizar os fundamentos.",
+      message: error?.message || "Falha ao atualizar.",
     };
   }
 }
@@ -110,13 +110,13 @@ export async function deleteEssentials(
   } catch (error: any) {
     return {
       status: "error",
-      message: error?.message || "Falha ao atualizar os fundamentos.",
+      message: error?.message || "Falha ao deletar.",
     };
   }
 }
 
 export async function updateEssentials(
-  previusState: unknown,
+  prevState: unknown,
   formData: FormData,
   id: string
 ): Promise<{ status: "success" | "error"; message: string }> {
@@ -134,6 +134,7 @@ export async function updateEssentials(
         quantity,
       },
     });
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     revalidatePath("/dashboard/essentials-v2");
     return {
       status: "success",
@@ -142,7 +143,7 @@ export async function updateEssentials(
   } catch (error: any) {
     return {
       status: "error",
-      message: error?.message || "Falha ao atualizar os fundamentos.",
+      message: error?.message || "Falha ao atualizar.",
     };
   }
 }
