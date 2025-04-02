@@ -2,7 +2,7 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUp,
-  CircleCheck,
+  CircleCheckBig,
   CircleMinus,
   Clock,
 } from "lucide-react";
@@ -12,13 +12,13 @@ export const statuses = [
     value: "pending",
     label: "Pendente",
     icon: Clock,
-    color: "text-muted-foreground",
+    color: "",
   },
 
   {
     value: "complete",
     label: "Comprado",
-    icon: CircleCheck,
+    icon: CircleCheckBig,
     color: "text-green-700",
     bg: "bg-green-50",
   },

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { signIn, providerMap } from "@/auth";
+import { signIn, providerMap, auth } from "@/auth";
 import { AuthError } from "next-auth";
 import {
   Card,
@@ -11,6 +11,8 @@ import {
 import styles from "./LoginButton.module.css";
 
 export default async function SignInPage() {
+  const session = await auth();
+  if (session) redirect("/dashboard");
   return (
     <div className="flex bg-neutral-100 h-screen justify-center items-center">
       <Card className="w-11/12 sm:w-[450px] h-fit">

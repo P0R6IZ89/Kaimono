@@ -1,31 +1,35 @@
 import React, { startTransition, useActionState, useEffect } from "react";
-import { CustomDialogProps } from "../action-dialogv2";
+import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { deleteEssentials } from "@/actions/actions";
+import { updateStatusEssentials } from "@/actions/actions";
 import { useToast } from "@/hooks/use-toast";
+import { CircleCheckBig } from "lucide-react";
 
-function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
+interface StateType {
+  status: "success" | "error";
+  message: string;
+}
+
+function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   const { toast } = useToast();
 
-  interface StateType {
-    status: "success" | "error";
-    message: string;
-  }
-  const { title } = row.original;
   const [state, action, isPending] = useActionState<StateType | null>(
     (prevState: unknown) =>
-      deleteEssentials(prevState, row).then((result) => result),
+      updateStatusEssentials(prevState, row, "complete").then(
+        (result) => result
+      ),
     null
   );
+
   useEffect(() => {
     if (state) {
       if (state.status === "success") {
@@ -43,14 +47,14 @@ function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
       }
     }
   }, [state, toast]);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Você realmente deseja deletar o {title}?</DialogTitle>
+          <DialogTitle>Deseja marcar como Completo?</DialogTitle>
           <DialogDescription>
-            Essa ação não pode ser revertida. O item selecionado será excluído
-            do banco de dados.
+            O item selecionado será marcado como completo.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -59,7 +63,6 @@ function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
           </DialogClose>
           <DialogClose asChild>
             <Button
-              variant={"destructive"}
               type="submit"
               disabled={isPending}
               onClick={() => {
@@ -68,7 +71,7 @@ function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
                 });
               }}
             >
-              Deletar
+              <CircleCheckBig /> Marcar como completo
             </Button>
           </DialogClose>
         </DialogFooter>
@@ -77,4 +80,4 @@ function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
   );
 }
 
-export default DeleteDialog;
+export default CompleteDialog;

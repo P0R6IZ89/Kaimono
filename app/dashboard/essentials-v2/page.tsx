@@ -1,15 +1,16 @@
 import React from "react";
-import { DataTable } from "@/components/components-essential/table/data-table";
-import { columns } from "@/components/components-essential/table/essentials-columns";
+import { DataTable } from "@/components/(essential)/table/data-table";
+import { columns } from "@/components/(essential)/table/essentials-columns";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import CounterCard from "@/components/counter-card";
-import { getCount, getData } from "@/actions/actions";
+import { getCount } from "@/actions/actions";
+import { getEssentials } from "@/actions/getEssentials";
 
 export default async function Essentials() {
-  const data = await getData();
-  const count = await getCount();
+  const essencials = await getEssentials();
+  const countResponse = await getCount();
 
   return (
     <div className="flex flex-col">
@@ -25,8 +26,19 @@ export default async function Essentials() {
             Lista de compras de produtos essenciais.
           </CardDescription>
         </CardHeader>
-        <CounterCard count={count} />
-        <DataTable columns={columns} data={data} />
+
+        {essencials.success && countResponse.success ? (
+          <>
+            <CounterCard count={countResponse.data} />
+            <DataTable columns={columns} data={essencials.essentials || []} />
+          </>
+        ) : (
+          <div className="text-red-500 text-center">
+            {essencials.error ||
+              countResponse.error ||
+              "Unknown error occurred."}
+          </div>
+        )}
       </div>
     </div>
   );

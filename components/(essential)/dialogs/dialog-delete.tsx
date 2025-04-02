@@ -1,34 +1,31 @@
 import React, { startTransition, useActionState, useEffect } from "react";
-import { CustomDialogProps } from "../action-dialogv2";
+import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { updateStatusEssentials } from "@/actions/actions";
+import { deleteEssentials } from "@/actions/actions";
 import { useToast } from "@/hooks/use-toast";
 
-interface StateType {
-  status: "success" | "error";
-  message: string;
-}
-
-function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
+function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
   const { toast } = useToast();
 
+  interface StateType {
+    status: "success" | "error";
+    message: string;
+  }
+  const { title } = row.original;
   const [state, action, isPending] = useActionState<StateType | null>(
     (prevState: unknown) =>
-      updateStatusEssentials(prevState, row, "pending").then(
-        (result) => result
-      ),
+      deleteEssentials(prevState, row).then((result) => result),
     null
   );
-
   useEffect(() => {
     if (state) {
       if (state.status === "success") {
@@ -46,14 +43,14 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
       }
     }
   }, [state, toast]);
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Deseja marcar como Pendente?</DialogTitle>
+          <DialogTitle>Você realmente deseja deletar o {title}?</DialogTitle>
           <DialogDescription>
-            O item selecionado será revertido para o estado de pendente.
+            Essa ação não pode ser revertida. O item selecionado será excluído
+            do banco de dados.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -62,6 +59,7 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
           </DialogClose>
           <DialogClose asChild>
             <Button
+              variant={"destructive"}
               type="submit"
               disabled={isPending}
               onClick={() => {
@@ -70,7 +68,7 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
                 });
               }}
             >
-              Reverter para Pendente
+              Deletar
             </Button>
           </DialogClose>
         </DialogFooter>
@@ -79,4 +77,4 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
   );
 }
 
-export default PendingDialog;
+export default DeleteDialog;

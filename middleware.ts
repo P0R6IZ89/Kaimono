@@ -1,20 +1,37 @@
-// import { auth } from "@/auth";
+import authConfig from "./auth.config";
+import NextAuth from "next-auth";
+import { privateRoutes } from "./routes";
 
-export { auth as middleware } from "@/auth";
+const baseUrl = "http://localhost:3000";
+const { auth } = NextAuth(authConfig);
 
-// export default auth((req) => {
-//   console.log("ROUT:", req.nextUrl.pathname);
-//   if (!req.auth && req.nextUrl.pathname !== "/") {
-//     const newUrl = new URL("/", req.nextUrl.origin);
-//     return Response.redirect(newUrl);
-//   }
-// });
+export default auth(async (req) => {
+  const isLoggedIn = !!req.auth;
+  const { nextUrl } = req;
 
-// export const config = {
-//   matcher: [
-//     // Skip Next.js internals and all static files, unless found in search params
-//     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-//     // Always run for API routes
-//     "/(api|trpc)(.*)",
-//   ],
-// };
+  const isPivateRoute = privateRoutes.includes(nextUrl.pathname);
+  const isAuthRoute = nextUrl.pathname.includes("/auth");
+  const isApiRoute = nextUrl.pathname.includes("/api");
+
+  if (isApiRoute) {
+    return;
+  }
+  if (isLoggedIn && isAuthRoute) {
+    return Response.redirect(`${baseUrl}/dashboard`);
+  }
+  if (isAuthRoute && !isLoggedIn) {
+    return;
+  }
+  if (!isLoggedIn && isPivateRoute) {
+    return Response.redirect(`${baseUrl}/api/auth/signin`);
+  }
+});
+
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
+};

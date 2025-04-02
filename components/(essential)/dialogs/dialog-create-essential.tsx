@@ -3,7 +3,6 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { cn } from "@/lib/utils";
 import {
   Form,
   FormControl,
@@ -17,26 +16,13 @@ import { DialogFooter } from "../../ui/dialog";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "../../ui/dropdown-menu";
-
-import { AlertCircle, Check, ChevronsUpDown, Loader2 } from "lucide-react";
-import { createEssentials } from "@/actions/actions";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { essentialsSchema } from "@/lib/schemas/essentials";
 import { useActionState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
+import { createEssentials } from "@/actions/createEssentials";
 
-const statusValue = [
-  { label: "Pendente", value: "pending" },
-  { label: "Comprado", value: "purchased" },
-  { label: "Cancelado", value: "canceled" },
-] as const;
-
-export function DialogForm() {
+export function CreateEssentialDialog() {
   const form = useForm<z.infer<typeof essentialsSchema>>({
     resolver: zodResolver(essentialsSchema),
     defaultValues: {
@@ -51,7 +37,6 @@ export function DialogForm() {
   return (
     <Form {...form}>
       <form action={action} className="space-y-4">
-        {/* <form onSubmit={handleSubmit} className="space-y-4"> */}
         <FormField
           control={form.control}
           name="title"
@@ -108,66 +93,12 @@ export function DialogForm() {
             </FormItem>
           )}
         />
-
-        <FormField
-          control={form.control}
-          name="status"
-          render={({ field }) => (
-            <FormItem className="flex flex-col ">
-              <FormLabel>🚧 Status</FormLabel>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value
-                        ? statusValue.find(
-                            (status) => status.value === field.value
-                          )?.label
-                        : "Escolha o status inicial"}
-                      <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </DropdownMenuTrigger>
-
-                <DropdownMenuContent className="">
-                  {statusValue.map((option) => (
-                    <DropdownMenuItem
-                      key={option.value}
-                      onSelect={() => form.setValue("status", option.value)}
-                      className="cursor-pointer"
-                    >
-                      <Check
-                        className={cn(
-                          "",
-                          option.value === field.value
-                            ? "opacity-100"
-                            : "opacity-0"
-                        )}
-                      />
-                      {option.label}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <input type="hidden" {...field} />
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <div>
           {error ? (
             <Alert variant={"destructive"}>
               <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Erro</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error.error}</AlertDescription>
             </Alert>
           ) : null}
         </div>

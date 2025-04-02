@@ -14,6 +14,9 @@ export interface TableRowData {
   quantity: number;
   createdAt: string;
   updatedAt: string;
+  user: {
+    name: string;
+  };
 }
 
 export const columns: ColumnDef<TableRowData>[] = [
@@ -27,7 +30,7 @@ export const columns: ColumnDef<TableRowData>[] = [
     id: "title",
     header: () => null,
     cell: (info) => {
-      const { price, quantity, createdAt } = info.row.original;
+      const { price, quantity, createdAt, user } = info.row.original;
       const title = info.getValue<string>();
       return (
         <TitleCell
@@ -35,6 +38,7 @@ export const columns: ColumnDef<TableRowData>[] = [
           price={price}
           quantity={quantity}
           createdAt={createdAt}
+          user={user}
         />
       );
     },
@@ -53,5 +57,10 @@ export const columns: ColumnDef<TableRowData>[] = [
     id: "action",
     header: () => null,
     cell: ActionCell,
+  },
+  {
+    accessorKey: "createdAt",
+    id: "createdAt",
+    cell: () => null,
   },
 ];

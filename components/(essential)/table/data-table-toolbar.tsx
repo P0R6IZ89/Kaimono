@@ -14,8 +14,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../ui/dialog";
-import { DialogForm } from "./dialog-form";
 import React from "react";
+import { CreateEssentialDialog } from "../dialogs/dialog-create-essential";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -64,10 +64,10 @@ export function DataTableToolbar<TData>({
             <DialogHeader>
               <DialogTitle>Adicionar novo item</DialogTitle>
               <DialogDescription>
-                Adicione novo item na lista pao e leite.
+                Adicione novo item na lista de essenciais.
               </DialogDescription>
             </DialogHeader>
-            <DialogForm />
+            <CreateEssentialDialog />
           </DialogContent>
         </Dialog>
       </div>

@@ -8,10 +8,22 @@ import {
   SidebarMenuItem,
 } from "../ui/sidebar";
 import Link from "next/link";
+import { LucideIcon } from "lucide-react";
 
-const NavPages = ({
-      pages,
-    }) => {
+interface pagesProps {
+  pages: {
+    title: string;
+    url: string;
+    items: {
+      title: string;
+      url: string;
+      isActive?: boolean;
+      icon?: LucideIcon;
+    }[];
+  };
+}
+
+const NavPages = ({ pages }: pagesProps) => {
   return (
     <>
       <SidebarGroup key={pages.title}>
@@ -21,7 +33,10 @@ const NavPages = ({
             {pages.items.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild isActive={item.isActive}>
-                  <Link href={item.url}>{item.title}</Link>
+                  <span>
+                    {item.icon && <item.icon />}
+                    <Link href={pages.url + item.url}>{item.title}</Link>
+                  </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}

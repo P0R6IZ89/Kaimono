@@ -11,7 +11,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { NavSecondary } from "./nav-secondary";
-import { Send } from "lucide-react";
+import { Armchair, PackageOpen, Send, Shirt } from "lucide-react";
 import { VersionSwitcher } from "./version-switcher";
 import { ModeToggle } from "../theme-toggle";
 
@@ -24,28 +24,26 @@ const data = {
   versions: ["Family", "Personal", "Organization"],
   navPages: {
     title: "Paginas",
-    url: "#",
+    url: "/dashboard",
     items: [
-      // {
-      //   title: "Inicio",
-      //   url: "#",
-      //   isActive: false,
-      // },
       {
         title: "Essenciais",
-        url: "/dashboard/essentials-v2",
+        url: "/essentials-v2",
         isActive: false,
+        icon: Shirt,
       },
-      // {
-      //   title: "Planejados",
-      //   url: "/dashboard/planned",
-      //   isActive: false,
-      // },
-      // {
-      //   title: "Analise",
-      //   url: "/dashboard/analysis",
-      //   isActive: false,
-      // },
+      {
+        title: "Planejados",
+        url: "/planned",
+        isActive: false,
+        icon: Armchair,
+      },
+      {
+        title: "Descartar",
+        url: "/discart",
+        isActive: false,
+        icon: PackageOpen,
+      },
     ],
   },
   navSecondary: [

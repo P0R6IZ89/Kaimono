@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../table/essentials-columns";
-import PendingDialog from "./dialog-custom/dialog-pending";
-import CompleteDialog from "./dialog-custom/dialog-complete";
-import InfoDialog from "./dialog-custom/dialog-info";
-import DeleteDialog from "./dialog-custom/dialog-delete";
+import PendingDialog from "./dialog-pending";
+import CompleteDialog from "./dialog-complete";
+import InfoDialog from "./dialog-info";
+import DeleteDialog from "./dialog-delete";
 
 interface ActionDialiogProps {
   row: Row<TableRowData>;

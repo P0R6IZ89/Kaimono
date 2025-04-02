@@ -1,5 +1,5 @@
 import React, { startTransition, useActionState, useEffect } from "react";
-import { CustomDialogProps } from "../action-dialogv2";
+import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
   DialogContent,
@@ -18,12 +18,12 @@ interface StateType {
   message: string;
 }
 
-function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
+function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
   const { toast } = useToast();
 
   const [state, action, isPending] = useActionState<StateType | null>(
     (prevState: unknown) =>
-      updateStatusEssentials(prevState, row, "complete").then(
+      updateStatusEssentials(prevState, row, "pending").then(
         (result) => result
       ),
     null
@@ -51,9 +51,9 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Deseja marcar como Completo?</DialogTitle>
+          <DialogTitle>Deseja marcar como Pendente?</DialogTitle>
           <DialogDescription>
-            O item selecionado será marcado como completo.
+            O item selecionado será revertido para o estado de pendente.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -70,7 +70,7 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
                 });
               }}
             >
-              Marcar como Completo
+              Reverter para Pendente
             </Button>
           </DialogClose>
         </DialogFooter>
@@ -79,4 +79,4 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   );
 }
 
-export default CompleteDialog;
+export default PendingDialog;

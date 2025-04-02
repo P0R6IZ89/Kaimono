@@ -13,11 +13,9 @@ import {
   Trash,
 } from "lucide-react";
 import { useState } from "react";
-import ActionDialog from "@/components/components-essential/dialogs/alert-dialog";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../essentials-columns";
-import { deleteEssentials, updateStatusEssentials } from "@/actions/actions";
-import ActionDialogV2 from "@/components/components-essential/dialogs/action-dialogv2";
+import ActionDialogV2 from "@/components/(essential)/dialogs/action-dialogv2";
 
 interface ActionDialogProps {
   row: Row<TableRowData>;
@@ -36,15 +34,6 @@ function ActionCell({ row }: ActionDialogProps) {
   };
 
   const status = row.original.status;
-
-  // async function handleConfirm() {
-  //   if (actionType == "delete") {
-  //     deleteEssentials(id);
-  //   } else if (actionType === "complete" || actionType === "pending") {
-  //     updateStatusEssentials(id, actionType);
-  //   }
-  //   setOpen(false);
-  // }
 
   return (
     <DropdownMenu>
@@ -72,22 +61,13 @@ function ActionCell({ row }: ActionDialogProps) {
           </DropdownMenuItem>
         ) : status === "complete" ? (
           <DropdownMenuItem onSelect={() => handleActionClick("pending")}>
-            <Clock className="text-orange-700" />
+            <Clock />
             Pendente
           </DropdownMenuItem>
         ) : null}
       </DropdownMenuContent>
       {actionType && (
         <>
-          {/* <ActionDialog
-            id={id}
-            row={row}
-            dialogVariant={actionType}
-            open={open}
-            setOpen={setOpen}
-            itemTitle={title}
-            onConfirm={handleConfirm}
-          /> */}
           <ActionDialogV2
             row={row}
             dialogType={actionType}

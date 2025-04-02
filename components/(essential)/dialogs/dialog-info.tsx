@@ -1,5 +1,5 @@
 import React, { useActionState, useEffect } from "react";
-import { CustomDialogProps } from "../action-dialogv2";
+import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
   DialogClose,
@@ -40,17 +40,11 @@ function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
 
   useEffect(() => {
     if (state) {
-      if (state.status === "success") {
+      if (state?.message) {
         toast({
           title: "Sucesso!",
-          description: state.message,
+          description: state?.message,
           variant: "default",
-        });
-      } else if (state.status === "error") {
-        toast({
-          title: "Error",
-          description: state.message,
-          variant: "destructive",
         });
       }
     }
@@ -70,9 +64,9 @@ function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit the {title}</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
-            Depois de editar o item, não se esqueça de clicar em salvar!
+            Voce pode editar o item aqui, não se esqueça de salvar!
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

@@ -1,68 +1,59 @@
 "use server";
 
-import { TableRowData } from "@/components/components-essential/table/essentials-columns";
+import { TableRowData } from "@/components/(essential)/table/essentials-columns";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { Row } from "@tanstack/react-table";
 import { revalidatePath } from "next/cache";
 
-export async function getData() {
+export const getAccountByUserId = async (userId: string) => {
   try {
-    const data = await prisma.essentials.findMany();
-    return data.map((item) => ({
-      ...item,
-      price: item.price.toNumber(),
-      createdAt: item.createdAt.toISOString(),
-      updatedAt: item.updatedAt.toISOString(),
-    }));
-  } catch (error) {
-    console.error("Error fetching essentials data:", error);
-    throw new Error("Failed to fetch essentials data.");
-  }
-}
-
-export async function getCount() {
-  const count = {
-    fullCount: await prisma.essentials.count({}),
-    pendingCount: await prisma.essentials.count({
+    const account = await prisma.account.findFirst({
       where: {
-        status: "pending",
-      },
-    }),
-  };
-  return count;
-}
-
-export async function createEssentials(
-  previousState: unknown,
-  formData: FormData
-) {
-  const title = formData.get("title") as string;
-  const priceString = formData.get("price") as string;
-  const quantityString = formData.get("quantity") as string;
-  const status = formData.get("status") as string;
-  const price = parseFloat(priceString);
-  const quantity = parseInt(quantityString, 10);
-
-  if (isNaN(price)) {
-    throw new Error("Invalid price value provided.");
-  }
-  if (isNaN(quantity)) {
-    throw new Error("Invalid quantity value provided.");
-  }
-  try {
-    await prisma.essentials.create({
-      data: {
-        title,
-        price,
-        quantity,
-        status,
+        userId,
       },
     });
-  } catch (e) {
-    return String(e);
+    return account;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  revalidatePath("/dashboard/essentials-v2");
+};
+
+// Don't need a Google provider Account
+export const getUserById = async (id: string) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export async function getCount() {
+  try {
+    const fullCount = await prisma.essentials.count({});
+    const pendingCount = await prisma.essentials.count({
+      where: { status: "pending" },
+    });
+
+    return {
+      success: true,
+      data: { fullCount, pendingCount },
+    };
+  } catch (error) {
+    console.error("Error fetching count:", error);
+    return {
+      success: false,
+      data: { fullCount: 0, pendingCount: 0 },
+      error: "Failed to retrieve count data. Please try again later.",
+    };
+  }
 }
 
 export async function updateStatusEssentials(
@@ -119,7 +110,7 @@ export async function updateEssentials(
   prevState: unknown,
   formData: FormData,
   id: string
-): Promise<{ status: "success" | "error"; message: string }> {
+) {
   try {
     const title = formData.get("title") as string;
     const priceString = formData.get("price") as string;
@@ -140,10 +131,9 @@ export async function updateEssentials(
       status: "success",
       message: "O Essentials foi atualizado com sucesso!",
     };
-  } catch (error: any) {
-    return {
-      status: "error",
-      message: error?.message || "Falha ao atualizar.",
-    };
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      return e.message;
+    }
   }
 }
