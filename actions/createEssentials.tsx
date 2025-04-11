@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { getErrorMessage } from "@/lib/error-handler";
+import { getErrorMessage } from "@/util/error-handler";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 

@@ -2,7 +2,7 @@ import authConfig from "./auth.config";
 import NextAuth from "next-auth";
 import { privateRoutes } from "./routes";
 
-const baseUrl = "http://localhost:3000";
+// const baseUrl = "http://localhost:3000";
 const { auth } = NextAuth(authConfig);
 
 export default auth(async (req) => {
@@ -17,13 +17,13 @@ export default auth(async (req) => {
     return;
   }
   if (isLoggedIn && isAuthRoute) {
-    return Response.redirect(`${baseUrl}/dashboard`);
+    return Response.redirect(`${process.env.BASE_URL}/dashboard`);
   }
   if (isAuthRoute && !isLoggedIn) {
     return;
   }
   if (!isLoggedIn && isPivateRoute) {
-    return Response.redirect(`${baseUrl}/api/auth/signin`);
+    return Response.redirect(`${process.env.BASE_URL}/api/auth/signin`);
   }
 });
 

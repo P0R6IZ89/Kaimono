@@ -5,9 +5,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../../ui/card";
 import { ShoppingCart } from "lucide-react";
-import { Progress } from "./ui/progress";
+import { Progress } from "../../ui/progress";
 
 interface CounterCardProps {
   count: {
@@ -20,7 +20,7 @@ function CounterCard({ count: { fullCount, pendingCount } }: CounterCardProps) {
   const completed = fullCount - pendingCount;
   const percentage = (completed / fullCount) * 100;
   return (
-    <Card className="w-full max-w-xl">
+    <Card className="w-full">
       <CardContent className="flex flex-col gap-4 pt-6">
         {pendingCount > 0 ? (
           <>
@@ -33,7 +33,7 @@ function CounterCard({ count: { fullCount, pendingCount } }: CounterCardProps) {
               </span>
               <ShoppingCart
                 size={16}
-                strokeWidth={1.3}
+                strokeWidth={2}
                 className="text-muted-foreground"
               />
             </div>

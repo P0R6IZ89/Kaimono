@@ -55,7 +55,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="max-w-xl">
+    <div className="">
       <div className="space-y-2">
         <DataTableToolbar table={table} />
         <div className="grid grid-cols-1 gap-4  pt-4 rounded-md">

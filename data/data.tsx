@@ -20,14 +20,12 @@ export const statuses = [
     label: "Comprado",
     icon: CircleCheckBig,
     color: "text-green-700",
-    bg: "bg-green-50",
   },
   {
     value: "canceled",
     label: "Cancelado",
     icon: CircleMinus,
     color: "text-red-700",
-    bg: "bg-red-50",
   },
 ];
 

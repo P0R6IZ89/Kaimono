@@ -1,27 +1,20 @@
-"use client";
-
 import * as React from "react";
 
-import NavPages from "./nav-pages";
 import { NavUser } from "@/components/sidebar/nav-user";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import NavPages from "./nav-pages";
+import { NavDocuments } from "./nav-config";
 import { NavSecondary } from "./nav-secondary";
 import { Armchair, PackageOpen, Send, Shirt } from "lucide-react";
-import { VersionSwitcher } from "./version-switcher";
-import { ModeToggle } from "../theme-toggle";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 const data = {
-  user: {
-    name: "Alam Sawame",
-    email: "alamsawame@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  versions: ["Family", "Personal", "Organization"],
+  versions: ["Personal", "More comming..."],
   navPages: {
     title: "Paginas",
     url: "/dashboard",
@@ -46,6 +39,7 @@ const data = {
       },
     ],
   },
+
   navSecondary: [
     {
       title: "Contato",
@@ -53,25 +47,38 @@ const data = {
       icon: Send,
     },
   ],
+  config: [
+    {
+      name: "Tema",
+      url: "#",
+    },
+  ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export async function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
+  const session = await auth();
+  if (!session?.user) {
+    return redirect(`${process.env.BASE_URL}/api/auth/signin`);
+  }
+
+  const safeUser = {
+    name: session.user.name ?? "Unknown User",
+    email: session.user.email ?? "unknown@example.com",
+    image: session.user.image ?? "/defaultUser.png",
+  };
+
   return (
     <Sidebar variant="inset" {...props}>
-      <SidebarHeader>
-        <VersionSwitcher
-          versions={data.versions}
-          defaultVersion={data.versions[0]}
-        />
+      <SidebarHeader className="h-16 border-b border-sidebar-border">
+        <NavUser user={safeUser} />
       </SidebarHeader>
       <SidebarContent>
         <NavPages pages={data.navPages} />
-        <ModeToggle />
+        <NavDocuments items={data.config} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
     </Sidebar>
   );
 }

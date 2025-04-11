@@ -31,7 +31,7 @@ export default function TitleCell({
       <div className="flex flex-row gap-2 mt-1 text-xs text-muted-foreground">
         <p>{formatPriceYen(price)}</p>
         <p>x{quantity}</p>
-        <p className={`text-xs ${timeClass}`}>{dayjs(createdAt).fromNow()}</p>
+        <p className={`${timeClass}`}>{dayjs(createdAt).fromNow()}</p>
       </div>
     </div>
   );

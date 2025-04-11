@@ -1,4 +1,4 @@
-import CounterCard from "@/components/counter-card";
+import CounterCard from "@/components/(essential)/cards/counter-card";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";

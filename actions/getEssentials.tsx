@@ -11,7 +11,6 @@ export async function getEssentials() {
         },
       },
     });
-    console.log(JSON.stringify(essentials));
     return {
       success: true,
       essentials: essentials.map((item) => ({

@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { essentialsSchema } from "@/lib/schemas/essentials";
+import { essentialsSchema } from "@/util/essentials";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateEssentials } from "@/actions/actions";
 import { z } from "zod";

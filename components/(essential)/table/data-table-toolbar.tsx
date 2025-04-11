@@ -53,6 +53,7 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
+
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button className="h-8 px-2 lg:px-3">
