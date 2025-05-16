@@ -1,5 +1,5 @@
 import React from "react";
-import { formatPriceYen } from "@/util/FormatPriceYen";
+import { formatPriceYen } from "@/util/formatPriceYen";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 

@@ -1,12 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model Team {
+  id           String       @id @default(cuid())
+  name         String
+  description  String?
+  subdomain    String?      @unique
+  customDomain String?      @unique
+  image        String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  user         User[]
+  essentials   Essentials[]
 }
-
 
 model User {
   id            String          @id @default(cuid())
@@ -18,10 +30,10 @@ model User {
   updatedAt     DateTime        @updatedAt
   accounts      Account[]
   Authenticator Authenticator[]
+  essentials    Essentials[]
+  Planneds      Planneds[]
   sessions      Session[]
-
-  essentials Essentials[]
-  planneds Planneds[]
+  teams         Team[]
 }
 
 model Account {
@@ -82,39 +94,36 @@ model Essentials {
   quantity  Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id])
+}
 
-  userId String 
-  user User @relation(fields: [userId], references: [id])
+model DiscardTags {
+  id       String     @id
+  title    String     @unique
+  Discards Discards[]
+}
+
+model Discards {
+  id          String        @id
+  status      String
+  comment     String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  DiscardTags DiscardTags[]
 }
 
 model Planneds {
-  id        String   @id @default(cuid())
+  id        String   @id
   title     String
   price     Decimal?
   priority  String
   status    String
   comment   String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  userId String
-  user User @relation(fields: [userId], references: [id])
-}
-
-model Discards {
-  id        String   @id @default(cuid())
-  status    String
-  comment   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  discardTags DiscardTags[]  
-
-}
-
-model DiscardTags {
-  id        String   @id @default(cuid())
-  title String @unique
-
-  discards Discards[]
+  updatedAt DateTime
+  userId    String
+  User      User     @relation(fields: [userId], references: [id])
 }

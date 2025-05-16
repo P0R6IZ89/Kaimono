@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatPriceYen } from "@/util/FormatPriceYen";
+import { formatPriceYen } from "@/util/formatPriceYen";
 import { DollarSign } from "lucide-react";
 import React from "react";
 

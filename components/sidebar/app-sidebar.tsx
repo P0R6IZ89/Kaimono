@@ -55,24 +55,15 @@ const data = {
   ],
 };
 
+const safeUser = undefined;
+
 export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const session = await auth();
-  if (!session?.user) {
-    return redirect(`${process.env.BASE_URL}/api/auth/signin`);
-  }
-
-  const safeUser = {
-    name: session.user.name ?? "Unknown User",
-    email: session.user.email ?? "unknown@example.com",
-    image: session.user.image ?? "/defaultUser.png",
-  };
-
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
-        <NavUser user={safeUser} />
+        {safeUser ? <NavUser user={safeUser} /> : ""}
       </SidebarHeader>
       <SidebarContent>
         <NavPages pages={data.navPages} />

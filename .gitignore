@@ -40,3 +40,7 @@ yarn-error.log*
 next-env.d.ts
 
 certificates
+
+.pem*
+
+README.md

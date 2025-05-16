@@ -5,10 +5,12 @@ import authConfig from "./auth.config";
 import Resend from "next-auth/providers/resend";
 import { getAccountByUserId, getUserById } from "./actions/actions";
 
+const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  // debug: true,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
-  debug: true,
   ...authConfig,
   providers: [
     ...authConfig.providers,
@@ -17,6 +19,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       from: process.env.FROM_EMAIL,
     }),
   ],
+  pages: {
+    signIn: "/login",
+    error: "/error",
+  },
+
   callbacks: {
     async jwt({ token }) {
       if (!token.sub) return token;

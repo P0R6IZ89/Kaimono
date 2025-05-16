@@ -1,85 +1,84 @@
-import authConfig from "./auth.config";
 import NextAuth from "next-auth";
-import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
+import authConfig from "./auth.config";
+import { NextRequest, NextResponse } from "next/server";
+import { rootDomain } from "./lib/utils";
 
 const { auth } = NextAuth(authConfig);
 
-export default auth(async (req) => {
-  const url = req.nextUrl;
+function extractSubdomain(req: NextRequest): string | null {
+  const url = req.url;
+  const host = req.headers.get("host") || "";
+  const hostname = host.split(":")[0];
 
-  // Gets the host (e.g., demo.localhost:3000).
-  // Replaces .localhost:3000 with your production root domain (.yourdomain.com).
-  const hostHeader = req.headers.get("host")!; 
-  console.log('⚠️ hostHeader →', hostHeader)          
-  let [hostname] = hostHeader.split(":");
-  console.log('⚠️ hostname →', hostname)      
-  // let hostname = req.headers
-  //   .get("host")!
-  //   .replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
+  // Local development environment
+  if (url.includes("localhost") || url.includes("127.0.0.1")) {
+    // Try to extract subdomain from the full URL
+    const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
+    if (fullUrlMatch && fullUrlMatch[1]) {
+      return fullUrlMatch[1];
+    }
 
-  // special case for Vercel preview deployment URLs
-  // "demo---feature.vercel.app" to "demo.yourdomain.com"
-  if (
-    hostname.includes("---") &&
-    hostname.endsWith(`.${process.env.NEXT_PUBLIC_VERCEL_DEPLOYMENT_SUFFIX}`)
-  ) {
-    hostname = `${hostname.split("---")[0]}.${
-      process.env.NEXT_PUBLIC_ROOT_DOMAIN
-    }`;
+    // Fallback to host header approach
+    if (hostname.includes(".localhost")) {
+      return hostname.split(".")[0];
+    }
+
+    return null;
   }
 
-  // Constructs the full path (e.g., /about?page=2).
-  const searchParams = req.nextUrl.searchParams.toString();
-  const path = `${url.pathname}${
-    searchParams.length > 0 ? `?${searchParams}` : ""
-  }`;
+  // Production environment
+  const rootDomainFormatted = rootDomain.split(":")[0];
 
-  // Rewrites for app pages
-  // 1. Not logged in and not on /signin → redirect to /signin
-  // 2. Already logged in but on /signin → redirect to /
-  // 3. Else: serve content from /app/*
-  if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
-    console.log("✅ ",hostname, "=", `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
-    const session = await getToken({ req });
-    if (!session && path !== "/signin") {
-      console.log("✅ Not logged in and not on /signin → redirect to /signin")
-      return NextResponse.redirect(new URL("/signin", req.url));
-    } else if (session && path == "/signin") {
-      console.log("✅ Already logged in but on /signin → redirect to /")
+  // Handle preview deployment URLs (tenant---branch-name.vercel.app)
+  if (hostname.includes("---") && hostname.endsWith(".vercel.app")) {
+    const parts = hostname.split("---");
+    return parts.length > 0 ? parts[0] : null;
+  }
+
+  // Regular subdomain detection
+  const isSubdomain =
+    hostname !== rootDomainFormatted &&
+    hostname !== `www.${rootDomainFormatted}` &&
+    hostname.endsWith(`.${rootDomainFormatted}`);
+
+  return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, "") : null;
+}
+
+export default auth((req) => {
+  console.log("-----------------------------------------------------");
+  const { pathname } = req.nextUrl;
+  const subdomain = extractSubdomain(req);
+  const session = !!req.auth;
+
+  // Auth logic
+  if (!session && pathname !== "/login" && pathname !== "/home") {
+    return NextResponse.redirect(new URL("/login", req.url));
+  } else if (session && pathname == "/login") {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
+  if (subdomain) {
+    // Block access to admin page from subdomains
+    if (pathname.startsWith("/admin")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
-    console.log("✅  Else: serve content from /app/*")
-    return NextResponse.rewrite(
-      new URL(`/app${path === "/" ? "" : path}`, req.url)
-    );
+
+    // For the root path on a subdomain, rewrite to the subdomain page
+    if (pathname === "/") {
+      return NextResponse.rewrite(new URL(`/s/${subdomain}`, req.url));
+    }
   }
 
-  // Rewrite root application to `/home` folder
-  if (
-    hostname === "localhost" ||
-    hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
-  ) {
-    console.log("✅ Rewrite root application to `/home` folder")
-    return NextResponse.rewrite(
-      
-      new URL(`/home${path === "/" ? "" : path}`, req.url)
-    );
-  }
-  // Rewrite everything else to `/[domain]/[slug] dynamic route
-  console.log("⚠️ Rewrite everything else to `/[domain]/[slug] dynamic route")
-  return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url));
+  // On the root domain, allow normal access
+  return NextResponse.next();
 });
 
 export const config = {
-  matcher: [
-    /*
-     * Match all paths except for:
-     * 1. /api routes
-     * 2. /_next (Next.js internals)
-     * 3. /_static (inside /public)
-     * 4. all root files inside /public (e.g. /favicon.ico)
-     */
-    "/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)",
-  ],
+  /*
+   * Match all paths except for:
+   * 1. /api routes
+   * 2. /_next (Next.js internals)
+   * 3. all root files inside /public (e.g. /favicon.ico)
+   */
+  matcher: ["/((?!api|_next|[\\w-]+\\.\\w+).*)"],
 };

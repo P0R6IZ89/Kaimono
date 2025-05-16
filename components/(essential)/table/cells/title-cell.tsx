@@ -1,7 +1,7 @@
 import React from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { formatPriceYen } from "@/util/FormatPriceYen";
+import { formatPriceYen } from "@/util/formatPriceYen";
 
 type TitleCellProps = {
   title: string;
