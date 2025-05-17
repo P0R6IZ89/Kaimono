@@ -1,13 +1,18 @@
 # Hello there!
 
 - ✅ Landing page
-- 80% Custom subdomain routing w middleware \*Need to add
-- Tenant specific content
-- Sigin Page
+- ✅ Sigin Page
+- ✅ Authentication
+
+- Ability to retrieve and create team (apps)
+
 - Essential Page
+  - Fix ability to CRUD essentials
 - Planned Page
+  - Ability to CRUD planned
 - Discart Page
-- Authentication
-- Multi-tenancy Architecture
+  - Ability to CRUD discart
+    - Image upload
+- Route subdomain w middleware
 - Deploy
 - Production

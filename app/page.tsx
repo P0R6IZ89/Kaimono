@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 function getSubdomain() {
-  return null;
+  return true;
 }
 
 export default async function App() {

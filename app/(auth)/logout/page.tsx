@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 export default async function LogoutPage() {
   const session = await auth();
   if (!session?.user) {
-    redirect("/");
+    redirect("/home");
   }
   return (
     <div className=" flex flex-col gap-4 min-h-dvh max-w-lg m-auto justify-center items-center pl-8 pr-8">

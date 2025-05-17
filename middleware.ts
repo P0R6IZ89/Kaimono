@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
 import { NextRequest, NextResponse } from "next/server";
-import { rootDomain } from "./lib/utils";
+import { publicPaths, rootDomain } from "./lib/utils";
 
 const { auth } = NextAuth(authConfig);
 
@@ -51,7 +51,7 @@ export default auth((req) => {
   const session = !!req.auth;
 
   // Auth logic
-  if (!session && pathname !== "/login" && pathname !== "/home") {
+  if (!session && pathname !== "/login" && !publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL("/login", req.url));
   } else if (session && pathname == "/login") {
     return NextResponse.redirect(new URL("/", req.url));

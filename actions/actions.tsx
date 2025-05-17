@@ -1,10 +1,56 @@
 "use server";
 
+import { auth } from "@/auth";
 import { TableRowData } from "@/components/(essential)/table/essentials-columns";
 import { prisma } from "@/lib/prisma";
+import { getErrorMessage } from "@/util/error-handler";
 import { Prisma } from "@prisma/client";
 import { Row } from "@tanstack/react-table";
+import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+export const getAppsAction = async (userId: string) => {
+  try {
+    const apps = await prisma.team.findMany({
+      where: {
+        user: {
+          some: { id: userId },
+        },
+      },
+    });
+    return { props: { apps } };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createAppAction = async (
+  prevState: unknown,
+  formData: FormData
+): Promise<{ error: string } | undefined> => {
+  const session = await auth();
+  if (!session?.user)
+    throw new AuthError("Unauthorized. User session not found.");
+  const name = formData.get("name") as string;
+  const description = formData.get("description") as string;
+  const subdomain = formData.get("subdomain") as string;
+  try {
+    await prisma.team.create({
+      data: {
+        name,
+        description,
+        subdomain,
+        user: {
+          connect: { id: session.user.id },
+        },
+      },
+    });
+  } catch (error: unknown) {
+    return { error: getErrorMessage(error) };
+  }
+  redirect("/");
+};
 
 export const getAccountByUserId = async (userId: string) => {
   try {

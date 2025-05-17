@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/util/theme-provider";
 import { auth } from "@/auth";
+import { ModeToggle } from "@/components/theme-toggle";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,6 +26,8 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <div className="absolute top-4 right-4 z-50">
+            <ModeToggle />
+            <br />
             {session ? JSON.stringify(session.user) : "NOT AUTHENTICATED"}
           </div>
           {children}
