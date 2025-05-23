@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useTheme } from "next-themes";
 
-export function NavDocuments({
+export function NavConfig({
   items,
 }: {
   items: {

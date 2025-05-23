@@ -40,7 +40,6 @@ export async function createEssentials(
     });
     revalidatePath("/dashboard/essentials-v2");
   } catch (error: unknown) {
-    console.error("CREATE ERROR", JSON.stringify(error));
     return {
       error: getErrorMessage(error),
     };

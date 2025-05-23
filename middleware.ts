@@ -15,11 +15,13 @@ function extractSubdomain(req: NextRequest): string | null {
     // Try to extract subdomain from the full URL
     const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
     if (fullUrlMatch && fullUrlMatch[1]) {
+      console.log("fullUrlMatch[1]", fullUrlMatch[1]);
       return fullUrlMatch[1];
     }
 
     // Fallback to host header approach
     if (hostname.includes(".localhost")) {
+      console.log("hostname.split(.)[0]", hostname.split(".")[0]);
       return hostname.split(".")[0];
     }
 
@@ -44,17 +46,22 @@ function extractSubdomain(req: NextRequest): string | null {
   return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, "") : null;
 }
 
-export default auth((req) => {
+export default auth(async (req) => {
   console.log("-----------------------------------------------------");
   const { pathname } = req.nextUrl;
   const subdomain = extractSubdomain(req);
-  const session = !!req.auth;
+  const session = req.auth?.user;
 
   // Auth logic
-  if (!session && pathname !== "/login" && !publicPaths.includes(pathname)) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  } else if (session && pathname == "/login") {
-    return NextResponse.redirect(new URL("/", req.url));
+  if (!subdomain) {
+    console.log(req.auth?.user);
+    if (!session && pathname !== "/login" && !publicPaths.includes(pathname)) {
+      console.log("Please, AUTH");
+      return NextResponse.redirect(new URL("/login", req.url));
+    } else if (session && pathname == "/login") {
+      console.log("you are in login");
+      return NextResponse.redirect(new URL("/", req.url));
+    }
   }
 
   if (subdomain) {
@@ -65,6 +72,7 @@ export default auth((req) => {
 
     // For the root path on a subdomain, rewrite to the subdomain page
     if (pathname === "/") {
+      console.log("redirect to /s/subdomain");
       return NextResponse.rewrite(new URL(`/s/${subdomain}`, req.url));
     }
   }

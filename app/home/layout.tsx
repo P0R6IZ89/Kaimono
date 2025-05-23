@@ -12,12 +12,10 @@ export default async function HomeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased">
-        {children}
+    <div lang="en" suppressHydrationWarning>
+      {children}
 
-        <Toaster />
-      </body>
-    </html>
+      <Toaster />
+    </div>
   );
 }

@@ -1,17 +1,16 @@
 import * as React from "react";
 
-import { NavUser } from "@/components/sidebar/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import NavPages from "./nav-pages";
-import { NavDocuments } from "./nav-config";
+import { NavConfig } from "./nav-config";
 import { NavSecondary } from "./nav-secondary";
 import { Armchair, PackageOpen, Send, Shirt } from "lucide-react";
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import { AppSwitcher } from "./apps-switcher";
+import { getAppsAction } from "@/actions/actions";
 
 const data = {
   versions: ["Personal", "More comming..."],
@@ -55,19 +54,18 @@ const data = {
   ],
 };
 
-const safeUser = undefined;
-
 export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  // const apps = await getAppsAction();
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
-        {safeUser ? <NavUser user={safeUser} /> : ""}
+        {/* <AppSwitcher apps={apps} /> */}
       </SidebarHeader>
       <SidebarContent>
         <NavPages pages={data.navPages} />
-        <NavDocuments items={data.config} />
+        <NavConfig items={data.config} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
     </Sidebar>

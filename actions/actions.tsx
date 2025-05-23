@@ -4,25 +4,30 @@ import { auth } from "@/auth";
 import { TableRowData } from "@/components/(essential)/table/essentials-columns";
 import { prisma } from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
-import { Prisma } from "@prisma/client";
 import { Row } from "@tanstack/react-table";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export const getAppsAction = async (userId: string) => {
+export const getAppsAction = async () => {
+  const session = await auth();
+  let apps;
+  if (!session?.user) redirect("/login");
   try {
-    const apps = await prisma.team.findMany({
+    apps = await prisma.team.findMany({
+      include: { user: true },
       where: {
         user: {
-          some: { id: userId },
+          some: {
+            id: session.user.id,
+          },
         },
       },
     });
-    return { props: { apps } };
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
   }
+  return apps;
 };
 
 export const createAppAction = async (
@@ -47,7 +52,7 @@ export const createAppAction = async (
       },
     });
   } catch (error: unknown) {
-    return { error: getErrorMessage(error) };
+    throw new Error(getErrorMessage(error));
   }
   redirect("/");
 };
@@ -75,9 +80,8 @@ export const getUserById = async (id: string) => {
       },
     });
     return user;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
   }
 };
 
@@ -92,13 +96,8 @@ export async function getCount() {
       success: true,
       data: { fullCount, pendingCount },
     };
-  } catch (error) {
-    console.error("Error fetching count:", error);
-    return {
-      success: false,
-      data: { fullCount: 0, pendingCount: 0 },
-      error: "Failed to retrieve count data. Please try again later.",
-    };
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
   }
 }
 
@@ -120,11 +119,8 @@ export async function updateStatusEssentials(
       status: "success",
       message: "O item foi atualizado com sucesso!",
     };
-  } catch (error: any) {
-    return {
-      status: "error",
-      message: error?.message || "Falha ao atualizar.",
-    };
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
   }
 }
 
@@ -144,11 +140,8 @@ export async function deleteEssentials(
       status: "success",
       message: "O Essentials foi deletado com sucesso!",
     };
-  } catch (error: any) {
-    return {
-      status: "error",
-      message: error?.message || "Falha ao deletar.",
-    };
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
   }
 }
 
@@ -177,9 +170,7 @@ export async function updateEssentials(
       status: "success",
       message: "O Essentials foi atualizado com sucesso!",
     };
-  } catch (e) {
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      return e.message;
-    }
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
   }
 }
