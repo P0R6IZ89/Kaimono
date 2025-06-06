@@ -3,36 +3,51 @@ import * as React from "react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import NavPages from "./nav-pages";
 import { NavConfig } from "./nav-config";
 import { NavSecondary } from "./nav-secondary";
-import { Armchair, PackageOpen, Send, Shirt } from "lucide-react";
+import { Armchair, PackageOpen, Send, Shirt, Squirrel } from "lucide-react";
 import { AppSwitcher } from "./apps-switcher";
-import { getAppsAction } from "@/actions/actions";
+import { getAllAppsAction, getAppFromSubdomainAction } from "@/actions/actions";
+import { NavUser } from "./nav-user";
+import { auth } from "@/auth";
+import { SkeletonAvatar } from "../skeleton/avatar";
 
 const data = {
-  versions: ["Personal", "More comming..."],
+  navSite: {
+    title: "",
+    url: "#",
+    items: [
+      {
+        title: "Admin",
+        url: "#",
+        isActive: false,
+        icon: Squirrel,
+      },
+    ],
+  },
   navPages: {
     title: "Paginas",
-    url: "/dashboard",
+    url: "",
     items: [
       {
         title: "Essenciais",
-        url: "/essentials-v2",
+        url: "/essentials",
         isActive: false,
         icon: Shirt,
       },
       {
         title: "Planejados",
-        url: "/planned",
+        url: "#",
         isActive: false,
         icon: Armchair,
       },
       {
         title: "Descartar",
-        url: "/discart",
+        url: "#",
         isActive: false,
         icon: PackageOpen,
       },
@@ -54,20 +69,47 @@ const data = {
   ],
 };
 
+type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+  subdomain: string;
+};
+
 export async function AppSidebar({
+  subdomain,
   ...props
-}: React.ComponentProps<typeof Sidebar>) {
-  // const apps = await getAppsAction();
+}: AppSidebarProps): Promise<JSX.Element> {
+  const session = await auth();
+  const subdomainDetails = await getAppFromSubdomainAction(subdomain);
+  const allApps = await getAllAppsAction();
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
-        {/* <AppSwitcher apps={apps} /> */}
+        {subdomainDetails ? (
+          <AppSwitcher subdomain={subdomainDetails} apps={allApps} />
+        ) : (
+          <SkeletonAvatar />
+        )}
       </SidebarHeader>
       <SidebarContent>
+        <NavPages pages={data.navSite} />
         <NavPages pages={data.navPages} />
         <NavConfig items={data.config} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
+      <SidebarFooter>
+        {session?.user ? (
+          <NavUser
+            user={{
+              name: session?.user?.name ?? "",
+              email: session?.user?.email ?? "",
+              image: session?.user?.image ?? "",
+            }}
+          />
+        ) : (
+          <SkeletonAvatar />
+        )}
+      </SidebarFooter>
+      <div className="pb-10" />
     </Sidebar>
   );
 }

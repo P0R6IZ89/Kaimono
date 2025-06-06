@@ -15,13 +15,11 @@ function extractSubdomain(req: NextRequest): string | null {
     // Try to extract subdomain from the full URL
     const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
     if (fullUrlMatch && fullUrlMatch[1]) {
-      console.log("fullUrlMatch[1]", fullUrlMatch[1]);
       return fullUrlMatch[1];
     }
 
     // Fallback to host header approach
     if (hostname.includes(".localhost")) {
-      console.log("hostname.split(.)[0]", hostname.split(".")[0]);
       return hostname.split(".")[0];
     }
 
@@ -46,34 +44,32 @@ function extractSubdomain(req: NextRequest): string | null {
   return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, "") : null;
 }
 
-export default auth(async (req) => {
+export default auth(async function middleware(req) {
   console.log("-----------------------------------------------------");
-  const { pathname } = req.nextUrl;
+  const { pathname, search } = req.nextUrl;
   const subdomain = extractSubdomain(req);
-  const session = req.auth?.user;
+  const user = req.auth?.user;
 
   // Auth logic
   if (!subdomain) {
-    console.log(req.auth?.user);
-    if (!session && pathname !== "/login" && !publicPaths.includes(pathname)) {
-      console.log("Please, AUTH");
+    // const session = true;
+    if (!user && pathname !== "/login" && !publicPaths.includes(pathname)) {
       return NextResponse.redirect(new URL("/login", req.url));
-    } else if (session && pathname == "/login") {
-      console.log("you are in login");
+    } else if (user && pathname == "/login") {
       return NextResponse.redirect(new URL("/", req.url));
     }
   }
 
   if (subdomain) {
-    // Block access to admin page from subdomains
-    if (pathname.startsWith("/admin")) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-
     // For the root path on a subdomain, rewrite to the subdomain page
     if (pathname === "/") {
-      console.log("redirect to /s/subdomain");
+      console.log("path is /");
+
       return NextResponse.rewrite(new URL(`/s/${subdomain}`, req.url));
+    } else {
+      const dest = new URL(`/s/${subdomain}${pathname}`, req.url);
+      dest.search = search;
+      return NextResponse.rewrite(dest);
     }
   }
 

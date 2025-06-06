@@ -5,17 +5,17 @@ import { TableRowData } from "@/components/(essential)/table/essentials-columns"
 import { prisma } from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
 import { Row } from "@tanstack/react-table";
-import { AuthError } from "next-auth";
+import { AuthError, Session } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export const getAppsAction = async () => {
+export const getAllAppsAction = async () => {
+  console.log("getAllAppsAction");
   const session = await auth();
   let apps;
   if (!session?.user) redirect("/login");
   try {
     apps = await prisma.team.findMany({
-      include: { user: true },
       where: {
         user: {
           some: {
@@ -30,10 +30,129 @@ export const getAppsAction = async () => {
   return apps;
 };
 
+export const getUserAppsAction = async () => {
+  console.log("getAppsAction");
+  const session = await auth();
+  if (!session?.user) redirect("/login");
+  try {
+    const userWithTeams = await prisma.user.findUnique({
+      where: {
+        id: session.user.id,
+      },
+      select: {
+        teams: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            subdomain: true,
+            customDomain: true,
+            image: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
+    });
+    if (!userWithTeams) {
+      redirect("/404");
+    }
+    return userWithTeams.teams;
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getAppFromSubdomainAction = async (
+  subdomain: string
+): Promise<{
+  id: string;
+  name: string;
+  description: string | null;
+  subdomain: string | null;
+}> => {
+  console.log("getAppFromSubdomainAction");
+
+  const session = await auth();
+  if (!session?.user) redirect("/login");
+  let app;
+  try {
+    app = await prisma.team.findFirst({
+      where: {
+        subdomain,
+        user: {
+          some: {
+            id: session.user.id,
+          },
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        subdomain: true,
+      },
+    });
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
+  }
+  if (!app) {
+    throw new Error(
+      `No app found with subdomain="${subdomain}" for this user.`
+    );
+  }
+  return app;
+};
+
+export async function getEssentialsBySubdomain(subdomain: string) {
+  console.log("getEssentialsBySubdomain");
+
+  const session: Session | null = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
+  const app = await isUserBelongsTheApp(subdomain, session);
+  const essentials = await prisma.essentials.findMany({
+    where: {
+      teamId: app.id,
+      userId: session.user.id,
+    },
+    include: {
+      user: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const formatted = essentials.map((item) => ({
+    id: item.id,
+    title: item.title,
+    price: item.price.toNumber(),
+    status: item.status,
+    quantity: item.quantity,
+    createdAt: item.createdAt.toISOString(),
+    updatedAt: item.updatedAt.toISOString(),
+    user: {
+      name: item.user.name ?? "",
+    },
+  }));
+  return formatted;
+}
+
 export const createAppAction = async (
   prevState: unknown,
   formData: FormData
 ): Promise<{ error: string } | undefined> => {
+  console.log("createAppAction");
+
   const session = await auth();
   if (!session?.user)
     throw new AuthError("Unauthorized. User session not found.");
@@ -58,6 +177,7 @@ export const createAppAction = async (
 };
 
 export const getAccountByUserId = async (userId: string) => {
+  console.log("getAccountByUserId");
   try {
     const account = await prisma.account.findFirst({
       where: {
@@ -66,13 +186,13 @@ export const getAccountByUserId = async (userId: string) => {
     });
     return account;
   } catch (error) {
-    console.log(error);
-    return null;
+    throw new Error(getErrorMessage(error));
   }
 };
 
 // Don't need a Google provider Account
 export const getUserById = async (id: string) => {
+  console.log("getUserById");
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -86,6 +206,7 @@ export const getUserById = async (id: string) => {
 };
 
 export async function getCount() {
+  console.log("getCount");
   try {
     const fullCount = await prisma.essentials.count({});
     const pendingCount = await prisma.essentials.count({
@@ -106,6 +227,7 @@ export async function updateStatusEssentials(
   row: Row<TableRowData>,
   status: string
 ): Promise<{ status: "success" | "error"; message: string }> {
+  console.log("updateStatusEssentials");
   const { id } = row.original;
   try {
     await prisma.essentials.update({
@@ -128,6 +250,7 @@ export async function deleteEssentials(
   previusState: unknown,
   row: Row<TableRowData>
 ): Promise<{ status: "success" | "error"; message: string }> {
+  console.log("deleteEssentials");
   try {
     const { id } = row.original;
     await prisma.essentials.delete({
@@ -150,6 +273,7 @@ export async function updateEssentials(
   formData: FormData,
   id: string
 ) {
+  console.log("updateEssentials");
   try {
     const title = formData.get("title") as string;
     const priceString = formData.get("price") as string;
@@ -164,7 +288,6 @@ export async function updateEssentials(
         quantity,
       },
     });
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     revalidatePath("/dashboard/essentials-v2");
     return {
       status: "success",
@@ -173,4 +296,29 @@ export async function updateEssentials(
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }
+}
+
+export async function isUserBelongsTheApp(
+  subdomain: string,
+  session: Session | null
+): Promise<{ id: string }> {
+  console.log("isUserBelongsTheApp");
+  if (!session?.user) {
+    redirect("/login");
+  }
+  const app = await prisma.team.findFirst({
+    where: {
+      subdomain: subdomain,
+      user: {
+        some: { id: session.user.id },
+      },
+    },
+    select: { id: true },
+  });
+  if (!app) {
+    throw new Error(
+      `Cannot find any app with subdomain="${subdomain}" for this user.`
+    );
+  }
+  return { id: app.id };
 }

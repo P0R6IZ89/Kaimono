@@ -3,22 +3,11 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/prisma";
 import authConfig from "./auth.config";
 import Resend from "next-auth/providers/resend";
-import { getAccountByUserId, getUserById } from "./actions/actions";
+import { getUserById } from "./actions/actions";
 
-const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
-
-// ←— Safe‐guard NEXTAUTH_URL:
-const AUTH_URL =
-  process.env.AUTH_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
-
-// now this will always be a valid string
-const ROOT_DOMAIN = new URL(AUTH_URL).hostname.split(".").slice(-2).join(".");
+export const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  // debug: true,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   ...authConfig,
@@ -35,50 +24,42 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 
   cookies: {
-    csrfToken: {
-      name: "__Secure-next-auth.csrf-token",
-      options: {
-        httpOnly: true, // client-side must read this
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-        domain: `.${ROOT_DOMAIN}`,
-      },
-    },
     sessionToken: {
-      name: "__Secure-next-auth.session-token",
+      name: VERCEL_DEPLOYMENT
+        ? "__Secure-authjs.session-token"
+        : "authjs.session-token",
       options: {
-        httpOnly: true,
+        httpOnly: VERCEL_DEPLOYMENT,
         sameSite: "lax",
         path: "/",
-        secure: true,
-        domain: VERCEL_DEPLOYMENT
-          ? `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
-          : `.${ROOT_DOMAIN}`,
+        secure: VERCEL_DEPLOYMENT,
+        // This is an arrangement for the browser to accept the subdomain on localhost
+        domain: VERCEL_DEPLOYMENT ? "" : ".localhost",
       },
     },
   },
   callbacks: {
     async jwt({ token }) {
       if (!token.sub) return token;
+
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
-      const existingAccount = await getAccountByUserId(existingUser.id);
-      token.isOauth = !!existingAccount;
+
+      token.id = existingUser.id;
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.image = existingUser.image;
       return token;
     },
-    async session({ token, session }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.sub,
-          isOauth: token.isOauth,
-        },
-      };
+    async session({ session, token }) {
+      if (token.id) {
+        session.user.id = token.id as string;
+      }
+      session.user.name = token.name as string;
+      session.user.email = token.email as string;
+      session.user.image = token.image as string;
+
+      return session;
     },
   },
 });

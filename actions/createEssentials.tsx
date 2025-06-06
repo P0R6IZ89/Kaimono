@@ -31,11 +31,12 @@ export async function createEssentials(
       data: {
         title,
         price,
-        quantity,
         status: "pending",
+        quantity,
         user: {
           connect: { id: session.user.id },
         },
+        team: {},
       },
     });
     revalidatePath("/dashboard/essentials-v2");

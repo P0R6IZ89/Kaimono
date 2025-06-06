@@ -15,7 +15,9 @@ export default async function Essentials({
 
       <div className="grid grid-cols-1 xl:grid-cols-2">
         {subdomain}
-        <p className="z-50">{session?.user?.email}</p>
+        <div className="z-50">
+          {session ? <p>{session?.user?.email}</p> : <p>UNAUTHORIZED</p>}
+        </div>
       </div>
     </div>
   );

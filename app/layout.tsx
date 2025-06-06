@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/util/theme-provider";
 import { auth } from "@/auth";
 
@@ -28,7 +27,6 @@ export default async function RootLayout({
 
           <div className="absolute top-4 right-4">{session?.user?.email}</div>
         </ThemeProvider>
-        <Toaster />
       </body>
     </html>
   );

@@ -123,7 +123,6 @@ export function CreateEssentialDialog() {
         <TabsContent value="smart">
           <div className="pt-4">
             <p>🚧 In development</p>
-            <p>☕ Converting coffee in code!</p>
           </div>
         </TabsContent>
       </Tabs>

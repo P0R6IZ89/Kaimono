@@ -39,7 +39,7 @@ function NewApp() {
 
   const initialState = { error: "" };
 
-  const [state, action, isPending] = useActionState(
+  const [state, formaction, isPending] = useActionState(
     createAppAction,
     initialState
   );
@@ -55,7 +55,7 @@ function NewApp() {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form className="space-y-4" action={action}>
+            <form className="space-y-4" action={formaction}>
               <FormField
                 control={form.control}
                 name="name"

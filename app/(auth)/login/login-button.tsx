@@ -26,7 +26,6 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
     (providerId: string) => async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       try {
-        console.log("➡️", callbackUrl);
         const result = await signIn(providerId, {
           redirectTo: callbackUrl,
         });

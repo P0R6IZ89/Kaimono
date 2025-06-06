@@ -1,4 +1,4 @@
-import { getAppsAction } from "@/actions/actions";
+import { getUserAppsAction } from "@/actions/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,13 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { rootDomain } from "@/lib/utils";
+import { protocol, rootDomain } from "@/lib/utils";
 import { ChevronRight, UserRound } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function App() {
-  const apps = await getAppsAction();
+  const apps = await getUserAppsAction();
   if (!apps) {
     redirect("/new-app");
   }
@@ -68,14 +68,16 @@ export default async function App() {
                   <div className="flex space-x-2">
                     <Badge variant={"outline"} className="flex gap-1">
                       <UserRound absoluteStrokeWidth size={12} />
-                      <p>{app.user.length}</p>
+                      {/* <p>{app.user.length}</p> */}
                     </Badge>
                     <Badge
                       variant={"outline"}
                       className="flex flex-1 justify-between"
                     >
-                      <Link href={`https://${app.subdomain}.${rootDomain}`}>
-                        <span className="hover:underline">
+                      <Link
+                        href={`${protocol}://${app.subdomain}.${rootDomain}`}
+                      >
+                        <span className="hover:underline line-clamp-1 truncate">
                           {app.subdomain}.{rootDomain}
                         </span>
                       </Link>

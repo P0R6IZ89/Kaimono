@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS='--inspect' next dev --turbopack --experimental-https --experimental-https-ca ./certificates/rootCA.pem --experimental-https-cert ./certificates/localhost+3.pem --experimental-https-key ./certificates/localhost+3-key.pem",
+    "dev": "NODE_OPTIONS='--inspect' next dev --turbopack --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
