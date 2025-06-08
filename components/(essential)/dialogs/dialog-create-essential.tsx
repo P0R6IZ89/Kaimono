@@ -20,9 +20,10 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import { essentialsSchema } from "@/util/essentials";
 import { useActionState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
-import { createEssentials } from "@/actions/createEssentials";
+import { createEssentials } from "@/actions/essentialsActions";
 import { Tabs } from "@/components/ui/navigation";
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSubdomain } from "@/context/SubdomainContext";
 
 export function CreateEssentialDialog() {
   const form = useForm<z.infer<typeof essentialsSchema>>({
@@ -32,9 +33,11 @@ export function CreateEssentialDialog() {
       price: "",
       status: "pending",
       quantity: "",
+      subdomain: "",
     },
   });
 
+  const { subdomain } = useSubdomain();
   const [error, action, isPending] = useActionState(createEssentials, null);
   return (
     <>
@@ -107,10 +110,11 @@ export function CreateEssentialDialog() {
                   <Alert variant={"destructive"}>
                     <AlertCircle className="h-4 w-4" />
                     <AlertTitle>Error</AlertTitle>
-                    <AlertDescription>{error.error}</AlertDescription>
+                    <AlertDescription>{error}</AlertDescription>
                   </Alert>
                 ) : null}
               </div>
+              <input type="hidden" name="subdomain" value={subdomain} />
               <DialogFooter>
                 <Button type="submit" disabled={isPending}>
                   {isPending ? <Loader2 className="animate-spin" /> : null}

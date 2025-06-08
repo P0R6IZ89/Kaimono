@@ -1,4 +1,4 @@
-import React, { useActionState, useEffect } from "react";
+import React, { useActionState } from "react";
 import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
@@ -23,32 +23,20 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { essentialsSchema } from "@/util/essentials";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateEssentials } from "@/actions/actions";
 import { z } from "zod";
-import { useToast } from "@/hooks/use-toast";
+import { useSubdomain } from "@/context/SubdomainContext";
+import { updateEssentials } from "@/actions/essentialsActions";
 
 function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { toast } = useToast();
-
   const { title, id, price, quantity, status } = row.original;
 
-  const [state, action, isPending] = useActionState(
+  const { subdomain } = useSubdomain();
+
+  const [, action, isPending] = useActionState(
     (prevState: unknown, formData: FormData) =>
       updateEssentials(prevState, formData, id).then((result) => result),
     null
   );
-
-  useEffect(() => {
-    if (state) {
-      if (state?.message) {
-        toast({
-          title: "Sucesso!",
-          description: state?.message,
-          variant: "default",
-        });
-      }
-    }
-  }, [state, toast]);
 
   const form = useForm<z.infer<typeof essentialsSchema>>({
     resolver: zodResolver(essentialsSchema),
@@ -57,6 +45,7 @@ function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
       price: String(price),
       quantity: String(quantity),
       status: status as "pending" | "purchased" | "canceled" | undefined,
+      subdomain: "",
     },
   });
 
@@ -123,6 +112,7 @@ function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
                 </FormItem>
               )}
             />
+            <input type="hidden" name="subdomain" value={subdomain} />
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant={"outline"}>Voltar</Button>

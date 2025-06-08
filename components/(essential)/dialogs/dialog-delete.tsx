@@ -10,20 +10,22 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { deleteEssentials } from "@/actions/actions";
 import { useToast } from "@/hooks/use-toast";
+import { deleteEssentials } from "@/actions/essentialsActions";
+import { useSubdomain } from "@/context/SubdomainContext";
 
 function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
   const { toast } = useToast();
+  const { id, title } = row.original;
+  const { subdomain } = useSubdomain();
 
   interface StateType {
     status: "success" | "error";
     message: string;
   }
-  const { title } = row.original;
   const [state, action, isPending] = useActionState<StateType | null>(
     (prevState: unknown) =>
-      deleteEssentials(prevState, row).then((result) => result),
+      deleteEssentials(prevState, id, subdomain).then((result) => result),
     null
   );
   useEffect(() => {
@@ -49,8 +51,7 @@ function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
         <DialogHeader>
           <DialogTitle>Você realmente deseja deletar o {title}?</DialogTitle>
           <DialogDescription>
-            Essa ação não pode ser revertida. O item selecionado será excluído
-            do banco de dados.
+            Essa ação não pode ser revertida. O item selecionado será excluído .
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

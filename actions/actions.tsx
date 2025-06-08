@@ -15,7 +15,7 @@ export const getAllAppsAction = async () => {
   let apps;
   if (!session?.user) redirect("/login");
   try {
-    apps = await prisma.team.findMany({
+    apps = await prisma.app.findMany({
       where: {
         user: {
           some: {
@@ -35,12 +35,12 @@ export const getUserAppsAction = async () => {
   const session = await auth();
   if (!session?.user) redirect("/login");
   try {
-    const userWithTeams = await prisma.user.findUnique({
+    const userWithApps = await prisma.user.findUnique({
       where: {
         id: session.user.id,
       },
       select: {
-        teams: {
+        apps: {
           select: {
             id: true,
             name: true,
@@ -57,10 +57,10 @@ export const getUserAppsAction = async () => {
         },
       },
     });
-    if (!userWithTeams) {
+    if (!userWithApps) {
       redirect("/404");
     }
-    return userWithTeams.teams;
+    return userWithApps.apps;
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }
@@ -80,7 +80,7 @@ export const getAppFromSubdomainAction = async (
   if (!session?.user) redirect("/login");
   let app;
   try {
-    app = await prisma.team.findFirst({
+    app = await prisma.app.findFirst({
       where: {
         subdomain,
         user: {
@@ -114,37 +114,43 @@ export async function getEssentialsBySubdomain(subdomain: string) {
   if (!session?.user) {
     redirect("/login");
   }
-  const app = await isUserBelongsTheApp(subdomain, session);
-  const essentials = await prisma.essentials.findMany({
-    where: {
-      teamId: app.id,
-      userId: session.user.id,
-    },
-    include: {
-      user: {
-        select: {
-          name: true,
+  try {
+    const app = await isUserBelongsTheApp(subdomain, session);
+    const essentials = await prisma.essentials.findMany({
+      where: {
+        appId: app.id,
+        userId: session.user.id,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
         },
       },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-
-  const formatted = essentials.map((item) => ({
-    id: item.id,
-    title: item.title,
-    price: item.price.toNumber(),
-    status: item.status,
-    quantity: item.quantity,
-    createdAt: item.createdAt.toISOString(),
-    updatedAt: item.updatedAt.toISOString(),
-    user: {
-      name: item.user.name ?? "",
-    },
-  }));
-  return formatted;
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    if (essentials.length === 0) {
+      return [];
+    }
+    const formatted = essentials.map((item) => ({
+      id: item.id,
+      title: item.title,
+      price: item.price.toNumber(),
+      status: item.status,
+      quantity: item.quantity,
+      createdAt: item.createdAt.toISOString(),
+      updatedAt: item.updatedAt.toISOString(),
+      user: {
+        name: item.user.name ?? "",
+      },
+    }));
+    return formatted;
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
 }
 
 export const createAppAction = async (
@@ -160,7 +166,7 @@ export const createAppAction = async (
   const description = formData.get("description") as string;
   const subdomain = formData.get("subdomain") as string;
   try {
-    await prisma.team.create({
+    await prisma.app.create({
       data: {
         name,
         description,
@@ -246,58 +252,6 @@ export async function updateStatusEssentials(
   }
 }
 
-export async function deleteEssentials(
-  previusState: unknown,
-  row: Row<TableRowData>
-): Promise<{ status: "success" | "error"; message: string }> {
-  console.log("deleteEssentials");
-  try {
-    const { id } = row.original;
-    await prisma.essentials.delete({
-      where: {
-        id,
-      },
-    });
-    revalidatePath("/dashboard/essentials-v2");
-    return {
-      status: "success",
-      message: "O Essentials foi deletado com sucesso!",
-    };
-  } catch (error: unknown) {
-    throw new Error(getErrorMessage(error));
-  }
-}
-
-export async function updateEssentials(
-  prevState: unknown,
-  formData: FormData,
-  id: string
-) {
-  console.log("updateEssentials");
-  try {
-    const title = formData.get("title") as string;
-    const priceString = formData.get("price") as string;
-    const quantityString = formData.get("quantity") as string;
-    const price = parseFloat(priceString);
-    const quantity = parseInt(quantityString, 10);
-    await prisma.essentials.update({
-      where: { id },
-      data: {
-        title,
-        price,
-        quantity,
-      },
-    });
-    revalidatePath("/dashboard/essentials-v2");
-    return {
-      status: "success",
-      message: "O Essentials foi atualizado com sucesso!",
-    };
-  } catch (error: unknown) {
-    throw new Error(getErrorMessage(error));
-  }
-}
-
 export async function isUserBelongsTheApp(
   subdomain: string,
   session: Session | null
@@ -306,7 +260,7 @@ export async function isUserBelongsTheApp(
   if (!session?.user) {
     redirect("/login");
   }
-  const app = await prisma.team.findFirst({
+  const app = await prisma.app.findUnique({
     where: {
       subdomain: subdomain,
       user: {

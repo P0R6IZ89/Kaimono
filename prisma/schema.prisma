@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Team {
+model App {
   id           String       @id @default(cuid())
   name         String
   description  String?
@@ -33,7 +33,7 @@ model User {
   essentials    Essentials[]
   Planneds      Planneds[]
   sessions      Session[]
-  teams         Team[]
+  apps          App[]
 }
 
 model Account {
@@ -96,8 +96,8 @@ model Essentials {
   updatedAt DateTime @updatedAt
   userId    String
   user      User     @relation(fields: [userId], references: [id])
-  teamId    String
-  team      Team     @relation(fields: [teamId], references: [id])
+  appId     String
+  app       App      @relation(fields: [appId], references: [id])
 }
 
 model DiscardTags {

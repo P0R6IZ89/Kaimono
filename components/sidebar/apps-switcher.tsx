@@ -103,13 +103,15 @@ export function AppSwitcher({
             ))}
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem className="gap-2 p-2">
-              <div className="flex size-6 items-center justify-center rounded-md border bg-background">
-                <Plus className="size-4" />
-              </div>
-              <div className="font-medium text-muted-foreground">
-                Adicionar novo aplicativo
-              </div>
+            <DropdownMenuItem asChild className="gap-2 p-2">
+              <Link href={`${protocol}://${rootDomain}/new-app`}>
+                <div className="flex size-6 items-center justify-center rounded-md border bg-background">
+                  <Plus className="size-4" />
+                </div>
+                <div className="font-medium text-muted-foreground">
+                  Adicionar novo aplicativo
+                </div>
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

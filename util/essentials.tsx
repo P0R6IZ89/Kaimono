@@ -8,4 +8,5 @@ export const essentialsSchema = z.object({
   price: z.string().min(1, "O preço é obrigatório"),
   status: z.enum(["pending", "purchased", "canceled"]),
   quantity: z.string().min(1, "A quantidade é obrigatório"),
+  subdomain: z.string().min(1, "Verifique seu link"),
 });
