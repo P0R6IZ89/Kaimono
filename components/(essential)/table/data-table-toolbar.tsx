@@ -26,6 +26,7 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const [open, setOpen] = React.useState(false);
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between items-center">

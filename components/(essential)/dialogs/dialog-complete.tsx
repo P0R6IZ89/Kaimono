@@ -10,9 +10,9 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { updateStatusEssentials } from "@/actions/actions";
 import { useToast } from "@/hooks/use-toast";
 import { CircleCheckBig } from "lucide-react";
+import { updateStatusEssentials } from "@/actions/essentialsActions";
 
 interface StateType {
   status: "success" | "error";
@@ -21,10 +21,11 @@ interface StateType {
 
 function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   const { toast } = useToast();
+  const { id } = row.original;
 
   const [state, action, isPending] = useActionState<StateType | null>(
     (prevState: unknown) =>
-      updateStatusEssentials(prevState, row, "complete").then(
+      updateStatusEssentials(prevState, id, "complete").then(
         (result) => result
       ),
     null

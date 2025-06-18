@@ -20,35 +20,20 @@ import {
 import React from "react";
 import Link from "next/link";
 import { protocol, rootDomain } from "@/lib/utils";
+import { getAllAppsAction, getAppFromSubdomainAction } from "@/actions/actions";
 
-interface appsProps {
-  image: string | null;
-  id: string;
-  subdomain: string | null;
-  name: string;
-  description: string | null;
-  customDomain: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
+type AppsFromServer = Awaited<ReturnType<typeof getAllAppsAction>>;
 
-interface subdomainProps {
-  subdomain: string | null;
-  image: string | null;
-  name: string;
-  id: string;
-  description: string | null;
-  customDomain: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
+type SubdomainFromServer = Awaited<
+  ReturnType<typeof getAppFromSubdomainAction>
+>;
 
 export function AppSwitcher({
   subdomain,
   apps,
 }: {
-  subdomain: subdomainProps;
-  apps: appsProps[];
+  subdomain: SubdomainFromServer;
+  apps: AppsFromServer;
 }) {
   const { isMobile } = useSidebar();
   return (

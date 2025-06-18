@@ -52,6 +52,50 @@ export async function createEssentials(
   }
 }
 
+export async function getEssentialsBySubdomain(subdomain: string) {
+  const session = await auth();
+  if (!session || !session.user?.id) {
+    throw new Error("Unauthorized. User session not found.");
+  }
+  try {
+    const app = await isUserBelongsTheApp(subdomain, session);
+    const essentials = await prisma.essentials.findMany({
+      where: {
+        appId: app.id,
+        userId: session.user.id,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    if (essentials.length === 0) {
+      return [];
+    }
+    const formatted = essentials.map((item) => ({
+      id: item.id,
+      title: item.title,
+      price: item.price.toNumber(),
+      status: item.status,
+      quantity: item.quantity,
+      createdAt: item.createdAt.toISOString(),
+      updatedAt: item.updatedAt.toISOString(),
+      user: {
+        name: item.user.name ?? "",
+      },
+    }));
+    return formatted;
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
+}
+
 export async function updateEssentials(
   prevState: unknown,
   formData: FormData,
@@ -88,6 +132,29 @@ export async function updateEssentials(
       },
     });
     revalidatePath(`/s/${subdomain}/essentials`);
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
+  }
+}
+
+export async function updateStatusEssentials(
+  previusState: unknown,
+  id: string,
+  status: string
+): Promise<{ status: "success" | "error"; message: string }> {
+  console.log("updateStatusEssentials");
+  try {
+    await prisma.essentials.update({
+      where: { id },
+      data: {
+        status: status,
+      },
+    });
+    revalidatePath(`/s`);
+    return {
+      status: "success",
+      message: "O item foi atualizado com sucesso!",
+    };
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }

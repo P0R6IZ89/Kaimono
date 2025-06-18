@@ -10,8 +10,8 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { updateStatusEssentials } from "@/actions/actions";
 import { useToast } from "@/hooks/use-toast";
+import { updateStatusEssentials } from "@/actions/essentialsActions";
 
 interface StateType {
   status: "success" | "error";
@@ -20,12 +20,10 @@ interface StateType {
 
 function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
   const { toast } = useToast();
-
+  const { id } = row.original;
   const [state, action, isPending] = useActionState<StateType | null>(
     (prevState: unknown) =>
-      updateStatusEssentials(prevState, row, "pending").then(
-        (result) => result
-      ),
+      updateStatusEssentials(prevState, id, "pending").then((result) => result),
     null
   );
 

@@ -18,7 +18,7 @@ const StatusCell: React.FC<StatusCellProps> = ({ row }) => {
         <status.icon
           strokeWidth={1.3}
           size={24}
-          className={`${status.color} ${status.bg} rounded-full`}
+          className={`${status.color} rounded-full`}
         />
       )}
     </div>

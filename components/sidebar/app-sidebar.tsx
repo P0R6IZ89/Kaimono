@@ -9,23 +9,31 @@ import {
 import NavPages from "./nav-pages";
 import { NavConfig } from "./nav-config";
 import { NavSecondary } from "./nav-secondary";
-import { Armchair, PackageOpen, Send, Shirt, Squirrel } from "lucide-react";
+import {
+  Armchair,
+  Hexagon,
+  PackageOpen,
+  Send,
+  Shirt,
+  Squircle,
+} from "lucide-react";
 import { AppSwitcher } from "./apps-switcher";
 import { getAllAppsAction, getAppFromSubdomainAction } from "@/actions/actions";
 import { NavUser } from "./nav-user";
 import { auth } from "@/auth";
 import { SkeletonAvatar } from "../skeleton/avatar";
+import { protocol, rootDomain } from "@/lib/utils";
 
 const data = {
   navSite: {
     title: "",
-    url: "#",
+    url: "",
     items: [
       {
-        title: "Admin",
-        url: "#",
+        title: "Todos os apps",
+        url: `${protocol}://${rootDomain}`,
         isActive: false,
-        icon: Squirrel,
+        icon: Squircle,
       },
     ],
   },
@@ -33,6 +41,12 @@ const data = {
     title: "Paginas",
     url: "",
     items: [
+      {
+        title: "Início",
+        url: "/",
+        isActive: false,
+        icon: Hexagon,
+      },
       {
         title: "Essenciais",
         url: "/essentials",

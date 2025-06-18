@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/util/theme-provider";
-import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +12,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
@@ -24,8 +22,6 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
-
-          <div className="absolute top-4 right-4">{session?.user?.email}</div>
         </ThemeProvider>
       </body>
     </html>
