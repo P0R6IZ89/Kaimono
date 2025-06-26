@@ -142,7 +142,6 @@ export async function updateStatusEssentials(
   id: string,
   status: string
 ): Promise<{ status: "success" | "error"; message: string }> {
-  console.log("updateStatusEssentials");
   try {
     await prisma.essentials.update({
       where: { id },

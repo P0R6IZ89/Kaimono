@@ -2,56 +2,47 @@ import React, { startTransition, useActionState, useEffect } from "react";
 import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { updateStatusEssentials } from "@/actions/essentialsActions";
+import { deleteEssentials } from "@/actions/essentialsActions";
+import { useSubdomain } from "@/context/SubdomainContext";
+import { toast } from "sonner";
 
-interface StateType {
-  status: "success" | "error";
-  message: string;
-}
+function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
+  const { id, title } = row.original;
+  const { subdomain } = useSubdomain();
 
-function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { toast } = useToast();
-  const { id } = row.original;
+  interface StateType {
+    status: "success" | "error";
+    message: string;
+  }
   const [state, action, isPending] = useActionState<StateType | null>(
     (prevState: unknown) =>
-      updateStatusEssentials(prevState, id, "pending").then((result) => result),
+      deleteEssentials(prevState, id, subdomain).then((result) => result),
     null
   );
-
   useEffect(() => {
     if (state) {
       if (state.status === "success") {
-        toast({
-          title: "Sucesso!",
-          description: state.message,
-          variant: "default",
-        });
+        toast(`Sucesso! ${state.message}`);
       } else if (state.status === "error") {
-        toast({
-          title: "Error",
-          description: state.message,
-          variant: "destructive",
-        });
+        toast(`Erro! ${state.message}`);
       }
     }
-  }, [state, toast]);
-
+  }, [state]);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Deseja marcar como Pendente?</DialogTitle>
+          <DialogTitle>Você realmente deseja deletar o {title}?</DialogTitle>
           <DialogDescription>
-            O item selecionado será revertido para o estado de pendente.
+            Essa ação não pode ser revertida. O item selecionado será excluído .
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -60,6 +51,7 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
           </DialogClose>
           <DialogClose asChild>
             <Button
+              variant={"destructive"}
               type="submit"
               disabled={isPending}
               onClick={() => {
@@ -68,7 +60,7 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
                 });
               }}
             >
-              Reverter para Pendente
+              Deletar
             </Button>
           </DialogClose>
         </DialogFooter>
@@ -77,4 +69,4 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
   );
 }
 
-export default PendingDialog;
+export default DeleteDialog;

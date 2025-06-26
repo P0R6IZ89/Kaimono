@@ -7,7 +7,6 @@ import { AuthError, Session } from "next-auth";
 import { redirect } from "next/navigation";
 
 export const getAllAppsAction = async () => {
-  console.log("getAllAppsAction");
   const session = await auth();
   let apps;
   if (!session?.user) redirect("/login");
@@ -22,46 +21,34 @@ export const getAllAppsAction = async () => {
       },
     });
   } catch (error: unknown) {
+    console.error("[getAllAppsAction] unexpected error:", error);
     throw new Error(getErrorMessage(error));
   }
   return apps;
 };
 
-export const getUserAppsAction = async () => {
-  console.log("getAppsAction");
+// Get all apps of the logged user
+export async function getUserAppsAction() {
   const session = await auth();
   if (!session?.user) redirect("/login");
   try {
-    const userWithApps = await prisma.user.findUnique({
-      where: {
-        id: session.user.id,
-      },
-      select: {
-        apps: {
+    const apps = await prisma.app.findMany({
+      where: { user: { some: { id: session.user.id } } },
+      include: {
+        _count: {
           select: {
-            id: true,
-            name: true,
-            description: true,
-            subdomain: true,
-            customDomain: true,
-            image: true,
-            createdAt: true,
-            updatedAt: true,
-          },
-          orderBy: {
-            createdAt: "desc",
+            user: true,
           },
         },
       },
     });
-    if (!userWithApps) {
-      redirect("/404");
-    }
-    return userWithApps.apps;
+
+    return apps;
   } catch (error: unknown) {
-    throw new Error(getErrorMessage(error));
+    console.error("[getUserAppsAction] unexpected error:", error);
+    throw new Error("Unable to retrieve your apps. Please try again later.");
   }
-};
+}
 
 export const getAppFromSubdomainAction = async (
   subdomain: string
@@ -74,9 +61,8 @@ export const getAppFromSubdomainAction = async (
 }> => {
   const session = await auth();
   if (!session?.user) redirect("/login");
-  let app;
   try {
-    app = await prisma.app.findFirst({
+    const app = await prisma.app.findFirst({
       where: {
         subdomain,
         user: {
@@ -93,23 +79,25 @@ export const getAppFromSubdomainAction = async (
         image: true,
       },
     });
+    if (!app) {
+      console.error(
+        `[getAppFromSubdomainAction] no app found for subdomain="${subdomain}" and userId="${session.user.id}"`
+      );
+      throw new Error(
+        `No app found with subdomain \"${subdomain}\" for the current user.`
+      );
+    }
+    return app;
   } catch (error: unknown) {
+    console.error("[getAppFromSubdomainAction] unexpected error:", error);
     throw new Error(getErrorMessage(error));
   }
-  if (!app) {
-    throw new Error(
-      `No app found with subdomain="${subdomain}" for this user.`
-    );
-  }
-  return app;
 };
 
 export const createAppAction = async (
   prevState: unknown,
   formData: FormData
 ): Promise<{ error: string } | undefined> => {
-  console.log("createAppAction");
-
   const session = await auth();
   if (!session?.user)
     throw new AuthError("Unauthorized. User session not found.");
@@ -128,13 +116,13 @@ export const createAppAction = async (
       },
     });
   } catch (error: unknown) {
+    console.error("[createAppAction] unexpected error:", error);
     throw new Error(getErrorMessage(error));
   }
   redirect("/");
 };
 
 export const getAccountByUserId = async (userId: string) => {
-  console.log("getAccountByUserId");
   try {
     const account = await prisma.account.findFirst({
       where: {
@@ -142,14 +130,14 @@ export const getAccountByUserId = async (userId: string) => {
       },
     });
     return account;
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error("[getAccountByUserId] unexpected error:", error);
     throw new Error(getErrorMessage(error));
   }
 };
 
 // Don't need a Google provider Account
 export const getUserById = async (id: string) => {
-  console.log("getUserById");
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -158,12 +146,12 @@ export const getUserById = async (id: string) => {
     });
     return user;
   } catch (error: unknown) {
+    console.error("[getUserById] unexpected error:", error);
     throw new Error(getErrorMessage(error));
   }
 };
 
 export async function getCount() {
-  console.log("getCount");
   try {
     const fullCount = await prisma.essentials.count({});
     const pendingCount = await prisma.essentials.count({
@@ -175,6 +163,7 @@ export async function getCount() {
       data: { fullCount, pendingCount },
     };
   } catch (error: unknown) {
+    console.error("[getCount] unexpected error:", error);
     throw new Error(getErrorMessage(error));
   }
 }
@@ -183,23 +172,29 @@ export async function isUserBelongsTheApp(
   subdomain: string,
   session: Session | null
 ): Promise<{ id: string }> {
-  console.log("isUserBelongsTheApp");
   if (!session?.user) {
     redirect("/login");
   }
-  const app = await prisma.app.findUnique({
-    where: {
-      subdomain: subdomain,
-      user: {
-        some: { id: session.user.id },
+  try {
+    const app = await prisma.app.findUnique({
+      where: {
+        subdomain,
+        user: {
+          some: {
+            id: session.user.id,
+          },
+        },
       },
-    },
-    select: { id: true },
-  });
-  if (!app) {
-    throw new Error(
-      `Cannot find any app with subdomain="${subdomain}" for this user.`
-    );
+      select: { id: true },
+    });
+    if (!app) {
+      throw new Error(
+        `Cannot find any app with subdomain="${subdomain}" for this user.`
+      );
+    }
+    return { id: app.id };
+  } catch (error: unknown) {
+    console.error("[isUserBelongsTheApp] unexpected error:", error);
+    throw error;
   }
-  return { id: app.id };
 }

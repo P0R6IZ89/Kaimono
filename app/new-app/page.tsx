@@ -1,5 +1,6 @@
 "use client";
 import { createAppAction } from "@/actions/actions";
+import UserAvatar from "@/components/client/userAvatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -13,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { rootDomain } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SessionProvider } from "next-auth/react";
 import React, { useActionState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -43,15 +45,11 @@ function NewApp() {
     createAppAction,
     initialState
   );
-
   return (
-    <div className="flex flex-col gap-4 min-h-dvh max-w-lg m-auto justify-center items-center pl-8 pr-8">
-      <p className="p-3 text-3xl font-bold leading-none tracking-tighter">
-        Crie um novo aplicativo ✨
-      </p>
+    <div className="flex flex-col gap-4 min-h-dvh max-w-xl m-auto justify-center pl-8 pr-8">
       <Card className="min-w-lg">
         <CardHeader>
-          <CardTitle></CardTitle>
+          <CardTitle>Crie um novo aplicativo ✨</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -113,6 +111,11 @@ function NewApp() {
           </Form>
         </CardContent>
       </Card>
+      <SessionProvider>
+        <div className="flex">
+          <UserAvatar />
+        </div>
+      </SessionProvider>
     </div>
   );
 }

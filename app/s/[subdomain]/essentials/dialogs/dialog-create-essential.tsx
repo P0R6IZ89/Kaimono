@@ -3,6 +3,13 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+
+import { AlertCircle, Loader2 } from "lucide-react";
+import { essentialsSchema } from "@/util/essentials";
+import { useActionState } from "react";
+
+import { createEssentials } from "@/actions/essentialsActions";
+import { useSubdomain } from "@/context/SubdomainContext";
 import {
   Form,
   FormControl,
@@ -11,17 +18,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form";
-import { DialogFooter } from "../../ui/dialog";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
-
-import { AlertCircle, Loader2 } from "lucide-react";
-import { essentialsSchema } from "@/util/essentials";
-import { useActionState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "../../ui/alert";
-import { createEssentials } from "@/actions/essentialsActions";
-import { useSubdomain } from "@/context/SubdomainContext";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 export function CreateEssentialDialog() {
   const form = useForm<z.infer<typeof essentialsSchema>>({

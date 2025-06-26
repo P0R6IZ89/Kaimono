@@ -10,9 +10,9 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import { CircleCheckBig } from "lucide-react";
 import { updateStatusEssentials } from "@/actions/essentialsActions";
+import { toast } from "sonner";
 
 interface StateType {
   status: "success" | "error";
@@ -20,7 +20,6 @@ interface StateType {
 }
 
 function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { toast } = useToast();
   const { id } = row.original;
 
   const [state, action, isPending] = useActionState<StateType | null>(
@@ -34,20 +33,12 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   useEffect(() => {
     if (state) {
       if (state.status === "success") {
-        toast({
-          title: "Sucesso!",
-          description: state.message,
-          variant: "default",
-        });
+        toast(`Sucesso! ${state.message}`);
       } else if (state.status === "error") {
-        toast({
-          title: "Error",
-          description: state.message,
-          variant: "destructive",
-        });
+        toast(`Erro! ${state.message}`);
       }
     }
-  }, [state, toast]);
+  }, [state]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

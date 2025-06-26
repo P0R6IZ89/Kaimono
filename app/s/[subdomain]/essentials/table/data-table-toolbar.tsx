@@ -4,8 +4,8 @@ import { Table } from "@tanstack/react-table";
 import { Plus, X } from "lucide-react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { statuses } from "@/data/data";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
+import { Input } from "../../../../../components/ui/input";
+import { Button } from "../../../../../components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../ui/dialog";
+} from "../../../../../components/ui/dialog";
 import React from "react";
 import { CreateEssentialDialog } from "../dialogs/dialog-create-essential";
 

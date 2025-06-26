@@ -15,7 +15,7 @@ import {
 import { useState } from "react";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../essentials-columns";
-import ActionDialogV2 from "@/components/(essential)/dialogs/action-dialogv2";
+import ActionDialogV2 from "@/app/s/[subdomain]/essentials/dialogs/action-dialogv2";
 
 interface ActionDialogProps {
   row: Row<TableRowData>;

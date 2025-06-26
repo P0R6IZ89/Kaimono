@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 enum Error {
   Configuration = "Configuration",
@@ -16,10 +17,18 @@ const errorMap = {
   ),
 };
 
-export default function AuthErrorPage() {
+function ErrorMsg() {
   const search = useSearchParams();
   const error = search.get("error") as Error;
 
+  return (
+    <div className="font-normal text-gray-700 dark:text-gray-400">
+      {errorMap[error] || "Please contact us if this error persists."}
+    </div>
+  );
+}
+
+export default function AuthErrorPage() {
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
       <a
@@ -29,9 +38,9 @@ export default function AuthErrorPage() {
         <h5 className="mb-2 flex flex-row items-center justify-center gap-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
           Something went wrong
         </h5>
-        <div className="font-normal text-gray-700 dark:text-gray-400">
-          {errorMap[error] || "Please contact us if this error persists."}
-        </div>
+        <Suspense>
+          <ErrorMsg />
+        </Suspense>
       </a>
     </div>
   );

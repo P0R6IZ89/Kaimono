@@ -4,7 +4,7 @@ import React from "react";
 async function UserName() {
   const session = await auth();
 
-  return <div>{session?.user?.name}</div>;
+  return <>{session?.user?.name ?? session?.user?.name}</>;
 }
 
 export default UserName;

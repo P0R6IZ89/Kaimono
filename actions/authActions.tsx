@@ -1,7 +1,7 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
 export async function magicLinkSignIn(
   prevState: void,
@@ -15,7 +15,7 @@ export async function magicLinkSignIn(
     email,
     redirect: false,
   });
-  if (result?.error) {
-    throw new AuthError(result.error);
+  if (result) {
+    redirect("/welcome");
   }
 }

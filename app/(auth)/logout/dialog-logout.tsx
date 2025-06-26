@@ -17,7 +17,7 @@ function DialogLogout() {
         <DialogTitle>Deseja fazer logout?</DialogTitle>
       </DialogHeader>
       <DialogFooter className="sm:justify-start">
-        <Button onClick={() => signOut()}>Logout</Button>
+        <Button onClick={async () => await signOut()}>Logout</Button>
         <DialogClose asChild>
           <Button type="button" variant={"secondary"}>
             Cancelar

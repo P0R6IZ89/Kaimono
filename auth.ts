@@ -34,6 +34,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         path: "/",
         secure: VERCEL_DEPLOYMENT,
         // This is an arrangement for the browser to accept the subdomain on localhost
+        // It does not works with firefox
         domain: VERCEL_DEPLOYMENT ? "" : ".localhost",
       },
     },

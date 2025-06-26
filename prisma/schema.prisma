@@ -16,7 +16,7 @@ model App {
   image        String?
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
-  user         User[]
+  user         User[]       @relation("AppUsers")
   essentials   Essentials[]
 }
 
@@ -33,7 +33,7 @@ model User {
   essentials    Essentials[]
   Planneds      Planneds[]
   sessions      Session[]
-  apps          App[]
+  apps          App[]           @relation("AppUsers")
 }
 
 model Account {

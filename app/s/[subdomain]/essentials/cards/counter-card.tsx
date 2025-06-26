@@ -5,9 +5,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
+} from "../../../../../components/ui/card";
 import { ShoppingCart } from "lucide-react";
-import { Progress } from "../../ui/progress";
+import { Progress } from "../../../../../components/ui/progress";
 
 interface CounterCardProps {
   count: {

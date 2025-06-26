@@ -3,7 +3,7 @@ import { Column } from "@tanstack/react-table";
 import { Check, ListFilter } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "../../ui/button";
+import { Button } from "../../../../../components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -12,8 +12,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "../../ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+} from "../../../../../components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../../../../../components/ui/popover";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;

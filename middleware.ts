@@ -45,7 +45,6 @@ function extractSubdomain(req: NextRequest): string | null {
 }
 
 export default auth(async function middleware(req) {
-  console.log("-----------------------------------------------------");
   const { pathname, search } = req.nextUrl;
   const subdomain = extractSubdomain(req);
   const user = req.auth?.user;
@@ -63,8 +62,6 @@ export default auth(async function middleware(req) {
   if (subdomain) {
     // For the root path on a subdomain, rewrite to the subdomain page
     if (pathname === "/") {
-      console.log("path is /");
-
       return NextResponse.rewrite(new URL(`/s/${subdomain}`, req.url));
     } else {
       const dest = new URL(`/s/${subdomain}${pathname}`, req.url);
