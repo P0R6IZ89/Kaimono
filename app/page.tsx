@@ -1,4 +1,4 @@
-import { getUserAppsAction } from "@/actions/actions";
+import { getUserAppsAction } from "@/actions/appActions";
 import { auth } from "@/auth";
 import UserAvatar from "@/components/client/userAvatar";
 import { Badge } from "@/components/ui/badge";

@@ -2,43 +2,53 @@
 
 import { auth } from "@/auth";
 import { getErrorMessage } from "@/util/error-handler";
-import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { isUserBelongsTheApp } from "./actions";
+import { isUserBelongsTheApp } from "./appActions";
+import prisma from "@/lib/prisma";
+import { essentialsSchema } from "@/util/form-zod-schema";
 
 export async function createEssentials(
   previousState: unknown,
   formData: FormData
 ) {
+  const title = formData.get("title")?.toString() as string;
+  const status = formData.get("status")?.toString() ?? "pending";
+  const priceString = formData.get("price")?.toString() as string;
+  const quantityString = formData.get("quantity")?.toString() as string;
+  const subdomain = formData.get("subdomain")?.toString() as string;
+  const price = parseFloat(priceString);
+  const quantity = parseInt(quantityString, 10);
+
+  const result = essentialsSchema.safeParse({
+    title,
+    status,
+    price,
+    quantity,
+    subdomain,
+  });
+  if (!result.success) {
+    const first = result.error.errors[0];
+    console.log(result.error);
+    return { error: first.message };
+  }
+
   const session = await auth();
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
-  const title = formData.get("title") as string;
-  const priceString = formData.get("price") as string;
-  const quantityString = formData.get("quantity") as string;
-  const subdomain = formData.get("subdomain") as string;
-  const price = parseFloat(priceString);
-  const quantity = parseInt(quantityString, 10);
 
-  if (isNaN(price)) {
-    throw new Error("Invalid price value provided.");
-  }
-  if (isNaN(quantity)) {
-    throw new Error("Invalid quantity value provided.");
-  }
   try {
     const app = await isUserBelongsTheApp(subdomain, session);
     if (!app) {
       throw new Error("Team not found for subdomain: " + subdomain);
     }
-    await prisma.essentials.create({
+    await prisma.essential.create({
       data: {
         title,
         price,
-        status: "pending",
+        status,
         quantity,
-        user: {
+        creator: {
           connect: { id: session.user.id },
         },
         app: {
@@ -47,6 +57,7 @@ export async function createEssentials(
       },
     });
     revalidatePath(`/s/${subdomain}/essentials`);
+    return { message: { isSuccess: true } };
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }
@@ -59,13 +70,13 @@ export async function getEssentialsBySubdomain(subdomain: string) {
   }
   try {
     const app = await isUserBelongsTheApp(subdomain, session);
-    const essentials = await prisma.essentials.findMany({
+    const essentials = await prisma.essential.findMany({
       where: {
         appId: app.id,
-        userId: session.user.id,
+        creatorId: session.user.id,
       },
       include: {
-        user: {
+        creator: {
           select: {
             name: true,
           },
@@ -87,7 +98,7 @@ export async function getEssentialsBySubdomain(subdomain: string) {
       createdAt: item.createdAt.toISOString(),
       updatedAt: item.updatedAt.toISOString(),
       user: {
-        name: item.user.name ?? "",
+        name: item.creator.name ?? "",
       },
     }));
     return formatted;
@@ -117,13 +128,13 @@ export async function updateEssentials(
     if (!app) {
       throw new Error("Team not found for subdomain: " + subdomain);
     }
-    await prisma.essentials.update({
+    await prisma.essential.update({
       where: { id },
       data: {
         title,
         price,
         quantity,
-        user: {
+        creator: {
           connect: { id: session.user.id },
         },
         app: {
@@ -143,7 +154,7 @@ export async function updateStatusEssentials(
   status: string
 ): Promise<{ status: "success" | "error"; message: string }> {
   try {
-    await prisma.essentials.update({
+    await prisma.essential.update({
       where: { id },
       data: {
         status: status,
@@ -173,7 +184,7 @@ export async function deleteEssentials(
     throw new Error("Team not found for subdomain: " + subdomain);
   }
   try {
-    await prisma.essentials.delete({
+    await prisma.essential.delete({
       where: {
         id,
       },
@@ -186,4 +197,23 @@ export async function deleteEssentials(
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }
+}
+
+export async function getEssentialCount(subdomain: string) {
+  const session = await auth();
+  if (!session || !session.user?.id) {
+    throw new Error("Unauthorized. User session not found.");
+  }
+  const app = await isUserBelongsTheApp(subdomain, session);
+  if (!app) {
+    throw new Error("Team not found for subdomain: " + subdomain);
+  }
+  const { _count } = await prisma.essential.aggregate({
+    where: {
+      appId: app.id,
+      creatorId: session.user.id,
+    },
+    _count: true,
+  });
+  return _count;
 }

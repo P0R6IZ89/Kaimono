@@ -12,7 +12,7 @@ export default async function Essentials({ params }: EssentialsProps) {
   const essentials = await getEssentialsBySubdomain(subdomain);
 
   return (
-    <div className="p-4 space-y-8 max-w-1/2">
+    <div className="p-4 space-y-8 max-w-xl">
       <div className="flex px-6 min-h-64 items-center">
         <div className="">
           <h1 className="leading-none font-semibold">Essenciais</h1>

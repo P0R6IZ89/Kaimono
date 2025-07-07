@@ -1,5 +1,9 @@
+// Relations Doc
+// https://www.prisma.io/docs/orm/prisma-schema/data-model/relations
+
 generator client {
   provider = "prisma-client-js"
+  // output   = "node_modules/.prisma/client"
 }
 
 datasource db {
@@ -8,32 +12,39 @@ datasource db {
 }
 
 model App {
-  id           String       @id @default(cuid())
+  id           String      @id @default(cuid())
   name         String
   description  String?
-  subdomain    String?      @unique
-  customDomain String?      @unique
+  subdomain    String?     @unique
+  customDomain String?     @unique
   image        String?
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  user         User[]       @relation("AppUsers")
-  essentials   Essentials[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  //Relations
+  user         User[]      @relation("AppMembers")
+  essentials   Essential[]
+  planneds     Planned[]
 }
 
 model User {
-  id            String          @id @default(cuid())
-  email         String          @unique
-  name          String?
-  createdAt     DateTime        @default(now())
-  emailVerified DateTime?
-  image         String?
-  updatedAt     DateTime        @updatedAt
-  accounts      Account[]
-  Authenticator Authenticator[]
-  essentials    Essentials[]
-  Planneds      Planneds[]
-  sessions      Session[]
-  apps          App[]           @relation("AppUsers")
+  id                String             @id @default(cuid())
+  email             String             @unique
+  name              String?
+  createdAt         DateTime           @default(now())
+  emailVerified     DateTime?
+  image             String?
+  updatedAt         DateTime           @updatedAt
+  //Relations
+  accounts          Account[]
+  sessions          Session[]
+  Authenticator     Authenticator[]
+  apps              App[]              @relation("AppMembers")
+  essentials        Essential[]
+  planneds          Planned[]
+  essentialComments EssentialComment[]
+  plannedComments   PlannedComment[]
+  essentialLikes    EssentialLike[]
+  plannedLikes      PlannedLike[]
 }
 
 model Account {
@@ -86,44 +97,86 @@ model Authenticator {
   @@id([userId, credentialID])
 }
 
-model Essentials {
-  id        String   @id @default(cuid())
+model Essential {
+  id        String             @id @default(cuid())
   title     String
   price     Decimal
   status    String
-  quantity  Int      @default(1)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  quantity  Int                @default(1)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  // Relations
+  app       App                @relation(fields: [appId], references: [id])
   appId     String
-  app       App      @relation(fields: [appId], references: [id])
+  creator   User               @relation(fields: [creatorId], references: [id])
+  creatorId String
+  comments  EssentialComment[]
+  likes     EssentialLike[]
 }
 
-model DiscardTags {
-  id       String     @id
-  title    String     @unique
-  Discards Discards[]
-}
-
-model Discards {
-  id          String        @id
+model Planned {
+  id          String           @id @default(cuid())
+  title       String
+  price       Decimal?
+  priority    String
   status      String
-  comment     String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime
-  DiscardTags DiscardTags[]
+  image       String
+  productUrl  String?
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  app         App              @relation(fields: [appId], references: [id])
+  appId       String
+  creator     User             @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  comments    PlannedComment[]
+  likes       PlannedLike[]
 }
 
-model Planneds {
-  id        String   @id
-  title     String
-  price     Decimal?
-  priority  String
-  status    String
-  comment   String?
+model EssentialComment {
+  id          String    @id @default(cuid())
+  content     String
+  createdAt   DateTime  @default(now())
+  // Relations
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    String
+  essential   Essential @relation(fields: [essentialId], references: [id])
+  essentialId String
+}
+
+model PlannedComment {
+  id        String   @id @default(cuid())
+  content   String
   createdAt DateTime @default(now())
-  updatedAt DateTime
-  userId    String
-  User      User     @relation(fields: [userId], references: [id])
+  // Relations
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  planned   Planned  @relation(fields: [plannedId], references: [id])
+  plannedId String
+}
+
+model EssentialLike {
+  id          String    @id @default(cuid())
+  liked       Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  // Relations
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  essential   Essential @relation(fields: [essentialId], references: [id])
+  essentialId String
+
+  @@unique([userId, essentialId])
+}
+
+model PlannedLike {
+  id        String   @id @default(cuid())
+  liked     Boolean  @default(false)
+  createdAt DateTime @default(now())
+  // Relations
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId String
+  planned   Planned  @relation(fields: [plannedId], references: [id])
+  plannedId String
+
+  @@unique([creatorId, plannedId])
 }

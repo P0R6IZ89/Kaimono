@@ -1,6 +1,7 @@
 "use client";
-import { createAppAction } from "@/actions/actions";
+import { createAppAction } from "@/actions/appActions";
 import UserAvatar from "@/components/client/userAvatar";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -9,34 +10,25 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { rootDomain } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
 import React, { useActionState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
-const formSchema = z.object({
-  name: z.string().min(3, {
-    message: "O nome do aplicativo deve ter pelo menos 3 caracteres.",
-  }),
-  subdomain: z.string().min(3, {
-    message: "O subdomínio deve ter pelo menos 3 caracteres.",
-  }),
-  description: z.string(),
-});
+type FormValues = {
+  name: string;
+  subdomain: string;
+  description: string;
+};
 
 function NewApp() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      subdomain: "",
-      description: "",
-    },
+  const form = useForm<FormValues>({
+    defaultValues: { name: "", subdomain: "", description: "" },
   });
 
   const initialState = { error: "" };
@@ -45,6 +37,7 @@ function NewApp() {
     createAppAction,
     initialState
   );
+
   return (
     <div className="flex flex-col gap-4 min-h-dvh max-w-xl m-auto justify-center pl-8 pr-8">
       <Card className="min-w-lg">
@@ -63,6 +56,7 @@ function NewApp() {
                     <FormControl>
                       <Input placeholder="familia-app" {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -84,6 +78,7 @@ function NewApp() {
                         </span>
                       </div>
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -100,11 +95,19 @@ function NewApp() {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
-              <p aria-live="polite">{state?.error}</p>
+              {state?.error && (
+                <Alert variant={"destructive"}>
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Erro:</AlertTitle>
+                  <AlertDescription>{state.error}</AlertDescription>
+                </Alert>
+              )}
               <Button className="w-full" type="submit" disabled={isPending}>
+                {isPending ? <Loader2 className="animate-spin" /> : null}
                 Criar
               </Button>
             </form>

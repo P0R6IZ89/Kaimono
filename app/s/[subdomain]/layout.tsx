@@ -1,4 +1,4 @@
-import { getAppFromSubdomainAction } from "@/actions/actions";
+import { getAppFromSubdomainAction } from "@/actions/appActions";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -7,7 +7,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import SubdomainContextProvider from "@/context/SubdomainContext";
-import { ChevronRight } from "lucide-react";
 import React from "react";
 
 export default async function AppLayout({
@@ -41,7 +40,6 @@ export default async function AppLayout({
               {app && (
                 <span className="flex flex-row gap-2">
                   <h2 className="text-base">{`${app.name}`}</h2>
-                  <ChevronRight />
                 </span>
               )}
             </div>

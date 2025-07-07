@@ -10,9 +10,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <div className=" flex flex-col gap-4 min-h-dvh max-w-lg m-auto justify-center items-center pl-8 pr-8">
       <div className="text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Crie seu applicativo ✨
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Bem vindo! ✨</h1>
         <p className="text-muted-foreground">
           Escolha como você deseja fazer login.
         </p>

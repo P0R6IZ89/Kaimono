@@ -1,10 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export async function getEssentials() {
   try {
-    const essentials = await prisma.essentials.findMany({
+    const essentials = await prisma.essential.findMany({
       include: {
-        user: {
+        creator: {
           select: {
             name: true,
           },
@@ -18,8 +18,8 @@ export async function getEssentials() {
         price: item.price?.toNumber(),
         createdAt: item.createdAt?.toISOString(),
         updatedAt: item.updatedAt?.toISOString(),
-        user: { name: item.user.name ?? "" },
-        name: item.user.name ?? "",
+        user: { name: item.creator.name ?? "" },
+        name: item.creator.name ?? "",
       })),
     };
   } catch (error) {

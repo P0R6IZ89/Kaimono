@@ -20,7 +20,10 @@ import {
 import React from "react";
 import Link from "next/link";
 import { protocol, rootDomain } from "@/lib/utils";
-import { getAllAppsAction, getAppFromSubdomainAction } from "@/actions/actions";
+import {
+  getAllAppsAction,
+  getAppFromSubdomainAction,
+} from "@/actions/appActions";
 
 type AppsFromServer = Awaited<ReturnType<typeof getAllAppsAction>>;
 

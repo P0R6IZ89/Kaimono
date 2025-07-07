@@ -8,6 +8,7 @@ import React, { useActionState } from "react";
 import { GithubIcon, Google } from "@/util/oauth-icon";
 import { Input } from "@/components/ui/input";
 import { magicLinkSignIn } from "@/actions/authActions";
+import { Loader2 } from "lucide-react";
 
 const SIGNIN_ERROR_URL = "/error";
 
@@ -81,6 +82,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
           className="flex items-center justify-center w-full"
           disabled={isPending}
         >
+          {isPending ? <Loader2 className="animate-spin" /> : null}
           Continuar com Email
         </Button>
       </form>

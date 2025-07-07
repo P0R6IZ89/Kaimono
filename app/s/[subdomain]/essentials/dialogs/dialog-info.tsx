@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { essentialsSchema } from "@/util/essentials";
+import { essentialsSchema } from "@/util/form-zod-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useSubdomain } from "@/context/SubdomainContext";
@@ -42,8 +42,8 @@ function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
     resolver: zodResolver(essentialsSchema),
     defaultValues: {
       title: title,
-      price: String(price),
-      quantity: String(quantity),
+      price: Number(price),
+      quantity: Number(quantity),
       status: status as "pending" | "purchased" | "canceled" | undefined,
       subdomain: "",
     },

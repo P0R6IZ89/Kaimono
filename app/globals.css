@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.cloudinary-container,
+.cloudinary-modal,
+.cloudinary-uploader {
+  z-index: 20000 !important; /* higher than Chad UI’s dialog overlay (~10k) */
+}
+
 @theme {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));

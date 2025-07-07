@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Squirrel } from "lucide-react";
+import { UserRound } from "lucide-react";
 import { getAllUserOfApp } from "@/actions/userActions";
 
 export default async function UserList({ subdomain }: { subdomain: string }) {
@@ -15,7 +15,7 @@ export default async function UserList({ subdomain }: { subdomain: string }) {
   }
 
   return (
-    <div className="pt-4 max-h-64 flex flex-col space-y-4 overflow-x-auto">
+    <div className="pt-4 max-h-48 flex flex-col space-y-4 overflow-x-auto">
       {users.length === 0 ? (
         <p className="p-4 text-sm text-muted-foreground">No users found.</p>
       ) : (
@@ -26,7 +26,7 @@ export default async function UserList({ subdomain }: { subdomain: string }) {
                 <AvatarImage src={user.image} alt={user.name ?? "User"} />
               ) : (
                 <AvatarFallback className="rounded-lg">
-                  <Squirrel />
+                  <UserRound />
                 </AvatarFallback>
               )}
             </Avatar>

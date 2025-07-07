@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Armchair, ArrowUpRight, Plus } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 function QuickPlannedCard() {
@@ -15,11 +16,11 @@ function QuickPlannedCard() {
     <Card>
       <CardHeader>
         <CardTitle className="flex gap-3 items-center">
-          <Armchair />
+          <Armchair className="flex-none" />
           <div className="space-y-1">
-            <p>Essenciais</p>
+            <p>Produtos Planejados</p>
             <p className="text-xs font-normal text-muted-foreground">
-              Produtos essenciais de baixo custo.
+              Produtos de alto custo para serem comprados com planejamento.
             </p>
           </div>
         </CardTitle>
@@ -33,8 +34,10 @@ function QuickPlannedCard() {
           <Button variant={"outline"} className="size-7 rounded-full">
             <Plus />
           </Button>
-          <Button variant={"outline"} className="size-7 rounded-full">
-            <ArrowUpRight />
+          <Button variant={"outline"} className="size-7 rounded-full" asChild>
+            <Link href={"/planned"}>
+              <ArrowUpRight />
+            </Link>
           </Button>
         </CardAction>
       </CardHeader>

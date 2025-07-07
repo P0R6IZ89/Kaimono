@@ -15,9 +15,9 @@ function MembersCard({ subdomain }: { subdomain: string }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex gap-3 items-center">
-          <UserRound />
+          <UserRound className="flex-none" />
           <div className="space-y-1">
-            <p>Membros</p>
+            <p>Membros do App</p>
             <MemberCount
               className="text-xs font-normal text-muted-foreground"
               subdomain={subdomain}

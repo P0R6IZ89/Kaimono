@@ -18,11 +18,14 @@ import {
   Squircle,
 } from "lucide-react";
 import { AppSwitcher } from "./apps-switcher";
-import { getAllAppsAction, getAppFromSubdomainAction } from "@/actions/actions";
 import { NavUser } from "./nav-user";
 import { auth } from "@/auth";
 import { SkeletonAvatar } from "../skeleton/avatar";
 import { protocol, rootDomain } from "@/lib/utils";
+import {
+  getAllAppsAction,
+  getAppFromSubdomainAction,
+} from "@/actions/appActions";
 
 const data = {
   navSite: {
@@ -55,7 +58,7 @@ const data = {
       },
       {
         title: "Planejados",
-        url: "#",
+        url: "/planned",
         isActive: false,
         icon: Armchair,
       },

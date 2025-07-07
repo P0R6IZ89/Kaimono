@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { getErrorMessage } from "@/util/error-handler";
-import { isUserBelongsTheApp } from "./actions";
-import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import { isUserBelongsTheApp } from "./appActions";
+import prisma from "@/lib/prisma";
 
 export async function getAllUserOfApp(subdomain: string) {
   const session = await auth();
