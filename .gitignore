@@ -45,3 +45,4 @@ certificates
 
 README.md
 ToDo
+.env*.local
