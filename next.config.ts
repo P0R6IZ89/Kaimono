@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["p0r6iz89.cloud", "*.p0r6iz89.cloud"],
+    },
+  },
   async rewrites() {
     return [
       {
