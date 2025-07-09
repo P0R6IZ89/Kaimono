@@ -9,14 +9,7 @@ import {
 import NavPages from "./nav-pages";
 import { NavConfig } from "./nav-config";
 import { NavSecondary } from "./nav-secondary";
-import {
-  Armchair,
-  Hexagon,
-  PackageOpen,
-  Send,
-  Shirt,
-  Squircle,
-} from "lucide-react";
+import { Armchair, Grip, Hexagon, Send, Shirt } from "lucide-react";
 import { AppSwitcher } from "./apps-switcher";
 import { NavUser } from "./nav-user";
 import { auth } from "@/auth";
@@ -36,7 +29,7 @@ const data = {
         title: "Todos os apps",
         url: `${protocol}://${rootDomain}`,
         isActive: false,
-        icon: Squircle,
+        icon: Grip,
       },
     ],
   },
@@ -61,12 +54,6 @@ const data = {
         url: "/planned",
         isActive: false,
         icon: Armchair,
-      },
-      {
-        title: "Descartar",
-        url: "#",
-        isActive: false,
-        icon: PackageOpen,
       },
     ],
   },
