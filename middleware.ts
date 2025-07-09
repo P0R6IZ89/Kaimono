@@ -3,7 +3,7 @@ import authConfig from "./auth.config";
 import { NextRequest, NextResponse } from "next/server";
 import { publicPaths, rootDomain } from "./lib/utils";
 
-const KILL_SWITCH = process.env.KILL_SWITCH === "true";
+const KILL_SWITCH = process.env.KILL_SWITCH;
 
 const { auth } = NextAuth(authConfig);
 
