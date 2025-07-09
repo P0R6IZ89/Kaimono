@@ -39,7 +39,7 @@ export default async function AppLayout({
               />
               {app && (
                 <span className="flex flex-row gap-2">
-                  <h2 className="text-base">{`${app.name}`}</h2>
+                  <h2 className="text-base capitalize">{`${app.name}`}</h2>
                 </span>
               )}
             </div>
