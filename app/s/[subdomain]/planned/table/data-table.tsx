@@ -9,9 +9,9 @@ import {
   RowData,
   useReactTable,
 } from "@tanstack/react-table";
-import { DataTableProps } from "../essentials/table/data-table";
+import { DataTableProps } from "../../essentials/table/data-table";
 import React, { ReactNode } from "react";
-import { DataTableToolbar } from "../essentials/table/data-table-toolbar";
+import { DataTableToolbar } from "./data-table-toolbar";
 
 export function DataTablePlanned<
   TData extends RowData,

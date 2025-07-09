@@ -1,7 +1,7 @@
 import { getPlannedBySubdomain } from "@/actions/plannedActions";
 import React from "react";
-import { DataTablePlanned } from "./data-table";
-import { columnsPlanned } from "./columns";
+import { DataTablePlanned } from "./table/data-table";
+import { columnsPlanned } from "./table/columns";
 
 export interface PlannedJSON {
   id: string;

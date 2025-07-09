@@ -120,3 +120,22 @@ export async function getPlannedBySubdomain(subdomain: string) {
     return [];
   }
 }
+
+export async function getPlannedCount(subdomain: string) {
+  const session = await auth();
+  if (!session || !session.user?.id) {
+    throw new Error("Unauthorized. User session not found.");
+  }
+  const app = await isUserBelongsTheApp(subdomain, session);
+  if (!app) {
+    throw new Error("Team not found for subdomain: " + subdomain);
+  }
+  const { _count } = await prisma.planned.aggregate({
+    where: {
+      appId: app.id,
+      creatorId: session.user.id,
+    },
+    _count: true,
+  });
+  return _count;
+}
