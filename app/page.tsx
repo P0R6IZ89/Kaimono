@@ -11,10 +11,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { protocol, rootDomain } from "@/lib/utils";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 import { ChevronRight, UserRound } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+dayjs.extend(relativeTime);
 
 export default async function App() {
   const session = await auth();
@@ -27,7 +32,7 @@ export default async function App() {
     redirect("/new-app");
   }
   return (
-    <section className="flex flex-col gap-4 min-h-svh max-w-7xl mx-auto justify-center">
+    <section className="flex flex-col py-16 px-4 gap-4 min-h-svh max-w-7xl mx-auto justify-center">
       <SessionProvider>
         <div className="flex">
           <UserAvatar />
@@ -52,8 +57,11 @@ export default async function App() {
           return (
             <Card key={app.id} className="flex flex-col justify-between">
               <CardHeader>
-                <CardTitle className="flex justify-between items-center">
-                  <p>{app.name}</p>
+                <CardTitle>
+                  <p className="capitalize">{app.name}</p>
+                  <p className="pt-1 text-xs font-medium text-muted-foreground">
+                    {dayjs(app.createdAt).fromNow()}
+                  </p>
                 </CardTitle>
                 <CardDescription>{app.description}</CardDescription>
               </CardHeader>

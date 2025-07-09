@@ -47,7 +47,7 @@ export function NavConfig({
               <DropdownMenuContent
                 className="w-24 rounded-lg"
                 side={isMobile ? "bottom" : "bottom"}
-                align={isMobile ? "end" : "start"}
+                align={isMobile ? "start" : "start"}
               >
                 <DropdownMenuItem onClick={() => setTheme("light")}>
                   <Sun />
