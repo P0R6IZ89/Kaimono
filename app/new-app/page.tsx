@@ -39,8 +39,8 @@ function NewApp() {
   );
 
   return (
-    <div className="flex flex-col gap-4 min-h-dvh max-w-xl m-auto justify-center pl-8 pr-8">
-      <Card className="min-w-lg">
+    <div className="flex flex-col gap-4 min-h-dvh max-w-xl m-auto justify-center px-4">
+      <Card className="">
         <CardHeader>
           <CardTitle>Crie um novo aplicativo ✨</CardTitle>
         </CardHeader>
