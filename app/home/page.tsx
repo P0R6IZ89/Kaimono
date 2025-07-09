@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-export default async function Home() {
+export default function Home() {
   return (
     <div className="flex flex-col gap-4 min-h-dvh max-w-lg m-auto justify-center items-center pl-8 pr-8">
       <div className="flex flex-col gap-2">

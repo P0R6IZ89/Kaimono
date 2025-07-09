@@ -33,7 +33,7 @@ export default async function Planned({
   const planned: PlannedJSON[] = await getPlannedBySubdomain(subdomain);
   return (
     <div className="p-4 space-y-8 max-w-xl">
-      <div className="flex px-6 min-h-64 items-center">
+      <div className="flex px-6 min-h-32 items-center">
         <div className="">
           <h1 className="leading-none font-semibold">Planejados</h1>
           <p className="text-muted-foreground text-sm pt-2">

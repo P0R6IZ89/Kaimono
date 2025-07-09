@@ -55,12 +55,12 @@ export function CreatePlannedDialog() {
       subdomain: subdomain,
     },
   });
-  const initialState = { error: "" };
 
   const [uploadedInfo, setUploadedInfo] = useState<
     string | CloudinaryUploadWidgetInfo | undefined
   >(undefined);
 
+  const initialState = { error: "" };
   const [state, action, isPending] = useActionState(
     createPlannedAction,
     initialState
