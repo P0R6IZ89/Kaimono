@@ -8,18 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 import { Armchair, ArrowUpRight, Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { CreatePlannedDialog } from "../planned/dialogs/dialog-create";
+import { CreatePlannedDialogTrigger } from "../planned/dialogs/dialog-create-trigger";
 
 async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
   const count = await getPlannedCount(subdomain);
@@ -45,22 +38,12 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
           </div>
         </CardContent>
         <CardAction className="flex gap-3">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant={"outline"} className="size-7 rounded-full">
-                <Plus />
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Adicionar novo item</DialogTitle>
-                <DialogDescription>
-                  Adicione novo item na lista de planejados.
-                </DialogDescription>
-              </DialogHeader>
-              <CreatePlannedDialog />
-            </DialogContent>
-          </Dialog>
+          <CreatePlannedDialogTrigger>
+            <Button variant={"outline"} className="size-7 rounded-full">
+              <Plus />
+            </Button>
+          </CreatePlannedDialogTrigger>
+
           <Button variant={"outline"} className="size-7 rounded-full" asChild>
             <Link href={"/planned"}>
               <ArrowUpRight />

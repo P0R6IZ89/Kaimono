@@ -1,7 +1,7 @@
 "use client";
 
 import { Table } from "@tanstack/react-table";
-import { X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { statuses } from "@/data/data";
 import { Input } from "../../../../../components/ui/input";
 import { Button } from "../../../../../components/ui/button";
@@ -46,7 +46,12 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
-        <CreatePlannedDialogTrigger />
+        <CreatePlannedDialogTrigger>
+          <Button className="h-8 px-2 lg:px-3">
+            <Plus />
+            <span>Adicionar</span>
+          </Button>
+        </CreatePlannedDialogTrigger>
       </div>
 
       <div className="pt-2">
