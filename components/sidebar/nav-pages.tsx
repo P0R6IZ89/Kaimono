@@ -23,7 +23,7 @@ interface pagesProps {
   };
 }
 
-const NavPages = ({ pages }: pagesProps) => {
+const NavPages: React.FC<pagesProps> = ({ pages }) => {
   return (
     <>
       <SidebarGroup key={pages.title}>
@@ -33,10 +33,10 @@ const NavPages = ({ pages }: pagesProps) => {
             {pages.items.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild isActive={item.isActive}>
-                  <span>
+                  <Link href={pages.url + item.url}>
                     {item.icon && <item.icon />}
-                    <Link href={pages.url + item.url}>{item.title}</Link>
-                  </span>
+                    {item.title}
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
