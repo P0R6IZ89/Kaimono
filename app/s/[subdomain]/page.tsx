@@ -25,7 +25,7 @@ export default async function Essentials({
       <div className="grid grid-cols-1 @xl:grid-cols-2 gap-3">
         <MembersCard subdomain={subdomain} />
         <QuickEssentialCard subdomain={subdomain} />
-        <QuickPlannedCard />
+        <QuickPlannedCard subdomain={subdomain} />
       </div>
     </div>
   );

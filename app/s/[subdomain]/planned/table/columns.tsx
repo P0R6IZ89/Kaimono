@@ -1,13 +1,13 @@
 "use client";
 import { createColumnHelper } from "@tanstack/react-table";
-import { PlannedJSON } from "./page";
+import { PlannedJSON } from "../page";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import ProfileCell from "./dialogs/cells/cell-profile";
-import StatusCell from "./dialogs/cells/cell-status";
-import ImageCell from "./dialogs/cells/cell-image";
-import LikesCell from "./dialogs/cells/cell-likes";
-import TitleCell from "./dialogs/cells/cell-title";
+import ProfileCell from "./cells/cell-profile";
+import StatusCell from "./cells/cell-status";
+import ImageCell from "./cells/cell-image";
+import LikesCell from "./cells/cell-likes";
+import TitleCell from "./cells/cell-title";
 
 dayjs.extend(relativeTime);
 

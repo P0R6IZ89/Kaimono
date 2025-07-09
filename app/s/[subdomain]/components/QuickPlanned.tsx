@@ -1,3 +1,4 @@
+import { getPlannedCount } from "@/actions/plannedActions";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,11 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { Armchair, ArrowUpRight, Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { CreatePlannedDialogTrigger } from "../planned/dialogs/dialog-create-trigger";
 
-function QuickPlannedCard() {
+async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
+  const count = await getPlannedCount(subdomain);
+
   return (
     <Card>
       <CardHeader>
@@ -27,13 +32,18 @@ function QuickPlannedCard() {
         <CardDescription></CardDescription>
         <CardContent>
           <div className="pt-4">
-            <p className="text-2xl font-semibold">12 items</p>
+            <p className="text-2xl font-semibold">
+              {count} {count != 1 ? "items" : "item"}
+            </p>
           </div>
         </CardContent>
         <CardAction className="flex gap-3">
-          <Button variant={"outline"} className="size-7 rounded-full">
-            <Plus />
-          </Button>
+          <CreatePlannedDialogTrigger>
+            <Button variant={"outline"} className="size-7 rounded-full">
+              <Plus />
+            </Button>
+          </CreatePlannedDialogTrigger>
+
           <Button variant={"outline"} className="size-7 rounded-full" asChild>
             <Link href={"/planned"}>
               <ArrowUpRight />
