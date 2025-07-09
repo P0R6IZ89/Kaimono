@@ -54,11 +54,15 @@ export function AppSwitcher({
                     src={subdomain.image ?? ""}
                     alt={subdomain.name}
                   />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {Array.from(subdomain.name)[0].toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{subdomain.name}</span>
+                <span className="truncate font-semibold capitalize">
+                  {subdomain.name}
+                </span>
                 <span className="truncate text-xs">{subdomain.subdomain}</span>
               </div>
 
