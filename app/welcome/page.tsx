@@ -4,7 +4,7 @@ import React from "react";
 
 function Welcome() {
   return (
-    <div className="flex flex-col min-h-dvh  m-auto justify-center items-center text-center pl-8 pr-8">
+    <div className="flex flex-col min-h-dvh  m-auto justify-center items-center text-center px-4">
       <p className="text-9xl font-semibold leading-none tracking-tighter">✨</p>
       <p className="text-3xl pt-8 font-semibold">
         O e-mail de login foi enviado para o seu e-mail.

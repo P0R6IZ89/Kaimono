@@ -42,7 +42,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
     };
 
   return (
-    <div className="flex flex-col gap-4 min-w-sm">
+    <div className="flex flex-col gap-4">
       <Button
         variant="default"
         onClick={handleSignIn("github")}
@@ -79,7 +79,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
           />
         </div>
         <Button
-          className="flex items-center justify-center w-full"
+          className="flex w-full items-center justify-center"
           disabled={isPending}
         >
           {isPending ? <Loader2 className="animate-spin" /> : null}
