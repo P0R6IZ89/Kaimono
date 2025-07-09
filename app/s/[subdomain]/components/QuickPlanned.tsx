@@ -1,3 +1,4 @@
+import { getPlannedCount } from "@/actions/plannedActions";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,11 +8,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Armchair, ArrowUpRight, Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { CreatePlannedDialog } from "../planned/dialogs/dialog-create";
 
-function QuickPlannedCard() {
+async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
+  const count = await getPlannedCount(subdomain);
+
   return (
     <Card>
       <CardHeader>
@@ -27,13 +39,28 @@ function QuickPlannedCard() {
         <CardDescription></CardDescription>
         <CardContent>
           <div className="pt-4">
-            <p className="text-2xl font-semibold">12 items</p>
+            <p className="text-2xl font-semibold">
+              {count} {count != 1 ? "items" : "item"}
+            </p>
           </div>
         </CardContent>
         <CardAction className="flex gap-3">
-          <Button variant={"outline"} className="size-7 rounded-full">
-            <Plus />
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant={"outline"} className="size-7 rounded-full">
+                <Plus />
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Adicionar novo item</DialogTitle>
+                <DialogDescription>
+                  Adicione novo item na lista de planejados.
+                </DialogDescription>
+              </DialogHeader>
+              <CreatePlannedDialog />
+            </DialogContent>
+          </Dialog>
           <Button variant={"outline"} className="size-7 rounded-full" asChild>
             <Link href={"/planned"}>
               <ArrowUpRight />

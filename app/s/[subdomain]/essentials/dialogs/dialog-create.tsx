@@ -66,7 +66,7 @@ export function CreateEssentialDialog() {
               <FormItem>
                 <FormLabel>Nome do produto</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ex: Chocolate" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -83,7 +83,6 @@ export function CreateEssentialDialog() {
                 <FormControl>
                   <Input
                     type="number"
-                    placeholder="Ex: 500"
                     {...field}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
@@ -105,7 +104,6 @@ export function CreateEssentialDialog() {
                     min={1}
                     max={99}
                     type="number"
-                    placeholder="1-99"
                     {...field}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
