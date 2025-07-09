@@ -12,7 +12,7 @@ export default async function Essentials({
   const { subdomain } = await params;
   return (
     <div className="@container flex flex-col p-4 space-y-8 ">
-      <div className="flex px-6 min-h-64 items-center lg:max-w-1/2">
+      <div className="flex px-6 min-h-32 items-center lg:max-w-1/2">
         <div className="">
           <h1 className="text-xs text-muted-foreground leading-none">
             Olá, <UserName />

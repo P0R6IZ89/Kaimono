@@ -5,10 +5,7 @@ import prisma from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
 import { redirect } from "next/navigation";
 
-export async function magicLinkSignIn(
-  prevState: void,
-  formData: FormData
-): Promise<void> {
+export async function magicLinkSignIn(prevState: void, formData: FormData) {
   const email = String(formData.get("email") ?? "");
   if (!email || typeof email !== "string") {
     throw new Error("Email invalido");
