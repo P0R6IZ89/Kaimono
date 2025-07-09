@@ -18,10 +18,8 @@ interface SignInProps {
 
 export default function SignInButtons({ callbackUrl }: SignInProps) {
   const router = useRouter();
-  const [, action, isPending] = useActionState<void, FormData>(
-    magicLinkSignIn,
-    undefined
-  );
+
+  const [, action, isPending] = useActionState(magicLinkSignIn, undefined);
 
   const handleSignIn =
     (providerId: string) => async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,6 +76,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
             placeholder="name@example.com"
           />
         </div>
+
         <Button
           className="flex w-full items-center justify-center"
           disabled={isPending}

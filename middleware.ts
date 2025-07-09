@@ -3,6 +3,8 @@ import authConfig from "./auth.config";
 import { NextRequest, NextResponse } from "next/server";
 import { publicPaths, rootDomain } from "./lib/utils";
 
+const KILL_SWITCH = process.env.KILL_SWITCH;
+
 const { auth } = NextAuth(authConfig);
 
 function extractSubdomain(req: NextRequest): string | null {
@@ -45,6 +47,10 @@ function extractSubdomain(req: NextRequest): string | null {
 }
 
 export default auth(async function middleware(req) {
+  if (KILL_SWITCH) {
+    return new NextResponse("Service Unavailable", { status: 503 });
+  }
+
   const { pathname, search } = req.nextUrl;
   const subdomain = extractSubdomain(req);
   const user = req.auth?.user;
