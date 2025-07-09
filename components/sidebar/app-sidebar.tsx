@@ -11,11 +11,11 @@ import { NavConfig } from "./nav-config";
 import { NavSecondary } from "./nav-secondary";
 import {
   Armchair,
+  Grip,
   Hexagon,
   PackageOpen,
   Send,
   Shirt,
-  Squircle,
 } from "lucide-react";
 import { AppSwitcher } from "./apps-switcher";
 import { NavUser } from "./nav-user";
@@ -36,7 +36,7 @@ const data = {
         title: "Todos os apps",
         url: `${protocol}://${rootDomain}`,
         isActive: false,
-        icon: Squircle,
+        icon: Grip,
       },
     ],
   },

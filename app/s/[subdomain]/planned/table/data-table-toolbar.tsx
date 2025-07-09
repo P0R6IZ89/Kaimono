@@ -1,14 +1,14 @@
 "use client";
 
 import { Table } from "@tanstack/react-table";
-import { X } from "lucide-react";
-import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+import { Plus, X } from "lucide-react";
 import { statuses } from "@/data/data";
 import { Input } from "../../../../../components/ui/input";
 import { Button } from "../../../../../components/ui/button";
 
 import React from "react";
-import { CreateEssentialDialogTrigger } from "../dialogs/dialog-create-trigger";
+import { DataTableFacetedFilter } from "../../essentials/table/data-table-faceted-filter";
+import { CreatePlannedDialogTrigger } from "../dialogs/dialog-create-trigger";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -46,7 +46,12 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
-        <CreateEssentialDialogTrigger />
+        <CreatePlannedDialogTrigger>
+          <Button className="h-8 px-2 lg:px-3">
+            <Plus />
+            <span>Adicionar</span>
+          </Button>
+        </CreatePlannedDialogTrigger>
       </div>
 
       <div className="pt-2">
