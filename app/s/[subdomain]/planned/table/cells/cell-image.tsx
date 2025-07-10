@@ -13,10 +13,8 @@ function ImageCell({ row }: RowCellProps) {
           height={800}
           crop={"fill"}
           alt={title}
-          // removeBackground
+          removeBackground
           defaultImage="placeholder_dtzhrr.png"
-          // opacity={80}
-          // gradientFade={"symmetric:10,y_0.1"}
         />
       ) : (
         <CldImage
@@ -25,7 +23,6 @@ function ImageCell({ row }: RowCellProps) {
           height={800}
           crop={"fill"}
           alt={title}
-          // gradientFade={"symmetric:20,y_0.3"}
         />
       )}
     </div>

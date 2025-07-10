@@ -5,18 +5,20 @@ import prisma from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
 import { redirect } from "next/navigation";
 
-export async function magicLinkSignIn(prevState: void, formData: FormData) {
+export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
   const email = String(formData.get("email") ?? "");
   if (!email || typeof email !== "string") {
-    throw new Error("Email invalido");
+    return { error: "Email invalido, verifique o seu email" };
   }
   const result = await signIn("resend", {
     email,
     redirect: false,
   });
-  if (result) {
-    redirect("/welcome");
+  console.log(result.error);
+  if (result?.error) {
+    return { error: "Erro no servidor, tente novamente" };
   }
+  return redirect("/welcome");
 }
 
 export const getAccountByUserId = async (userId: string) => {

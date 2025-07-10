@@ -8,7 +8,8 @@ import React, { useActionState } from "react";
 import { GithubIcon, Google } from "@/util/oauth-icon";
 import { Input } from "@/components/ui/input";
 import { magicLinkSignIn } from "@/actions/authActions";
-import { Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const SIGNIN_ERROR_URL = "/error";
 
@@ -18,8 +19,11 @@ interface SignInProps {
 
 export default function SignInButtons({ callbackUrl }: SignInProps) {
   const router = useRouter();
-
-  const [, action, isPending] = useActionState(magicLinkSignIn, undefined);
+  const initialState = { error: "" };
+  const [state, action, isPending] = useActionState(
+    magicLinkSignIn,
+    initialState
+  );
 
   const handleSignIn =
     (providerId: string) => async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -85,6 +89,13 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
           Continuar com Email
         </Button>
       </form>
+      {state?.error && (
+        <Alert variant={"destructive"}>
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Erro:</AlertTitle>
+          <AlertDescription>{state.error}</AlertDescription>
+        </Alert>
+      )}
     </div>
   );
 }
