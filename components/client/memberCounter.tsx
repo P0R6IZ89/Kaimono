@@ -5,8 +5,9 @@ async function MemberCount({ subdomain }: { subdomain: string }) {
   const users = await getAllUserOfApp(subdomain);
   const members = users.length;
   return (
-    <div>
-      {members} {members > 1 ? "usuários" : "usuário"}
+    <div className="flex gap-2 items-end">
+      <p className="text-3xl font-extrabold">{members}</p>{" "}
+      {members > 1 ? "usuários" : "usuário"}
     </div>
   );
 }
