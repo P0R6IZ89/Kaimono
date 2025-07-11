@@ -5,6 +5,7 @@ import {
   CardAction,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -25,49 +26,44 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
   const count = await getEssentialCount(subdomain);
 
   return (
-    <Card>
+    <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
-        <CardTitle className="flex gap-3 items-center">
-          <Shirt className="flex-none" />
-          <div className="space-y-1">
-            <p>Produtos Essenciais</p>
-            <p className="text-xs font-normal text-muted-foreground">
-              Produtos essenciais de baixo custo.
-            </p>
-          </div>
+        <CardDescription>
+          <p>Produtos Essenciais</p>
+        </CardDescription>
+        <CardTitle className="text-2xl font-normal">
+          {count} {count != 1 ? "items pendentes" : "item pendente"}
         </CardTitle>
-        <CardDescription></CardDescription>
-        <CardContent>
-          <div className="pt-4">
-            <p className="text-2xl font-semibold">
-              {count} {count != 1 ? "items" : "item"}
-            </p>
-          </div>
-        </CardContent>
-        <CardAction className="flex gap-3">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant={"outline"} className="size-7 rounded-full">
-                <Plus />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Adicionar novo item</DialogTitle>
-                <DialogDescription>
-                  Adicione novo item na lista de essenciais.
-                </DialogDescription>
-              </DialogHeader>
-              <CreateEssentialDialog />
-            </DialogContent>
-          </Dialog>
-          <Button variant={"outline"} className="size-7 rounded-full" asChild>
-            <Link href={"/essentials"}>
-              <ArrowUpRight />
-            </Link>
-          </Button>
+        <CardAction>
+          <Shirt />
         </CardAction>
       </CardHeader>
+      <CardContent className="flex-1" />
+      <CardFooter className="flex flex-1 gap-2">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant={"outline"}>
+              <Plus />
+              Adicionar
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Adicionar novo item</DialogTitle>
+              <DialogDescription>
+                Adicione novo item na lista de essenciais.
+              </DialogDescription>
+            </DialogHeader>
+            <CreateEssentialDialog />
+          </DialogContent>
+        </Dialog>
+        <Button variant={"outline"} asChild>
+          <Link href={"/essentials"}>
+            Ver mais
+            <ArrowUpRight />
+          </Link>
+        </Button>
+      </CardFooter>
     </Card>
   );
 }

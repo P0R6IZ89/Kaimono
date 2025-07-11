@@ -5,6 +5,7 @@ import {
   CardAction,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,39 +19,34 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
   const count = await getPlannedCount(subdomain);
 
   return (
-    <Card>
+    <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
-        <CardTitle className="flex gap-3 items-center">
-          <Armchair className="flex-none" />
-          <div className="space-y-1">
-            <p>Produtos Planejados</p>
-            <p className="text-xs font-normal text-muted-foreground">
-              Produtos de alto custo para serem comprados com planejamento.
-            </p>
-          </div>
+        <CardDescription>
+          <p>Produtos Planejados</p>
+        </CardDescription>
+        <CardTitle className="text-2xl font-normal">
+          {count} {count != 1 ? "items pendentes" : "item pendente"}
         </CardTitle>
-        <CardDescription></CardDescription>
-        <CardContent>
-          <div className="pt-4">
-            <p className="text-2xl font-semibold">
-              {count} {count != 1 ? "items" : "item"}
-            </p>
-          </div>
-        </CardContent>
-        <CardAction className="flex gap-3">
-          <CreatePlannedDialogTrigger>
-            <Button variant={"outline"} className="size-7 rounded-full">
-              <Plus />
-            </Button>
-          </CreatePlannedDialogTrigger>
-
-          <Button variant={"outline"} className="size-7 rounded-full" asChild>
-            <Link href={"/planned"}>
-              <ArrowUpRight />
-            </Link>
-          </Button>
+        <CardAction>
+          <Armchair />
         </CardAction>
       </CardHeader>
+      <CardContent className="flex-1" />
+      <CardFooter className="flex-1 gap-2">
+        <CreatePlannedDialogTrigger>
+          <Button variant={"outline"}>
+            <Plus />
+            Adicionar
+          </Button>
+        </CreatePlannedDialogTrigger>
+
+        <Button variant={"outline"} asChild>
+          <Link href={"/planned"}>
+            Ver mais
+            <ArrowUpRight />
+          </Link>
+        </Button>
+      </CardFooter>
     </Card>
   );
 }
