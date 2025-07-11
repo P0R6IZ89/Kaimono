@@ -31,8 +31,9 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
         <CardDescription>
           <p>Produtos Essenciais</p>
         </CardDescription>
-        <CardTitle className="text-2xl font-normal">
-          {count} {count != 1 ? "items pendentes" : "item pendente"}
+        <CardTitle className="flex items-end gap-2 text-2xl font-normal">
+          <p className="text-3xl font-extrabold">{count}</p>{" "}
+          {count != 1 ? "items pendentes" : "item pendente"}
         </CardTitle>
         <CardAction>
           <Shirt />
@@ -42,7 +43,7 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
       <CardFooter className="flex flex-1 gap-2">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant={"outline"}>
+            <Button variant={"default"}>
               <Plus />
               Adicionar
             </Button>

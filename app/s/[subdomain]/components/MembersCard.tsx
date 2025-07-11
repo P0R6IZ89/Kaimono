@@ -20,7 +20,7 @@ function MembersCard({ subdomain }: { subdomain: string }) {
         <CardDescription>
           <p>Membros do App</p>
         </CardDescription>
-        <CardTitle className="text-2xl font-normal">
+        <CardTitle className="text-xl font-normal">
           <MemberCount subdomain={subdomain} />
         </CardTitle>
         <CardAction>
