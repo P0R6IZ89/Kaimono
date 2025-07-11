@@ -23,7 +23,7 @@ function MembersCard({ subdomain }: { subdomain: string }) {
         <CardTitle className="text-xl font-normal">
           <MemberCount subdomain={subdomain} />
         </CardTitle>
-        <CardAction>
+        <CardAction className="text-muted-foreground">
           <UserRound />
         </CardAction>
       </CardHeader>

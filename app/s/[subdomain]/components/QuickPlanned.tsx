@@ -28,7 +28,7 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
           <p className="text-3xl font-extrabold">{count}</p>{" "}
           {count != 1 ? "items pendentes" : "item pendente"}
         </CardTitle>
-        <CardAction>
+        <CardAction className="text-muted-foreground">
           <Armchair />
         </CardAction>
       </CardHeader>
