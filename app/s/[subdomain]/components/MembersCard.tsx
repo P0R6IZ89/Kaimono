@@ -1,9 +1,12 @@
 import MemberCount from "@/components/client/memberCounter";
 import UserList from "@/components/client/userList";
+import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -12,23 +15,29 @@ import React from "react";
 
 function MembersCard({ subdomain }: { subdomain: string }) {
   return (
-    <Card>
+    <Card className="col-span-2">
       <CardHeader>
-        <CardTitle className="flex gap-3 items-center">
-          <UserRound className="flex-none" />
-          <div className="space-y-1">
-            <p>Membros do App</p>
-            <MemberCount
-              className="text-xs font-normal text-muted-foreground"
-              subdomain={subdomain}
-            />
-          </div>
+        <CardDescription>
+          <p>Membros do App</p>
+        </CardDescription>
+        <CardTitle className="text-2xl font-normal">
+          <MemberCount subdomain={subdomain} />
         </CardTitle>
-        <CardDescription></CardDescription>
-        <CardContent>
-          <UserList subdomain={subdomain} />
-        </CardContent>
+        <CardAction>
+          <UserRound />
+        </CardAction>
       </CardHeader>
+      <CardContent>
+        <UserList subdomain={subdomain} />
+      </CardContent>
+      <CardFooter className="gap-2">
+        <Button variant={"outline"} disabled>
+          Invitar
+        </Button>
+        <Button variant={"outline"} disabled>
+          Gerenciar
+        </Button>
+      </CardFooter>
     </Card>
   );
 }
