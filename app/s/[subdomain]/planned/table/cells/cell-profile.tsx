@@ -16,7 +16,7 @@ function ProfileCell({ row }: RowCellProps) {
   const daysOld = dayjs().diff(createdAt, "day");
   const timeClass = daysOld > 90 ? "text-green-500" : "text-foreground";
   return (
-    <div className="absolute top-4 left-4 flex items-center justify-between space-x-4 z-20">
+    <div className="dark absolute top-4 left-4 flex items-center justify-between space-x-4 z-20 text-foreground">
       <div className="flex items-center space-x-4">
         <Avatar>
           <AvatarImage src={userImage!} />

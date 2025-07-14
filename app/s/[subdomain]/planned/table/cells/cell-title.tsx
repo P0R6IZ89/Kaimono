@@ -1,11 +1,13 @@
 import React from "react";
 import { RowCellProps } from "./cell-profile";
+import { Badge } from "@/components/ui/badge";
 
 function TitleCell({ row }: RowCellProps) {
-  const { title } = row.original;
+  const { title, priority } = row.original;
   return (
-    <div className="static top-8 left-8">
-      <p className="font-semibold pt-4 pl-8">{title}</p>
+    <div className="static flex justify-between top-8 px-6 text-foreground">
+      <p className="text-lg font-semibold">{title}</p>
+      <Badge variant={"outline"}>{priority}</Badge>
     </div>
   );
 }
