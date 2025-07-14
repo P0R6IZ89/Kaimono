@@ -5,7 +5,8 @@ import { CldImage } from "next-cloudinary";
 function ImageCell({ row }: RowCellProps) {
   const { image, title } = row.original;
   return (
-    <div className="static top-0 brightness-75 rounded-xl overflow-clip">
+    <div className="relative top-0 rounded-xl overflow-clip">
+      <div className="absolute bg-gradient-to-b from-black/30 from-10% via-black/0 to-black/30 to-90% h-full w-full" />
       {image ? (
         <CldImage
           src={image}
@@ -13,7 +14,7 @@ function ImageCell({ row }: RowCellProps) {
           height={800}
           crop={"fill"}
           alt={title}
-          removeBackground
+          // removeBackground
           defaultImage="placeholder_dtzhrr.png"
         />
       ) : (

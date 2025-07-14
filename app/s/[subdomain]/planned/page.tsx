@@ -22,6 +22,14 @@ export interface PlannedJSON {
   userEmail: string | null;
   username: string | null;
   userImage: string | null;
+  commentsCount: number;
+  comments: Array<{
+    authorImage: string | null;
+    authorName?: string | null;
+    authorEmail?: string;
+    content: string;
+    createdAt: string;
+  }>;
 }
 
 export default async function Planned({

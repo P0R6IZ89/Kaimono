@@ -8,12 +8,15 @@ import StatusCell from "./cells/cell-status";
 import ImageCell from "./cells/cell-image";
 import LikesCell from "./cells/cell-likes";
 import TitleCell from "./cells/cell-title";
+import PriceCell from "./cells/cell-price";
+import CommentsCell from "./cells/cell-comments";
 
 dayjs.extend(relativeTime);
 
 const columnHelper = createColumnHelper<PlannedJSON>();
 
 export const columnsPlanned = [
+  { id: "createdAt" },
   columnHelper.display({
     id: "profile",
     header: () => null,
@@ -32,9 +35,19 @@ export const columnsPlanned = [
     header: () => null,
     cell: ({ row }) => <LikesCell row={row} />,
   }),
-  columnHelper.accessor("title", {
+  columnHelper.display({
+    id: "title",
     header: () => null,
     cell: ({ row }) => <TitleCell row={row} />,
   }),
-  { id: "createdAt", header: () => null },
+  columnHelper.display({
+    id: "price",
+    header: () => null,
+    cell: ({ row }) => <PriceCell row={row} />,
+  }),
+  columnHelper.display({
+    id: "comments",
+    header: () => null,
+    cell: ({ row }) => <CommentsCell row={row} />,
+  }),
 ];

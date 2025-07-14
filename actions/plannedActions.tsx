@@ -87,10 +87,20 @@ export async function getPlannedBySubdomain(subdomain: string) {
         creator: {
           select: { name: true, email: true, image: true },
         },
-        _count: { select: { likes: true } },
+        _count: { select: { likes: true, comments: true } },
         likes: {
           where: { creatorId: session.user.id },
           select: { liked: true },
+        },
+
+        comments: {
+          orderBy: { createdAt: "desc" },
+          take: 25,
+          select: {
+            content: true,
+            createdAt: true,
+            author: { select: { image: true, name: true, email: true } },
+          },
         },
       },
       orderBy: { createdAt: "desc" },
@@ -114,6 +124,15 @@ export async function getPlannedBySubdomain(subdomain: string) {
       userEmail: item.creator?.email ?? null,
       username: item.creator?.name ?? null,
       userImage: item.creator.image ?? null,
+      // Comments
+      commentsCount: item._count.comments,
+      comments: item.comments.map((c) => ({
+        authorImage: c.author.image,
+        authorName: c.author.name,
+        authorEmail: c.author.email,
+        content: c.content,
+        createdAt: c.createdAt.toISOString(),
+      })),
     }));
   } catch (error) {
     console.log(error);

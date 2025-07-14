@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 function StatusCell({ row }: RowCellProps) {
   const { status } = row.original;
   return (
-    <div className="absolute top-4 right-4 z-10">
+    <div className="dark absolute top-4 right-4 z-10 text-foreground">
       <Badge variant={"outline"}>{status}</Badge>
     </div>
   );

@@ -6,7 +6,7 @@ import { Heart } from "lucide-react";
 function LikesCell({ row }: RowCellProps) {
   const { likesCount, likedByMe } = row.original;
   return (
-    <div className="relative -top-8 left-4 z-10">
+    <div className="dark relative -top-8 left-4 z-10 text-foreground">
       <Badge variant={"outline"} className="flex">
         {likedByMe ? <Heart fill="currentColor" /> : <Heart />}
         <p>{likesCount}</p>

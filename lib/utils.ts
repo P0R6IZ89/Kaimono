@@ -12,3 +12,7 @@ export const rootDomain =
   process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost:3000";
 
 export const publicPaths = ["/home", "/logout", "/welcome"];
+
+export function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase();
+}
