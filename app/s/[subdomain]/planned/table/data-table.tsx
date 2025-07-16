@@ -48,11 +48,11 @@ export function DataTablePlanned<
   return (
     <div>
       <DataTableToolbar table={table} />
-      <div className="grid grid-cols-1 gap-4 pt-4 rounded-md">
+      <div className="grid grid-cols-1 pt-4 space-y-6">
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => {
             return (
-              <div key={row.id} className="p-4">
+              <div key={row.id}>
                 <div className="relative">
                   {row.getVisibleCells().map((cell) => (
                     <div key={cell.id}>
