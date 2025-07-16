@@ -22,7 +22,7 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
     <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
         <CardDescription>
-          <p>Produtos Planejados</p>
+          <p>Planejados</p>
         </CardDescription>
         <CardTitle className="flex items-end gap-2 text-2xl font-normal">
           <p className="text-3xl font-extrabold">{count}</p>{" "}

@@ -10,11 +10,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
 
 dayjs.extend(relativeTime);
 
 function CommentsCell({ row }: RowCellProps) {
   const { comments, commentsCount } = row.original;
+  if (comments.length === 0) {
+    return null;
+  }
   return (
     <div className="p-6">
       <div className="p-3 h-fit rounded-lg bg-card space-y-2">
@@ -28,7 +32,7 @@ function CommentsCell({ row }: RowCellProps) {
             return (
               <AccordionItem key={index} value="item-1">
                 {index === 0 ? (
-                  <AccordionTrigger>
+                  <AccordionTrigger className="hover:no-underline hover:bg-accent">
                     <div className="flex gap-2 w-full space-y-6">
                       <Avatar className="size-6">
                         <AvatarImage
@@ -52,8 +56,8 @@ function CommentsCell({ row }: RowCellProps) {
                   </AccordionTrigger>
                 ) : null}
                 {index > 0 ? (
-                  <AccordionContent>
-                    <div className="flex gap-2 w-full space-y-6">
+                  <AccordionContent className="pt-5">
+                    <div className="flex gap-2 w-full space-y-6 pr-7">
                       <Avatar className="size-6">
                         <AvatarImage
                           src={authorImage ?? undefined}
@@ -79,6 +83,7 @@ function CommentsCell({ row }: RowCellProps) {
             );
           })}
         </Accordion>
+        <Input />
         {/* {JSON.stringify(comments)} */}
       </div>
     </div>
