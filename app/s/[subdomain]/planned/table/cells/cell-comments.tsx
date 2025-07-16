@@ -16,14 +16,12 @@ dayjs.extend(relativeTime);
 
 function CommentsCell({ row }: RowCellProps) {
   const { comments, commentsCount } = row.original;
-  if (comments.length === 0) {
-    return null;
-  }
+
   return (
-    <div className="p-6">
+    <div className="pt-4">
       <div className="p-3 h-fit rounded-lg bg-card space-y-2">
         <span className="flex gap-2">
-          <p className="text-sm font-semibold">Comments</p>
+          <p className="text-sm font-semibold">Comentários</p>
           <p className="text-sm">{commentsCount}</p>
         </span>
         <Accordion type="single" collapsible>
