@@ -100,7 +100,7 @@ model Authenticator {
 model Essential {
   id        String             @id @default(cuid())
   title     String
-  price     Decimal?
+  price     Decimal            @default(0)
   status    String
   quantity  Int                @default(1)
   createdAt DateTime           @default(now())
