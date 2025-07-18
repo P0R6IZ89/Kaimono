@@ -36,3 +36,18 @@ export const plannedSchema = z.object({
   subdomain: z.string().min(1, "Verifique seu link"),
   image: z.string(),
 });
+
+const SUBDOMAIN_REGEX = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
+
+export const appSchema = z.object({
+  name: z.string().min(1, "Nome obrigatório"),
+  description: z.string().max(500, "Máximo de 500 caracteres").optional(),
+  subdomain: z
+    .string()
+    .min(1, "Subdomínio obrigatório")
+    .max(63, "Máximo de 63 caracteres")
+    .transform((val) => val.toLowerCase())
+    .refine((val) => SUBDOMAIN_REGEX.test(val), {
+      message: "Use apenas a–z, 0–9 e hifens, sem hífens nas extremidades.",
+    }),
+});
