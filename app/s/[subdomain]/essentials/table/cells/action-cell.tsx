@@ -61,7 +61,7 @@ function ActionCell({ row }: ActionDialogProps) {
           </DropdownMenuItem>
         ) : status === "complete" ? (
           <DropdownMenuItem onSelect={() => handleActionClick("pending")}>
-            <Clock />
+            <Clock className="text-orange-400" />
             Pendente
           </DropdownMenuItem>
         ) : null}

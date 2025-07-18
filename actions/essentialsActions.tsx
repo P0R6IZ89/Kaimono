@@ -74,7 +74,7 @@ export async function getEssentialsBySubdomain(subdomain: string) {
     const essentials = await prisma.essential.findMany({
       where: {
         appId: app.id,
-        creatorId: session.user.id,
+        // creatorId: session.user.id,
       },
       include: {
         creator: {
@@ -212,7 +212,7 @@ export async function getEssentialCount(subdomain: string) {
   const { _count } = await prisma.essential.aggregate({
     where: {
       appId: app.id,
-      creatorId: session.user.id,
+      // creatorId: session.user.id,
     },
     _count: true,
   });

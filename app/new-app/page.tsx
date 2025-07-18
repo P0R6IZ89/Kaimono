@@ -54,7 +54,7 @@ function NewApp() {
                   <FormItem>
                     <FormLabel>Nome do applicativo</FormLabel>
                     <FormControl>
-                      <Input placeholder="familia-app" {...field} />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -70,7 +70,6 @@ function NewApp() {
                       <div className="relative flex">
                         <Input
                           className="w-full rounded-r-none focus:z-10"
-                          placeholder="app-0418"
                           {...field}
                         />
                         <span className="tracking-wide bg-gray-100 px-3 border border-l-0 border-input rounded-r-md text-gray-500 min-h-[36px] flex items-center">
@@ -89,11 +88,7 @@ function NewApp() {
                   <FormItem>
                     <FormLabel>Descrição</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="App da família"
-                        className="resize-none"
-                        {...field}
-                      />
+                      <Textarea className="resize-none" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

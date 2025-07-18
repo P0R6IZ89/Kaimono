@@ -81,7 +81,7 @@ export async function getPlannedBySubdomain(subdomain: string) {
     const planneds = await prisma.planned.findMany({
       where: {
         appId: app.id,
-        creatorId: session.user.id,
+        // creatorId: session.user.id,
       },
       include: {
         creator: {
@@ -152,7 +152,7 @@ export async function getPlannedCount(subdomain: string) {
   const { _count } = await prisma.planned.aggregate({
     where: {
       appId: app.id,
-      creatorId: session.user.id,
+      // creatorId: session.user.id,
     },
     _count: true,
   });

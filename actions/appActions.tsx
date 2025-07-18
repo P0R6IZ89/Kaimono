@@ -1,11 +1,12 @@
 "use server";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
+import { protocol, rootDomain } from "@/lib/utils";
 import { getErrorMessage } from "@/util/error-handler";
+import { appSchema } from "@/util/form-zod-schema";
 import { Prisma } from "@prisma/client";
 import { AuthError, Session } from "next-auth";
 import { redirect } from "next/navigation";
-import { z } from "zod";
 
 export const getAllAppsAction = async () => {
   const session = await auth();
@@ -93,29 +94,21 @@ export const getAppFromSubdomainAction = async (
   }
 };
 
-const appSchema = z.object({
-  name: z.string().min(3, {
-    message: "O nome do aplicativo deve ter pelo menos 3 caracteres.",
-  }),
-  subdomain: z.string().min(3, {
-    message: "O subdomínio deve ter pelo menos 3 caracteres.",
-  }),
-  description: z.string(),
-});
+export async function createAppAction(prevState: unknown, formData: FormData) {
+  const name = formData.get("name")?.toString() as string;
+  const description = formData.get("description")?.toString() as string;
+  const rawSubdomain = formData.get("subdomain")?.toString() as string;
 
-export const createAppAction = async (
-  prevState: unknown,
-  formData: FormData
-): Promise<{ error: string } | undefined> => {
-  const name = formData.get("name") as string;
-  const description = formData.get("description") as string;
-  const subdomain = formData.get("subdomain") as string;
-
-  const result = appSchema.safeParse({ name, subdomain, description });
+  const result = appSchema.safeParse({
+    name,
+    subdomain: rawSubdomain.toLowerCase(),
+    description,
+  });
   if (!result.success) {
-    const first = result.error.errors[0];
-    return { error: first.message };
+    console.log(result.error);
+    return { error: result.error.errors[0].message };
   }
+  const { subdomain } = result.data;
 
   const session = await auth();
   if (!session?.user)
@@ -145,8 +138,8 @@ export const createAppAction = async (
     console.error("[createAppAction] unexpected error:", error);
     return { error: getErrorMessage(error) };
   }
-  redirect("/");
-};
+  redirect(`${protocol}://${subdomain}.${rootDomain}`);
+}
 
 export async function isUserBelongsTheApp(
   subdomain: string,

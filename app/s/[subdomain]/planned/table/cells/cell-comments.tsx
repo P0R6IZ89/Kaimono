@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
 
 dayjs.extend(relativeTime);
 
@@ -107,14 +108,13 @@ function CommentsCell({ row }: RowCellProps) {
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex space-x-8"
-          >
-            <Input type="text" />
-            <Button variant={"outline"}>
+          > */}
+        <Input type="text" />
+        {/* <Button variant={"outline"}>
               <Send />
             </Button>
           </form>
         </Form> */}
-        {/* {JSON.stringify(comments)} */}
       </div>
     </div>
   );
