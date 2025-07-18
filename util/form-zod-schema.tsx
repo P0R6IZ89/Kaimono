@@ -6,9 +6,9 @@ export const essentialsSchema = z.object({
     .min(1, "O Nome do produto é obrigatório")
     .max(50, "Produto deve ter no máximo 50 caracteres"),
   price: z
-    .number()
-    .positive("O número deve ser positivo")
-    .gte(1, "O número deve ser maior que 0"),
+    .number({ invalid_type_error: "O preço deve ser um número" })
+    .nonnegative("O preço não pode ser negativo")
+    .default(0),
   status: z.enum(["pending", "purchased", "canceled"], {
     message: "O status é incopatível",
   }),

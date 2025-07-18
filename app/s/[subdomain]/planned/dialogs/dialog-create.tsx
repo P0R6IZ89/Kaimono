@@ -83,7 +83,7 @@ export function CreatePlannedDialog() {
             <FormItem>
               <FormLabel>Nome do produto</FormLabel>
               <FormControl>
-                <Input placeholder="Ex: Chocolate" {...field} />
+                <Input {...field} />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -100,7 +100,6 @@ export function CreatePlannedDialog() {
               <FormControl>
                 <Input
                   type="number"
-                  placeholder="Ex: 500"
                   {...field}
                   onChange={(e) => field.onChange(e.target.value)}
                 />
@@ -119,7 +118,7 @@ export function CreatePlannedDialog() {
               <FormLabel>Prioridade</FormLabel>
               <FormControl>
                 <Select {...field} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-1/2">
+                  <SelectTrigger className="">
                     <SelectValue placeholder="Selecione a prioridade" />
                   </SelectTrigger>
                   <SelectContent>
