@@ -13,10 +13,11 @@ export async function createEssentials(
 ) {
   const title = formData.get("title")?.toString() as string;
   const status = formData.get("status")?.toString() ?? "pending";
-  const priceString = formData.get("price")?.toString() as string;
-  const quantityString = formData.get("quantity")?.toString() as string;
   const subdomain = formData.get("subdomain")?.toString() as string;
-  const price = parseFloat(priceString);
+  const priceString = formData.get("price")?.toString() ?? "";
+  const rawPrice = parseFloat(priceString);
+  const price = isNaN(rawPrice) ? 0 : rawPrice;
+  const quantityString = formData.get("quantity")?.toString() as string;
   const quantity = parseInt(quantityString, 10);
 
   const result = essentialsSchema.safeParse({

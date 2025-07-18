@@ -14,7 +14,7 @@ function ImageCell({ row }: RowCellProps) {
           height={800}
           crop={"fill"}
           alt={title}
-          // removeBackground
+          removeBackground
           defaultImage="placeholder_dtzhrr.png"
         />
       ) : (
