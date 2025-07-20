@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useActionState, useEffect } from "react";
 import { RowCellProps } from "./cell-profile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { capitalizeFirstLetter } from "@/lib/utils";
@@ -11,11 +11,41 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { AlertCircle, Send } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { createCommentAction } from "@/actions/commentAction";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 dayjs.extend(relativeTime);
 
 function CommentsCell({ row }: RowCellProps) {
-  const { comments, commentsCount } = row.original;
+  const { comments, commentsCount, id } = row.original;
+  const form = useForm({
+    defaultValues: {
+      content: "",
+      id: "",
+    },
+  });
+  const initialState = { error: "" };
+  const [state, action, isPending] = useActionState(
+    createCommentAction,
+    initialState
+  );
+  useEffect(() => {
+    if (state?.message?.isSuccess) {
+      toast.success("Item criado com sucesso!");
+      form.reset();
+    }
+  }, [state?.message?.isSuccess, form]);
   return (
     <div className="pt-4">
       <div className="p-3 h-fit rounded-lg bg-card space-y-2">
@@ -104,17 +134,37 @@ function CommentsCell({ row }: RowCellProps) {
             })}
           </Accordion>
         )}
-        {/* <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex space-x-8"
-          > */}
-        <Input type="text" />
-        {/* <Button variant={"outline"}>
+        <Form {...form}>
+          <form action={action} className="flex space-x-2">
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormControl>
+                    <Input type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Input type="hidden" name="id" value={id} disabled={isPending} />
+            <Button
+              variant={"outline"}
+              disabled={isPending}
+              className="flex-none"
+            >
               <Send />
             </Button>
           </form>
-        </Form> */}
+        </Form>
+        {state?.error && (
+          <Alert variant={"destructive"}>
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Erro:</AlertTitle>
+            <AlertDescription>{state.error}</AlertDescription>
+          </Alert>
+        )}
       </div>
     </div>
   );

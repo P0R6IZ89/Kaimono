@@ -51,3 +51,9 @@ export const appSchema = z.object({
       message: "Use apenas a–z, 0–9 e hifens, sem hífens nas extremidades.",
     }),
 });
+
+export const plannedCommentSchema = z.object({
+  content: z.string().min(1, "Escreva seu comentário"),
+  author: z.string(),
+  planned: z.string(),
+});
