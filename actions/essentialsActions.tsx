@@ -212,7 +212,7 @@ export async function getEssentialCount(subdomain: string) {
   const { _count } = await prisma.essential.aggregate({
     where: {
       appId: app.id,
-      // creatorId: session.user.id,
+      status: "pending",
     },
     _count: true,
   });
