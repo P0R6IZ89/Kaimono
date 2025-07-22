@@ -4,6 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Row } from "@tanstack/react-table";
 import { PlannedJSON } from "../../page";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 dayjs.extend(relativeTime);
 
@@ -20,7 +21,11 @@ function ProfileCell({ row }: RowCellProps) {
       <div className="flex items-center space-x-4">
         <Avatar>
           <AvatarImage src={userImage!} />
-          <AvatarFallback>OM</AvatarFallback>
+          <AvatarFallback>
+            {username
+              ? capitalizeFirstLetter(username)
+              : capitalizeFirstLetter(userEmail ?? "")}
+          </AvatarFallback>
         </Avatar>
         <div>
           {username ? (

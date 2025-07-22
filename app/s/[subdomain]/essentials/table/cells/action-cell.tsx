@@ -56,7 +56,7 @@ function ActionCell({ row }: ActionDialogProps) {
         </DropdownMenuItem>
         {status === "pending" ? (
           <DropdownMenuItem onSelect={() => handleActionClick("complete")}>
-            <CircleCheckBig className="text-green-700" />
+            <CircleCheckBig className="text-green-400" />
             Completo
           </DropdownMenuItem>
         ) : status === "complete" ? (

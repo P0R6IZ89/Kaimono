@@ -24,6 +24,7 @@ export interface PlannedJSON {
   userImage: string | null;
   commentsCount: number;
   comments: Array<{
+    id: string;
     authorImage: string | null;
     authorName?: string | null;
     authorEmail?: string;

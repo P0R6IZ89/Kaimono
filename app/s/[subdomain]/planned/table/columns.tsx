@@ -4,12 +4,12 @@ import { PlannedJSON } from "../page";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import ProfileCell from "./cells/cell-profile";
-import StatusCell from "./cells/cell-status";
 import ImageCell from "./cells/cell-image";
-import LikesCell from "./cells/cell-likes";
-import TitleCell from "./cells/cell-title";
+import TitleCell from "./cells/cell-title-priority";
 import PriceCell from "./cells/cell-price";
 import CommentsCell from "./cells/cell-comments";
+import LikeStatusCell from "./cells/cell-like-status";
+import MenuCell from "./cells/cell-menu";
 
 dayjs.extend(relativeTime);
 
@@ -24,7 +24,8 @@ export const columnsPlanned = [
   }),
   columnHelper.accessor("status", {
     header: () => null,
-    cell: ({ row }) => <StatusCell row={row} />,
+    cell: ({ row }) => <MenuCell row={row} />,
+    filterFn: "arrIncludesSome",
   }),
   columnHelper.accessor("image", {
     header: () => null,
@@ -33,7 +34,7 @@ export const columnsPlanned = [
   columnHelper.display({
     id: "likes",
     header: () => null,
-    cell: ({ row }) => <LikesCell row={row} />,
+    cell: ({ row }) => <LikeStatusCell row={row} />,
   }),
   columnHelper.display({
     id: "title",

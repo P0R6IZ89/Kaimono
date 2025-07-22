@@ -1,15 +1,18 @@
 import { getUserAppsAction } from "@/actions/appActions";
 import { auth } from "@/auth";
+import DeleteDropdown from "@/components/client/deleteDropdown";
 import UserAvatar from "@/components/client/userAvatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { protocol, rootDomain } from "@/lib/utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -31,6 +34,7 @@ export default async function App() {
   if (!apps || apps.length === 0) {
     redirect("/new-app");
   }
+
   return (
     <section className="flex flex-col py-16 px-4 gap-4 min-h-svh max-w-7xl mx-auto justify-center">
       <SessionProvider>
@@ -64,6 +68,9 @@ export default async function App() {
                   </p>
                 </CardTitle>
                 <CardDescription>{app.description}</CardDescription>
+                <CardAction>
+                  <DeleteDropdown id={app.id} />
+                </CardAction>
               </CardHeader>
               <CardContent>
                 <div className="flex space-x-2">
