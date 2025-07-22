@@ -5,7 +5,14 @@ function PriorityCell({ row }: RowCellProps) {
   const { priority } = row.original;
   return (
     <div className="static flex flex-none top-8 left-8 text-foreground">
-      <p className="font-semibold pt-4 pl-8">{priority}</p>
+      <p
+        className={`font-semibold pt-4 pl-8 ${
+          priority === "high" ? "text-destructive" : ""
+        } 
+     `}
+      >
+        {priority}
+      </p>
     </div>
   );
 }

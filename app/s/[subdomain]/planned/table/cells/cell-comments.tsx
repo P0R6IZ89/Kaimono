@@ -1,4 +1,4 @@
-import React, { useActionState, useEffect } from "react";
+import React, { useActionState } from "react";
 import { RowCellProps } from "./cell-profile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { capitalizeFirstLetter } from "@/lib/utils";
@@ -19,11 +19,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Send } from "lucide-react";
+import { AlertCircle, Ellipsis, Loader2, Send, Trash2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { createCommentAction } from "@/actions/commentAction";
+import { createCommentAction, deleteComment } from "@/actions/commentAction";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 dayjs.extend(relativeTime);
 
@@ -40,14 +45,15 @@ function CommentsCell({ row }: RowCellProps) {
     createCommentAction,
     initialState
   );
-  useEffect(() => {
-    if (state?.message?.isSuccess) {
-      toast.success("Item criado com sucesso!");
-      form.reset();
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteComment(id);
+    } catch (error) {
+      console.log(error);
     }
-  }, [state?.message?.isSuccess, form]);
+  };
   return (
-    <div className="pt-4">
+    <div className="pt-4 px-2">
       <div className="p-3 h-fit rounded-lg bg-card space-y-2">
         <span className="flex gap-2">
           <p className="text-sm font-semibold">Comentários</p>
@@ -69,7 +75,24 @@ function CommentsCell({ row }: RowCellProps) {
             <div className="w-full">
               <span className=" flex justify-between items-center text-xs text-muted-foreground">
                 <p>{comments[0].authorName ?? comments[0].authorEmail}</p>
-                <p>{dayjs(comments[0].createdAt).fromNow()}</p>
+                <div className="flex gap-2">
+                  <p>{dayjs(comments[0].createdAt).fromNow()}</p>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="">
+                      <Ellipsis className="size-4" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          handleDelete(comments[0].id);
+                        }}
+                      >
+                        <Trash2 />
+                        <span>Deletar</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </span>
               <p className="text-sm">{comments[0].content}</p>
             </div>
@@ -77,8 +100,7 @@ function CommentsCell({ row }: RowCellProps) {
         ) : (
           <Accordion type="single" collapsible>
             {comments.map((comment, index) => {
-              const { authorImage, authorEmail, authorName, createdAt } =
-                comment;
+              const { authorImage, authorEmail, authorName } = comment;
               return (
                 <AccordionItem key={index} value="item-1">
                   {index === 0 ? (
@@ -98,7 +120,24 @@ function CommentsCell({ row }: RowCellProps) {
                         <div className="w-full">
                           <span className=" flex justify-between items-center text-xs text-muted-foreground">
                             <p>{authorName ?? authorEmail}</p>
-                            <p>{dayjs(createdAt).fromNow()}</p>
+                            <div className="flex gap-2">
+                              <p>{dayjs(comments[0].createdAt).fromNow()}</p>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger className="">
+                                  <Ellipsis className="size-4" />
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem
+                                    onSelect={() => {
+                                      handleDelete(comments[0].id);
+                                    }}
+                                  >
+                                    <Trash2 />
+                                    <span>Deletar</span>
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </div>
                           </span>
                           <p className="text-sm">{comment.content}</p>
                         </div>
@@ -122,7 +161,24 @@ function CommentsCell({ row }: RowCellProps) {
                         <div className="w-full">
                           <span className=" flex justify-between items-center text-xs text-muted-foreground">
                             <p>{authorName ?? authorEmail}</p>
-                            <p>{dayjs(createdAt).fromNow()}</p>
+                            <div className="flex gap-2">
+                              <p>{dayjs(comments[0].createdAt).fromNow()}</p>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger className="">
+                                  <Ellipsis className="size-4" />
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem
+                                    onSelect={() => {
+                                      handleDelete(comments[0].id);
+                                    }}
+                                  >
+                                    <Trash2 />
+                                    <span>Deletar</span>
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </div>
                           </span>
                           <p className="text-sm">{comment.content}</p>
                         </div>
@@ -149,12 +205,13 @@ function CommentsCell({ row }: RowCellProps) {
               )}
             />
             <Input type="hidden" name="id" value={id} disabled={isPending} />
+
             <Button
               variant={"outline"}
               disabled={isPending}
               className="flex-none"
             >
-              <Send />
+              {isPending ? <Loader2 className="animate-spin" /> : <Send />}
             </Button>
           </form>
         </Form>

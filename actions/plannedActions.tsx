@@ -81,13 +81,21 @@ export async function getPlannedBySubdomain(subdomain: string) {
     const planneds = await prisma.planned.findMany({
       where: {
         appId: app.id,
-        // creatorId: session.user.id,
       },
       include: {
         creator: {
           select: { name: true, email: true, image: true },
         },
-        _count: { select: { likes: true, comments: true } },
+        _count: {
+          select: {
+            likes: {
+              where: {
+                liked: true,
+              },
+            },
+            comments: true,
+          },
+        },
         likes: {
           where: { creatorId: session.user.id },
           select: { liked: true },
@@ -97,6 +105,7 @@ export async function getPlannedBySubdomain(subdomain: string) {
           orderBy: { createdAt: "desc" },
           take: 25,
           select: {
+            id: true,
             content: true,
             createdAt: true,
             author: { select: { image: true, name: true, email: true } },
@@ -127,6 +136,7 @@ export async function getPlannedBySubdomain(subdomain: string) {
       // Comments
       commentsCount: item._count.comments,
       comments: item.comments.map((c) => ({
+        id: c.id,
         authorImage: c.author.image,
         authorName: c.author.name,
         authorEmail: c.author.email,
@@ -157,4 +167,56 @@ export async function getPlannedCount(subdomain: string) {
     _count: true,
   });
   return _count;
+}
+
+export async function completeTask(id: string) {
+  const session = await auth();
+  if (!session || !session.user?.id) {
+    throw new Error("Unauthorized. User session not found.");
+  }
+  try {
+    await prisma.planned.update({
+      where: { id: id },
+      data: { status: "complete" },
+    });
+    revalidatePath("/planned");
+    return { message: { isSuccess: true } };
+  } catch (error) {
+    console.log(error);
+    return { error: "Falha ao atualizar o item" };
+  }
+}
+export async function revertTask(id: string) {
+  const session = await auth();
+  if (!session || !session.user?.id) {
+    throw new Error("Unauthorized. User session not found.");
+  }
+  try {
+    await prisma.planned.update({
+      where: { id: id },
+      data: { status: "pending" },
+    });
+    revalidatePath("/planned");
+    return { message: { isSuccess: true } };
+  } catch (error) {
+    console.log(error);
+    return { error: "Falha ao atualizar o item" };
+  }
+}
+
+export async function deleteTask(id: string) {
+  const session = await auth();
+  if (!session || !session.user?.id) {
+    throw new Error("Unauthorized. User session not found.");
+  }
+  try {
+    await prisma.planned.delete({
+      where: { id: id },
+    });
+    revalidatePath("/planned");
+    return { message: { isSuccess: true } };
+  } catch (error) {
+    console.log(error);
+    return { error: "Falha ao deletar o item" };
+  }
 }

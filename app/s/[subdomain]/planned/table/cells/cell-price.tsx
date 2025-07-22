@@ -7,7 +7,7 @@ function PriceCell({ row }: RowCellProps) {
   return (
     <div className="flex flex-col justify-between px-3 text-foreground">
       <p className="text-sm leading-3">{price ? formatPriceYen(price) : ""}</p>
-      <p className="text-base/5 pt-4">{description}</p>
+      <p className="text-sm/5 pt-4">{description}</p>
     </div>
   );
 }

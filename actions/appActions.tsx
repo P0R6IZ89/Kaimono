@@ -6,6 +6,7 @@ import { getErrorMessage } from "@/util/error-handler";
 import { appSchema } from "@/util/form-zod-schema";
 import { Prisma } from "@prisma/client";
 import { AuthError, Session } from "next-auth";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const getAllAppsAction = async () => {
@@ -170,4 +171,23 @@ export async function isUserBelongsTheApp(
     console.error("[isUserBelongsTheApp] unexpected error:", error);
     throw error;
   }
+}
+
+export async function deleteApp(id: string) {
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
+  try {
+    const result = await prisma.app.delete({
+      where: { id },
+    });
+    revalidatePath("/");
+    if (result) {
+      return { message: { isSuccess: true } };
+    }
+  } catch (error) {
+    return { error: `Algo deu errado ${error}` };
+  }
+  return { message: { isSuccess: true } };
 }

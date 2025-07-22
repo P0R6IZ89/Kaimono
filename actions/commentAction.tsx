@@ -39,3 +39,14 @@ export async function createCommentAction(
     throw new Error(getErrorMessage(error));
   }
 }
+
+export async function deleteComment(id: string) {
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
+  await prisma.plannedComment.delete({
+    where: { id },
+  });
+  revalidatePath("/planned");
+}

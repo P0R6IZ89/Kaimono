@@ -29,9 +29,9 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
   useEffect(() => {
     if (state) {
       if (state.status === "success") {
-        toast(`Sucesso! ${state.message}`);
+        toast.success(`Sucesso! ${state.message}`);
       } else if (state.status === "error") {
-        toast(`Erro! ${state.message}`);
+        toast.error(`Erro! ${state.message}`);
       }
     }
   }, [state]);

@@ -7,7 +7,14 @@ function TitleCell({ row }: RowCellProps) {
   return (
     <div className="static flex justify-between top-8 px-3 text-foreground">
       <p className="text-lg font-semibold">{title}</p>
-      <Badge variant={"outline"}>{priority}</Badge>
+      <Badge
+        variant={"outline"}
+        className={`${
+          priority === "high" ? "text-destructive border-destructive" : null
+        }`}
+      >
+        {priority}
+      </Badge>
     </div>
   );
 }
