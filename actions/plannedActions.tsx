@@ -162,7 +162,7 @@ export async function getPlannedCount(subdomain: string) {
   const { _count } = await prisma.planned.aggregate({
     where: {
       appId: app.id,
-      // creatorId: session.user.id,
+      status: "pending",
     },
     _count: true,
   });
