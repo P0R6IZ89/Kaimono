@@ -1,4 +1,4 @@
-import { getAppFromSubdomainAction } from "@/actions/appActions";
+import { getCurrentAppAction } from "@/actions/appActions";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -17,7 +17,7 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   const { subdomain } = await params;
-  const app = await getAppFromSubdomainAction(subdomain);
+  const app = await getCurrentAppAction(subdomain);
   return (
     <SubdomainContextProvider>
       <SidebarProvider
