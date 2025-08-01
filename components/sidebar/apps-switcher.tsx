@@ -20,24 +20,18 @@ import {
 import React from "react";
 import Link from "next/link";
 import { protocol, rootDomain } from "@/lib/utils";
-import {
-  getAllAppsAction,
-  getAppFromSubdomainAction,
-} from "@/actions/appActions";
 
-type AppsFromServer = Awaited<ReturnType<typeof getAllAppsAction>>;
+export interface App {
+  name: string;
+  subdomain: string;
+  image: string | null;
+}
+interface AppSwitcherProps {
+  apps: App[];
+  currentApp: App;
+}
 
-type SubdomainFromServer = Awaited<
-  ReturnType<typeof getAppFromSubdomainAction>
->;
-
-export function AppSwitcher({
-  subdomain,
-  apps,
-}: {
-  subdomain: SubdomainFromServer;
-  apps: AppsFromServer;
-}) {
+export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
   const { isMobile } = useSidebar();
   return (
     <SidebarMenu>
@@ -51,19 +45,19 @@ export function AppSwitcher({
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src={subdomain.image ?? ""}
-                    alt={subdomain.name}
+                    src={currentApp.image ?? ""}
+                    alt={currentApp.name ?? ""}
                   />
                   <AvatarFallback className="rounded-lg">
-                    {Array.from(subdomain.name)[0].toUpperCase()}
+                    {currentApp.name[0].toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold capitalize">
-                  {subdomain.name}
+                  {currentApp.name}
                 </span>
-                <span className="truncate text-xs">{subdomain.subdomain}</span>
+                <span className="truncate text-xs">{`${currentApp.subdomain}.${rootDomain}`}</span>
               </div>
 
               <ChevronsUpDown className="ml-auto" />
@@ -75,25 +69,34 @@ export function AppSwitcher({
             side={isMobile ? "bottom" : "right"}
             sideOffset={4}
           >
-            <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Apps
-            </DropdownMenuLabel>
+            {apps.length > 1 ? (
+              <>
+                <DropdownMenuLabel className="text-xs text-muted-foreground">
+                  Mudar para:
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+              </>
+            ) : null}
+
             {apps.map((app, index) => (
-              <DropdownMenuItem asChild key={index} className="gap-2 p-2">
-                <Link href={`${protocol}://${app.subdomain}.${rootDomain}`}>
-                  <div className="flex size-6 items-center justify-center rounded-sm border">
-                    <Avatar className="size-4 shrink-0">
-                      <AvatarImage src={app.image ?? ""} alt={app.name} />
-                      <AvatarFallback className="shrink-0">
-                        {Array.from(app.name)[0].toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                  </div>
-                  {app.subdomain}
-                </Link>
-              </DropdownMenuItem>
+              <React.Fragment key={index}>
+                {app.subdomain !== currentApp.subdomain ? (
+                  <DropdownMenuItem asChild key={index} className="gap-2 p-2">
+                    <Link href={`${protocol}://${app.subdomain}.${rootDomain}`}>
+                      <div className="flex size-6 items-center justify-center rounded-sm border">
+                        <Avatar className="size-4 shrink-0">
+                          <AvatarImage src={app.image ?? ""} alt={app.name} />
+                          <AvatarFallback className="shrink-0">
+                            {Array.from(app.name)[0].toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <p className="capitalize">{app.subdomain}</p>
+                    </Link>
+                  </DropdownMenuItem>
+                ) : null}
+              </React.Fragment>
             ))}
-            <DropdownMenuSeparator />
 
             <DropdownMenuItem asChild className="gap-2 p-2">
               <Link href={`${protocol}://${rootDomain}/new-app`}>

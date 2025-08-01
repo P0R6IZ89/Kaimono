@@ -57,3 +57,9 @@ export const plannedCommentSchema = z.object({
   author: z.string(),
   planned: z.string(),
 });
+
+export const inviteSchema = z.object({
+  appId: z.string().cuid(),
+  email: z.string().email("Deve ser um e-mail válido"),
+  role: z.enum(["OWNER", "ADMIN", "MEMBER"]).default("MEMBER"),
+});

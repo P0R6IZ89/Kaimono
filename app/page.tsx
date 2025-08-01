@@ -1,4 +1,4 @@
-import { getUserAppsAction } from "@/actions/appActions";
+import { getAllAppsAction } from "@/actions/appActions";
 import { auth } from "@/auth";
 import DeleteDropdown from "@/components/client/deleteDropdown";
 import UserAvatar from "@/components/client/userAvatar";
@@ -30,7 +30,7 @@ export default async function App() {
     redirect("/login");
   }
 
-  const apps = await getUserAppsAction();
+  const apps = await getAllAppsAction();
   if (!apps || apps.length === 0) {
     redirect("/new-app");
   }
@@ -76,7 +76,7 @@ export default async function App() {
                 <div className="flex space-x-2">
                   <Badge variant={"outline"} className="flex gap-1">
                     <UserRound absoluteStrokeWidth size={12} />
-                    <p>{app._count.user}</p>
+                    <p>{app._count.memberships}</p>
                   </Badge>
                   <Badge
                     variant={"outline"}

@@ -1,130 +1,114 @@
-// prisma/seed.ts
-import { PrismaClient, Prisma } from "@prisma/client";
+// prisma/seed.tsx
+import "dotenv/config";
+import { PrismaClient, Prisma, Role, InvitationStatus } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // 1. Create or fetch two users
-  const alice = await prisma.user.upsert({
-    where: { email: "alice@example.com" },
-    update: {},
-    create: {
-      name: "Alice",
-      email: "alice@example.com",
-      emailVerified: new Date(),
-      image: "https://example.com/avatar/alice.png",
-    },
-  });
+  // 1. Clean slate: delete in dependency order
+  await prisma.plannedLike.deleteMany();
+  await prisma.plannedComment.deleteMany();
+  await prisma.planned.deleteMany();
+  await prisma.essential.deleteMany();
+  await prisma.invitation.deleteMany();
+  await prisma.membership.deleteMany();
+  await prisma.app.deleteMany();
+  await prisma.session.deleteMany();
+  await prisma.account.deleteMany();
+  await prisma.authenticator.deleteMany();
+  await prisma.user.deleteMany();
 
-  const bob = await prisma.user.upsert({
-    where: { email: "bob@example.com" },
-    update: {},
-    create: {
-      name: "Bob",
-      email: "bob@example.com",
-      image: "https://example.com/avatar/bob.png",
-    },
-  });
-
-  // 2. Create an App and connect both users as members
-  const myApp = await prisma.app.upsert({
-    where: { subdomain: "myapp" },
-    update: {},
-    create: {
-      name: "MyApp",
-      description: "A demo application",
-      subdomain: "myapp",
-      customDomain: "app.mycompany.com",
-      image: "https://example.com/logo.png",
-      user: {
-        connect: [{ id: alice.id }, { id: bob.id }],
-      },
-    },
-  });
-
-  // 3. Seed two Essential items
-  const essential1 = await prisma.essential.create({
+  // 2. Create users
+  const alice = await prisma.user.create({
     data: {
-      title: "Essential Item One",
-      price: new Prisma.Decimal("9.99"),
-      status: "pending",
-      quantity: 2,
-      app: { connect: { id: myApp.id } },
-      creator: { connect: { id: alice.id } },
+      email: "alice@example.com",
+      name: "Alice",
+      image: "https://example.com/alice.png",
+      emailVerified: new Date(),
     },
   });
 
+  const bob = await prisma.user.create({
+    data: {
+      email: "bob@example.com",
+      name: "Bob",
+      image: "https://example.com/bob.png",
+      emailVerified: new Date(),
+    },
+  });
+
+  // 3. Create an app
+  const projectX = await prisma.app.create({
+    data: {
+      name: "Project X",
+      description: "A secret planning app",
+      subdomain: "project-x",
+      image: "https://example.com/logo.png",
+    },
+  });
+
+  // 4. Memberships: Alice as OWNER, Bob as MEMBER
+  await prisma.membership.createMany({
+    data: [
+      { appId: projectX.id, userId: alice.id, role: Role.OWNER },
+      { appId: projectX.id, userId: bob.id, role: Role.MEMBER },
+    ],
+  });
+
+  // 5. Send an invitation (pending)
+  await prisma.invitation.create({
+    data: {
+      appId: projectX.id,
+      email: "charlie@example.com",
+      token: "invite-token-123",
+      role: Role.MEMBER,
+      inviterId: alice.id,
+      status: InvitationStatus.PENDING,
+      expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days from now
+    },
+  });
+
+  // 6. Create an Essential item
   await prisma.essential.create({
     data: {
-      title: "Essential Item Two",
-      price: new Prisma.Decimal("19.99"),
-      status: "completed",
+      title: "MacBook Pro",
+      price: new Prisma.Decimal(2499),
+      status: "NEW",
       quantity: 1,
-      app: { connect: { id: myApp.id } },
-      creator: { connect: { id: bob.id } },
+      appId: projectX.id,
+      creatorId: alice.id,
     },
   });
 
-  // 4. Seed two Planned items
-  const planned1 = await prisma.planned.create({
+  // 7. Create a Planned item
+  const ergonomicChair = await prisma.planned.create({
     data: {
-      title: "Planned Purchase A",
-      price: new Prisma.Decimal("29.99"),
-      priority: "high",
-      status: "todo",
-      image: "https://example.com/item-a.png",
-      productUrl: "https://store.example.com/item-a",
-      description: "First planned purchase",
-      app: { connect: { id: myApp.id } },
-      creator: { connect: { id: alice.id } },
+      title: "Ergonomic Office Chair",
+      price: new Prisma.Decimal(399),
+      priority: "HIGH",
+      status: "PLANNED",
+      image: "https://example.com/chair.png",
+      productUrl: "https://shop.example.com/chair",
+      description: "A chair to improve posture and productivity.",
+      appId: projectX.id,
+      creatorId: bob.id,
     },
   });
 
-  const planned2 = await prisma.planned.create({
-    data: {
-      title: "Planned Purchase B",
-      price: null,
-      priority: "low",
-      status: "in-progress",
-      image: "https://example.com/item-b.png",
-      productUrl: null,
-      description: null,
-      app: { connect: { id: myApp.id } },
-      creator: { connect: { id: bob.id } },
-    },
-  });
-
-  // 5. Add comments
-  await prisma.essentialComment.create({
-    data: {
-      content: "Looks great!",
-      essential: { connect: { id: essential1.id } },
-      author: { connect: { id: bob.id } },
-    },
-  });
-
+  // 8. Add a comment and a like to the planned item
   await prisma.plannedComment.create({
     data: {
-      content: "Can’t wait for this.",
-      planned: { connect: { id: planned2.id } },
-      author: { connect: { id: alice.id } },
-    },
-  });
-
-  // 6. Add likes
-  await prisma.essentialLike.create({
-    data: {
-      liked: true,
-      essential: { connect: { id: essential1.id } },
-      user: { connect: { id: bob.id } },
+      content: "Great choice, Bob – that looks very comfortable!",
+      authorId: alice.id,
+      plannedId: ergonomicChair.id,
     },
   });
 
   await prisma.plannedLike.create({
     data: {
       liked: true,
-      planned: { connect: { id: planned1.id } },
-      creator: { connect: { id: alice.id } },
+      creatorId: alice.id,
+      plannedId: ergonomicChair.id,
     },
   });
 
