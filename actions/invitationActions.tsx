@@ -8,6 +8,24 @@ import { inviteSchema } from "@/util/form-zod-schema";
 import { redirect } from "next/navigation";
 import { protocol, rootDomain } from "@/lib/utils";
 import { addDays } from "@/lib/addDays";
+import { ActionResult } from "next/dist/server/app-render/types";
+import { revalidatePath } from "next/cache";
+
+export async function getInvitedUsersActions(subdomain: string) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect("/login");
+  }
+  const invitedUsers = await prisma.invitation.findMany({
+    where: {
+      app: {
+        subdomain,
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+  return invitedUsers;
+}
 
 export async function createInviteAction(
   prevState: unknown,
@@ -72,11 +90,12 @@ export async function createInviteAction(
 
   const resend = new Resend(process.env.AUTH_RESEND_KEY);
   await resend.emails.send({
-    from: process.env.FROM_EMAIL!,
+    from: process.env.INVITE_FROM_EMAIL!,
     to: parse.data.email,
     subject: `Você foi convidado a participar ${appName}`,
     html,
   });
+  revalidatePath("/invite");
   return { success: true };
 }
 
@@ -167,13 +186,13 @@ export async function resendInviteAction(
     return { error: "You don’t have permission to resend this invitation." };
   }
 
-  if (invite.status !== "PENDING") {
-    return { error: "Only pending invitations may be resent." };
+  if (invite.status !== "PENDING" && invite.status !== "REVOKED") {
+    return { error: "Only pending or revoked invitations may be resent." };
   }
   const newExpiry = addDays(new Date(), 9);
   await prisma.invitation.update({
     where: { id: invitationId },
-    data: { expiresAt: newExpiry },
+    data: { expiresAt: newExpiry, status: "PENDING" },
   });
 
   const resend = new Resend(process.env.AUTH_RESEND_KEY!);
@@ -192,5 +211,43 @@ export async function resendInviteAction(
       <p><a href="${acceptUrl}">Click here to accept</a> (expires ${newExpiry.toDateString()}).</p>
     `,
   });
+  revalidatePath("/invite");
+  return { success: true };
+}
+
+export async function revokeInviteAction(
+  invitationId: string
+): Promise<ActionResult> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect("/login");
+  }
+  const me = session.user.id;
+  const invite = await prisma.invitation.findUnique({
+    where: { id: invitationId },
+  });
+  if (!invite) {
+    return { error: "Convite não encontrado." };
+  }
+
+  const membership = await prisma.membership.findUnique({
+    where: { appId_userId: { appId: invite.appId, userId: me } },
+  });
+  if (
+    !membership ||
+    (membership.role !== "OWNER" &&
+      membership.role !== "ADMIN" &&
+      invite.inviterId !== me)
+  ) {
+    return { error: "You do not have permission to revoke this invitation." };
+  }
+  if (invite.status !== "PENDING" && invite.status !== "EXPIRED") {
+    return { error: "Only pending or expired invitations can be revoked." };
+  }
+  await prisma.invitation.update({
+    where: { id: invitationId },
+    data: { status: "REVOKED", revokedAt: new Date() },
+  });
+  revalidatePath("/invite");
   return { success: true };
 }

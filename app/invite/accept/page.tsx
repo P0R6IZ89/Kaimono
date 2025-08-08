@@ -39,6 +39,5 @@ export default async function AcceptInvitePage({
     params.set("invited", "1");
   }
 
-  // Redirect to app dashboard (you can append a query param to show a toast client-side there)
   redirect(`${protocol}://${app.subdomain}.${rootDomain}?${params.toString()}`);
 }

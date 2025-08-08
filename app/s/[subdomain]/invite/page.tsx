@@ -8,14 +8,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getInvitedUsersActions } from "@/actions/invitationActions";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import ActionsButton from "./actionButtom";
 
 export default async function Invite({
   params,
 }: {
-  params: { subdomain: string };
+  params: Promise<{ subdomain: string }>;
 }) {
   const { subdomain } = await params;
   const app = await getCurrentAppAction(subdomain);
+  const invitedUsers = await getInvitedUsersActions(subdomain);
   return (
     <div>
       <Card className="max-w-lg border-none shadow-none">
@@ -35,9 +46,36 @@ export default async function Invite({
       <Card className="max-w-lg border-none shadow-none">
         <CardHeader>
           <CardTitle>Convites pendentes</CardTitle>
-          <CardDescription></CardDescription>
+          <CardDescription>
+            Gerenciar os convites do aplicativo.
+          </CardDescription>
         </CardHeader>
-        <CardContent></CardContent>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Email</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {invitedUsers.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.status}</TableCell>
+                  <TableCell>
+                    <ActionsButton
+                      status={user.status}
+                      invitationId={user.id}
+                      subdomain={subdomain}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
       </Card>
     </div>
   );
