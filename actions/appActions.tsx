@@ -13,21 +13,21 @@ import { z } from "zod";
 export async function getAllAppsAction() {
   const session = await auth();
   if (!session?.user) redirect("/login");
-  try {
-    const apps = await prisma.app.findMany({
-      where: { memberships: { some: { userId: session.user.id } } },
-      include: {
-        _count: {
-          select: {
-            memberships: true,
-          },
+
+  const apps = await prisma.app.findMany({
+    where: { memberships: { some: { userId: session.user.id } } },
+    include: {
+      _count: {
+        select: {
+          memberships: true,
         },
       },
-    });
-    return apps;
-  } catch {
-    return [];
+    },
+  });
+  if (!apps) {
+    redirect("/new-app");
   }
+  return apps;
 }
 
 export async function getCurrentAppAction(subdomain: string) {
