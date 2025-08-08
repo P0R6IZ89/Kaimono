@@ -3,9 +3,10 @@ import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { protocol, rootDomain } from "@/lib/utils";
 import { appSchema } from "@/util/form-zod-schema";
-import { Prisma } from "@prisma/client";
+import { $Enums, Prisma } from "@prisma/client";
 import { Session } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { ActionResult } from "next/dist/server/app-render/types";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -149,4 +150,108 @@ export async function deleteApp(id: string) {
     return { error: `Algo deu errado ${error}` };
   }
   return { message: { isSuccess: true } };
+}
+
+export async function removeMemberAction(
+  subdomain: string,
+  targetUserId: string
+): Promise<ActionResult> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { success: false, message: "Unauthorized. Please sign in." };
+  }
+  const actingUserId = session.user.id;
+  const app = await prisma.app.findUnique({
+    where: { subdomain },
+    select: { id: true },
+  });
+  if (!app) return { success: false, message: "App not found." };
+
+  // Load acting and target memberships
+  const [actingMembdership, targetMembership] = await Promise.all([
+    prisma.membership.findUnique({
+      where: { appId_userId: { appId: app.id, userId: actingUserId } },
+      select: { role: true, userId: true },
+    }),
+    prisma.membership.findUnique({
+      where: { appId_userId: { appId: app.id, userId: targetUserId } },
+      select: { role: true, userId: true },
+    }),
+  ]);
+
+  if (!actingMembdership) {
+    return { success: false, message: "You are not a member of this app." };
+  }
+  if (!targetMembership) {
+    return { success: true, message: "User is not a member." };
+  }
+
+  const removingSelf = actingUserId === targetUserId;
+
+  if (!removingSelf) {
+    if (actingMembdership.role === "MEMBER") {
+      return { success: false, message: "Insufficient permission." };
+    }
+    if (actingMembdership.role === "ADMIN") {
+      if (targetMembership.role === "ADMIN") {
+        return {
+          success: false,
+          message: "Admins cannot remove other Admins.",
+        };
+      }
+    }
+    try {
+      await prisma.$transaction(async (tx) => {
+        const freshTarget = await tx.membership.findUnique({
+          where: { appId_userId: { appId: app.id, userId: targetUserId } },
+          select: { role: true },
+        });
+        if (!freshTarget) return;
+        if (freshTarget.role === "OWNER") {
+          const ownerCount = await tx.membership.count({
+            where: { appId: app.id, role: "OWNER" },
+          });
+          if (ownerCount <= 1) {
+            if (ownerCount <= 1) throw new Error("LAST_OWNER");
+          }
+        }
+        await tx.membership.delete({
+          where: { appId_userId: { appId: app.id, userId: targetUserId } },
+        });
+      });
+    } catch (e) {
+      if (e instanceof Error && e.message === "LAST_OWNER") {
+        return {
+          success: false,
+          message: "Cannot remove the last Owner. Promote another user first.",
+        };
+      }
+      return { success: false, message: "Failed to remove member." };
+    }
+  }
+  revalidatePath("/invite");
+  return { success: true, message: "User removed." };
+}
+
+export async function getMembership(
+  subdomain: string
+): Promise<$Enums.Role | null> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect("/login");
+  }
+  const userId = session.user.id;
+  const app = await prisma.app.findUnique({
+    where: { subdomain },
+    select: { id: true },
+  });
+  if (!app) {
+    redirect("/new-app");
+  }
+  const membership = await prisma.membership.findUnique({
+    where: { appId_userId: { appId: app.id, userId } },
+    select: { role: true },
+  });
+
+  return membership?.role ?? null;
 }

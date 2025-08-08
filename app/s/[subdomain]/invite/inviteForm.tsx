@@ -54,7 +54,7 @@ function InviteForm({ app }: InviteFormProps) {
       if (state.success) {
         toast.success("Convite enviado com suscesso!");
       } else if (state.error) {
-        toast.error("Algo deu errado, tente novamente...");
+        toast.error(state.error);
       }
     }
   }, [state]);

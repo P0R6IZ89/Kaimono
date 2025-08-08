@@ -22,7 +22,11 @@ import { NavUser } from "./nav-user";
 import { auth } from "@/auth";
 import { SkeletonAvatar } from "../skeleton/avatar";
 import { protocol, rootDomain } from "@/lib/utils";
-import { getAllAppsAction, getCurrentAppAction } from "@/actions/appActions";
+import {
+  getAllAppsAction,
+  getCurrentAppAction,
+  getMembership,
+} from "@/actions/appActions";
 
 const data = {
   navSite: {
@@ -83,8 +87,12 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 
 export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
   const session = await auth();
+  if (!session?.user?.id) {
+    return <p>Unauthenticated</p>;
+  }
   const apps = await getAllAppsAction();
   const currentApp = await getCurrentAppAction(subdomain);
+  const memberRole = await getMembership(subdomain);
   const data2 = {
     invitation: {
       title: "Convidar Usuário",
@@ -112,17 +120,19 @@ export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
       <SidebarContent>
         <NavPages pages={data.navSite} />
         <NavPages pages={data.navPages} />
-        <NavPages pages={data2.invitation} />
+        {memberRole !== "MEMBER" ? <NavPages pages={data2.invitation} /> : null}
+
         <NavConfig items={data.config} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         {session?.user ? (
           <NavUser
+            memberRole={memberRole ?? undefined}
             user={{
-              name: session?.user?.name ?? "",
-              email: session?.user?.email ?? "",
-              image: session?.user?.image ?? "",
+              name: session.user.name ?? "",
+              email: session.user.email ?? "",
+              image: session.user.image ?? "",
             }}
           />
         ) : (
