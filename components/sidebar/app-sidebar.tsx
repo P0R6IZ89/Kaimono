@@ -9,7 +9,14 @@ import {
 import NavPages from "./nav-pages";
 import { NavConfig } from "./nav-config";
 import { NavSecondary } from "./nav-secondary";
-import { Armchair, Grip, Hexagon, Send, Shirt } from "lucide-react";
+import {
+  Armchair,
+  Grip,
+  Hexagon,
+  Send,
+  Shirt,
+  UserRoundPlus,
+} from "lucide-react";
 import { AppSwitcher } from "./apps-switcher";
 import { NavUser } from "./nav-user";
 import { auth } from "@/auth";
@@ -17,7 +24,8 @@ import { SkeletonAvatar } from "../skeleton/avatar";
 import { protocol, rootDomain } from "@/lib/utils";
 import {
   getAllAppsAction,
-  getAppFromSubdomainAction,
+  getCurrentAppAction,
+  getMembership,
 } from "@/actions/appActions";
 
 const data = {
@@ -77,19 +85,34 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   subdomain: string;
 };
 
-export async function AppSidebar({
-  subdomain,
-  ...props
-}: AppSidebarProps): Promise<JSX.Element> {
+export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
   const session = await auth();
-  const subdomainDetails = await getAppFromSubdomainAction(subdomain);
-  const allApps = await getAllAppsAction();
+  if (!session?.user?.id) {
+    return <p>Unauthenticated</p>;
+  }
+  const apps = await getAllAppsAction();
+  const currentApp = await getCurrentAppAction(subdomain);
+  const memberRole = await getMembership(subdomain);
+  const data2 = {
+    invitation: {
+      title: "Convidar Usuário",
+      url: "",
+      items: [
+        {
+          title: "Convidar Usuário",
+          url: `${protocol}://${subdomain}.${rootDomain}/invite`,
+          isActive: false,
+          icon: UserRoundPlus,
+        },
+      ],
+    },
+  };
 
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
-        {subdomainDetails ? (
-          <AppSwitcher subdomain={subdomainDetails} apps={allApps} />
+        {apps && currentApp ? (
+          <AppSwitcher apps={apps} currentApp={currentApp} />
         ) : (
           <SkeletonAvatar />
         )}
@@ -97,16 +120,19 @@ export async function AppSidebar({
       <SidebarContent>
         <NavPages pages={data.navSite} />
         <NavPages pages={data.navPages} />
+        {memberRole !== "MEMBER" ? <NavPages pages={data2.invitation} /> : null}
+
         <NavConfig items={data.config} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         {session?.user ? (
           <NavUser
+            memberRole={memberRole ?? undefined}
             user={{
-              name: session?.user?.name ?? "",
-              email: session?.user?.email ?? "",
-              image: session?.user?.image ?? "",
+              name: session.user.name ?? "",
+              email: session.user.email ?? "",
+              image: session.user.image ?? "",
             }}
           />
         ) : (

@@ -3,6 +3,13 @@ import React from "react";
 import MembersCard from "./components/MembersCard";
 import QuickEssentialCard from "./components/QuickEssential";
 import QuickPlannedCard from "./components/QuickPlanned";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import InviteToastHandler from "./components/InviteToastHandler";
 
 export default async function Essentials({
   params,
@@ -11,17 +18,16 @@ export default async function Essentials({
 }) {
   const { subdomain } = await params;
   return (
-    <div className="@container max-w-5xl flex flex-col p-4 space-y-8 ">
-      <div className="flex px-6 min-h-32 items-center lg:max-w-1/2">
-        <div className="">
-          <h1 className="text-xs text-muted-foreground leading-none">
+    <div className="@container max-w-5xl flex flex-col p-4 space-y-4 ">
+      <InviteToastHandler />
+      <Card className="border-none shadow-none">
+        <CardHeader>
+          <CardDescription>
             Olá, <UserName />
-          </h1>
-          <h2 className="pt-1 leading-none font-semibold">
-            Bem vindo de volta!
-          </h2>
-        </div>
-      </div>
+          </CardDescription>
+          <CardTitle className="font-normal">Bem vindo de volta! 😊</CardTitle>
+        </CardHeader>
+      </Card>
       <div className="grid grid-cols-2 gap-3">
         <MembersCard subdomain={subdomain} />
         <QuickEssentialCard subdomain={subdomain} />

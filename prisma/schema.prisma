@@ -1,50 +1,101 @@
-// Relations Doc
-// https://www.prisma.io/docs/orm/prisma-schema/data-model/relations
-
 generator client {
   provider = "prisma-client-js"
-  // output   = "node_modules/.prisma/client"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-model App {
-  id           String      @id @default(cuid())
-  name         String
-  description  String?
-  subdomain    String?     @unique
-  customDomain String?     @unique
-  image        String?
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  //Relations
-  user         User[]      @relation("AppMembers")
-  essentials   Essential[]
-  planneds     Planned[]
+enum Role {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REVOKED
+  EXPIRED
 }
 
 model User {
-  id                String             @id @default(cuid())
-  email             String             @unique
-  name              String?
-  createdAt         DateTime           @default(now())
-  emailVerified     DateTime?
-  image             String?
-  updatedAt         DateTime           @updatedAt
-  //Relations
-  accounts          Account[]
-  sessions          Session[]
-  Authenticator     Authenticator[]
-  apps              App[]              @relation("AppMembers")
-  essentials        Essential[]
-  planneds          Planned[]
-  essentialComments EssentialComment[]
-  plannedComments   PlannedComment[]
-  essentialLikes    EssentialLike[]
-  plannedLikes      PlannedLike[]
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  //Auth
+  accounts      Account[]
+  sessions      Session[]
+  Authenticator Authenticator[]
+
+  // App membership & invites
+  memberships     Membership[]
+  invitationsSent Invitation[] @relation("InvitationSender")
+
+  // Domain data
+  essentials      Essential[]
+  planneds        Planned[]
+  plannedComments PlannedComment[]
+  plannedLikes    PlannedLike[]
+}
+
+model App {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  subdomain   String   @unique
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Membership & invites
+  memberships Membership[]
+  invitations Invitation[]
+
+  // Domain data
+  essentials Essential[]
+  planneds   Planned[]
+}
+
+// Junction table for APP ⇆ User
+model Membership {
+  id       String   @id @default(cuid())
+  appId    String
+  userId   String
+  role     Role     @default(MEMBER)
+  joinedAt DateTime @default(now())
+
+  app  App  @relation(fields: [appId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([appId, userId])
+}
+
+// Holds pending & historic invitations
+model Invitation {
+  id         String           @id @default(cuid())
+  appId      String
+  email      String
+  token      String           @unique
+  role       Role             @default(MEMBER)
+  inviterId  String
+  status     InvitationStatus @default(PENDING)
+  expiresAt  DateTime
+  createdAt  DateTime         @default(now())
+  acceptedAt DateTime?
+  revokedAt  DateTime?
+
+  app     App  @relation(fields: [appId], references: [id], onDelete: Cascade)
+  inviter User @relation("InvitationSender", fields: [inviterId], references: [id], onDelete: Cascade)
+
+  @@unique([appId, email])
 }
 
 model Account {
@@ -98,20 +149,17 @@ model Authenticator {
 }
 
 model Essential {
-  id        String             @id @default(cuid())
+  id        String   @id @default(cuid())
   title     String
-  price     Decimal            @default(0)
+  price     Decimal  @default(0)
   status    String
-  quantity  Int                @default(1)
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-  // Relations
-  app       App                @relation(fields: [appId], references: [id])
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  app       App      @relation(fields: [appId], references: [id])
   appId     String
-  creator   User               @relation(fields: [creatorId], references: [id])
+  creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
-  comments  EssentialComment[]
-  likes     EssentialLike[]
 }
 
 model Planned {
@@ -133,17 +181,6 @@ model Planned {
   likes       PlannedLike[]
 }
 
-model EssentialComment {
-  id          String    @id @default(cuid())
-  content     String
-  createdAt   DateTime  @default(now())
-  // Relations
-  author      User      @relation(fields: [authorId], references: [id])
-  authorId    String
-  essential   Essential @relation(fields: [essentialId], references: [id])
-  essentialId String
-}
-
 model PlannedComment {
   id        String   @id @default(cuid())
   content   String
@@ -153,19 +190,6 @@ model PlannedComment {
   authorId  String
   planned   Planned  @relation(fields: [plannedId], references: [id])
   plannedId String
-}
-
-model EssentialLike {
-  id          String    @id @default(cuid())
-  liked       Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  // Relations
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String
-  essential   Essential @relation(fields: [essentialId], references: [id])
-  essentialId String
-
-  @@unique([userId, essentialId])
 }
 
 model PlannedLike {
