@@ -205,6 +205,8 @@ export async function getEssentialCount(subdomain: string) {
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
+  console.debug("getEssentialCount called with:", { subdomain, session });
+
   const app = await isUserBelongsTheApp(subdomain, session);
   if (!app) {
     throw new Error("Team not found for subdomain: " + subdomain);

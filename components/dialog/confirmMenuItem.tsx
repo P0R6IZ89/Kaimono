@@ -10,7 +10,7 @@ import {
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import React from "react";
+import React, { useState } from "react";
 import { Loader2 } from "lucide-react";
 
 interface ConfirmMenuItemProps {
@@ -30,8 +30,18 @@ export function ConfirmMenuItem({
   isPending = false,
   variant = "default",
 }: ConfirmMenuItemProps) {
+  const [open, setOpen] = useState(false);
+
+  const handleConfirm = async () => {
+    try {
+      await onConfirm(); // await the API call
+      setOpen(false); // then close the dialog
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger onSelect={(e) => e.preventDefault()} asChild>
         <DropdownMenuItem>
           {icon}
@@ -48,11 +58,9 @@ export function ConfirmMenuItem({
             <Button variant="outline">Cancel</Button>
           </DialogClose>
           <Button
-            disabled={isPending}
             variant={variant}
-            onClick={() => {
-              onConfirm();
-            }}
+            disabled={isPending}
+            onClick={handleConfirm}
           >
             {isPending ? <Loader2 className="animate-spin" /> : icon}
             <span>{title}</span>

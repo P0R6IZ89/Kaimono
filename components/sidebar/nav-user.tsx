@@ -19,6 +19,9 @@ import {
 } from "@/components/ui/sidebar";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import DialogLogout from "@/app/(auth)/logout/dialog-logout";
+import { $Enums } from "@prisma/client";
+
+type MemberRole = $Enums.Role;
 
 interface NavUserProps {
   user?: {
@@ -26,9 +29,16 @@ interface NavUserProps {
     email: string;
     image: string;
   };
+  memberRole?: MemberRole;
 }
 
-export function NavUser({ user }: NavUserProps) {
+const ROLE_LABEL: Record<MemberRole, string> = {
+  OWNER: "Proprietário",
+  ADMIN: "Administrador",
+  MEMBER: "Membro",
+};
+
+export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
   const { isMobile } = useSidebar();
   if (!user) {
     return (
@@ -51,7 +61,11 @@ export function NavUser({ user }: NavUserProps) {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.image} alt={user.email} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {user.name
+                    ? user.name[0].toUpperCase()
+                    : user.email[0].toUpperCase()}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -70,11 +84,19 @@ export function NavUser({ user }: NavUserProps) {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.image} alt={user.email} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {user.name
+                      ? user.name[0].toUpperCase()
+                      : user.email[0].toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="text-xs">{ROLE_LABEL[memberRole]}</span>
+                  {user.name ? (
+                    <span className="truncate font-semibold">{user.name}</span>
+                  ) : (
+                    <span className="truncate">{user.email}</span>
+                  )}
                 </div>
               </div>
             </DropdownMenuLabel>

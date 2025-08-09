@@ -48,6 +48,7 @@ function CommentsCell({ row }: RowCellProps) {
   const handleDelete = async (id: string) => {
     try {
       await deleteComment(id);
+      form.reset();
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +79,7 @@ function CommentsCell({ row }: RowCellProps) {
                 <div className="flex gap-2">
                   <p>{dayjs(comments[0].createdAt).fromNow()}</p>
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="">
+                    <DropdownMenuTrigger asChild>
                       <Ellipsis className="size-4" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -121,7 +122,7 @@ function CommentsCell({ row }: RowCellProps) {
                           <span className=" flex justify-between items-center text-xs text-muted-foreground">
                             <p>{authorName ?? authorEmail}</p>
                             <div className="flex gap-2">
-                              <p>{dayjs(comments[0].createdAt).fromNow()}</p>
+                              <p>{dayjs(comment.createdAt).fromNow()}</p>
                               <DropdownMenu>
                                 <DropdownMenuTrigger className="">
                                   <Ellipsis className="size-4" />
@@ -129,7 +130,7 @@ function CommentsCell({ row }: RowCellProps) {
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuItem
                                     onSelect={() => {
-                                      handleDelete(comments[0].id);
+                                      handleDelete(comment.id);
                                     }}
                                   >
                                     <Trash2 />
@@ -162,7 +163,7 @@ function CommentsCell({ row }: RowCellProps) {
                           <span className=" flex justify-between items-center text-xs text-muted-foreground">
                             <p>{authorName ?? authorEmail}</p>
                             <div className="flex gap-2">
-                              <p>{dayjs(comments[0].createdAt).fromNow()}</p>
+                              <p>{dayjs(comment.createdAt).fromNow()}</p>
                               <DropdownMenu>
                                 <DropdownMenuTrigger className="">
                                   <Ellipsis className="size-4" />
@@ -170,7 +171,7 @@ function CommentsCell({ row }: RowCellProps) {
                                 <DropdownMenuContent align="end">
                                   <DropdownMenuItem
                                     onSelect={() => {
-                                      handleDelete(comments[0].id);
+                                      handleDelete(comment.id);
                                     }}
                                   >
                                     <Trash2 />

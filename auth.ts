@@ -15,7 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     ...authConfig.providers,
     Resend({
       apiKey: process.env.AUTH_RESEND_KEY,
-      from: process.env.FROM_EMAIL,
+      from: process.env.LOGIN_FROM_EMAIL,
     }),
   ],
   pages: {
