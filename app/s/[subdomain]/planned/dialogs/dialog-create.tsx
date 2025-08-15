@@ -100,6 +100,8 @@ export function CreatePlannedDialog() {
               <FormControl>
                 <Input
                   type="number"
+                  min={0}
+                  step={"any"}
                   {...field}
                   onChange={(e) => field.onChange(e.target.value)}
                 />

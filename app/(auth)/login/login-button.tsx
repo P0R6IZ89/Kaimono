@@ -52,7 +52,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
       >
         <div className="flex flex-row gap-2 items-center">
           <GithubIcon className="text-background size-4" />
-          <p>Continuar com Github</p>
+          <p>Continuar com Github 🚧Only for dev⚠️</p>
         </div>
       </Button>
 

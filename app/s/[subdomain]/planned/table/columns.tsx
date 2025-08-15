@@ -10,6 +10,7 @@ import PriceCell from "./cells/cell-price";
 import CommentsCell from "./cells/cell-comments";
 import LikeStatusCell from "./cells/cell-like-status";
 import MenuCell from "./cells/cell-menu";
+import ActionsCell from "./cells/cell-actions";
 
 dayjs.extend(relativeTime);
 
@@ -50,5 +51,10 @@ export const columnsPlanned = [
     id: "comments",
     header: () => null,
     cell: ({ row }) => <CommentsCell row={row} />,
+  }),
+  columnHelper.display({
+    id: "actions",
+    header: () => null,
+    cell: ({ row }) => <ActionsCell row={row} />,
   }),
 ];
