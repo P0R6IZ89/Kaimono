@@ -28,7 +28,7 @@ export default async function Invite({
   const app = await getCurrentAppAction(subdomain);
   const invitedUsers = await getInvitedUsersActions(subdomain);
   return (
-    <div>
+    <div className="p-4 space-y-8 max-w-xl">
       <Card className="max-w-lg border-none shadow-none">
         <CardHeader>
           <CardTitle>Convide seus amigos para o app!</CardTitle>
