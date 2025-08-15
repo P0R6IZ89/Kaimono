@@ -167,7 +167,7 @@ model Planned {
   price       Decimal          @default(0)
   priority    String
   status      String
-  quantity    Int              @default(1)
+  // quantity    Int              @default(1)
   image       String?
   productUrl  String?
   description String?
