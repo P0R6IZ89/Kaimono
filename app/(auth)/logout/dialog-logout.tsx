@@ -1,4 +1,4 @@
-import { logoutAction } from "@/actions/actions";
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   DialogClose,
@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import React from "react";
+import { signOut } from "next-auth/react";
 
 function DialogLogout() {
   return (
@@ -16,9 +17,7 @@ function DialogLogout() {
         <DialogTitle>Deseja fazer logout?</DialogTitle>
       </DialogHeader>
       <DialogFooter className="sm:justify-start">
-        <form action={logoutAction}>
-          <Button type="submit">Logout</Button>
-        </form>
+        <Button onClick={async () => await signOut()}>Logout</Button>
         <DialogClose asChild>
           <Button type="button" variant={"secondary"}>
             Cancelar
