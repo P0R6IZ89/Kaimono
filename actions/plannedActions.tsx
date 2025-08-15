@@ -11,56 +11,49 @@ export async function createPlannedAction(
   previousState: unknown,
   formData: FormData
 ) {
-  const title = formData.get("title")?.toString() as string;
-  const priceString = formData.get("price")?.toString() as string;
-  const priority = formData.get("priority")?.toString() as string;
-  const status = formData.get("status")?.toString() as string;
-  const productUrl = formData.get("productUrl")?.toString() as string;
-  const description = formData.get("description")?.toString() as string;
-  const subdomain = formData.get("subdomain")?.toString() as string;
-  const image = formData.get("image")?.toString() as string;
-  const price = parseFloat(priceString);
-
   const result = plannedSchema.safeParse({
-    title,
-    price,
-    priority,
-    status,
-    productUrl,
-    description,
-    subdomain,
-    image,
+    title: formData.get("title"),
+    price: formData.get("price"),
+    priority: formData.get("priority"),
+    status: formData.get("status"),
+    productUrl: formData.get("productUrl"),
+    description: formData.get("description"),
+    subdomain: formData.get("subdomain"),
+    image: formData.get("image"),
   });
 
   if (!result.success) {
     const first = result.error.errors[0];
-    console.log(result.error);
     return { error: first.message };
   }
+
+  const data = result.data;
 
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Unauthorized");
   }
 
-  const app = await prisma.app.findUnique({ where: { subdomain } });
-  if (!app) throw new Error("App not found for subdomain: " + subdomain);
+  const app = await prisma.app.findUnique({
+    where: { subdomain: data.subdomain },
+  });
+  if (!app) throw new Error("App not found for subdomain: " + data.subdomain);
 
   try {
     await prisma.planned.create({
       data: {
-        title,
-        price,
-        priority,
-        status,
-        image,
-        productUrl,
-        description,
+        title: data.title,
+        price: data.price,
+        priority: data.priority,
+        status: data.status,
+        image: data.image,
+        productUrl: data.productUrl,
+        description: data.description,
         appId: app.id,
         creatorId: session.user.id,
       },
     });
-    revalidatePath(`/s/${subdomain}/planned`);
+    revalidatePath(`/s/${data.subdomain}/planned`);
     return { message: { isSuccess: true } };
   } catch (error) {
     console.log(error);

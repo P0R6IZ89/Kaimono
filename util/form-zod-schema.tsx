@@ -21,18 +21,24 @@ export const plannedSchema = z.object({
     .string()
     .min(1, "O Nome do produto é obrigatório")
     .max(50, "Produto deve ter no máximo 50 caracteres"),
-  price: z
-    .number()
-    .positive("O número deve ser positivo")
-    .gte(1, "O número deve ser maior que 0"),
+  price: z.preprocess(
+    (v) => (v === "" || v == null ? 0 : v),
+    z.coerce.number().nonnegative()
+  ),
   priority: z.enum(["low", "medium", "high"], {
     message: "O status é incopatível",
   }),
   status: z.enum(["pending", "purchased", "canceled"], {
     message: "O status é incopatível",
   }),
-  productUrl: z.optional(z.string()),
-  description: z.optional(z.string()),
+  productUrl: z.preprocess(
+    (v) => (v === "" ? undefined : v),
+    z.string().url().optional()
+  ),
+  description: z.preprocess(
+    (v) => (v === "" ? undefined : v),
+    z.string().optional()
+  ),
   subdomain: z.string().min(1, "Verifique seu link"),
   image: z.string(),
 });
