@@ -90,7 +90,7 @@ export async function createInviteAction(
 
   const resend = new Resend(process.env.AUTH_RESEND_KEY);
   await resend.emails.send({
-    from: process.env.INVITE_LOGIN_FROM_EMAIL!,
+    from: process.env.INVITE_FROM_EMAIL!,
     to: parse.data.email,
     subject: `Você foi convidado a participar ${appName}`,
     html,
