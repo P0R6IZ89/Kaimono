@@ -14,6 +14,7 @@ function ImageCell({ row }: RowCellProps) {
           height={800}
           crop={"fill"}
           alt={title}
+          gravity="center"
           defaultImage="placeholder_dtzhrr.png"
         />
       ) : (
