@@ -20,7 +20,7 @@ export const plannedSchema = z.object({
   title: z
     .string()
     .min(1, "O Nome do produto é obrigatório")
-    .max(50, "Produto deve ter no máximo 50 caracteres"),
+    .max(500, "Produto deve ter no máximo 500 caracteres"),
   price: z.preprocess(
     (v) => (v === "" || v == null ? 0 : v),
     z.coerce.number().nonnegative()
