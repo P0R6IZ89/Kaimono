@@ -164,10 +164,11 @@ model Essential {
 model Planned {
   id          String           @id @default(cuid())
   title       String
-  price       Decimal?
+  price       Decimal          @default(0)
   priority    String
   status      String
-  image       String
+  quantity    Int              @default(1)
+  image       String?
   productUrl  String?
   description String?
   createdAt   DateTime         @default(now())
@@ -187,7 +188,7 @@ model PlannedComment {
   // Relations
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
-  planned   Planned  @relation(fields: [plannedId], references: [id])
+  planned   Planned  @relation(fields: [plannedId], references: [id], onDelete: Cascade)
   plannedId String
 }
 
@@ -198,7 +199,7 @@ model PlannedLike {
   // Relations
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
-  planned   Planned  @relation(fields: [plannedId], references: [id])
+  planned   Planned  @relation(fields: [plannedId], references: [id], onDelete: Cascade)
   plannedId String
 
   @@unique([creatorId, plannedId])

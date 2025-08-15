@@ -37,7 +37,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // It does not works with firefox
         domain: VERCEL_DEPLOYMENT
           ? `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
-          : undefined,
+          : ".localhost",
       },
     },
   },
