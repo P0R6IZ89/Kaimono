@@ -5,7 +5,7 @@ import { columnsPlanned } from "./table/columns";
 
 export interface PlannedJSON {
   id: string;
-  image: string;
+  image: string | null;
   title: string;
   price: number | null;
   status: string;
@@ -51,7 +51,7 @@ export default async function Planned({
         </div>
       </div>
 
-      {planned ? (
+      {planned.length > 0 ? (
         <DataTablePlanned columns={columnsPlanned} data={planned} />
       ) : (
         <div className="text-center">No results.</div>
