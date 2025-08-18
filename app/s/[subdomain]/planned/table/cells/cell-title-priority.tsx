@@ -22,7 +22,7 @@ function TitleCell({ row }: RowCellProps) {
                 <LucidLink />
               </Badge>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-[300px]">
+            <DropdownMenuContent className="max-w-[300px]">
               <DropdownMenuItem className="">
                 <a
                   href={productUrl}
