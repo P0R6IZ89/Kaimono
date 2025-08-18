@@ -9,7 +9,6 @@ import TitleCell from "./cells/cell-title-priority";
 import PriceCell from "./cells/cell-price";
 import CommentsCell from "./cells/cell-comments";
 import LikeStatusCell from "./cells/cell-like-status";
-import MenuCell from "./cells/cell-menu";
 import ActionsCell from "./cells/cell-actions";
 
 dayjs.extend(relativeTime);
@@ -23,17 +22,11 @@ export const columnsPlanned = [
     header: () => null,
     cell: ({ row }) => <ProfileCell row={row} />,
   }),
-  columnHelper.accessor("status", {
-    header: () => null,
-    cell: ({ row }) => <MenuCell row={row} />,
-    filterFn: "arrIncludesSome",
-  }),
   columnHelper.accessor("image", {
     header: () => null,
     cell: ({ row }) => <ImageCell row={row} />,
   }),
-  columnHelper.display({
-    id: "likes",
+  columnHelper.accessor("status", {
     header: () => null,
     cell: ({ row }) => <LikeStatusCell row={row} />,
   }),

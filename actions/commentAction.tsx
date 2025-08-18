@@ -23,7 +23,7 @@ export async function createCommentAction(
     planned: plannedId,
   });
   if (!result.success) {
-    return { error: result.error.errors[0].message };
+    return { ok: false, error: result.error.errors[0].message };
   }
   try {
     await prisma.plannedComment.create({
@@ -34,7 +34,7 @@ export async function createCommentAction(
       },
     });
     revalidatePath("/planned");
-    return { message: { isSuccess: true } };
+    return { ok: true, error: "" };
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }

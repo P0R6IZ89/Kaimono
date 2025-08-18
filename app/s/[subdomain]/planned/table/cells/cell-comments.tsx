@@ -1,4 +1,6 @@
-import React, { useActionState } from "react";
+"use client";
+
+import React, { useActionState, useEffect } from "react";
 import { RowCellProps } from "./cell-profile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { capitalizeFirstLetter } from "@/lib/utils";
@@ -40,15 +42,20 @@ function CommentsCell({ row }: RowCellProps) {
       id: "",
     },
   });
-  const initialState = { error: "" };
+  const initialState = { ok: false, error: "" };
   const [state, action, isPending] = useActionState(
     createCommentAction,
     initialState
   );
+  useEffect(() => {
+    if (!isPending && state?.ok) {
+      form.reset({ content: "" });
+    }
+  }, [isPending, state, form]);
+
   const handleDelete = async (id: string) => {
     try {
       await deleteComment(id);
-      form.reset();
     } catch (error) {
       console.log(error);
     }
@@ -88,7 +95,7 @@ function CommentsCell({ row }: RowCellProps) {
                           handleDelete(comments[0].id);
                         }}
                       >
-                        <Trash2 />
+                        <Trash2 className="text-destructive" />
                         <span>Deletar</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -103,10 +110,14 @@ function CommentsCell({ row }: RowCellProps) {
             {comments.map((comment, index) => {
               const { authorImage, authorEmail, authorName } = comment;
               return (
-                <AccordionItem key={index} value="item-1">
+                <AccordionItem
+                  key={index}
+                  value="item-1"
+                  className="hover:no-underline hover:bg-accent rounded-md"
+                >
                   {index === 0 ? (
-                    <AccordionTrigger className="hover:no-underline hover:bg-accent">
-                      <div className="flex gap-2 w-full space-y-6">
+                    <AccordionTrigger className="hover:no-underline">
+                      <div className=" flex gap-2 w-full space-y-6 p-2">
                         <Avatar className="size-6">
                           <AvatarImage
                             src={authorImage ?? undefined}
@@ -121,10 +132,10 @@ function CommentsCell({ row }: RowCellProps) {
                         <div className="w-full">
                           <span className=" flex justify-between items-center text-xs text-muted-foreground">
                             <p>{authorName ?? authorEmail}</p>
-                            <div className="flex gap-2">
+                            <div className="flex gap-3">
                               <p>{dayjs(comment.createdAt).fromNow()}</p>
                               <DropdownMenu>
-                                <DropdownMenuTrigger className="">
+                                <DropdownMenuTrigger asChild>
                                   <Ellipsis className="size-4" />
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
@@ -162,10 +173,10 @@ function CommentsCell({ row }: RowCellProps) {
                         <div className="w-full">
                           <span className=" flex justify-between items-center text-xs text-muted-foreground">
                             <p>{authorName ?? authorEmail}</p>
-                            <div className="flex gap-2">
+                            <div className="flex gap-3">
                               <p>{dayjs(comment.createdAt).fromNow()}</p>
                               <DropdownMenu>
-                                <DropdownMenuTrigger className="">
+                                <DropdownMenuTrigger asChild>
                                   <Ellipsis className="size-4" />
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
@@ -205,7 +216,22 @@ function CommentsCell({ row }: RowCellProps) {
                 </FormItem>
               )}
             />
-            <Input type="hidden" name="id" value={id} disabled={isPending} />
+            <FormField
+              control={form.control}
+              name="id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="hidden"
+                      {...field}
+                      value={id}
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
             <Button
               variant={"outline"}
