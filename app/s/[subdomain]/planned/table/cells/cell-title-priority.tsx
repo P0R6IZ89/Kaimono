@@ -8,30 +8,34 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { protocol, rootDomain } from "@/lib/utils";
 
 function TitleCell({ row }: RowCellProps) {
-  const { title, priority } = row.original;
+  const { title, priority, productUrl } = row.original;
   return (
-    <div className="static flex justify-between top-8 px-3 text-foreground">
+    <div className="flex justify-between pt-4 px-4 text-foreground">
       <p className="text-lg font-semibold">{title}</p>
       <div className="flex flex-row gap-1">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Badge variant={"outline"}>
-              <LucidLink />
-            </Badge>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <a
-                href={""}
-                target="_blank"
-                rel="noopener noreferrer"
-              >{`${protocol}://${rootDomain}`}</a>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {productUrl ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Badge variant={"outline"}>
+                <LucidLink />
+              </Badge>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-[300px]">
+              <DropdownMenuItem className="">
+                <a
+                  href={productUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 underline"
+                >
+                  {productUrl}
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : null}
         <Badge
           variant={"outline"}
           className={`${
