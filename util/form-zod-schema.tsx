@@ -25,6 +25,10 @@ export const plannedSchema = z.object({
     (v) => (v === "" || v == null ? 0 : v),
     z.coerce.number().nonnegative()
   ),
+  quantity: z.preprocess(
+    (v) => (v === "" || v == null ? 1 : v),
+    z.coerce.number().nonnegative()
+  ),
   priority: z.enum(["low", "medium", "high"], {
     message: "O status é incopatível",
   }),

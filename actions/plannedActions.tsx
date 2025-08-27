@@ -14,6 +14,7 @@ export async function createPlannedAction(
   const result = plannedSchema.safeParse({
     title: formData.get("title"),
     price: formData.get("price"),
+    quantity: formData.get("quantity"),
     priority: formData.get("priority"),
     status: formData.get("status"),
     productUrl: formData.get("productUrl"),
@@ -44,6 +45,7 @@ export async function createPlannedAction(
       data: {
         title: data.title,
         price: data.price,
+        quantity: data.quantity,
         priority: data.priority,
         status: data.status,
         image: data.image,
@@ -112,6 +114,7 @@ export async function getPlannedBySubdomain(subdomain: string) {
       image: item.image,
       title: item.title,
       price: item.price ? item.price.toNumber() : null,
+      quantity: item.quantity,
       status: item.status,
       priority: item.priority,
       productUrl: item.productUrl,
