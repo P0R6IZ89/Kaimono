@@ -1,38 +1,103 @@
 "use server";
+
 import { auth } from "@/auth";
+import type { Session } from "next-auth";
 import prisma from "@/lib/prisma";
 import { protocol, rootDomain } from "@/lib/utils";
 import { appSchema } from "@/util/form-zod-schema";
 import { $Enums, Prisma } from "@prisma/client";
-import { Session } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { ActionResult } from "next/dist/server/app-render/types";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
+export type Result<T = unknown> =
+  | { ok: true; data?: T; message?: string }
+  | { ok: false; message: string; code?: string };
+
+function normalizeSubdomain(s: string) {
+  const cleaned = s
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+  return cleaned;
+}
+
+const RESERVED_SUBDOMAINS = new Set([
+  "www",
+  "app",
+  "api",
+  "admin",
+  "static",
+  "assets",
+]);
+
+function assertAllowedSubdomain(sub: string) {
+  if (!sub) throw new Error("Subdomain is required.");
+  if (sub.length < 3)
+    throw new Error("Subdomain must be at least 3 characters.");
+  if (RESERVED_SUBDOMAINS.has(sub))
+    throw new Error("This subdomain is reserved.");
+  if (!/^[a-z0-9-]+$/.test(sub))
+    throw new Error("Subdomain may contain a–z, 0–9, and hyphens only.");
+  if (/--/.test(sub))
+    throw new Error("Subdomain cannot contain consecutive hyphens.");
+}
+
+type SessionWithUser = Session & { user: { id: string } };
+
+async function requireSession(): Promise<SessionWithUser> {
+  const s = await auth();
+  if (!s?.user?.id) redirect("/login");
+  return s as SessionWithUser;
+}
+
+async function requireMembership(subdomain: string) {
+  const session = await requireSession();
+  const app = await prisma.app.findUnique({
+    where: { subdomain },
+    select: { id: true },
+  });
+  if (!app) redirect("/new-app");
+
+  const membership = await prisma.membership.findUnique({
+    where: { appId_userId: { appId: app.id, userId: session.user.id } },
+    select: { role: true },
+  });
+  if (!membership) {
+    redirect("/new-app");
+  }
+  return { appId: app.id, role: membership.role as $Enums.Role, session };
+}
+
 export async function getAllAppsAction() {
-  const session = await auth();
-  if (!session?.user) redirect("/login");
+  const session = await requireSession();
 
   const apps = await prisma.app.findMany({
     where: { memberships: { some: { userId: session.user.id } } },
     include: {
-      _count: {
-        select: {
-          memberships: true,
-        },
+      _count: { select: { memberships: true } },
+      memberships: {
+        where: { userId: session.user.id },
+        select: { role: true },
       },
     },
+    orderBy: { createdAt: "desc" },
   });
-  if (!apps) {
+
+  if (apps.length === 0) {
     redirect("/new-app");
   }
-  return apps;
+
+  return apps.map((a) => ({
+    ...a,
+    currentUserRole: a.memberships[0]?.role ?? null,
+  }));
 }
 
 export async function getCurrentAppAction(subdomain: string) {
-  const session = await auth();
-  if (!session?.user?.id) redirect("/login");
+  await requireMembership(subdomain);
+
   const app = await prisma.app.findUnique({
     where: { subdomain },
     select: {
@@ -41,6 +106,7 @@ export async function getCurrentAppAction(subdomain: string) {
       description: true,
       subdomain: true,
       image: true,
+      _count: { select: { memberships: true } },
     },
   });
 
@@ -48,208 +114,194 @@ export async function getCurrentAppAction(subdomain: string) {
 }
 
 type FormDataShape = z.infer<typeof appSchema>;
+
 export async function createAppAction(prevState: unknown, formData: FormData) {
   const data: FormDataShape = {
-    name: formData.get("name")?.toString() as string,
-    description: formData.get("description")?.toString() as string,
-    subdomain: formData.get("subdomain")?.toString() as string,
+    name: String(formData.get("name") ?? ""),
+    description: String(formData.get("description") ?? ""),
+    subdomain: String(formData.get("subdomain") ?? ""),
   };
 
-  const result = appSchema.safeParse(data);
-  if (!result.success) {
-    console.log(result.error);
-    return { error: result.error.errors[0].message };
+  const parsed = appSchema.safeParse(data);
+  if (!parsed.success) {
+    return {
+      ok: false,
+      message: parsed.error.errors[0].message,
+    } satisfies Result;
   }
 
-  const session = await auth();
-  if (!session?.user?.id) {
-    redirect("/login");
-  }
-
+  const session = await requireSession();
   const userId = session.user.id;
 
-  const { name, description, subdomain } = result.data;
+  const normalized = normalizeSubdomain(parsed.data.subdomain);
+  try {
+    assertAllowedSubdomain(normalized);
+  } catch (e) {
+    return { ok: false, message: (e as Error).message } satisfies Result;
+  }
+
+  const { name, description } = parsed.data;
+
   try {
     await prisma.$transaction(async (tx) => {
       const app = await tx.app.create({
-        data: { name, description, subdomain },
+        data: { name, description, subdomain: normalized },
       });
+
       await tx.membership.create({
-        data: {
-          appId: app.id,
-          userId,
-          role: "OWNER",
-        },
+        data: { appId: app.id, userId, role: "OWNER" },
       });
     });
+
+    revalidatePath("/");
+  } catch (error: unknown) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        const field = Array.isArray(error.meta?.target)
+          ? String(error.meta.target[0])
+          : String(error.meta?.target || "");
+        if (field.includes("subdomain")) {
+          return {
+            ok: false,
+            message: "That subdomain is already taken. Please choose another.",
+            code: "SUBDOMAIN_TAKEN",
+          } satisfies Result;
+        }
+        if (field.includes("customDomain")) {
+          return {
+            ok: false,
+            message: "That custom domain is already in use.",
+            code: "CUSTOM_DOMAIN_TAKEN",
+          } satisfies Result;
+        }
+      }
+    }
+    console.error("createAppAction error:", error);
+    return {
+      ok: false,
+      message: "An unexpected error occurred. Please try again.",
+    } satisfies Result;
+  }
+  redirect(`${protocol}://${normalized}.${rootDomain}`);
+}
+
+export async function isUserBelongsTheApp(subdomain: string) {
+  const { appId } = await requireMembership(subdomain);
+  return { id: appId };
+}
+
+export async function deleteApp(id: string): Promise<Result> {
+  const session = await requireSession();
+
+  const membership = await prisma.membership.findUnique({
+    where: { appId_userId: { appId: id, userId: session.user.id } },
+    select: { role: true },
+  });
+  if (!membership)
+    return { ok: false, message: "You are not a member of this app." };
+  if (membership.role !== "OWNER")
+    return { ok: false, message: "Only Owners can delete the app." };
+
+  try {
+    await prisma.app.delete({ where: { id } });
+    revalidatePath("/");
+    return { ok: true, message: "App deleted." };
   } catch (error: unknown) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002"
+      error.code === "P2025"
     ) {
-      const field = Array.isArray(error.meta?.target)
-        ? String(error.meta.target[0])
-        : null;
-
-      if (field === "subdomain") {
-        return {
-          error: "That subdomain is already taken. Please choose another.",
-        };
-      }
-      if (field === "customDomain") {
-        return { error: "That custom domain is already in use." };
-      }
+      return { ok: true, message: "App not found (already deleted)." };
     }
-
-    console.error("createAppAction error:", error);
-    return { error: "An unexpected error occurred. Please try again." };
+    console.error("deleteApp error:", error);
+    return { ok: false, message: "Failed to delete app." };
   }
-  redirect(`${protocol}://${subdomain}.${rootDomain}`);
-}
-
-export async function isUserBelongsTheApp(
-  subdomain: string,
-  session: Session | null
-) {
-  if (!session?.user?.id) {
-    redirect("/login");
-  }
-  const userId = session.user.id;
-  console.debug("isUserBelongsTheApp called with:", { subdomain, session });
-  const app = await prisma.app.findFirst({
-    where: {
-      subdomain,
-      memberships: { some: { userId } },
-    },
-    select: { id: true },
-  });
-  if (!app) {
-    console.error(
-      `No app found for subdomain="${subdomain}". Looked up membership="${userId}".`
-    );
-    throw new Error(`No app found for subdomain="${subdomain}".`);
-  }
-
-  return { id: app.id };
-}
-
-export async function deleteApp(id: string) {
-  const session = await auth();
-  if (!session?.user) {
-    redirect("/login");
-  }
-  try {
-    const result = await prisma.app.delete({
-      where: { id },
-    });
-    revalidatePath("/");
-    if (result) {
-      return { message: { isSuccess: true } };
-    }
-  } catch (error) {
-    return { error: `Algo deu errado ${error}` };
-  }
-  return { message: { isSuccess: true } };
 }
 
 export async function removeMemberAction(
   subdomain: string,
   targetUserId: string
-): Promise<ActionResult> {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return { success: false, message: "Unauthorized. Please sign in." };
-  }
+): Promise<Result> {
+  const {
+    appId,
+    role: actingRole,
+    session,
+  } = await requireMembership(subdomain);
   const actingUserId = session.user.id;
-  const app = await prisma.app.findUnique({
-    where: { subdomain },
-    select: { id: true },
+
+  const targetMembership = await prisma.membership.findUnique({
+    where: { appId_userId: { appId, userId: targetUserId } },
+    select: { role: true, userId: true },
   });
-  if (!app) return { success: false, message: "App not found." };
 
-  // Load acting and target memberships
-  const [actingMembdership, targetMembership] = await Promise.all([
-    prisma.membership.findUnique({
-      where: { appId_userId: { appId: app.id, userId: actingUserId } },
-      select: { role: true, userId: true },
-    }),
-    prisma.membership.findUnique({
-      where: { appId_userId: { appId: app.id, userId: targetUserId } },
-      select: { role: true, userId: true },
-    }),
-  ]);
-
-  if (!actingMembdership) {
-    return { success: false, message: "You are not a member of this app." };
-  }
   if (!targetMembership) {
-    return { success: true, message: "User is not a member." };
+    revalidatePath(`/s/${subdomain}/settings/members`);
+    return { ok: true, message: "User is not a member." };
   }
 
   const removingSelf = actingUserId === targetUserId;
 
   if (!removingSelf) {
-    if (actingMembdership.role === "MEMBER") {
-      return { success: false, message: "Insufficient permission." };
+    if (actingRole === "MEMBER") {
+      return { ok: false, message: "Insufficient permission." };
     }
-    if (actingMembdership.role === "ADMIN") {
-      if (targetMembership.role === "ADMIN") {
-        return {
-          success: false,
-          message: "Admins cannot remove other Admins.",
-        };
-      }
-    }
-    try {
-      await prisma.$transaction(async (tx) => {
-        const freshTarget = await tx.membership.findUnique({
-          where: { appId_userId: { appId: app.id, userId: targetUserId } },
-          select: { role: true },
-        });
-        if (!freshTarget) return;
-        if (freshTarget.role === "OWNER") {
-          const ownerCount = await tx.membership.count({
-            where: { appId: app.id, role: "OWNER" },
-          });
-          if (ownerCount <= 1) {
-            if (ownerCount <= 1) throw new Error("LAST_OWNER");
-          }
-        }
-        await tx.membership.delete({
-          where: { appId_userId: { appId: app.id, userId: targetUserId } },
-        });
-      });
-    } catch (e) {
-      if (e instanceof Error && e.message === "LAST_OWNER") {
-        return {
-          success: false,
-          message: "Cannot remove the last Owner. Promote another user first.",
-        };
-      }
-      return { success: false, message: "Failed to remove member." };
+    if (actingRole === "ADMIN" && targetMembership.role === "ADMIN") {
+      return { ok: false, message: "Admins cannot remove other Admins." };
     }
   }
-  revalidatePath("/invite");
-  return { success: true, message: "User removed." };
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      const fresh = await tx.membership.findUnique({
+        where: { appId_userId: { appId, userId: targetUserId } },
+        select: { role: true },
+      });
+      if (!fresh) return;
+
+      if (fresh.role === "OWNER") {
+        const ownerCount = await tx.membership.count({
+          where: { appId, role: "OWNER" },
+        });
+        if (ownerCount <= 1) {
+          throw new Error("LAST_OWNER");
+        }
+      }
+
+      await tx.membership.delete({
+        where: { appId_userId: { appId, userId: targetUserId } },
+      });
+    });
+
+    revalidatePath(`/s/${subdomain}/settings/members`);
+    revalidatePath(`/s/${subdomain}`);
+    return {
+      ok: true,
+      message: removingSelf ? "You left the app." : "User removed.",
+    };
+  } catch (e) {
+    if (e instanceof Error && e.message === "LAST_OWNER") {
+      return {
+        ok: false,
+        message: "Cannot remove the last Owner. Promote another user first.",
+      };
+    }
+    console.error("removeMemberAction error:", e);
+    return { ok: false, message: "Failed to remove member." };
+  }
 }
 
 export async function getMembership(
   subdomain: string
 ): Promise<$Enums.Role | null> {
-  const session = await auth();
-  if (!session?.user?.id) {
-    redirect("/login");
-  }
-  const userId = session.user.id;
+  const session = await requireSession();
   const app = await prisma.app.findUnique({
     where: { subdomain },
     select: { id: true },
   });
-  if (!app) {
-    redirect("/new-app");
-  }
+  if (!app) return null;
+
   const membership = await prisma.membership.findUnique({
-    where: { appId_userId: { appId: app.id, userId } },
+    where: { appId_userId: { appId: app.id, userId: session.user.id } },
     select: { role: true },
   });
 
