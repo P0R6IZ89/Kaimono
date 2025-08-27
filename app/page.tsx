@@ -1,5 +1,4 @@
 import { getAllAppsAction } from "@/actions/appActions";
-import { auth } from "@/auth";
 import DeleteDropdown from "@/components/client/deleteDropdown";
 import UserAvatar from "@/components/client/userAvatar";
 import { Badge } from "@/components/ui/badge";
@@ -12,29 +11,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { protocol, rootDomain } from "@/lib/utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
 import { ChevronRight, UserRound } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 dayjs.extend(relativeTime);
 
 export default async function App() {
-  const session = await auth();
-  if (!session?.user) {
-    redirect("/login");
-  }
-
   const apps = await getAllAppsAction();
-  if (!apps || apps.length === 0) {
-    redirect("/new-app");
-  }
-
   return (
     <section className="flex flex-col py-16 px-4 gap-4 min-h-svh max-w-7xl mx-auto justify-center">
       <SessionProvider>
@@ -95,7 +82,6 @@ export default async function App() {
           );
         })}
       </div>
-      {/* <p className="text-muted-foreground">{JSON.stringify(apps)}</p> */}
     </section>
   );
 }
