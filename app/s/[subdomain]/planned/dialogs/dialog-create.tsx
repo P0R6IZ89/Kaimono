@@ -33,6 +33,7 @@ import { createPlannedAction } from "@/actions/plannedActions";
 type FormValues = {
   title: string;
   price: string;
+  quantity: string;
   status: string;
   priority: string;
   image: string;
@@ -47,6 +48,7 @@ export function CreatePlannedDialog() {
     defaultValues: {
       title: "",
       price: "",
+      quantity: "",
       status: "pending",
       priority: "",
       image: "",
@@ -90,27 +92,48 @@ export function CreatePlannedDialog() {
             </FormItem>
           )}
         />
-
-        <FormField
-          control={form.control}
-          name="price"
-          render={({ field }) => (
-            <FormItem className="">
-              <FormLabel>Preço</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  min={0}
-                  step={"any"}
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-row gap-2">
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Preço</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    min={0}
+                    step={"any"}
+                    {...field}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="quantity"
+            render={({ field }) => (
+              <FormItem className="flex-0">
+                <FormLabel>Quantidade</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    min={1}
+                    step={1}
+                    {...field}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}

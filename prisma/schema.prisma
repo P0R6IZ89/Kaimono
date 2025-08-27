@@ -155,7 +155,7 @@ model Essential {
   quantity  Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  app       App      @relation(fields: [appId], references: [id])
+  app       App      @relation(fields: [appId], references: [id], onDelete: Cascade)
   appId     String
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
@@ -167,13 +167,13 @@ model Planned {
   price       Decimal          @default(0)
   priority    String
   status      String
-  // quantity    Int              @default(1)
+  quantity    Int              @default(1)
   image       String?
   productUrl  String?
   description String?
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
-  app         App              @relation(fields: [appId], references: [id])
+  app         App              @relation(fields: [appId], references: [id], onDelete: Cascade)
   appId       String
   creator     User             @relation(fields: [creatorId], references: [id])
   creatorId   String

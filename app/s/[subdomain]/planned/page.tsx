@@ -8,6 +8,7 @@ export interface PlannedJSON {
   image: string | null;
   title: string;
   price: number | null;
+  quantity: number;
   status: string;
   priority: string;
   productUrl: string | null;

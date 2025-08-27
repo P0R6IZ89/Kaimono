@@ -14,21 +14,21 @@ function TitleCell({ row }: RowCellProps) {
   return (
     <div className="flex justify-between pt-4 px-4 text-foreground">
       <p className="text-lg font-semibold">{title}</p>
-      <div className="flex flex-row gap-1">
+      <div className=" flex flex-row items-start h-fit gap-2">
         {productUrl ? (
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger>
               <Badge variant={"outline"}>
-                <LucidLink />
+                <LucidLink strokeWidth={2} className="text-foreground" />
               </Badge>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="max-w-[300px]">
-              <DropdownMenuItem className="">
+            <DropdownMenuContent className="w-69" side="bottom" align="end">
+              <DropdownMenuItem>
                 <a
                   href={productUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-400 underline"
+                  className="text-blue-400 underline line-clamp-3 break-all"
                 >
                   {productUrl}
                 </a>

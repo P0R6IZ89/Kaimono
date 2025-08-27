@@ -21,7 +21,7 @@ function LikeStatusCell({ row }: RowCellProps) {
         <Button
           onClick={handleLike}
           variant={"outline"}
-          className="flex flex-col h-auto w-full m-auto gap-2 backdrop-blur-sm"
+          className="flex flex-col h-auto w-full m-auto gap-2 backdrop-blur-xs"
         >
           {likedByMe ? (
             <Heart fill="currentColor" className="size-6" />
@@ -32,7 +32,7 @@ function LikeStatusCell({ row }: RowCellProps) {
         </Button>
         <Button
           variant={"outline"}
-          className="flex flex-col h-auto w-full m-auto gap-2 backdrop-blur-sm"
+          className="flex flex-col h-auto w-full m-auto gap-2 backdrop-blur-xs"
         >
           {status === "complete" ? <Check className="size-6" /> : null}
           {status === "canceled" ? <Ban className="size-6" /> : null}
