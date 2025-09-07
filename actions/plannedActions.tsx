@@ -68,7 +68,7 @@ export async function getPlannedBySubdomain(subdomain: string) {
   if (!session || !session?.user) {
     throw new AuthError("Unauthorized user");
   }
-  const app = await isUserBelongsTheApp(subdomain, session);
+  const app = await isUserBelongsTheApp(subdomain);
   if (!app) {
     throw new Error("Team not found for subdomain: " + subdomain);
   }
@@ -153,7 +153,7 @@ export async function getPlannedCount(subdomain: string) {
   }
   console.debug("getPlannedCount called with:", { subdomain, session });
 
-  const app = await isUserBelongsTheApp(subdomain, session);
+  const app = await isUserBelongsTheApp(subdomain);
   if (!app) {
     throw new Error("Team not found for subdomain: " + subdomain);
   }
