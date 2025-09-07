@@ -17,8 +17,11 @@ function DeleteDropdown({ id }: { id: string }) {
     startTransition(async () => {
       try {
         const result = await deleteApp(id);
-        if (result?.message?.isSuccess) {
-          toast.success("O app foi excluido com suscesso!");
+        if (result.ok) {
+          toast.success(result.message);
+        }
+        if (!result.ok) {
+          toast.error(result.message);
         }
       } catch (error) {
         toast.error(`Algo deu errado: ${error}`);
