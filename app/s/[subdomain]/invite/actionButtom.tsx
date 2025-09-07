@@ -85,11 +85,11 @@ const makeRemoveUserAction = (id: string, subdomain: string): ActionConfig => ({
   onConfirm: async () => {
     try {
       const result = await removeMemberAction(subdomain, id);
-      if (result.error) {
-        toast.error(result.error);
+      if (!result.ok) {
+        toast.error(result.message);
       }
-      if (result.success) {
-        toast.success("👍");
+      if (result.ok) {
+        toast.success(result.message);
       }
     } catch {
       toast.error("Algo deu errado");

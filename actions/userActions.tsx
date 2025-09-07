@@ -9,7 +9,7 @@ export async function getAllUserOfApp(subdomain: string) {
   }
   console.debug("getAllUserOfApp called with:", { subdomain, session });
 
-  const app = await isUserBelongsTheApp(subdomain, session);
+  const app = await isUserBelongsTheApp(subdomain);
   const users = await prisma.user.findMany({
     where: { memberships: { some: { appId: app.id } } },
     select: {

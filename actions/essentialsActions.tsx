@@ -39,7 +39,7 @@ export async function createEssentials(
   }
 
   try {
-    const app = await isUserBelongsTheApp(subdomain, session);
+    const app = await isUserBelongsTheApp(subdomain);
     if (!app) {
       throw new Error("Team not found for subdomain: " + subdomain);
     }
@@ -70,7 +70,7 @@ export async function getEssentialsBySubdomain(subdomain: string) {
     throw new Error("Unauthorized. User session not found.");
   }
   try {
-    const app = await isUserBelongsTheApp(subdomain, session);
+    const app = await isUserBelongsTheApp(subdomain);
     const essentials = await prisma.essential.findMany({
       where: {
         appId: app.id,
@@ -125,7 +125,7 @@ export async function updateEssentials(
   const price = parseFloat(priceString);
   const quantity = parseInt(quantityString, 10);
   try {
-    const app = await isUserBelongsTheApp(subdomain, session);
+    const app = await isUserBelongsTheApp(subdomain);
     if (!app) {
       throw new Error("Team not found for subdomain: " + subdomain);
     }
@@ -180,7 +180,7 @@ export async function deleteEssentials(
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
-  const app = await isUserBelongsTheApp(subdomain, session);
+  const app = await isUserBelongsTheApp(subdomain);
   if (!app) {
     throw new Error("Team not found for subdomain: " + subdomain);
   }
@@ -207,7 +207,7 @@ export async function getEssentialCount(subdomain: string) {
   }
   console.debug("getEssentialCount called with:", { subdomain, session });
 
-  const app = await isUserBelongsTheApp(subdomain, session);
+  const app = await isUserBelongsTheApp(subdomain);
   if (!app) {
     throw new Error("Team not found for subdomain: " + subdomain);
   }
