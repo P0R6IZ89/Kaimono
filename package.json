@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
     "build": "next build",
-    "vercel-build": "npm run _migrate && next build",
+    "vercel-build": "prisma generate && prisma migrate deploy",
     "start": "next start",
     "lint": "next lint"
   },
