@@ -225,10 +225,11 @@ ALTER TABLE "Planned" ADD CONSTRAINT "Planned_creatorId_fkey" FOREIGN KEY ("crea
 ALTER TABLE "PlannedComment" ADD CONSTRAINT "PlannedComment_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PlannedComment" ADD CONSTRAINT "PlannedComment_plannedId_fkey" FOREIGN KEY ("plannedId") REFERENCES "Planned"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "PlannedComment" ADD CONSTRAINT "PlannedComment_plannedId_fkey" FOREIGN KEY ("plannedId") REFERENCES "Planned"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PlannedLike" ADD CONSTRAINT "PlannedLike_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PlannedLike" ADD CONSTRAINT "PlannedLike_plannedId_fkey" FOREIGN KEY ("plannedId") REFERENCES "Planned"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "PlannedLike" ADD CONSTRAINT "PlannedLike_plannedId_fkey" FOREIGN KEY ("plannedId") REFERENCES "Planned"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
