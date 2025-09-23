@@ -46,13 +46,13 @@ function assertAllowedSubdomain(sub: string) {
 
 type SessionWithUser = Session & { user: { id: string } };
 
-async function requireSession(): Promise<SessionWithUser> {
+export async function requireSession(): Promise<SessionWithUser> {
   const s = await auth();
   if (!s?.user?.id) redirect("/login");
   return s as SessionWithUser;
 }
 
-async function requireMembership(subdomain: string) {
+export async function requireMembership(subdomain: string) {
   const session = await requireSession();
   const app = await prisma.app.findUnique({
     where: { subdomain },
@@ -85,10 +85,7 @@ export async function getAllAppsAction() {
     orderBy: { createdAt: "desc" },
   });
 
-  if (apps.length === 0) {
-    redirect("/new-app");
-  }
-
+  // This adds the currentUserRole found in the first membership for convenience.
   return apps.map((a) => ({
     ...a,
     currentUserRole: a.memberships[0]?.role ?? null,

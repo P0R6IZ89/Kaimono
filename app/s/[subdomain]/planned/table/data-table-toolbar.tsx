@@ -3,12 +3,12 @@
 import { Table } from "@tanstack/react-table";
 import { Plus, X } from "lucide-react";
 import { statuses } from "@/data/data";
-import { Input } from "../../../../../components/ui/input";
-import { Button } from "../../../../../components/ui/button";
 
 import React from "react";
-import { DataTableFacetedFilter } from "../../essentials/table/data-table-faceted-filter";
 import { CreatePlannedDialogTrigger } from "../dialogs/dialog-create-trigger";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

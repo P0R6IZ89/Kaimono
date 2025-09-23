@@ -10,7 +10,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { protocol, rootDomain } from "@/lib/utils";
 import { UserRound } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 function MembersCard({ subdomain }: { subdomain: string }) {
@@ -31,12 +33,9 @@ function MembersCard({ subdomain }: { subdomain: string }) {
         <UserList subdomain={subdomain} />
       </CardContent>
       <CardFooter className="gap-2">
-        <Button variant={"outline"} disabled>
-          Invitar
-        </Button>
-        <Button variant={"outline"} disabled>
-          Gerenciar
-        </Button>
+        <Link href={`${protocol}://${subdomain}.${rootDomain}/invite`}>
+          <Button variant={"outline"}>Gerenciar</Button>
+        </Link>
       </CardFooter>
     </Card>
   );

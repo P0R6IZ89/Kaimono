@@ -1,4 +1,4 @@
-import React, { useActionState } from "react";
+import React, { useActionState, useEffect } from "react";
 import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
@@ -20,34 +20,44 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { essentialsSchema } from "@/util/form-zod-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { updateEssentials } from "@/actions/essentialsActions";
+import { useForm } from "react-hook-form";
+import { initialState } from "@/util/initial-action-return";
+import { toast } from "sonner";
 
-function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { title, id, price, quantity, status } = row.original;
+function EditDialog({ row, open, setOpen }: CustomDialogProps) {
+  const { title, id, status } = row.original;
 
   const { subdomain } = useSubdomain();
 
-  const [, action, isPending] = useActionState(
-    (prevState: unknown, formData: FormData) =>
-      updateEssentials(prevState, formData, id).then((result) => result),
-    null
+  const [state, action, isPending] = useActionState(
+    updateEssentials,
+    initialState
   );
 
-  const form = useForm<z.infer<typeof essentialsSchema>>({
-    resolver: zodResolver(essentialsSchema),
+  const form = useForm({
     defaultValues: {
-      title: title,
-      price: Number(price),
-      quantity: Number(quantity),
-      status: status as "pending" | "purchased" | "canceled" | undefined,
-      subdomain: "",
+      title: "",
+      price: "",
+      quantity: "",
+      status: status,
+      priority: "",
+      image: "",
+      productUrl: "",
+      description: "",
+      subdomain: subdomain,
     },
   });
+  useEffect(() => {
+    if (state.ok) {
+      toast.success(state.message);
+      form.reset();
+      setOpen(false);
+    } else if (!state.ok) {
+      toast.error(state.message);
+    }
+  }, [form, setOpen, state.message, state.ok]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -101,7 +111,7 @@ function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
                   <FormControl>
                     <Input
                       min={1}
-                      max={99}
+                      max={999}
                       type="number"
                       {...field}
                       onChange={(e) => field.onChange(e.target.value)}
@@ -112,16 +122,17 @@ function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
                 </FormItem>
               )}
             />
+
+            <input value={id} name="id" type="hidden" />
             <input type="hidden" name="subdomain" value={subdomain} />
+            <input type="hidden" name="status" value={status} />
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant={"outline"}>Voltar</Button>
               </DialogClose>
-              <DialogClose asChild>
-                <Button type="submit" disabled={isPending}>
-                  Salvar
-                </Button>
-              </DialogClose>
+              <Button type="submit" disabled={isPending}>
+                Salvar
+              </Button>
             </DialogFooter>
           </form>
         </Form>
@@ -130,4 +141,4 @@ function InfoDialog({ row, open, setOpen }: CustomDialogProps) {
   );
 }
 
-export default InfoDialog;
+export default EditDialog;
