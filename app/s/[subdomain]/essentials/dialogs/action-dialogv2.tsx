@@ -3,8 +3,8 @@ import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../table/essentials-columns";
 import PendingDialog from "./dialog-pending";
 import CompleteDialog from "./dialog-complete";
-import InfoDialog from "./dialog-info";
 import DeleteDialog from "./dialog-delete";
+import EditDialog from "./dialog-edit";
 
 interface ActionDialiogProps {
   row: Row<TableRowData>;
@@ -28,7 +28,7 @@ function ActionDialogV2({
   const renderDialog = () => {
     switch (dialogType) {
       case "info":
-        return <InfoDialog row={row} open={open} setOpen={setOpen} />;
+        return <EditDialog row={row} open={open} setOpen={setOpen} />;
       case "complete":
         return <CompleteDialog row={row} open={open} setOpen={setOpen} />;
       case "pending":

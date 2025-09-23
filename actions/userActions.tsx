@@ -7,7 +7,6 @@ export async function getAllUserOfApp(subdomain: string) {
   if (!session?.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
-  console.debug("getAllUserOfApp called with:", { subdomain, session });
 
   const app = await isUserBelongsTheApp(subdomain);
   const users = await prisma.user.findMany({

@@ -1,25 +1,29 @@
 "use client";
 import {
+  ColumnDef,
   ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  RowData,
   useReactTable,
 } from "@tanstack/react-table";
-import { DataTableProps } from "../../essentials/table/data-table";
-import React, { ReactNode } from "react";
+import React from "react";
 import { DataTableToolbar } from "./data-table-toolbar";
 
-export function DataTablePlanned<
-  TData extends RowData,
-  TValue extends ReactNode
->({ columns, data }: DataTableProps<TData, TValue>) {
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+}
+
+export function DataTablePlanned<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([
-    { id: "status", value: ["pending"] },
+    { id: "status", value: ["PENDING"] },
   ]);
 
   const table = useReactTable({
@@ -44,7 +48,6 @@ export function DataTablePlanned<
       ],
     },
   });
-
   return (
     <div>
       <DataTableToolbar table={table} />

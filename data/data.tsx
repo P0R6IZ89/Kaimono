@@ -9,20 +9,20 @@ import {
 
 export const statuses = [
   {
-    value: "pending",
+    value: "PENDING",
     label: "Pendente",
     icon: Clock,
     color: "",
   },
 
   {
-    value: "complete",
+    value: "PURCHASED",
     label: "Comprado",
     icon: CircleCheckBig,
     color: "text-green-700",
   },
   {
-    value: "canceled",
+    value: "CANCELLED",
     label: "Cancelado",
     icon: CircleMinus,
     color: "text-red-700",
@@ -32,17 +32,17 @@ export const statuses = [
 export const priorities = [
   {
     label: "Low",
-    value: "low",
+    value: "LOW",
     icon: ArrowDown,
   },
   {
     label: "Medium",
-    value: "medium",
+    value: "MEDIUM",
     icon: ArrowRight,
   },
   {
     label: "High",
-    value: "high",
+    value: "HIGH",
     icon: ArrowUp,
   },
 ];

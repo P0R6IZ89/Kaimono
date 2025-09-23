@@ -1,14 +1,17 @@
 "use server";
 
 import { auth } from "@/auth";
-import { AuthError } from "next-auth";
-import { isUserBelongsTheApp } from "./appActions";
+import {
+  isUserBelongsTheApp,
+  requireMembership,
+  requireSession,
+} from "./appActions";
 import prisma from "@/lib/prisma";
 import { plannedSchema } from "@/util/form-zod-schema";
 import { revalidatePath } from "next/cache";
 
 export async function createPlannedAction(
-  previousState: unknown,
+  _previousState: unknown,
   formData: FormData
 ) {
   const result = plannedSchema.safeParse({
@@ -57,25 +60,18 @@ export async function createPlannedAction(
     });
     revalidatePath(`/s/${data.subdomain}/planned`);
     return { message: { isSuccess: true } };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return { error: "Falha ao criar o item" };
   }
 }
 
 export async function getPlannedBySubdomain(subdomain: string) {
-  const session = await auth();
-  if (!session || !session?.user) {
-    throw new AuthError("Unauthorized user");
-  }
-  const app = await isUserBelongsTheApp(subdomain);
-  if (!app) {
-    throw new Error("Team not found for subdomain: " + subdomain);
-  }
+  const app = await requireMembership(subdomain);
+  const session = await requireSession();
   try {
     const planneds = await prisma.planned.findMany({
       where: {
-        appId: app.id,
+        appId: app.appId,
       },
       include: {
         creator: {
@@ -113,35 +109,32 @@ export async function getPlannedBySubdomain(subdomain: string) {
       id: item.id,
       image: item.image,
       title: item.title,
-      price: item.price ? item.price.toNumber() : null,
+      price: item.price ? item.price.toNumber() : 0,
       quantity: item.quantity,
       status: item.status,
       priority: item.priority,
       productUrl: item.productUrl,
       description: item.description,
-      createdAt: item.createdAt.toISOString(),
-      updatedAt: item.updatedAt.toISOString(),
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt,
       appId: item.appId,
-      // Likes
       likedByMe: item.likes.length > 0 ? item.likes[0].liked : false,
       likesCount: item._count.likes,
-      // User
-      userEmail: item.creator?.email ?? null,
-      username: item.creator?.name ?? null,
-      userImage: item.creator.image ?? null,
-      // Comments
+      userEmail: item.creator?.email ?? "",
+      username: item.creator?.name ?? "",
+      userImage: item.creator?.image ?? "",
       commentsCount: item._count.comments,
       comments: item.comments.map((c) => ({
         id: c.id,
-        authorImage: c.author.image,
-        authorName: c.author.name,
-        authorEmail: c.author.email,
+        authorImage: c.author?.image,
+        authorName: c.author?.name,
+        authorEmail: c.author?.email,
         content: c.content,
-        createdAt: c.createdAt.toISOString(),
+        createdAt: c.createdAt,
       })),
     }));
-  } catch (error) {
-    console.log(error);
+  } catch {
+    console.log("FAIL");
     return [];
   }
 }
@@ -151,7 +144,6 @@ export async function getPlannedCount(subdomain: string) {
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
-  console.debug("getPlannedCount called with:", { subdomain, session });
 
   const app = await isUserBelongsTheApp(subdomain);
   if (!app) {
@@ -160,7 +152,7 @@ export async function getPlannedCount(subdomain: string) {
   const { _count } = await prisma.planned.aggregate({
     where: {
       appId: app.id,
-      status: "pending",
+      status: "PENDING",
     },
     _count: true,
   });
@@ -175,12 +167,11 @@ export async function completeTask(id: string) {
   try {
     await prisma.planned.update({
       where: { id: id },
-      data: { status: "complete" },
+      data: { status: "PURCHASED" },
     });
     revalidatePath("/planned");
     return { message: { isSuccess: true } };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return { error: "Falha ao atualizar o item" };
   }
 }
@@ -192,12 +183,11 @@ export async function revertTask(id: string) {
   try {
     await prisma.planned.update({
       where: { id: id },
-      data: { status: "pending" },
+      data: { status: "PENDING" },
     });
     revalidatePath("/planned");
     return { message: { isSuccess: true } };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return { error: "Falha ao atualizar o item" };
   }
 }
@@ -213,8 +203,7 @@ export async function deleteTask(id: string) {
     });
     revalidatePath("/planned");
     return { message: { isSuccess: true } };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return { error: "Falha ao deletar o item" };
   }
 }

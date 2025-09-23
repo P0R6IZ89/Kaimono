@@ -1,6 +1,5 @@
 "use client";
-import { createColumnHelper } from "@tanstack/react-table";
-import { PlannedJSON } from "../page";
+import { type ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import ProfileCell from "./cells/cell-profile";
@@ -10,44 +9,49 @@ import PriceCell from "./cells/cell-price";
 import CommentsCell from "./cells/cell-comments";
 import LikeStatusCell from "./cells/cell-like-status";
 import ActionsCell from "./cells/cell-actions";
+import { PlannedSchema } from "@/app/types/planned";
 
 dayjs.extend(relativeTime);
 
-const columnHelper = createColumnHelper<PlannedJSON>();
-
-export const columnsPlanned = [
-  { id: "createdAt" },
-  columnHelper.display({
+export const columnsPlanned: ColumnDef<PlannedSchema>[] = [
+  {
+    accessorKey: "createdAt",
+    header: () => null,
+    cell: () => null,
+  },
+  {
     id: "profile",
     header: () => null,
     cell: ({ row }) => <ProfileCell row={row} />,
-  }),
-  columnHelper.accessor("image", {
+  },
+  {
+    id: "image",
     header: () => null,
     cell: ({ row }) => <ImageCell row={row} />,
-  }),
-  columnHelper.accessor("status", {
+  },
+  {
+    accessorKey: "status",
     header: () => null,
     cell: ({ row }) => <LikeStatusCell row={row} />,
-  }),
-  columnHelper.display({
-    id: "title",
+  },
+  {
+    accessorKey: "title",
     header: () => null,
     cell: ({ row }) => <TitleCell row={row} />,
-  }),
-  columnHelper.display({
+  },
+  {
     id: "price",
     header: () => null,
     cell: ({ row }) => <PriceCell row={row} />,
-  }),
-  columnHelper.display({
+  },
+  {
     id: "comments",
     header: () => null,
     cell: ({ row }) => <CommentsCell row={row} />,
-  }),
-  columnHelper.display({
+  },
+  {
     id: "actions",
     header: () => null,
     cell: ({ row }) => <ActionsCell row={row} />,
-  }),
+  },
 ];

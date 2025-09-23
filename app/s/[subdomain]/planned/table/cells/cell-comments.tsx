@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useActionState, useEffect } from "react";
-import { RowCellProps } from "./cell-profile";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import dayjs from "dayjs";
@@ -31,10 +30,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Row } from "@tanstack/react-table";
+import { PlannedSchema } from "@/app/types/planned";
 
 dayjs.extend(relativeTime);
 
-function CommentsCell({ row }: RowCellProps) {
+function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
   const { comments, commentsCount, id } = row.original;
   const form = useForm({
     defaultValues: {
@@ -72,7 +73,7 @@ function CommentsCell({ row }: RowCellProps) {
             <Avatar className="size-6">
               <AvatarImage
                 src={comments[0].authorImage ?? undefined}
-                alt={comments[0].authorName ?? comments[0].authorEmail}
+                alt={comments[0].authorName ?? comments[0].authorEmail ?? ""}
               />
               <AvatarFallback>
                 {comments[0].authorName
@@ -121,7 +122,7 @@ function CommentsCell({ row }: RowCellProps) {
                         <Avatar className="size-6">
                           <AvatarImage
                             src={authorImage ?? undefined}
-                            alt={authorName ?? authorEmail}
+                            alt={authorName ?? authorEmail ?? ""}
                           />
                           <AvatarFallback>
                             {authorName
@@ -162,7 +163,7 @@ function CommentsCell({ row }: RowCellProps) {
                         <Avatar className="size-6">
                           <AvatarImage
                             src={authorImage ?? undefined}
-                            alt={authorName ?? authorEmail}
+                            alt={authorName ?? authorEmail ?? ""}
                           />
                           <AvatarFallback>
                             {authorName

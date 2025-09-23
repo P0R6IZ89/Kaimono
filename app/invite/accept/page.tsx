@@ -27,7 +27,6 @@ export default async function AcceptInvitePage({
     where: { id: result.appId },
     select: { subdomain: true },
   });
-  console.debug("returned App from accception", { app, result });
   if (!app?.subdomain) {
     return <ClientFeedback error="Invited app not found." />;
   }

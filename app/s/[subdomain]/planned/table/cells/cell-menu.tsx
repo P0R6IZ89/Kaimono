@@ -1,5 +1,4 @@
 import React, { useTransition } from "react";
-import { RowCellProps } from "./cell-profile";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +9,12 @@ import { CheckCircle, Clock, Menu, Trash } from "lucide-react";
 import { ConfirmMenuItem } from "@/components/dialog/confirmMenuItem";
 import { toast } from "sonner";
 import { completeTask, deleteTask, revertTask } from "@/actions/plannedActions";
+import { Row } from "@tanstack/react-table";
+import { PlannedSchema } from "@/app/types/planned";
 
 type ServerResult = { message: { isSuccess: boolean } } | { error: string };
 
-function MenuCell({ row }: RowCellProps) {
+function MenuCell(row: Row<PlannedSchema>) {
   const { status, id } = row.original;
 
   const [isPending, startTransition] = useTransition();
@@ -59,7 +60,7 @@ function MenuCell({ row }: RowCellProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {status === "pending" ? (
+          {status === "PENDING" ? (
             <ConfirmMenuItem
               title="Completar"
               description="Deseja marcar como completo?"

@@ -1,8 +1,9 @@
 import React from "react";
-import { RowCellProps } from "./cell-profile";
 import { CldImage } from "next-cloudinary";
+import { PlannedSchema } from "@/app/types/planned";
+import { Row } from "@tanstack/react-table";
 
-function ImageCell({ row }: RowCellProps) {
+function ImageCell({ row }: { row: Row<PlannedSchema> }) {
   const { image, title } = row.original;
   return (
     <div className="relative top-0 rounded-xl overflow-clip">

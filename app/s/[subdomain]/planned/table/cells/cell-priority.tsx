@@ -1,13 +1,14 @@
+import { PlannedSchema } from "@/app/types/planned";
+import { Row } from "@tanstack/react-table";
 import React from "react";
-import { RowCellProps } from "./cell-profile";
 
-function PriorityCell({ row }: RowCellProps) {
+function PriorityCell(row: Row<PlannedSchema>) {
   const { priority } = row.original;
   return (
     <div className="static flex flex-none top-8 left-8 text-foreground">
       <p
         className={`font-semibold pt-4 pl-8 ${
-          priority === "high" ? "text-destructive" : ""
+          priority === "HIGH" ? "text-destructive" : ""
         } 
      `}
       >
