@@ -1,5 +1,4 @@
 import React from "react";
-import { RowCellProps } from "./cell-profile";
 import { Badge } from "@/components/ui/badge";
 import { Link as LucidLink } from "lucide-react";
 import {
@@ -8,8 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Row } from "@tanstack/react-table";
+import { PlannedSchema } from "@/app/types/planned";
 
-function TitleCell({ row }: RowCellProps) {
+function TitleCell({ row }: { row: Row<PlannedSchema> }) {
   const { title, priority, productUrl } = row.original;
   return (
     <div className="flex justify-between pt-4 px-4 text-foreground">
@@ -39,7 +40,7 @@ function TitleCell({ row }: RowCellProps) {
         <Badge
           variant={"outline"}
           className={`${
-            priority === "high" ? "text-destructive border-destructive" : null
+            priority === "HIGH" ? "text-destructive border-destructive" : null
           }`}
         >
           {priority}

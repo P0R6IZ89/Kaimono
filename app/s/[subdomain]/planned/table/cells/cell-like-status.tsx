@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
-import { RowCellProps } from "./cell-profile";
 import { Ban, Check, Clock, Heart } from "lucide-react";
 import { toggleLikeAction } from "@/actions/likeAction";
 import { Button } from "@/components/ui/button";
+import { Row } from "@tanstack/react-table";
+import { PlannedSchema } from "@/app/types/planned";
 
-function LikeStatusCell({ row }: RowCellProps) {
+function LikeStatusCell({ row }: { row: Row<PlannedSchema> }) {
   const { likesCount, status, id, likedByMe } = row.original;
   const handleLike = async () => {
     try {
@@ -34,9 +35,10 @@ function LikeStatusCell({ row }: RowCellProps) {
           variant={"outline"}
           className="flex flex-col h-auto w-full m-auto gap-2 backdrop-blur-xs"
         >
-          {status === "complete" ? <Check className="size-6" /> : null}
-          {status === "canceled" ? <Ban className="size-6" /> : null}
-          {status === "pending" ? <Clock className="size-6" /> : null}
+          <p>{status}</p>
+          {status === "PURCHASED" ? <Check className="size-6" /> : null}
+          {status === "CANCELLED" ? <Ban className="size-6" /> : null}
+          {status === "PENDING" ? <Clock className="size-6" /> : null}
         </Button>
       </div>
     </div>

@@ -73,7 +73,7 @@ async function main() {
     data: {
       title: "MacBook Pro",
       price: new Prisma.Decimal(2499),
-      status: "NEW",
+      status: "PENDING",
       quantity: 1,
       appId: projectX.id,
       creatorId: alice.id,
@@ -86,7 +86,7 @@ async function main() {
       title: "Ergonomic Office Chair",
       price: new Prisma.Decimal(399),
       priority: "HIGH",
-      status: "PLANNED",
+      status: "PURCHASED",
       image: "https://example.com/chair.png",
       productUrl: "https://shop.example.com/chair",
       description: "A chair to improve posture and productivity.",

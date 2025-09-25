@@ -1,8 +1,9 @@
 import React from "react";
-import { RowCellProps } from "./cell-profile";
 import { formatPriceYen } from "@/util/formatPriceYen";
+import { Row } from "@tanstack/react-table";
+import { PlannedSchema } from "@/app/types/planned";
 
-function PriceCell({ row }: RowCellProps) {
+function PriceCell({ row }: { row: Row<PlannedSchema> }) {
   const { price, description, quantity } = row.original;
   if (!price) {
     return null;

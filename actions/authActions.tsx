@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import prisma from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
 import { redirect } from "next/navigation";
@@ -14,7 +14,6 @@ export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
     email,
     redirect: false,
   });
-  console.log(result.error);
   if (result?.error) {
     return { error: "Erro no servidor, tente novamente" };
   }
@@ -49,3 +48,7 @@ export const getUserById = async (id: string) => {
     throw new Error(getErrorMessage(error));
   }
 };
+
+export async function signOutAction() {
+  await signOut();
+}

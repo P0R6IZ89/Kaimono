@@ -1,4 +1,4 @@
-import React, { startTransition, useActionState, useEffect } from "react";
+import React, { useActionState, useEffect } from "react";
 import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
@@ -12,26 +12,21 @@ import {
 import { Button } from "@/components/ui/button";
 import { updateStatusEssentials } from "@/actions/essentialsActions";
 import { toast } from "sonner";
-
-interface StateType {
-  status: "success" | "error";
-  message: string;
-}
+import { initialState } from "@/util/initial-action-return";
 
 function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { id } = row.original;
-  const [state, action, isPending] = useActionState<StateType | null>(
-    (prevState: unknown) =>
-      updateStatusEssentials(prevState, id, "pending").then((result) => result),
-    null
+  const { id, status } = row.original;
+  const [state, action, isPending] = useActionState(
+    updateStatusEssentials,
+    initialState
   );
 
   useEffect(() => {
     if (state) {
-      if (state.status === "success") {
-        toast.success(`Sucesso! ${state.message}`);
-      } else if (state.status === "error") {
-        toast.error(`Erro! ${state.message}`);
+      if (!state.ok) {
+        toast.error(state.message);
+      } else if (state.ok) {
+        toast.success(state.message);
       }
     }
   }, [state]);
@@ -46,22 +41,26 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant={"outline"}>Voltar</Button>
-          </DialogClose>
-          <DialogClose asChild>
-            <Button
-              type="submit"
-              disabled={isPending}
-              onClick={() => {
-                startTransition(() => {
-                  action();
-                });
-              }}
-            >
-              Reverter para Pendente
-            </Button>
-          </DialogClose>
+          <form action={action}>
+            <DialogClose asChild>
+              <Button variant={"outline"}>Voltar</Button>
+            </DialogClose>
+            <DialogClose asChild>
+              <Button
+                type="submit"
+                disabled={isPending}
+                // onClick={() => {
+                //   startTransition(() => {
+                //     action();
+                //   });
+                // }}
+              >
+                Reverter para Pendente
+              </Button>
+            </DialogClose>
+            <input value={id} type="id" />
+            <input value={status} type="hidden" name="status" />
+          </form>
         </DialogFooter>
       </DialogContent>
     </Dialog>

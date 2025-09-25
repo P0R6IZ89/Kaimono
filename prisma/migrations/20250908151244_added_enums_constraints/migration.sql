@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Invitation" ADD COLUMN     "lastStatusUpdateAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

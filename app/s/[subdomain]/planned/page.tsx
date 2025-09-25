@@ -3,44 +3,13 @@ import React from "react";
 import { DataTablePlanned } from "./table/data-table";
 import { columnsPlanned } from "./table/columns";
 
-export interface PlannedJSON {
-  id: string;
-  image: string | null;
-  title: string;
-  price: number | null;
-  quantity: number;
-  status: string;
-  priority: string;
-  productUrl: string | null;
-  description: string | null;
-  createdAt: string;
-  updatedAt: string;
-  appId: string;
-  // Like
-  likedByMe: boolean;
-  likesCount: number;
-  // User
-  userEmail: string | null;
-  username: string | null;
-  userImage: string | null;
-  commentsCount: number;
-  comments: Array<{
-    id: string;
-    authorImage: string | null;
-    authorName?: string | null;
-    authorEmail?: string;
-    content: string;
-    createdAt: string;
-  }>;
-}
-
 export default async function Planned({
   params,
 }: {
   params: Promise<{ subdomain: string }>;
 }) {
   const { subdomain } = await params;
-  const planned: PlannedJSON[] = await getPlannedBySubdomain(subdomain);
+  const planned = await getPlannedBySubdomain(subdomain);
   return (
     <div className="px-1 py-9 space-y-8 max-w-xl">
       <div className="flex min-h-32 items-center">
@@ -52,11 +21,8 @@ export default async function Planned({
         </div>
       </div>
 
-      {planned.length > 0 ? (
-        <DataTablePlanned columns={columnsPlanned} data={planned} />
-      ) : (
-        <div className="text-center">No results.</div>
-      )}
+      <DataTablePlanned columns={columnsPlanned} data={planned} />
+      <div className="text-center">No results.</div>
     </div>
   );
 }
