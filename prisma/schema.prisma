@@ -3,8 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 enum Role {
@@ -20,25 +22,32 @@ enum InvitationStatus {
   EXPIRED
 }
 
+enum Status {
+  PENDING
+  PURCHASED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  name          String?
-  image         String?
-  emailVerified DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  //Auth
-  accounts      Account[]
-  sessions      Session[]
-  Authenticator Authenticator[]
-
-  // App membership & invites
+  id              String           @id @default(cuid())
+  email           String           @unique @db.Citext
+  name            String?
+  image           String?
+  emailVerified   DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  accounts        Account[]
+  sessions        Session[]
+  Authenticator   Authenticator[]
   memberships     Membership[]
-  invitationsSent Invitation[] @relation("InvitationSender")
-
-  // Domain data
+  invitationsSent Invitation[]     @relation("InvitationSender")
   essentials      Essential[]
   planneds        Planned[]
   plannedComments PlannedComment[]
@@ -46,21 +55,17 @@ model User {
 }
 
 model App {
-  id          String   @id @default(cuid())
+  id          String       @id @default(cuid())
   name        String
   description String?
-  subdomain   String   @unique
+  subdomain   String       @unique
   image       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  // Membership & invites
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   memberships Membership[]
   invitations Invitation[]
-
-  // Domain data
-  essentials Essential[]
-  planneds   Planned[]
+  essentials  Essential[]
+  planneds    Planned[]
 }
 
 // Junction table for APP ⇆ User
@@ -79,17 +84,18 @@ model Membership {
 
 // Holds pending & historic invitations
 model Invitation {
-  id         String           @id @default(cuid())
-  appId      String
-  email      String
-  token      String           @unique
-  role       Role             @default(MEMBER)
-  inviterId  String
-  status     InvitationStatus @default(PENDING)
-  expiresAt  DateTime
-  createdAt  DateTime         @default(now())
-  acceptedAt DateTime?
-  revokedAt  DateTime?
+  id                 String           @id @default(cuid())
+  appId              String
+  email              String           @db.Citext
+  token              String           @unique
+  role               Role             @default(MEMBER)
+  inviterId          String
+  status             InvitationStatus @default(PENDING)
+  expiresAt          DateTime
+  createdAt          DateTime         @default(now())
+  acceptedAt         DateTime?
+  revokedAt          DateTime?
+  lastStatusUpdateAt DateTime         @default(now())
 
   app     App  @relation(fields: [appId], references: [id], onDelete: Cascade)
   inviter User @relation("InvitationSender", fields: [inviterId], references: [id], onDelete: Cascade)
@@ -150,53 +156,55 @@ model Authenticator {
 model Essential {
   id        String   @id @default(cuid())
   title     String
-  price     Decimal  @default(0)
-  status    String
+  price     Decimal  @default(0) @db.Decimal(12, 2)
+  status    Status   @default(PENDING)
   quantity  Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  app       App      @relation(fields: [appId], references: [id], onDelete: Cascade)
   appId     String
-  creator   User     @relation(fields: [creatorId], references: [id])
-  creatorId String
+  app       App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  creatorId String?
+  creator   User?    @relation(fields: [creatorId], references: [id], onDelete: SetNull)
+
+  @@index([appId, status, createdAt])
 }
 
 model Planned {
   id          String           @id @default(cuid())
   title       String
-  price       Decimal          @default(0)
-  priority    String
-  status      String
+  price       Decimal          @default(0) @db.Decimal(12, 2)
+  priority    Priority
+  status      Status           @default(PENDING)
   quantity    Int              @default(1)
   image       String?
   productUrl  String?
   description String?
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
-  app         App              @relation(fields: [appId], references: [id], onDelete: Cascade)
   appId       String
-  creator     User             @relation(fields: [creatorId], references: [id])
-  creatorId   String
+  app         App              @relation(fields: [appId], references: [id], onDelete: Cascade)
+  creatorId   String?
+  creator     User?            @relation(fields: [creatorId], references: [id], onDelete: SetNull)
   comments    PlannedComment[]
   likes       PlannedLike[]
+
+  @@index([creatorId, createdAt])
 }
 
 model PlannedComment {
   id        String   @id @default(cuid())
   content   String
   createdAt DateTime @default(now())
-  // Relations
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-  planned   Planned  @relation(fields: [plannedId], references: [id], onDelete: Cascade)
+  authorId  String?
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
   plannedId String
+  planned   Planned  @relation(fields: [plannedId], references: [id], onDelete: Cascade)
 }
 
 model PlannedLike {
   id        String   @id @default(cuid())
   liked     Boolean  @default(false)
   createdAt DateTime @default(now())
-  // Relations
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId String
   planned   Planned  @relation(fields: [plannedId], references: [id], onDelete: Cascade)

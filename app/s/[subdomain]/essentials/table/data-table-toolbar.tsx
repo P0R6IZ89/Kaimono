@@ -4,11 +4,11 @@ import { Table } from "@tanstack/react-table";
 import { X } from "lucide-react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { statuses } from "@/data/data";
-import { Input } from "../../../../../components/ui/input";
-import { Button } from "../../../../../components/ui/button";
 
 import React from "react";
 import { CreateEssentialDialogTrigger } from "../dialogs/dialog-create-trigger";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

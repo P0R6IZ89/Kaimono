@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import {
   ColumnDef,
@@ -11,11 +10,10 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import { Button } from "../../../../../components/ui/button";
 import { DataTableToolbar } from "./data-table-toolbar";
 
-export interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
@@ -26,7 +24,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([
-    { id: "status", value: ["pending"] },
+    { id: "status", value: ["PENDING"] },
   ]);
 
   const table = useReactTable({

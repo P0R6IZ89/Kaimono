@@ -103,6 +103,7 @@ export function CreateEssentialDialog() {
                   <Input
                     min={1}
                     max={99}
+                    step={1}
                     type="number"
                     {...field}
                     onChange={(e) => field.onChange(e.target.value)}
@@ -123,7 +124,6 @@ export function CreateEssentialDialog() {
             )}
           </div>
           <input type="hidden" name="subdomain" value={subdomain} />
-          <input type="hidden" name="status" value={"pending"} />
           <DialogFooter>
             <Button type="submit" disabled={isPending}>
               {isPending ? <Loader2 className="animate-spin" /> : null}

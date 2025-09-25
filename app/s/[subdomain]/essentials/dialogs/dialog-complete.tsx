@@ -1,4 +1,4 @@
-import React, { startTransition, useActionState, useEffect } from "react";
+import React, { useActionState, useEffect } from "react";
 import { CustomDialogProps } from "./action-dialogv2";
 import {
   Dialog,
@@ -13,29 +13,22 @@ import { Button } from "@/components/ui/button";
 import { CircleCheckBig } from "lucide-react";
 import { updateStatusEssentials } from "@/actions/essentialsActions";
 import { toast } from "sonner";
-
-interface StateType {
-  status: "success" | "error";
-  message: string;
-}
+import { initialState } from "@/util/initial-action-return";
 
 function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   const { id } = row.original;
 
-  const [state, action, isPending] = useActionState<StateType | null>(
-    (prevState: unknown) =>
-      updateStatusEssentials(prevState, id, "complete").then(
-        (result) => result
-      ),
-    null
+  const [state, action, isPending] = useActionState(
+    updateStatusEssentials,
+    initialState
   );
 
   useEffect(() => {
     if (state) {
-      if (state.status === "success") {
-        toast.success(`Sucesso! ${state.message}`);
-      } else if (state.status === "error") {
-        toast.error(`Erro! ${state.message}`);
+      if (state.ok) {
+        toast.success(state.message);
+      } else if (!state.ok) {
+        toast.error(state.message);
       }
     }
   }, [state]);
@@ -54,17 +47,12 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
             <Button variant={"outline"}>Voltar</Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button
-              type="submit"
-              disabled={isPending}
-              onClick={() => {
-                startTransition(() => {
-                  action();
-                });
-              }}
-            >
-              <CircleCheckBig /> Marcar como completo
-            </Button>
+            <form action={action}>
+              <input value={id} type="id" />
+              <Button type="submit" disabled={isPending}>
+                <CircleCheckBig /> Marcar como completo
+              </Button>
+            </form>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

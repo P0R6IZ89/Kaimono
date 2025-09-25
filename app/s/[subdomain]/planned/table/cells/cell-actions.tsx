@@ -1,18 +1,19 @@
 "use client";
 
 import React, { useEffect, useState, useTransition } from "react";
-import { RowCellProps } from "./cell-profile";
 import { Button } from "@/components/ui/button";
 import { Check, Loader2, Pencil, Trash2, Undo } from "lucide-react";
 import { completeTask, deleteTask, revertTask } from "@/actions/plannedActions";
 import { toast } from "sonner";
+import { Row } from "@tanstack/react-table";
+import { PlannedSchema } from "@/app/types/planned";
 
 type ActionState = {
   error?: string;
   message?: { isSuccess: boolean };
 };
 
-function ActionsCell({ row }: RowCellProps) {
+function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
   const { status, id } = row.original;
   const [state, setState] = useState<ActionState>({});
   const [isPending, startTransition] = useTransition();
@@ -32,24 +33,24 @@ function ActionsCell({ row }: RowCellProps) {
           variant={"default"}
           className="flex-1"
           onClick={() => {
-            if (status === "pending") {
+            if (status === "PENDING") {
               startTransition(async () => {
                 await completeTask(id);
               });
-            } else if (status === "complete") {
+            } else if (status === "PURCHASED") {
               startTransition(async () => {
                 await revertTask(id);
               });
             }
           }}
         >
-          {status === "pending" ? (
+          {status === "PENDING" ? (
             <>
               <span>Marcar como completo</span>
               <Check className="text-green-700" />
             </>
           ) : null}
-          {status === "complete" ? (
+          {status === "PURCHASED" ? (
             <>
               <span>Reverter para pendente</span>
               <Undo />

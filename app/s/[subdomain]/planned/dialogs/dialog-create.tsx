@@ -30,26 +30,14 @@ import {
 } from "@/components/ui/form";
 import { createPlannedAction } from "@/actions/plannedActions";
 
-type FormValues = {
-  title: string;
-  price: string;
-  quantity: string;
-  status: string;
-  priority: string;
-  image: string;
-  productUrl: string;
-  description?: string;
-  subdomain: string;
-};
-
 export function CreatePlannedDialog() {
   const { subdomain } = useSubdomain();
-  const form = useForm<FormValues>({
+  const form = useForm({
     defaultValues: {
       title: "",
       price: "",
       quantity: "",
-      status: "pending",
+      status: "PENDING",
       priority: "",
       image: "",
       productUrl: "",
@@ -179,7 +167,6 @@ export function CreatePlannedDialog() {
                       return;
                     }
                     field.onChange(info.secure_url);
-                    console.log(info);
                     setUploadedInfo(info);
                     widget.close();
                   }}
