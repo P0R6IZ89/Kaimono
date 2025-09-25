@@ -1,4 +1,4 @@
-import { getAllAppsAction } from "@/actions/appActions";
+import { getAllAppsAction, requireSession } from "@/actions/appActions";
 import DeleteDropdown from "@/components/client/deleteDropdown";
 import UserAvatar from "@/components/auth/userAvatar";
 import { Alert, AlertTitle } from "@/components/ui/alert";
@@ -21,10 +21,11 @@ import Link from "next/link";
 dayjs.extend(relativeTime);
 
 export default async function App() {
+  const session = await requireSession()
   const apps = await getAllAppsAction();
   console.log();
   return (
-    <section className="flex flex-col py-16 px-4 gap-4 min-h-svh mx-auto justify-center">
+    <section className="container flex flex-col py-16 px-4 gap-4 min-h-svh mx-auto justify-center">
       <div className="space-y-4">
         <div>
           <p className="text-xl font-bold leading-tight tracking-tighter">
@@ -39,7 +40,7 @@ export default async function App() {
         </Button>
 
         <div className="flex">
-          <UserAvatar />
+          <UserAvatar user={session.user} />
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 justify-start gap-4 pt-4">

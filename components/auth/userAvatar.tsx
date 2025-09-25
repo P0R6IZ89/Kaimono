@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { ChevronDown, UserRound } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,12 +17,19 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="flex flex-row items-center rounded-xl gap-2">
-          <Avatar className="size-8 rounded-lg">
-            <AvatarImage src={user?.image} alt={user?.email} />
+          {user ? (
+            
+            <Avatar className="h-8 w-8 rounded-lg">
+            {user.image ? <AvatarImage src={user.image} alt={user.email!} />: null}
             <AvatarFallback className="rounded-lg">
-              <UserRound />
+              {user.name
+                ? user.name[0].toUpperCase() : null}
+              {user.email ?
+                user.email[0].toUpperCase() : null}
             </AvatarFallback>
           </Avatar>
+
+          ) : null}
           <div className="grid flex-none text-left text-sm leading-tight">
             <span className="truncate font-semibold">{user?.name}</span>
             <span className="truncate text-xs">{user?.email}</span>
