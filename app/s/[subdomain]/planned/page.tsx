@@ -2,6 +2,12 @@ import { getPlannedBySubdomain } from "@/actions/plannedActions";
 import React from "react";
 import { DataTablePlanned } from "./table/data-table";
 import { columnsPlanned } from "./table/columns";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default async function Planned({
   params,
@@ -11,18 +17,22 @@ export default async function Planned({
   const { subdomain } = await params;
   const planned = await getPlannedBySubdomain(subdomain);
   return (
-    <div className="px-1 py-9 space-y-8 max-w-xl">
-      <div className="flex min-h-32 items-center">
-        <div className="">
-          <h1 className="leading-none font-semibold">Planejados</h1>
-          <p className="text-muted-foreground text-sm pt-2">
-            Lista de compras de produtos de alto custo.
-          </p>
+    <div className="p-4 space-y-8 max-w-xl">
+      <Card className="shadow-none ">
+        <CardHeader>
+          <CardTitle>Planejados</CardTitle>
+          <CardDescription>
+            Lista de compras de produtos planejados
+          </CardDescription>
+        </CardHeader>
+      </Card>
+      {planned ? (
+        <div className="space-y-8">
+          <DataTablePlanned columns={columnsPlanned} data={planned} />
         </div>
-      </div>
-
-      <DataTablePlanned columns={columnsPlanned} data={planned} />
-      <div className="text-center">No results.</div>
+      ) : (
+        <div className="text-center">No results.</div>
+      )}
     </div>
   );
 }
