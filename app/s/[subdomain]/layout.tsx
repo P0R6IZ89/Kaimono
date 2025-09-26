@@ -60,7 +60,9 @@ export default async function AppLayout({
                     size={"icon"}
                     className="relative size-7"
                   >
-                    <span className="absolute top-1 right-1 inline-flex size-1 rounded-full bg-indigo-500"></span>
+                    {invitedApp.length !== 0 ? (
+                      <span className="absolute top-1 right-1 inline-flex size-1 rounded-full dark:bg-sky-300 bg-sky-400" />
+                    ) : null}
                     <Bell />
                   </Button>
                 </PopoverTrigger>
