@@ -40,7 +40,7 @@ export async function getTenFirstUsersOfApp(subdomain: string) {
   return {
     totalCount,
     users,
-    hasMore: totalCount > 1,
+    hasMore: totalCount > limit,
     overflowCount: Math.max(0, totalCount - limit),
   };
 }

@@ -2,15 +2,15 @@
 
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, LogOut } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { SignOut } from "./signout";
 import { User } from "next-auth";
+import { signOut } from "next-auth/react";
 
 export default function UserAvatar({ user }: { user: User | undefined }) {
   return (
@@ -40,8 +40,10 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
         align="end"
         sideOffset={4}
       >
-        <DropdownMenuItem asChild>
-          <SignOut />
+        <DropdownMenuItem onSelect={() => signOut()}>
+          <p className="flex flex-row items-center gap-2">
+            <LogOut /> Log out
+          </p>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
