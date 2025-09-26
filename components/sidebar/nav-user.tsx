@@ -20,6 +20,7 @@ import {
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import DialogLogout from "@/app/(auth)/logout/dialog-logout";
 import { $Enums } from "@prisma/client";
+import { signOut } from "next-auth/react";
 
 type MemberRole = $Enums.Role;
 
@@ -103,9 +104,10 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
             <DropdownMenuSeparator />
             <Dialog>
               <DialogTrigger asChild>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                  <LogOut />
-                  Log out
+                <DropdownMenuItem onSelect={() => signOut()}>
+                  <p className="flex flex-row items-center gap-2">
+                    <LogOut /> Log out
+                  </p>
                 </DropdownMenuItem>
               </DialogTrigger>
 

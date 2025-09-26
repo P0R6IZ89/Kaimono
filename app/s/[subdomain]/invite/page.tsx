@@ -20,8 +20,6 @@ import {
 import ActionsButton from "./actionButtom";
 import { getAllUserOfApp } from "@/actions/userActions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Ellipsis } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export default async function Invite({
   params,
@@ -91,10 +89,10 @@ export default async function Invite({
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead></TableHead>
+                <TableHead />
                 <TableHead className="max-w-[100px]">Nome</TableHead>
                 <TableHead>Email</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="w-[30px]">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -112,9 +110,11 @@ export default async function Invite({
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell className="flex justify-center">
-                    <Button disabled>
-                      <Ellipsis />
-                    </Button>
+                    <ActionsButton
+                      status={"ACCEPTED"}
+                      invitationId={user.id}
+                      subdomain={subdomain}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

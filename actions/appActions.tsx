@@ -44,7 +44,9 @@ function assertAllowedSubdomain(sub: string) {
     throw new Error("Subdomain cannot contain consecutive hyphens.");
 }
 
-type SessionWithUser = Session & { user: { id: string } };
+type SessionWithUser = Session & {
+  user: { id: string; name: string | null; email: string };
+};
 
 export async function requireSession(): Promise<SessionWithUser> {
   const s = await auth();
