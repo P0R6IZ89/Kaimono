@@ -18,17 +18,15 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
       <DropdownMenuTrigger asChild>
         <div className="flex flex-row items-center rounded-xl gap-2">
           {user ? (
-            
             <Avatar className="h-8 w-8 rounded-lg">
-            {user.image ? <AvatarImage src={user.image} alt={user.email!} />: null}
-            <AvatarFallback className="rounded-lg">
-              {user.name
-                ? user.name[0].toUpperCase() : null}
-              {user.email ?
-                user.email[0].toUpperCase() : null}
-            </AvatarFallback>
-          </Avatar>
-
+              {user.image ? (
+                <AvatarImage src={user.image} alt={user.email!} />
+              ) : null}
+              <AvatarFallback className="rounded-lg">
+                {user.name ? user.name[0].toUpperCase() : null}
+                {user.email ? user.email[0].toUpperCase() : null}
+              </AvatarFallback>
+            </Avatar>
           ) : null}
           <div className="grid flex-none text-left text-sm leading-tight">
             <span className="truncate font-semibold">{user?.name}</span>

@@ -10,14 +10,14 @@ import { PlannedSchema } from "@/app/types/planned";
 dayjs.extend(relativeTime);
 
 function ProfileCell({ row }: { row: Row<PlannedSchema> }) {
-  const { image, username, userEmail, createdAt } = row.original;
+  const { username, userEmail, createdAt, userImage } = row.original;
   const daysOld = dayjs().diff(createdAt, "day");
   const timeClass = daysOld > 90 ? "text-green-500" : "text-foreground";
   return (
     <div className="dark absolute top-4 left-4 flex items-center justify-between space-x-4 z-20 text-foreground">
       <div className="flex items-center space-x-4">
         <Avatar>
-          {image ? <AvatarImage src={image} /> : null}
+          {userImage ? <AvatarImage src={userImage} /> : null}
           <AvatarFallback>
             {username
               ? capitalizeFirstLetter(username)

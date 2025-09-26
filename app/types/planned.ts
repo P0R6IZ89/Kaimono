@@ -12,6 +12,7 @@ export type PlannedSchema = {
   productUrl?: string | null;
   username?: string | null;
   userEmail: string;
+  userImage?: string | null;
   description?: string | null;
   commentsCount: number;
   comments: {
