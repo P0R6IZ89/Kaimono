@@ -18,6 +18,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import ActionsButton from "./actionButtom";
+import { getAllUserOfApp } from "@/actions/userActions";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Ellipsis } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default async function Invite({
   params,
@@ -27,9 +31,10 @@ export default async function Invite({
   const { subdomain } = await params;
   const app = await getCurrentAppAction(subdomain);
   const invitedUsers = await getInvitedUsersActions(subdomain);
+  const users = await getAllUserOfApp(subdomain);
   return (
-    <div className="p-4 space-y-8 max-w-xl">
-      <Card className="max-w-lg border-none shadow-none">
+    <div className="grid grid-cols-1 lg:grid-cols-2 justify-center gap-4 p-4">
+      <Card className="">
         <CardHeader>
           <CardTitle>Convide seus amigos para o app!</CardTitle>
           <CardDescription>
@@ -43,7 +48,7 @@ export default async function Invite({
           <InviteForm app={app} />
         </CardContent>
       </Card>
-      <Card className="max-w-lg border-none shadow-none">
+      <Card className="">
         <CardHeader>
           <CardTitle>Convites pendentes</CardTitle>
           <CardDescription>
@@ -70,6 +75,46 @@ export default async function Invite({
                       invitationId={user.id}
                       subdomain={subdomain}
                     />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Usuários do App ({users.length})</CardTitle>
+          <CardDescription>Usuários do aplicativo.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead></TableHead>
+                <TableHead className="max-w-[100px]">Nome</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell>
+                    <Avatar className="size-6 rounded-full">
+                      {user.image ? <AvatarImage src={user.image} /> : null}
+                      <AvatarFallback className="rounded-lg">
+                        {user.name ? user.name[0].toUpperCase() : null}
+                        {user.email ? user.email[0].toUpperCase() : null}
+                      </AvatarFallback>
+                    </Avatar>
+                  </TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell className="flex justify-center">
+                    <Button disabled>
+                      <Ellipsis />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

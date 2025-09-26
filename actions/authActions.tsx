@@ -29,7 +29,6 @@ export const getAccountByUserId = async (userId: string) => {
     });
     return account;
   } catch (error: unknown) {
-    console.error("[getAccountByUserId] unexpected error:", error);
     throw new Error(getErrorMessage(error));
   }
 };
@@ -44,7 +43,6 @@ export const getUserById = async (id: string) => {
     });
     return user;
   } catch (error: unknown) {
-    console.error("[getUserById] unexpected error:", error);
     throw new Error(getErrorMessage(error));
   }
 };
