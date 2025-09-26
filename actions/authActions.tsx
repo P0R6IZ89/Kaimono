@@ -48,5 +48,9 @@ export const getUserById = async (id: string) => {
 };
 
 export async function signOutAction() {
-  await signOut();
+  try {
+    await signOut();
+  } catch (error) {
+    console.log(error);
+  }
 }
