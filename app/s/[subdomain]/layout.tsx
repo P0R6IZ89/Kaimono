@@ -1,5 +1,6 @@
 import { getCurrentAppAction } from "@/actions/appActions";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -7,6 +8,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import SubdomainContextProvider from "@/context/SubdomainContext";
+import { Bell } from "lucide-react";
 import React from "react";
 
 export default async function AppLayout({
@@ -30,8 +32,8 @@ export default async function AppLayout({
       >
         <AppSidebar variant="inset" subdomain={subdomain} />
         <SidebarInset>
-          <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
-            <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
+          <header className="flex h-(--header-height) shrink-0 justify-between items-center gap-2 px-4 lg:px-6 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+            <div className="flex w-full items-center gap-1 lg:gap-2">
               <SidebarTrigger className="-ml-1" />
               <Separator
                 orientation="vertical"
@@ -42,6 +44,11 @@ export default async function AppLayout({
                   <h2 className="text-base capitalize">{`${app.name}`}</h2>
                 </span>
               )}
+            </div>
+            <div className="flex">
+              <Button variant={"ghost"} size={"icon"} className="size-7">
+                <Bell />
+              </Button>
             </div>
           </header>
           {children}

@@ -2,6 +2,12 @@ import React from "react";
 import { DataTable } from "@/app/s/[subdomain]/essentials/table/data-table";
 import { columns } from "@/app/s/[subdomain]/essentials/table/essentials-columns";
 import { getEssentialsBySubdomain } from "@/actions/essentialsActions";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface EssentialsProps {
   params: Promise<{ subdomain: string }>;
@@ -12,23 +18,24 @@ export default async function Essentials({ params }: EssentialsProps) {
   const essentials = await getEssentialsBySubdomain(subdomain);
 
   return (
-    <div className="p-4 space-y-8 max-w-xl">
-      <div className="flex px-6 min-h-32 items-center">
-        <div className="">
-          <h1 className="leading-none font-semibold">Essenciais</h1>
-          <p className="text-muted-foreground text-sm pt-2">
+    <section className="p-4 space-y-8 max-w-xl ">
+      <Card className="shadow-none ">
+        <CardHeader>
+          <CardTitle>Essenciais</CardTitle>
+          <CardDescription>
             Lista de compras de produtos essenciais.
-          </p>
-        </div>
+          </CardDescription>
+        </CardHeader>
+      </Card>
+      <div>
+        {essentials ? (
+          <div className="space-y-8">
+            <DataTable columns={columns} data={essentials} />
+          </div>
+        ) : (
+          <div className="text-center">No results.</div>
+        )}
       </div>
-
-      {essentials ? (
-        <div className="space-y-8">
-          <DataTable columns={columns} data={essentials} />
-        </div>
-      ) : (
-        <div className="text-center">No results.</div>
-      )}
-    </div>
+    </section>
   );
 }
