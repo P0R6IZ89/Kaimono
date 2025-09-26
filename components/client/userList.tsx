@@ -1,12 +1,10 @@
 import React from "react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getTenFirstUsersOfApp } from "@/actions/userActions";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export default async function UserList({ subdomain }: { subdomain: string }) {
   const users = await getTenFirstUsersOfApp(subdomain);
-  // const users = MOCK_USERS;
 
   if (!users) {
     return (

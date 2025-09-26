@@ -1,4 +1,3 @@
-// app/invite/accept/page.tsx
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { protocol, rootDomain } from "@/lib/utils";

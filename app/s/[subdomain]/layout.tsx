@@ -1,6 +1,12 @@
 import { getCurrentAppAction } from "@/actions/appActions";
+import { getMyInvitationsAction } from "@/actions/membershipActions";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -20,6 +26,7 @@ export default async function AppLayout({
 }) {
   const { subdomain } = await params;
   const app = await getCurrentAppAction(subdomain);
+  const invitedApp = await getMyInvitationsAction();
   return (
     <SubdomainContextProvider>
       <SidebarProvider
@@ -46,9 +53,47 @@ export default async function AppLayout({
               )}
             </div>
             <div className="flex">
-              <Button variant={"ghost"} size={"icon"} className="size-7">
-                <Bell />
-              </Button>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"ghost"}
+                    size={"icon"}
+                    className="relative size-7"
+                  >
+                    {invitedApp.length !== 0 ? (
+                      <span className="absolute top-1 right-1 inline-flex size-1 rounded-full dark:bg-sky-300 bg-sky-400" />
+                    ) : null}
+                    <Bell />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-72" align="end">
+                  {invitedApp.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      No notifications
+                    </p>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      {invitedApp.map((invite) => (
+                        <div
+                          key={invite.id}
+                          className="flex flex-col border-b pb-3 last:border-b-0 last:pb-0"
+                        >
+                          <p className="text-sm font-bold">
+                            New invite to {invite.app.name}
+                          </p>
+                          <p className="text-xs d">
+                            You are invited to participate to {invite.app.name},
+                            with the role of {invite.role}.
+                          </p>
+                          <p className="text-xs text-muted-foreground pt-2">
+                            Check your email for details.
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </PopoverContent>
+              </Popover>
             </div>
           </header>
           {children}
