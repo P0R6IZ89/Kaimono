@@ -18,9 +18,9 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Dialog, DialogTrigger } from "../ui/dialog";
-import DialogLogout from "@/app/(auth)/logout/dialog-logout";
 import { $Enums } from "@prisma/client";
 import { signOut } from "next-auth/react";
+import DialogLogout from "@/app/[locale]/(auth)/logout/dialog-logout";
 
 type MemberRole = $Enums.Role;
 
