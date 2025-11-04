@@ -18,8 +18,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import React from "react";
-import Link from "next/link";
 import { protocol, rootDomain } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
 
 export interface App {
   name: string;
