@@ -34,7 +34,7 @@ export const plannedSchema = z.object({
     z.coerce.number().nonnegative()
   ),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"], {
-    message: "O status é incopatível",
+    message: "Escolha a prioridade copatível",
   }),
   status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
     message: "O status é incopatível",

@@ -1,0 +1,93 @@
+{
+  "Meta": {
+    "title": "Kaimono Versão Beta"
+  },
+  "Homepage": {
+    "title": "Apresentando o App Ultimate To Buy",
+    "description": "Adicione a este aplicativo tudo o que você tem em mente, analise e tome a melhor decisão!",
+    "created-by": "Criado por {creatorName}",
+    "get-started-button": "Comece!"
+  },
+  "Apps": {
+    "title": "Apps",
+    "description": "Todos os aplicativos que você pode gerenciar",
+    "create-app": "Criar novo aplicativo"
+  },
+  "Login": {
+    "title": "Bem-vindo! \n✨",
+    "description": "Escolha como deseja fazer login."
+  },
+  "app-layout": {
+    "no-invites": "Nenhum convite.",
+    "new-invite-to-invite-app-name": "Novo convite para {appName}",
+    "new-invite-content": "Você está convidado a participar de {appName}, com a função de {inviteRole}.",
+    "check-email-for-details": "Verifique seu e-mail para obter detalhes."
+  },
+  "Sidebar": {
+    "navSite": {
+      "title": "Site",
+      "items": {
+        "home": " Home"
+      }
+    },
+    "navPages": {
+      "title": "Páginas",
+      "home": "Home",
+      "essentials": "Essenciais",
+      "planned": "Planejado"
+    },
+    "navSecondary": {
+      "contact": "Contato"
+    },
+    "config": {
+      "theme": "Tema"
+    },
+    "invitation": {
+      "title": "Convites",
+      "inviteUser": "Convidar usuário"
+    }
+  },
+  "Dashboard": {
+    "hello": "Olá {userName}!",
+    "hello2": "Olá!",
+    "welcomeBack": "Bem-vindo de volta!"
+  },
+  "MembersCard": {
+    "title": "Membros",
+    "members-count": "{members, plural, =0 {Nenhum membro ainda.} =1 {1 membro} other {"
+  },
+  "EssentialsPage": {
+    "title": "Essenciais",
+    "essentialsCount": "You have {count} {count, plural, =0 {No essentials items yet.} =1 {1 essential item} other {# essentials items.}}",
+    "add-essential-button": "Adicionar item",
+    "add-new-essential-item-description": "Adicione um novo item à sua lista de itens essenciais.",
+    "see-all-essentials": "Ver todos",
+    "item-name": "Nome do item",
+    "price": "Preço",
+    "quantity": "Quantidade",
+    "save": "Salvar",
+    "description": "Seus itens essenciais da lista de compras.",
+    "no-essentials": "Nenhum item essencial adicionado ainda.",
+    "no-result": "Nenhum resultado encontrado."
+  },
+  "UpdateApp": {
+    "description": "Adicionado suporte aos idiomas português e japonês."
+  },
+  "PlannedPage": {
+    "title": "Planejado",
+    "description": "Seus itens planejados da lista de compras."
+  },
+  "Table": {
+    "next": "Proximo",
+    "previous": "Anterior",
+    "no-result": "Nenhum resultado encontrado.",
+    "page": "Página",
+    "of": "de",
+    "rows": "Linhas",
+    "actions": "Ações",
+    "add": "Adicionar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "clear-filters": "Claro"
+  }
+}

@@ -1,0 +1,22 @@
+"use client";
+import {
+  Grip,
+  Hexagon,
+  Shirt,
+  Armchair,
+  Send,
+  UserRoundPlus,
+} from "lucide-react";
+import type { IconKey } from "./buildSidebarData";
+
+export const ICONS: Record<
+  IconKey,
+  React.ComponentType<{ className?: string }>
+> = {
+  grip: Grip,
+  hexagon: Hexagon,
+  shirt: Shirt,
+  armchair: Armchair,
+  send: Send,
+  userPlus: UserRoundPlus,
+};
