@@ -1,0 +1,94 @@
+{
+  "Meta": {
+    "title": "Kaimono ベータ版"
+  },
+  "Login": {
+    "title": "ようこそ！ \n✨",
+    "description": "アカウントにログインする方法を選択してください。"
+  },
+  "Homepage": {
+    "title": "究極の購入アプリのご紹介",
+    "description": "私たちのアプリケーションのホームページへようこそ。",
+    "created-by": "{creatorName} によって作成。",
+    "get-started-button": "始めましょう!"
+  },
+  "Apps": {
+    "title": "アプリ",
+    "description": "管理できるすべてのアプリ",
+    "create-app": "アプリを作成する"
+  },
+  "app-layout": {
+    "no-invites": "招待なし",
+    "new-invite-to-invite-app-name": "{appName} への新しい招待",
+    "new-invite-content": "あなたは、{inviteRole} の役割で {appName} に招待されています。",
+    "check-email-for-details": "詳細についてはメールを確認してください。"
+  },
+  "Sidebar": {
+    "navSite": {
+      "title": "サイト",
+      "items": {
+        "home": "ホーム"
+      }
+    },
+    "navPages": {
+      "title": "ページ",
+      "home": "ホーム",
+      "essentials": "必需品",
+      "planned": "計画済み"
+    },
+    "navSecondary": {
+      "contact": "お問い合わせ"
+    },
+    "config": {
+      "theme": "テーマ"
+    },
+    "invitation": {
+      "title": "招待",
+      "inviteUser": "ユーザーを招待する"
+    }
+  },
+  "Dashboard": {
+    "hello": "ハロー {userName}!",
+    "hello2": "こんにちは！",
+    "welcomeBack": "おかえりなさい！"
+  },
+  "MembersCard": {
+    "title": "メンバー",
+    "members-count": "{members, plural, =0 {まだユーザーがいません。} =1 {1 ユーザー} other {# ユーザー}}"
+  },
+  "EssentialsPage": {
+    "title": "必需品",
+    "essentialsCount": "{count, plural, =0 {まだアイテムはありません} =1 {1 個の必需品アイテム} other {# 個の必需品アイテム}}。",
+    "add-essential-button": "アイテム追加",
+    "add-new-essential-item": "新しい必需品を追加",
+    "add-new-essential-item-description": "必需品リストに新しいアイテムを追加します。",
+    "see-all-essentials": "すべて見る",
+    "item-name": "品名",
+    "price": "価格",
+    "quantity": "個数",
+    "save": "保存",
+    "description": "あなたの必需品リストです。",
+    "no-essentials": "必須品はまだ追加されていません。",
+    "no-result": "結果が見つかりませんでした。"
+  },
+  "UpdateApp": {
+    "description": "ポルトガル語と日本語のサポートを追加しました。"
+  },
+  "PlannedPage": {
+    "title": "計画済み",
+    "description": "計画している買い物リストのアイテム。"
+  },
+  "Table": {
+    "next": "次へ",
+    "previous": "前へ",
+    "no-result": "結果が見つかりませんでした。",
+    "page": "ページ",
+    "of": "の",
+    "rows": "行",
+    "actions": "アクション",
+    "add": "追加",
+    "edit": "編集",
+    "delete": "削除",
+    "clear-filters": "クリア"
+  }
+}

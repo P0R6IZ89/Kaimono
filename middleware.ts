@@ -1,41 +1,33 @@
-import NextAuth from "next-auth";
-import authConfig from "./auth.config";
 import { NextRequest, NextResponse } from "next/server";
 import { publicPaths, rootDomain } from "./lib/utils";
+import createIntlMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
+
+import { auth } from "@/auth-edge";
+import { Locale } from "next-intl";
 
 const KILL_SWITCH = process.env.KILL_SWITCH;
-
-const { auth } = NextAuth(authConfig);
 
 function extractSubdomain(req: NextRequest): string | null {
   const url = req.url;
   const host = req.headers.get("host") || "";
   const hostname = host.split(":")[0];
 
-  // Local development environment
+  // Local dev
   if (url.includes("localhost") || url.includes("127.0.0.1")) {
-    // Try to extract subdomain from the full URL
     const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
-    if (fullUrlMatch && fullUrlMatch[1]) {
-      return fullUrlMatch[1];
-    }
-
-    // Fallback to host header approach
-    if (hostname.includes(".localhost")) {
-      return hostname.split(".")[0];
-    }
-
+    if (fullUrlMatch?.[1]) return fullUrlMatch[1];
+    if (hostname.includes(".localhost")) return hostname.split(".")[0];
     return null;
   }
-
-  // Production environment
-  const rootDomainFormatted = rootDomain.split(":")[0];
 
   // Handle preview deployment URLs (tenant---branch-name.vercel.app)
   if (hostname.includes("---") && hostname.endsWith(".vercel.app")) {
     const parts = hostname.split("---");
     return parts.length > 0 ? parts[0] : null;
   }
+
+  const rootDomainFormatted = rootDomain.split(":")[0];
 
   // Regular subdomain detection
   const isSubdomain =
@@ -46,46 +38,79 @@ function extractSubdomain(req: NextRequest): string | null {
   return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, "") : null;
 }
 
+const isLocale = (l: string): l is Locale =>
+  (routing.locales as readonly string[]).includes(l);
+
+function isPathLocalized(pathname: string): boolean {
+  return routing.locales.some(
+    (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
+  );
+}
+
+function stripLeadingLocale(pathname: string): {
+  locale: Locale;
+  rest: string;
+} {
+  const [, maybeLocale, ...restParts] = pathname.split("/");
+  const locale = isLocale(maybeLocale ?? "")
+    ? (maybeLocale as Locale)
+    : routing.defaultLocale;
+
+  const joined = restParts.join("/");
+  const rest = isLocale(maybeLocale ?? "")
+    ? joined
+      ? `/${joined}`
+      : "/"
+    : pathname || "/";
+  return { locale, rest };
+}
+
+const handleI18nRouting = createIntlMiddleware(routing);
+
 export default auth(async function middleware(req) {
   if (KILL_SWITCH) {
     return new NextResponse("Service Unavailable", { status: 503 });
   }
 
   const { pathname, search } = req.nextUrl;
-  const subdomain = extractSubdomain(req);
-  const user = req.auth?.user;
 
-  // Auth logic
-  if (!subdomain) {
-    // const session = true;
-    if (!user && pathname !== "/login" && !publicPaths.includes(pathname)) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    } else if (user && pathname == "/login") {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
+  if (!isPathLocalized(pathname)) {
+    return handleI18nRouting(req);
   }
 
+  const { locale, rest } = stripLeadingLocale(pathname);
+  const subdomain = extractSubdomain(req);
+
   if (subdomain) {
-    // For the root path on a subdomain, rewrite to the subdomain page
-    if (pathname === "/") {
-      return NextResponse.rewrite(new URL(`/s/${subdomain}`, req.url));
-    } else {
-      const dest = new URL(`/s/${subdomain}${pathname}`, req.url);
+    const expectedPrefix = `/${locale}/s/${subdomain}`;
+    if (!pathname.startsWith(expectedPrefix)) {
+      const dest = req.nextUrl.clone();
+      dest.pathname = `${expectedPrefix}${rest === "/" ? "" : rest}`;
       dest.search = search;
       return NextResponse.rewrite(dest);
     }
   }
 
-  // On the root domain, allow normal access
+  const user = req.auth?.user;
+  const isPublic = publicPaths.includes(rest);
+
+  if (!user && rest !== "/login" && !isPublic) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${locale}/login`;
+    url.search = search;
+    return NextResponse.redirect(url);
+  }
+
+  if (user && rest === "/login") {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${locale}/`;
+    url.search = search;
+    return NextResponse.redirect(url);
+  }
+
   return NextResponse.next();
 });
 
 export const config = {
-  /*
-   * Match all paths except for:
-   * 1. /api routes
-   * 2. /_next (Next.js internals)
-   * 3. all root files inside /public (e.g. /favicon.ico)
-   */
-  matcher: ["/((?!api|_next|[\\w-]+\\.\\w+).*)"],
+  matcher: ["/((?!api|trpc|_next|_vercel|.*\\..*).*)"],
 };

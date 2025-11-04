@@ -7,8 +7,8 @@ import { protocol, rootDomain } from "@/lib/utils";
 import { appSchema } from "@/util/form-zod-schema";
 import { $Enums, Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { z } from "zod";
+import { getCurrentLocale, redirect } from "@/i18n/navigation";
 
 export type Result<T = unknown> =
   | { ok: true; data?: T; message?: string }
@@ -50,7 +50,8 @@ type SessionWithUser = Session & {
 
 export async function requireSession(): Promise<SessionWithUser> {
   const s = await auth();
-  if (!s?.user?.id) redirect("/login");
+  const locale = await getCurrentLocale();
+  if (!s?.user?.id) redirect({ href: "/login", locale });
   return s as SessionWithUser;
 }
 
@@ -60,14 +61,15 @@ export async function requireMembership(subdomain: string) {
     where: { subdomain },
     select: { id: true },
   });
-  if (!app) redirect("/new-app");
+  const locale = await getCurrentLocale();
+  if (!app) redirect({ href: "/new-app", locale });
 
   const membership = await prisma.membership.findUnique({
     where: { appId_userId: { appId: app.id, userId: session.user.id } },
     select: { role: true },
   });
   if (!membership) {
-    redirect("/new-app");
+    redirect({ href: "/new-app", locale });
   }
   return { appId: app.id, role: membership.role as $Enums.Role, session };
 }
@@ -131,6 +133,7 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
 
   const session = await requireSession();
   const userId = session.user.id;
+  const locale = await getCurrentLocale();
 
   const normalized = normalizeSubdomain(parsed.data.subdomain);
   try {
@@ -181,7 +184,7 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
       message: "An unexpected error occurred. Please try again.",
     } satisfies Result;
   }
-  redirect(`${protocol}://${normalized}.${rootDomain}`);
+  redirect({ href: `${protocol}://${normalized}.${rootDomain}`, locale });
 }
 
 export async function isUserBelongsTheApp(subdomain: string) {

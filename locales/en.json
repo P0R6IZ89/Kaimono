@@ -1,0 +1,117 @@
+{
+  "Meta": {
+    "title": "Kaimono Beta ver.",
+    "description": "An application to manage your shopping lists."
+  },
+  "Login": {
+    "title": "Welcome! ✨",
+    "description": "Choose how you want to log in."
+  },
+  "Homepage": {
+    "title": "Introducing the Ultimate To Buy App",
+    "description": "Add everything you have in mind to this app, analyze it, and make the best decision!",
+    "created-by": "Created by {creatorName}",
+    "get-started-button": "Get Started!"
+  },
+  "Apps": {
+    "title": "Apps",
+    "description": "All apps you can manage",
+    "start-adding-a-new-app": "Start adding a new app!",
+    "create-app": "Create new app"
+  },
+  "NewApp": {
+    "title": "Create New App",
+    "description": "Create a new shopping list app to manage your items.",
+    "app-name": "App Name",
+    "enter-app-name": "Enter the name of your app",
+    "create-button": "Create App"
+  },
+  "app-layout": {
+    "no-invites": "No invite.",
+    "new-invite-to-invite-app-name": "New invite to {appName}",
+    "new-invite-content": "You are invited to participate to {appName}, with the role of {inviteRole}.",
+    "check-email-for-details": "Check your email for details."
+  },
+  "Sidebar": {
+    "navSite": {
+      "title": "Site",
+      "items": {
+        "home": "Home"
+      }
+    },
+    "navPages": {
+      "title": "Pages",
+      "home": "Home",
+      "essentials": "Essentials",
+      "planned": "Planned"
+    },
+    "navSecondary": {
+      "contact": "Contact"
+    },
+    "config": {
+      "theme": "Theme"
+    },
+    "invitation": {
+      "title": "Invitations",
+      "inviteUser": "Invite User"
+    }
+  },
+  "Dashboard": {
+    "hello": "Hello {userName}!",
+    "hello2": "Hello!",
+    "welcomeBack": "Welcome back!"
+  },
+  "MembersCard": {
+    "title": "Members",
+    "description": "Manage your app members.",
+    "view-all-members": "View all members",
+    "members-count": "{members, plural, =0 {No members yet.} =1 {1 member} other {# members}}",
+    "invite-members": "Invite members to your app to collaborate and share shopping lists."
+  },
+  "EssentialsPage": {
+    "title": "Essentials",
+    "essentialsCount": "You have {count} {count, plural, =0 {No essentials items yet.} =1 {1 essential item} other {# essentials items.}}",
+    "description": "Your essential shopping list items.",
+    "no-essentials": "No essential items added yet.",
+    "add-essential-button": "Add Item",
+    "add-new-essential-item": "Add new essential item",
+    "add-new-essential-item-description": "Add a new item to your essentials list.",
+    "see-all-essentials": "See All",
+    "item-name": "Item Name",
+    "price": "Price",
+    "quantity": "Quantity",
+    "save": "Save",
+    "no-result": "No results found."
+  },
+  "PlannedPage": {
+    "title": "Planned",
+    "essentialsCount": "You have {count} {count, plural, =0 {No planned items yet.} =1 {1 planned item} other {# planned items.}}",
+    "description": "Your planned shopping list items.",
+    "no-essentials": "No planned items added yet.",
+    "add-essential-button": "Add Item",
+    "add-new-essential-item": "Add new planned item",
+    "add-new-essential-item-description": "Add a new item to your planned list.",
+    "see-all-essentials": "See All",
+    "item-name": "Item Name",
+    "price": "Price",
+    "quantity": "Quantity",
+    "save": "Save"
+  },
+  "Table": {
+    "next": "Next",
+    "previous": "Previous",
+    "no-result": "No results found.",
+    "page": "Page",
+    "of": "of",
+    "rows": "rows",
+    "actions": "Actions",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "clear-filters": "Clear"
+  },
+  "UpdateApp": {
+    "title": "New update! 🚀",
+    "description": "Added Portuguese and Japanese language support."
+  }
+}
