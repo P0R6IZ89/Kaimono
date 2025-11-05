@@ -1,40 +1,49 @@
 {
   "Meta": {
-    "title": "Kaimono ベータ版"
+    "title": "Kaimono ベータ版",
+    "description": "買い物リストをスマートに管理できるアプリです。"
   },
   "Login": {
-    "title": "ようこそ！ \n✨",
-    "description": "アカウントにログインする方法を選択してください。"
+    "title": "ようこそ！\n✨",
+    "description": "ログイン方法を選択してください。"
   },
   "Homepage": {
-    "title": "究極の購入アプリのご紹介",
-    "description": "私たちのアプリケーションのホームページへようこそ。",
-    "created-by": "{creatorName} によって作成。",
-    "get-started-button": "始めましょう!"
+    "title": "究極の買い物管理アプリのご紹介",
+    "description": "思いついたものをどんどん追加して分析し、ベストな選択をしましょう！",
+    "created-by": "{creatorName} が作成",
+    "get-started-button": "はじめる"
   },
   "Apps": {
     "title": "アプリ",
-    "description": "管理できるすべてのアプリ",
-    "create-app": "アプリを作成する"
+    "description": "管理できるアプリの一覧です",
+    "start-adding-a-new-app": "新しいアプリの追加を始めましょう！",
+    "create-app": "新しいアプリを作成"
+  },
+  "NewApp": {
+    "title": "新しいアプリを作成",
+    "description": "買い物リストのアイテムを管理する新規アプリを作成します。",
+    "app-name": "アプリ名",
+    "enter-app-name": "アプリ名を入力してください",
+    "create-button": "作成する"
   },
   "app-layout": {
-    "no-invites": "招待なし",
+    "no-invites": "招待はありません。",
     "new-invite-to-invite-app-name": "{appName} への新しい招待",
-    "new-invite-content": "あなたは、{inviteRole} の役割で {appName} に招待されています。",
-    "check-email-for-details": "詳細についてはメールを確認してください。"
+    "new-invite-content": "{appName} に {inviteRole} として招待されています。",
+    "check-email-for-details": "詳細はメールをご確認ください。"
   },
   "Sidebar": {
     "navSite": {
       "title": "サイト",
       "items": {
-        "home": "ホーム"
+        "home": "アプリ"
       }
     },
     "navPages": {
       "title": "ページ",
       "home": "ホーム",
       "essentials": "必需品",
-      "planned": "計画済み"
+      "planned": "計画"
     },
     "navSecondary": {
       "contact": "お問い合わせ"
@@ -44,51 +53,67 @@
     },
     "invitation": {
       "title": "招待",
-      "inviteUser": "ユーザーを招待する"
+      "inviteUser": "ユーザーを招待"
     }
   },
   "Dashboard": {
-    "hello": "ハロー {userName}!",
+    "hello": "こんにちは、{userName} さん！",
     "hello2": "こんにちは！",
-    "welcomeBack": "おかえりなさい！"
+    "welcomeBack": "お帰りなさい！"
   },
   "MembersCard": {
     "title": "メンバー",
-    "members-count": "{members, plural, =0 {まだユーザーがいません。} =1 {1 ユーザー} other {# ユーザー}}"
+    "description": "このアプリのメンバーを管理します。",
+    "manage": "管理",
+    "view-all-members": "すべてのメンバーを表示",
+    "members-count": "{members, plural, =0 {メンバーはまだいません。} =1 {メンバーは 1 人です} other {メンバーは # 人です}}",
+    "invite-members": "共同編集や共有のためにメンバーを招待しましょう。"
   },
   "EssentialsPage": {
     "title": "必需品",
-    "essentialsCount": "{count, plural, =0 {まだアイテムはありません} =1 {1 個の必需品アイテム} other {# 個の必需品アイテム}}。",
-    "add-essential-button": "アイテム追加",
-    "add-new-essential-item": "新しい必需品を追加",
-    "add-new-essential-item-description": "必需品リストに新しいアイテムを追加します。",
-    "see-all-essentials": "すべて見る",
-    "item-name": "品名",
-    "price": "価格",
-    "quantity": "個数",
-    "save": "保存",
+    "essentialsCount": "{count, plural, =0 {必需品アイテムはまだありません。} =1 {必需品アイテムが 1 件あります。} other {必需品アイテムが # 件あります。}}",
     "description": "あなたの必需品リストです。",
-    "no-essentials": "必須品はまだ追加されていません。",
-    "no-result": "結果が見つかりませんでした。"
-  },
-  "UpdateApp": {
-    "description": "ポルトガル語と日本語のサポートを追加しました。"
+    "no-essentials": "必需品はまだ追加されていません。",
+    "add-essential-button": "アイテムを追加",
+    "add-new-essential-item": "新しい必需品アイテムを追加",
+    "add-new-essential-item-description": "必需品リストに新しいアイテムを追加します。",
+    "see-all-essentials": "すべて表示",
+    "item-name": "アイテム名",
+    "price": "価格",
+    "quantity": "数量",
+    "save": "保存",
+    "no-result": "該当する結果はありません。"
   },
   "PlannedPage": {
-    "title": "計画済み",
-    "description": "計画している買い物リストのアイテム。"
+    "title": "計画",
+    "plannedCount": "{count, plural, =0 {計画アイテムはまだありません。} =1 {計画アイテムが 1 件あります。} other {計画アイテムが # 件あります。}}",
+    "description": "あなたの計画中の買い物リストです。",
+    "no-planned": "計画アイテムはまだ追加されていません。",
+    "add-planned-button": "アイテムを追加",
+    "add-new-planned-item": "新しい計画アイテムを追加",
+    "add-new-planned-item-description": "計画リストに新しいアイテムを追加します。",
+    "see-all-planned": "すべて表示",
+    "item-name": "アイテム名",
+    "price": "価格",
+    "quantity": "数量",
+    "save": "保存"
   },
   "Table": {
     "next": "次へ",
     "previous": "前へ",
-    "no-result": "結果が見つかりませんでした。",
+    "no-result": "該当する結果はありません。",
     "page": "ページ",
-    "of": "の",
+    "of": "／",
     "rows": "行",
-    "actions": "アクション",
+    "actions": "操作",
     "add": "追加",
     "edit": "編集",
     "delete": "削除",
-    "clear-filters": "クリア"
+    "clear-filters": "フィルター解除",
+    "filter-by-status": "ステータスで絞り込み"
+  },
+  "UpdateApp": {
+    "title": "新しいアップデート！🚀",
+    "description": "ポルトガル語と日本語のサポートを追加しました。"
   }
 }

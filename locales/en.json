@@ -36,7 +36,7 @@
     "navSite": {
       "title": "Site",
       "items": {
-        "home": "Home"
+        "home": "Apps"
       }
     },
     "navPages": {
@@ -64,13 +64,14 @@
   "MembersCard": {
     "title": "Members",
     "description": "Manage your app members.",
+    "manage": "Manage",
     "view-all-members": "View all members",
     "members-count": "{members, plural, =0 {No members yet.} =1 {1 member} other {# members}}",
     "invite-members": "Invite members to your app to collaborate and share shopping lists."
   },
   "EssentialsPage": {
     "title": "Essentials",
-    "essentialsCount": "You have {count} {count, plural, =0 {No essentials items yet.} =1 {1 essential item} other {# essentials items.}}",
+    "essentialsCount": "You have {count, plural, =0 {No essentials items yet.} =1 {1 essential item} other {# essentials items.}}",
     "description": "Your essential shopping list items.",
     "no-essentials": "No essential items added yet.",
     "add-essential-button": "Add Item",
@@ -85,13 +86,13 @@
   },
   "PlannedPage": {
     "title": "Planned",
-    "essentialsCount": "You have {count} {count, plural, =0 {No planned items yet.} =1 {1 planned item} other {# planned items.}}",
+    "plannedCount": "You have {count, plural, =0 {No planned items yet.} =1 {1 planned item} other {# planned items.}}",
     "description": "Your planned shopping list items.",
-    "no-essentials": "No planned items added yet.",
-    "add-essential-button": "Add Item",
-    "add-new-essential-item": "Add new planned item",
-    "add-new-essential-item-description": "Add a new item to your planned list.",
-    "see-all-essentials": "See All",
+    "no-planned": "No planned items added yet.",
+    "add-planned-button": "Add Item",
+    "add-new-planned-item": "Add new planned item",
+    "add-new-planned-item-description": "Add a new item to your planned list.",
+    "see-all-planned": "See All",
     "item-name": "Item Name",
     "price": "Price",
     "quantity": "Quantity",
@@ -108,7 +109,8 @@
     "add": "Add",
     "edit": "Edit",
     "delete": "Delete",
-    "clear-filters": "Clear"
+    "clear-filters": "Clear",
+    "filter-by-status": "Status"
   },
   "UpdateApp": {
     "title": "New update! 🚀",

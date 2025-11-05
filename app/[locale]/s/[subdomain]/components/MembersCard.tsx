@@ -11,12 +11,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { protocol, rootDomain } from "@/lib/utils";
 import { UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
 
-function MembersCard({ subdomain }: { subdomain: string }) {
+function MembersCard({
+  subdomain,
+  locale,
+}: {
+  subdomain: string;
+  locale: string;
+}) {
   const t = useTranslations("MembersCard");
   return (
     <Card className="col-span-2">
@@ -35,8 +40,8 @@ function MembersCard({ subdomain }: { subdomain: string }) {
         <UserList subdomain={subdomain} />
       </CardContent>
       <CardFooter className="gap-2">
-        <Link href={`${protocol}://${subdomain}.${rootDomain}/invite`}>
-          <Button variant={"outline"}>Gerenciar</Button>
+        <Link locale={locale} href="/invite">
+          <Button variant={"outline"}>{t("manage")}</Button>
         </Link>
       </CardFooter>
     </Card>
