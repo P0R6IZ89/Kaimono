@@ -1,6 +1,11 @@
 {
   "Meta": {
-    "title": "Kaimono Versão Beta"
+    "title": "Kaimono Versão Beta",
+    "description": "Um aplicativo para gerenciar suas listas de compras."
+  },
+  "Login": {
+    "title": "Bem-vindo! \n✨",
+    "description": "Escolha como deseja fazer login."
   },
   "Homepage": {
     "title": "Apresentando o App Ultimate To Buy",
@@ -11,11 +16,15 @@
   "Apps": {
     "title": "Apps",
     "description": "Todos os aplicativos que você pode gerenciar",
+    "start-adding-a-new-app": "Comece adicionando um novo app!",
     "create-app": "Criar novo aplicativo"
   },
-  "Login": {
-    "title": "Bem-vindo! \n✨",
-    "description": "Escolha como deseja fazer login."
+  "NewApp": {
+    "title": "Criar novo app",
+    "description": "Crie um novo app de lista de compras para gerenciar seus itens.",
+    "app-name": "Nome do app",
+    "enter-app-name": "Digite o nome do seu app",
+    "create-button": "Criar app"
   },
   "app-layout": {
     "no-invites": "Nenhum convite.",
@@ -27,7 +36,7 @@
     "navSite": {
       "title": "Site",
       "items": {
-        "home": " Home"
+        "home": "Aplicativos"
       }
     },
     "navPages": {
@@ -54,40 +63,57 @@
   },
   "MembersCard": {
     "title": "Membros",
-    "members-count": "{members, plural, =0 {Nenhum membro ainda.} =1 {1 membro} other {"
+    "description": "Gerencie os membros do seu app.",
+    "manage": "Gerenciar",
+    "view-all-members": "Ver todos os membros",
+    "members-count": "{members, plural, =0 {Nenhum membro ainda.} =1 {1 membro} other {# membros}}",
+    "invite-members": "Convide membros para colaborar e compartilhar listas de compras."
   },
   "EssentialsPage": {
     "title": "Essenciais",
-    "essentialsCount": "You have {count} {count, plural, =0 {No essentials items yet.} =1 {1 essential item} other {# essentials items.}}",
+    "essentialsCount": "Você tem {count, plural, =0 {nenhum item essencial ainda.} =1 {1 item essencial} other {# itens essenciais.}}",
+    "description": "Seus itens essenciais da lista de compras.",
+    "no-essentials": "Nenhum item essencial adicionado ainda.",
     "add-essential-button": "Adicionar item",
+    "add-new-essential-item": "Adicionar novo item essencial",
     "add-new-essential-item-description": "Adicione um novo item à sua lista de itens essenciais.",
     "see-all-essentials": "Ver todos",
     "item-name": "Nome do item",
     "price": "Preço",
     "quantity": "Quantidade",
     "save": "Salvar",
-    "description": "Seus itens essenciais da lista de compras.",
-    "no-essentials": "Nenhum item essencial adicionado ainda.",
     "no-result": "Nenhum resultado encontrado."
-  },
-  "UpdateApp": {
-    "description": "Adicionado suporte aos idiomas português e japonês."
   },
   "PlannedPage": {
     "title": "Planejado",
-    "description": "Seus itens planejados da lista de compras."
+    "plannedCount": "Você tem {count, plural, =0 {nenhum item planejado ainda.} =1 {1 item planejado} other {# itens planejados.}}",
+    "description": "Seus itens planejados da lista de compras.",
+    "no-planned": "Nenhum item planejado adicionado ainda.",
+    "add-planned-button": "Adicionar item",
+    "add-new-planned-item": "Adicionar novo item planejado",
+    "add-new-planned-item-description": "Adicione um novo item à sua lista de planejados.",
+    "see-all-planned": "Ver todos",
+    "item-name": "Nome do item",
+    "price": "Preço",
+    "quantity": "Quantidade",
+    "save": "Salvar"
   },
   "Table": {
-    "next": "Proximo",
+    "next": "Próximo",
     "previous": "Anterior",
     "no-result": "Nenhum resultado encontrado.",
     "page": "Página",
     "of": "de",
-    "rows": "Linhas",
+    "rows": "linhas",
     "actions": "Ações",
     "add": "Adicionar",
     "edit": "Editar",
     "delete": "Excluir",
-    "clear-filters": "Claro"
+    "clear-filters": "Limpar",
+    "filter-by-status": "Status"
+  },
+  "UpdateApp": {
+    "title": "Nova atualização! 🚀",
+    "description": "Adicionado suporte aos idiomas português e japonês."
   }
 }

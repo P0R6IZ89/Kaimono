@@ -29,7 +29,7 @@ export function DataTableToolbar<TData>({
             <div>
               <DataTableFacetedFilter
                 column={table.getColumn("status")}
-                title="Status"
+                title={t("filter-by-status")}
                 options={statuses}
               />
             </div>
