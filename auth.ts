@@ -8,7 +8,6 @@ const isEdge = process.env.NEXT_RUNTIME === "edge";
 export const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  debug: true,
   adapter: isEdge ? undefined : PrismaAdapter(prisma),
 
   session: { strategy: "jwt" },
