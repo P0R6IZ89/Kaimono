@@ -40,7 +40,7 @@ export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
 
   const urls = {
     home: `${protocol}://${rootDomain}`,
-    invite: `${protocol}://${currentApp?.subdomain ?? subdomain}.${rootDomain}/invite`,
+    invite: `/invite`,
   };
 
   const data = buildSidebarData(

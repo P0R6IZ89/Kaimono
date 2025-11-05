@@ -15,9 +15,9 @@ import { getTranslations } from "next-intl/server";
 export default async function Essentials({
   params,
 }: {
-  params: Promise<{ subdomain: string }>;
+  params: Promise<{ subdomain: string; locale: string }>;
 }) {
-  const { subdomain } = await params;
+  const { subdomain, locale } = await params;
   const { user } = await requireSession();
   const t = await getTranslations("Dashboard");
   return (
@@ -32,7 +32,7 @@ export default async function Essentials({
         </CardHeader>
       </Card>
       <div className="grid grid-cols-2 gap-3">
-        <MembersCard subdomain={subdomain} />
+        <MembersCard subdomain={subdomain} locale={locale} />
         <QuickEssentialCard subdomain={subdomain} />
         <QuickPlannedCard subdomain={subdomain} />
       </div>
