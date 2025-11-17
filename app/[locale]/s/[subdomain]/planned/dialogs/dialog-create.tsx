@@ -29,8 +29,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { createPlannedAction } from "@/actions/plannedActions";
+import { useTranslations } from "next-intl";
 
 export function CreatePlannedDialog() {
+  const t = useTranslations("PlannedPage");
   const { subdomain } = useSubdomain();
   const form = useForm({
     defaultValues: {
@@ -71,7 +73,7 @@ export function CreatePlannedDialog() {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nome do produto</FormLabel>
+              <FormLabel>{t("item-name")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -85,8 +87,8 @@ export function CreatePlannedDialog() {
             control={form.control}
             name="price"
             render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Preço</FormLabel>
+              <FormItem className="flex-auto">
+                <FormLabel>{t("price")}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -105,8 +107,8 @@ export function CreatePlannedDialog() {
             control={form.control}
             name="quantity"
             render={({ field }) => (
-              <FormItem className="flex-0">
-                <FormLabel>Quantidade</FormLabel>
+              <FormItem className="flex-1">
+                <FormLabel>{t("quantity")}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -128,18 +130,26 @@ export function CreatePlannedDialog() {
           name="priority"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>Prioridade</FormLabel>
+              <FormLabel>{t("priority")}</FormLabel>
               <FormControl>
                 <Select {...field} onValueChange={field.onChange}>
                   <SelectTrigger className="">
-                    <SelectValue placeholder="Selecione a prioridade" />
+                    <SelectValue placeholder={t("select-priority")} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="LOW">Baixo</SelectItem>
-                      <SelectItem value="MEDIUM">Médio</SelectItem>
-                      <SelectItem value="HIGH">Alto</SelectItem>
-                      <SelectItem value="URGENT">Alto</SelectItem>
+                      <SelectItem value="LOW">
+                        {t("priority-options.LOW")}
+                      </SelectItem>
+                      <SelectItem value="MEDIUM">
+                        {t("priority-options.MEDIUM")}
+                      </SelectItem>
+                      <SelectItem value="HIGH">
+                        {t("priority-options.HIGH")}
+                      </SelectItem>
+                      <SelectItem value="URGENT">
+                        {t("priority-options.URGENT")}
+                      </SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -184,8 +194,8 @@ export function CreatePlannedDialog() {
                       >
                         <p>
                           {uploadedInfo && typeof uploadedInfo !== "string"
-                            ? `Selecionado: ${uploadedInfo.original_filename}.${uploadedInfo.format}`
-                            : "Upload an Image"}
+                            ? `${t("selected")}: ${uploadedInfo.original_filename}.${uploadedInfo.format}`
+                            : `${t("upload-image")}`}
                         </p>
                         <Upload />
                       </Button>
@@ -204,7 +214,7 @@ export function CreatePlannedDialog() {
           name="productUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Link {"(opcional)"}</FormLabel>
+              <FormLabel>{t("link")}</FormLabel>
               <FormControl>
                 <Input className="resize-none" type="url" {...field} />
               </FormControl>
@@ -217,7 +227,7 @@ export function CreatePlannedDialog() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Descrição {"(opcional)"}</FormLabel>
+              <FormLabel>{t("description-comment")}</FormLabel>
               <FormControl>
                 <Textarea className="resize-none" {...field} />
               </FormControl>
@@ -239,7 +249,7 @@ export function CreatePlannedDialog() {
         <DialogFooter>
           <Button type="submit" disabled={isPending}>
             {isPending ? <Loader2 className="animate-spin" /> : null}
-            Salvar
+            {t("save")}
           </Button>
         </DialogFooter>
       </form>

@@ -32,10 +32,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
+import { useTranslations } from "next-intl";
 
 dayjs.extend(relativeTime);
 
 function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
+  const t = useTranslations("PlannedPage");
   const { comments, commentsCount, id } = row.original;
   const form = useForm({
     defaultValues: {
@@ -65,7 +67,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
     <div className="pt-4 px-2">
       <div className="p-3 h-fit rounded-lg bg-card space-y-2">
         <span className="flex gap-2">
-          <p className="text-sm font-semibold">Comentários</p>
+          <p className="text-sm font-semibold">{t("comments")}</p>
           <p className="text-sm">{commentsCount}</p>
         </span>
         {comments.length === 1 ? (
@@ -97,7 +99,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                         }}
                       >
                         <Trash2 className="text-destructive" />
-                        <span>Deletar</span>
+                        <span>{t("delete-comment")}</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -146,7 +148,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                                     }}
                                   >
                                     <Trash2 />
-                                    <span>Deletar</span>
+                                    <span>{t("delete-comment")}</span>
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
@@ -187,7 +189,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                                     }}
                                   >
                                     <Trash2 />
-                                    <span>Deletar</span>
+                                    <span>{t("delete-comment")}</span>
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>

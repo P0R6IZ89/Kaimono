@@ -33,6 +33,7 @@ export const columnsPlanned: ColumnDef<PlannedSchema>[] = [
     accessorKey: "status",
     header: () => null,
     cell: ({ row }) => <LikeStatusCell row={row} />,
+    filterFn: "arrIncludesSome",
   },
   {
     accessorKey: "title",

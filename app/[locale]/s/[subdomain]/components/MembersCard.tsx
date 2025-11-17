@@ -24,7 +24,7 @@ function MembersCard({
 }) {
   const t = useTranslations("MembersCard");
   return (
-    <Card className="col-span-2">
+    <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
         <CardDescription>
           <p>{t("title")}</p>

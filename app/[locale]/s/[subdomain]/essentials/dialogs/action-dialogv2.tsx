@@ -8,7 +8,7 @@ import EditDialog from "./dialog-edit";
 
 interface ActionDialiogProps {
   row: Row<TableRowData>;
-  dialogType: "info" | "complete" | "pending" | "delete";
+  dialogType: "edit" | "delete" | "mark-as-purchased" | "mark-as-pending";
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -27,14 +27,14 @@ function ActionDialogV2({
 }: ActionDialiogProps) {
   const renderDialog = () => {
     switch (dialogType) {
-      case "info":
+      case "edit":
         return <EditDialog row={row} open={open} setOpen={setOpen} />;
-      case "complete":
-        return <CompleteDialog row={row} open={open} setOpen={setOpen} />;
-      case "pending":
-        return <PendingDialog row={row} open={open} setOpen={setOpen} />;
       case "delete":
         return <DeleteDialog row={row} open={open} setOpen={setOpen} />;
+      case "mark-as-purchased":
+        return <CompleteDialog row={row} open={open} setOpen={setOpen} />;
+      case "mark-as-pending":
+        return <PendingDialog row={row} open={open} setOpen={setOpen} />;
     }
   };
   return <>{renderDialog()}</>;

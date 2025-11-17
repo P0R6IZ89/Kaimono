@@ -21,10 +21,13 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import UserAvatar from "@/components/auth/userAvatar";
 import { rootDomain } from "@/lib/utils";
 import { Session } from "next-auth";
+import { useTranslations } from "next-intl";
 
 type FormValues = { name: string; subdomain: string; description: string };
 
 export default function NewAppForm({ session }: { session: Session | null }) {
+  const t = useTranslations("NewApp");
+  const tErrors = useTranslations("Errors");
   const form = useForm<FormValues>({
     defaultValues: { name: "", subdomain: "", description: "" },
   });
@@ -38,7 +41,7 @@ export default function NewAppForm({ session }: { session: Session | null }) {
     <div className="flex flex-col gap-4 min-h-dvh max-w-xl m-auto justify-center px-4">
       <Card>
         <CardHeader>
-          <CardTitle>Crie um novo aplicativo ✨</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -46,10 +49,10 @@ export default function NewAppForm({ session }: { session: Session | null }) {
               <FormField
                 control={form.control}
                 name="name"
-                rules={{ required: "Nome é obrigatório" }}
+                rules={{ required: tErrors("required-field") }}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nome do aplicativo</FormLabel>
+                    <FormLabel>{t("app-name")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -61,10 +64,10 @@ export default function NewAppForm({ session }: { session: Session | null }) {
               <FormField
                 control={form.control}
                 name="subdomain"
-                rules={{ required: "Subdomínio é obrigatório" }}
+                rules={{ required: tErrors("required-field") }}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Subdomínio</FormLabel>
+                    <FormLabel>{t("subdomain")}</FormLabel>
                     <FormControl>
                       <div className="relative flex">
                         <Input
@@ -86,7 +89,7 @@ export default function NewAppForm({ session }: { session: Session | null }) {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Descrição</FormLabel>
+                    <FormLabel>{t("description")}</FormLabel>
                     <FormControl>
                       <Textarea className="resize-none" {...field} />
                     </FormControl>
@@ -98,7 +101,7 @@ export default function NewAppForm({ session }: { session: Session | null }) {
               {state?.ok === false && (
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
-                  <AlertTitle>Erro</AlertTitle>
+                  <AlertTitle>{tErrors("error")}</AlertTitle>
                   <AlertDescription>{state.message}</AlertDescription>
                 </Alert>
               )}
@@ -112,7 +115,7 @@ export default function NewAppForm({ session }: { session: Session | null }) {
                 {isPending ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : null}
-                Criar
+                {t("create-button")}
               </Button>
             </form>
           </Form>

@@ -21,6 +21,7 @@ import { Loader2 } from "lucide-react";
 import { createInviteAction } from "@/actions/invitationActions";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface AppData {
   subdomain: string;
@@ -35,6 +36,7 @@ interface InviteFormProps {
 }
 
 function InviteForm({ app }: InviteFormProps) {
+  const t = useTranslations("InvitePage");
   const initialState = { error: "" };
   const [state, action, isPending] = useActionState(
     createInviteAction,
@@ -69,7 +71,7 @@ function InviteForm({ app }: InviteFormProps) {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t("email")}</FormLabel>
               <FormControl>
                 <Input type="email" {...field} />
               </FormControl>
@@ -82,15 +84,15 @@ function InviteForm({ app }: InviteFormProps) {
           name="role"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Convidar como:</FormLabel>
+              <FormLabel>{t("invitee-role")}</FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} defaultValue="MEMBER">
                   <SelectTrigger className="w-[180px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="MEMBER">Membro</SelectItem>
-                    <SelectItem value="OWNER">Moderador</SelectItem>
+                    <SelectItem value="MEMBER">{t("roles.MEMBER")}</SelectItem>
+                    <SelectItem value="OWNER">{t("roles.OWNER")}</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -99,7 +101,11 @@ function InviteForm({ app }: InviteFormProps) {
           )}
         />
         <Button type="submit" disabled={isPending}>
-          {isPending ? <Loader2 className="animate-spin" /> : "Convidar"}{" "}
+          {isPending ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            t("invite-button")
+          )}{" "}
         </Button>
       </form>
     </Form>

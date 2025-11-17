@@ -37,7 +37,7 @@ export function CreateEssentialDialog() {
     defaultValues: {
       title: "",
       price: "",
-      status: "pending",
+      status: "PENDING",
       quantity: "",
       subdomain: subdomain || "",
     },
