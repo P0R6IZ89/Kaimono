@@ -18,8 +18,8 @@ export default async function Essentials({
   params: Promise<{ subdomain: string; locale: string }>;
 }) {
   const { subdomain, locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Dashboard" });
   const { user } = await requireSession();
-  const t = await getTranslations("Dashboard");
   return (
     <div className="@container max-w-5xl flex flex-col p-4 space-y-4 ">
       <InviteToastHandler />

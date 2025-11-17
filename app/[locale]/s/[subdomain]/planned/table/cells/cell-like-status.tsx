@@ -5,7 +5,6 @@ import { Ban, Check, Clock, Heart } from "lucide-react";
 import { toggleLikeAction } from "@/actions/likeAction";
 import { Button } from "@/components/ui/button";
 import { Row } from "@tanstack/react-table";
-import { statuses } from "@/data/data";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
 
 function LikeStatusCell({ row }: { row: Row<PlannedSchema> }) {
@@ -39,9 +38,6 @@ function LikeStatusCell({ row }: { row: Row<PlannedSchema> }) {
           {status === "PURCHASED" ? <Check className="size-6" /> : null}
           {status === "CANCELLED" ? <Ban className="size-6" /> : null}
           {status === "PENDING" ? <Clock className="size-6" /> : null}
-          <p className="text-xs">
-            {statuses.find((s) => s.value === status)?.label}
-          </p>
         </Button>
       </div>
     </div>

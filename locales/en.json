@@ -21,8 +21,9 @@
   },
   "NewApp": {
     "title": "Create New App",
-    "description": "Create a new shopping list app to manage your items.",
     "app-name": "App Name",
+    "subdomain": "Subdomain",
+    "description": "Description",
     "enter-app-name": "Enter the name of your app",
     "create-button": "Create App"
   },
@@ -49,7 +50,14 @@
       "contact": "Contact"
     },
     "config": {
-      "theme": "Theme"
+      "title": "Configuration",
+      "theme": {
+        "title": "Theme",
+        "toggle": "Toggle theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      }
     },
     "invitation": {
       "title": "Invitations",
@@ -96,7 +104,60 @@
     "item-name": "Item Name",
     "price": "Price",
     "quantity": "Quantity",
-    "save": "Save"
+    "priority": "Priority",
+    "select-priority": "Select Priority",
+    "save": "Save",
+    "no-result": "No results found.",
+    "priority-options": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High",
+      "URGENT": "Urgent"
+    },
+    "selected": "Selected",
+    "upload-image": "Upload Image",
+    "link": "Link (optional)",
+    "description-comment": "Description (optional)",
+    "mark-as-purchased": "Mark as Purchased",
+    "revert-to-pending": "Revert to Pending",
+    "save-money": "I will save Money",
+    "comments": "Comments",
+    "delete-comment": "Delete",
+    "edit-description": "You can edit the item here, don't forget to save!"
+  },
+  "InvitePage": {
+    "title": "Invite your friends to your app!",
+    "description": "Invite users to collaborate on your app by sending them an invitation link or email.",
+    "email": "Email",
+    "invitee-role": "Invite as:",
+    "roles": {
+      "OWNER": "Owner",
+      "ADMIN": "Admin",
+      "MEMBER": "Member"
+    },
+    "invite-button": "Send Invite",
+    "pending-invites": "Pending Invites",
+    "manage-invites": "Manage your app invites here.",
+    "status": "Status",
+    "actions-text": "Actions",
+    "app-users": "App {userCount, plural, =0 {Users} =1 {User} other {Users (#)}}",
+    "app-users-description": "Users of this app.",
+    "name": "Name",
+    "actions": {
+      "revoke": {
+        "title": "Revoke Invite",
+        "description": "{status, select, PENDING {This invite is still pending. Revoke it?} EXPIRED {This invite has expired. Revoke permanently?} other {Revoke this invite?}}"
+      },
+      "resend": {
+        "title": "Resend Invite",
+        "description": "{status, select, PENDING {Send an email reminder?} other {Send a new invite link?}}"
+      },
+      "remove": {
+        "title": "Remove User",
+        "description": "Remove this user from the app permanently?"
+      },
+      "generic-error": "Something went wrong"
+    }
   },
   "Table": {
     "next": "Next",
@@ -110,7 +171,47 @@
     "edit": "Edit",
     "delete": "Delete",
     "clear-filters": "Clear",
-    "filter-by-status": "Status"
+    "filter-by-status": "Status",
+    "edit-item": "Edit Item",
+    "delete-item": "Delete Item",
+    "mark-as-purchased": "Mark as Purchased",
+    "mark-as-pending": "Mark as Pending",
+    "search-placeholder": "Search items...",
+    "status": {
+      "PENDING": "Pending",
+      "PURCHASED": "Purchased",
+      "CANCELLED": "Cancelled"
+    },
+    "priority": {
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "HIGH": "High"
+    }
+  },
+  "Dialog": {
+    "item-name": "Item Name",
+    "item-price": "Item Price",
+    "item-quantity": "Item Quantity",
+    "close": "Return",
+    "save-changes": "Save changes",
+    "edit-description": "You can edit the item here, don't forget to save!",
+    "delete-title": "Are you sure you want to delete {title}?",
+    "delete-description": "This action cannot be undone. This will permanently delete the item from your essentials list.",
+    "delete-confirm-button": "Yes, delete item",
+    "mark-as-purchased-title": "Mark {title} as Purchased?",
+    "mark-as-purchased-description": "Are you sure you want to mark this item as Purchased?",
+    "mark-as-purchased-confirm-button": "Mark as Purchased",
+    "mark-as-pending-title": "Revert item to Pending?",
+    "mark-as-pending-description": "Are you sure you want to revert this item back to Pending?",
+    "mark-as-pending-confirm-button": "Mark as Pending"
+  },
+
+  "Errors": {
+    "error": "Error",
+    "required-field": "This field is required.",
+    "invalid-email": "Please enter a valid email address.",
+    "password-min-length": "Password must be at least 8 characters long.",
+    "passwords-no-match": "Passwords do not match."
   },
   "UpdateApp": {
     "title": "New update! 🚀",

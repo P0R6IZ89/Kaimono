@@ -18,6 +18,12 @@ import {
 } from "@/actions/invitationActions";
 import { toast } from "sonner";
 import { removeMemberAction } from "@/actions/appActions";
+import { useTranslations } from "next-intl";
+
+type TranslateFn = (
+  key: string,
+  values?: Record<string, string | number | Date>
+) => string;
 
 type ActionConfig = {
   key: string;
@@ -28,13 +34,14 @@ type ActionConfig = {
   onConfirm: () => Promise<void> | void;
 };
 
-const makeRevokeAction = (status: StatusEnum, id: string): ActionConfig => ({
+const makeRevokeAction = (
+  t: TranslateFn,
+  status: StatusEnum,
+  id: string
+): ActionConfig => ({
   key: "revoke",
-  title: "Revogar Convite",
-  description:
-    status === StatusEnum.PENDING
-      ? "Este convite ainda está pendente. Deseja revogá-lo?"
-      : "Este convite já expirou. Revogar permanentemente?",
+  title: t("actions.revoke.title"),
+  description: t("actions.revoke.description", { status }),
   icon: <Trash size={16} />,
   isPending: false,
   onConfirm: async () => {
@@ -47,18 +54,19 @@ const makeRevokeAction = (status: StatusEnum, id: string): ActionConfig => ({
         toast.success("👍");
       }
     } catch {
-      toast.error("Algo deu errado");
+      toast.error(t("actions.generic-error"));
     }
   },
 });
 
-const makeResendAction = (status: StatusEnum, id: string): ActionConfig => ({
+const makeResendAction = (
+  t: TranslateFn,
+  status: StatusEnum,
+  id: string
+): ActionConfig => ({
   key: "resend",
-  title: "Reenviar Convite",
-  description:
-    status === StatusEnum.PENDING
-      ? "Enviar um lembrete por e-mail?"
-      : "Enviar um link de convite novo?",
+  title: t("actions.resend.title"),
+  description: t("actions.resend.description", { status }),
   icon: <RefreshCwIcon size={16} />,
   isPending: false,
   onConfirm: async () => {
@@ -71,15 +79,19 @@ const makeResendAction = (status: StatusEnum, id: string): ActionConfig => ({
         toast.success("👍");
       }
     } catch {
-      toast.error("Algo deu errado");
+      toast.error(t("actions.generic-error"));
     }
   },
 });
 
-const makeRemoveUserAction = (id: string, subdomain: string): ActionConfig => ({
+const makeRemoveUserAction = (
+  t: TranslateFn,
+  id: string,
+  subdomain: string
+): ActionConfig => ({
   key: "remove",
-  title: "Remover Usuário",
-  description: "Remover este usuário permanentemente da aplicação?",
+  title: t("actions.remove.title"),
+  description: t("actions.remove.description"),
   icon: <UserMinus size={16} />,
   isPending: false,
   onConfirm: async () => {
@@ -92,27 +104,28 @@ const makeRemoveUserAction = (id: string, subdomain: string): ActionConfig => ({
         toast.success(result.message);
       }
     } catch {
-      toast.error("Algo deu errado");
+      toast.error(t("actions.generic-error"));
     }
   },
 });
 
 const ACTIONS_BY_STATUS = (
+  t: TranslateFn,
   status: StatusEnum,
   id: string,
   subdomain: string
 ): ActionConfig[] =>
   ({
     [StatusEnum.PENDING]: [
-      makeRevokeAction(StatusEnum.PENDING, id),
-      makeResendAction(StatusEnum.PENDING, id),
+      makeRevokeAction(t, StatusEnum.PENDING, id),
+      makeResendAction(t, StatusEnum.PENDING, id),
     ],
     [StatusEnum.EXPIRED]: [
-      makeRevokeAction(StatusEnum.EXPIRED, id),
-      makeResendAction(StatusEnum.EXPIRED, id),
+      makeRevokeAction(t, StatusEnum.EXPIRED, id),
+      makeResendAction(t, StatusEnum.EXPIRED, id),
     ],
-    [StatusEnum.ACCEPTED]: [makeRemoveUserAction(id, subdomain)],
-    [StatusEnum.REVOKED]: [makeResendAction(StatusEnum.REVOKED, id)],
+    [StatusEnum.ACCEPTED]: [makeRemoveUserAction(t, id, subdomain)],
+    [StatusEnum.REVOKED]: [makeResendAction(t, StatusEnum.REVOKED, id)],
   })[status] || [];
 
 export default function ActionsButton({
@@ -124,9 +137,11 @@ export default function ActionsButton({
   invitationId: string;
   subdomain: string;
 }) {
+  const t = useTranslations("InvitePage");
+
   const rawActions = useMemo(
-    () => ACTIONS_BY_STATUS(status, invitationId, subdomain),
-    [status, invitationId, subdomain]
+    () => ACTIONS_BY_STATUS(t, status, invitationId, subdomain),
+    [t, status, invitationId, subdomain]
   );
 
   const [activeKey, setActiveKey] = useState<string | null>(null);
@@ -159,7 +174,7 @@ export default function ActionsButton({
         <Ellipsis size={16} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>Ações</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("actions-text")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {actions.map((cfg) => (
           <DropdownMenuItem asChild key={cfg.key}>

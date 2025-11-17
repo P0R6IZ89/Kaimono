@@ -36,9 +36,9 @@ export function NavSecondary({ items, ...props }: Props) {
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild size="sm">
                   {isExternal ? (
-                    <a href={item.url} rel="noopener noreferrer">
+                    <Link href={item.url} rel="noopener noreferrer">
                       {Inner}
-                    </a>
+                    </Link>
                   ) : (
                     <Link href={item.url}>{Inner}</Link>
                   )}

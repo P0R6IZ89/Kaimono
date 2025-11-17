@@ -20,26 +20,27 @@ import {
 import ActionsButton from "./actionButtom";
 import { getAllUserOfApp } from "@/actions/userActions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getTranslations } from "next-intl/server";
 
 export default async function Invite({
   params,
 }: {
-  params: Promise<{ subdomain: string }>;
+  params: Promise<{ subdomain: string; locale: string }>;
 }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "InvitePage" });
   const { subdomain } = await params;
   const app = await getCurrentAppAction(subdomain);
   const invitedUsers = await getInvitedUsersActions(subdomain);
   const users = await getAllUserOfApp(subdomain);
+  const userCount = users.length;
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 justify-center gap-4 p-4">
       <Card className="">
         <CardHeader>
-          <CardTitle>Convide seus amigos para o app!</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
           <CardDescription>
-            <p>
-              Envie um e-mail para seu amigo com a url do convite. Estara
-              disponível por 9 dias.
-            </p>
+            <p>{t("description")}</p>
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -48,18 +49,16 @@ export default async function Invite({
       </Card>
       <Card className="">
         <CardHeader>
-          <CardTitle>Convites pendentes</CardTitle>
-          <CardDescription>
-            Gerenciar os convites do aplicativo.
-          </CardDescription>
+          <CardTitle>{t("pending-invites")}</CardTitle>
+          <CardDescription>{t("manage-invites")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Email</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t("email")}</TableHead>
+                <TableHead>{t("status")}</TableHead>
+                <TableHead>{t("actions-text")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -82,17 +81,17 @@ export default async function Invite({
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>Usuários do App ({users.length})</CardTitle>
-          <CardDescription>Usuários do aplicativo.</CardDescription>
+          <CardTitle>{t("app-users", { userCount })}</CardTitle>
+          <CardDescription>{t("app-users-description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead />
-                <TableHead className="max-w-[100px]">Nome</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead className="w-[30px]">Actions</TableHead>
+                <TableHead className="max-w-[100px]">{t("name")}</TableHead>
+                <TableHead>{t("email")}</TableHead>
+                <TableHead className="w-[30px]">{t("actions-text")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

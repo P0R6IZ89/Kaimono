@@ -16,24 +16,28 @@ import { useState } from "react";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../essentials-columns";
 import ActionDialogV2 from "../../dialogs/action-dialogv2";
+import { useTranslations } from "next-intl";
 
 interface ActionDialogProps {
   row: Row<TableRowData>;
 }
 
+type StatusType = "PENDING" | "PURCHASED" | "CANCELLED";
+
 function ActionCell({ row }: ActionDialogProps) {
+  const t = useTranslations("Table");
   const [open, setOpen] = useState(false);
   const [actionType, setActiontype] = useState<
-    "delete" | "complete" | "info" | "pending" | null
-  >(null);
+    "edit" | "delete" | "mark-as-purchased" | "mark-as-pending"
+  >();
   const handleActionClick = (
-    type: "delete" | "complete" | "info" | "pending"
+    type: "edit" | "delete" | "mark-as-purchased" | "mark-as-pending"
   ) => {
     setActiontype(type);
     setOpen(true);
   };
 
-  const status = row.original.status;
+  const status: StatusType = row.original.status as StatusType;
 
   return (
     <DropdownMenu>
@@ -46,23 +50,27 @@ function ActionCell({ row }: ActionDialogProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onSelect={() => handleActionClick("info")}>
+        <DropdownMenuItem onSelect={() => handleActionClick("edit")}>
           <Info />
-          Mais sobre...
+          {t("edit-item")}
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => handleActionClick("delete")}>
           <Trash className="text-destructive" />
-          Deletar
+          {t("delete-item")}
         </DropdownMenuItem>
-        {status === "pending" ? (
-          <DropdownMenuItem onSelect={() => handleActionClick("complete")}>
+        {status === "PENDING" ? (
+          <DropdownMenuItem
+            onSelect={() => handleActionClick("mark-as-purchased")}
+          >
             <CircleCheckBig className="text-green-400" />
-            Completo
+            {t("mark-as-purchased")}
           </DropdownMenuItem>
-        ) : status === "complete" ? (
-          <DropdownMenuItem onSelect={() => handleActionClick("pending")}>
+        ) : status === "PURCHASED" ? (
+          <DropdownMenuItem
+            onSelect={() => handleActionClick("mark-as-pending")}
+          >
             <Clock className="text-orange-400" />
-            Pendente
+            {t("mark-as-pending")}
           </DropdownMenuItem>
         ) : null}
       </DropdownMenuContent>
