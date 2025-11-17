@@ -9,6 +9,7 @@ import {
 import prisma from "@/lib/prisma";
 import { plannedSchema } from "@/util/form-zod-schema";
 import { revalidatePath } from "next/cache";
+import { getErrorMessage } from "@/util/error-handler";
 
 export async function createPlannedAction(
   _previousState: unknown,
@@ -62,6 +63,54 @@ export async function createPlannedAction(
     return { message: { isSuccess: true } };
   } catch {
     return { error: "Falha ao criar o item" };
+  }
+}
+
+export async function updatePlanned(
+  _previousState: unknown,
+  formData: FormData
+) {
+  const result = plannedSchema.safeParse({
+    title: formData.get("title"),
+    price: formData.get("price"),
+    status: formData.get("status"),
+    quantity: formData.get("quantity"),
+    priority: formData.get("priority"),
+    productUrl: formData.get("productUrl"),
+    description: formData.get("description"),
+    subdomain: formData.get("subdomain"),
+    image: formData.get("image"),
+  });
+
+  if (!result.success) {
+    const first = result.error.errors[0];
+    console.log("Validation error:", result.error);
+    return { ok: false, message: first.message };
+  }
+
+  const data = result.data;
+
+  await requireSession();
+  await requireMembership(data.subdomain);
+
+  try {
+    await prisma.planned.update({
+      where: { id: formData.get("id") as string },
+      data: {
+        title: data.title,
+        price: data.price,
+        status: data.status,
+        quantity: data.quantity,
+        priority: data.priority,
+        productUrl: data.productUrl,
+        description: data.description,
+        image: data.image,
+      },
+    });
+    revalidatePath(`/s/${data.subdomain}/planned`);
+    return { ok: true, message: "Item updated successfully" };
+  } catch (error: unknown) {
+    throw new Error("Failed to update item: " + getErrorMessage(error));
   }
 }
 
@@ -190,6 +239,10 @@ export async function revertTask(id: string) {
   } catch {
     return { error: "Falha ao atualizar o item" };
   }
+}
+
+export async function markSaveMoney(_id: string, _save: boolean) {
+  return { message: { isSuccess: true } };
 }
 
 export async function deleteTask(id: string) {

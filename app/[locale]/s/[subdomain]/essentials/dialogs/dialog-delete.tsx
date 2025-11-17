@@ -13,8 +13,10 @@ import { Button } from "@/components/ui/button";
 import { deleteEssentials } from "@/actions/essentialsActions";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
+  const t = useTranslations("Dialog");
   const { id, title } = row.original;
   const { subdomain } = useSubdomain();
 
@@ -40,14 +42,12 @@ function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Você realmente deseja deletar o {title}?</DialogTitle>
-          <DialogDescription>
-            Essa ação não pode ser revertida. O item selecionado será excluído .
-          </DialogDescription>
+          <DialogTitle>{t("delete-title", { title })}</DialogTitle>
+          <DialogDescription>{t("delete-description")}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant={"outline"}>Voltar</Button>
+            <Button variant={"outline"}>{t("close")}</Button>
           </DialogClose>
           <DialogClose asChild>
             <Button
@@ -60,7 +60,7 @@ function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
                 });
               }}
             >
-              Deletar
+              {t("delete-confirm-button")}
             </Button>
           </DialogClose>
         </DialogFooter>

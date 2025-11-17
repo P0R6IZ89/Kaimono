@@ -25,22 +25,21 @@ import { updateEssentials } from "@/actions/essentialsActions";
 import { useForm } from "react-hook-form";
 import { initialState } from "@/util/initial-action-return";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 function EditDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { title, id, status } = row.original;
-
+  const t = useTranslations("Dialog");
+  const { title, price, quantity, id, status } = row.original;
   const { subdomain } = useSubdomain();
-
   const [state, action, isPending] = useActionState(
     updateEssentials,
     initialState
   );
-
   const form = useForm({
     defaultValues: {
-      title: "",
-      price: "",
-      quantity: "",
+      title,
+      price,
+      quantity,
       status: status,
       priority: "",
       image: "",
@@ -50,23 +49,37 @@ function EditDialog({ row, open, setOpen }: CustomDialogProps) {
     },
   });
   useEffect(() => {
+    if (open) {
+      form.reset({
+        title,
+        price,
+        quantity,
+        status,
+        priority: "",
+        image: "",
+        productUrl: "",
+        description: "",
+        subdomain,
+      });
+    }
+  }, [open, title, price, quantity, status, subdomain, form]);
+
+  useEffect(() => {
+    if (!state) return;
     if (state.ok) {
       toast.success(state.message);
-      form.reset();
       setOpen(false);
-    } else if (!state.ok) {
+    } else if (state.message) {
       toast.error(state.message);
     }
-  }, [form, setOpen, state.message, state.ok]);
+  }, [state, setOpen]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>
-            Voce pode editar o item aqui, não se esqueça de salvar!
-          </DialogDescription>
+          <DialogDescription>{t("edit-description")}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form action={action}>
@@ -75,7 +88,7 @@ function EditDialog({ row, open, setOpen }: CustomDialogProps) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome do produto</FormLabel>
+                  <FormLabel>{t("item-name")}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -89,7 +102,7 @@ function EditDialog({ row, open, setOpen }: CustomDialogProps) {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Preço</FormLabel>
+                  <FormLabel>{t("item-price")}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -107,7 +120,7 @@ function EditDialog({ row, open, setOpen }: CustomDialogProps) {
               name="quantity"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Quantidade</FormLabel>
+                  <FormLabel>{t("item-quantity")}</FormLabel>
                   <FormControl>
                     <Input
                       min={1}
@@ -123,15 +136,15 @@ function EditDialog({ row, open, setOpen }: CustomDialogProps) {
               )}
             />
 
-            <input value={id} name="id" type="hidden" />
-            <input type="hidden" name="subdomain" value={subdomain} />
-            <input type="hidden" name="status" value={status} />
+            <input type="hidden" name="id" defaultValue={String(id)} />
+            <input type="hidden" name="subdomain" defaultValue={subdomain} />
+            <input type="hidden" name="status" defaultValue={status} />
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant={"outline"}>Voltar</Button>
+                <Button variant={"outline"}>{t("close")}</Button>
               </DialogClose>
               <Button type="submit" disabled={isPending}>
-                Salvar
+                {t("save-changes")}
               </Button>
             </DialogFooter>
           </form>

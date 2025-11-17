@@ -13,53 +13,45 @@ import { Button } from "@/components/ui/button";
 import { updateStatusEssentials } from "@/actions/essentialsActions";
 import { toast } from "sonner";
 import { initialState } from "@/util/initial-action-return";
+import { useTranslations } from "next-intl";
 
 function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { id, status } = row.original;
+  const t = useTranslations("Dialog");
+  const { id } = row.original;
   const [state, action, isPending] = useActionState(
     updateStatusEssentials,
     initialState
   );
 
   useEffect(() => {
-    if (state) {
-      if (!state.ok) {
-        toast.error(state.message);
-      } else if (state.ok) {
-        toast.success(state.message);
-      }
+    if (!state) return;
+    if (state.ok) {
+      toast.success(state.message);
+      setOpen(false);
+    } else if (state.message) {
+      toast.error(state.message);
     }
-  }, [state]);
+  }, [state, setOpen]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Deseja marcar como Pendente?</DialogTitle>
+          <DialogTitle>{t("mark-as-pending-title")}</DialogTitle>
           <DialogDescription>
-            O item selecionado será revertido para o estado de pendente.
+            {t("mark-as-pending-description")}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
+          <DialogClose asChild>
+            <Button variant={"outline"}>{t("close")}</Button>
+          </DialogClose>
           <form action={action}>
-            <DialogClose asChild>
-              <Button variant={"outline"}>Voltar</Button>
-            </DialogClose>
-            <DialogClose asChild>
-              <Button
-                type="submit"
-                disabled={isPending}
-                // onClick={() => {
-                //   startTransition(() => {
-                //     action();
-                //   });
-                // }}
-              >
-                Reverter para Pendente
-              </Button>
-            </DialogClose>
-            <input value={id} type="id" />
-            <input value={status} type="hidden" name="status" />
+            <input defaultValue={id} type="hidden" name="id" />
+            <input defaultValue="PENDING" type="hidden" name="status" />
+            <Button type="submit" disabled={isPending}>
+              {t("mark-as-pending-confirm-button")}
+            </Button>
           </form>
         </DialogFooter>
       </DialogContent>

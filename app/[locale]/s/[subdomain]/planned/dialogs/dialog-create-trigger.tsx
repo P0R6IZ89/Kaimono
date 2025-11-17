@@ -9,12 +9,14 @@ import {
 } from "@/components/ui/dialog";
 import { CreatePlannedDialog } from "./dialog-create";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 export function CreatePlannedDialogTrigger({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const t = useTranslations("PlannedPage");
   return (
     <Dialog modal={false}>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -23,9 +25,9 @@ export function CreatePlannedDialogTrigger({
         className="sm:max-w-[425px]"
       >
         <DialogHeader>
-          <DialogTitle>Adicionar novo item</DialogTitle>
+          <DialogTitle>{t("add-new-planned-item")}</DialogTitle>
           <DialogDescription>
-            Adicione novo item na lista de essenciais.
+            {t("add-new-planned-item-description")}
           </DialogDescription>
         </DialogHeader>
         <CreatePlannedDialog />

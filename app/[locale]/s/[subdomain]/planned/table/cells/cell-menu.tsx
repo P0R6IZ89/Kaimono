@@ -28,17 +28,13 @@ function MenuCell(row: Row<PlannedSchema>) {
         const res = await action(id);
 
         if ("error" in res) {
-          // server said “error”
           toast.error(res.error);
         } else if (res.message.isSuccess) {
-          // server said success
           toast.success(successText);
         } else {
-          // optional: catch any “false” success flag
           toast.error("Operação não finalizada com sucesso");
         }
       } catch (err: unknown) {
-        // unexpected exception
         if (err instanceof Error) {
           toast.error(err.message ?? "Algo deu errado");
         } else {
@@ -49,7 +45,7 @@ function MenuCell(row: Row<PlannedSchema>) {
   };
 
   return (
-    <div className="dark absolute top-4 right-4 z-10 text-foreground ">
+    <div className="dark absolute top-4 right-4 z-10 text-foreground bg-purple-400">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
