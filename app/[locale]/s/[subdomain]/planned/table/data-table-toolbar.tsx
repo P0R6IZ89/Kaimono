@@ -9,6 +9,7 @@ import { CreatePlannedDialogTrigger } from "../dialogs/dialog-create-trigger";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+import { useTranslations } from "next-intl";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -17,7 +18,24 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
+  const t = useTranslations("Table");
   const isFiltered = table.getState().columnFilters.length > 0;
+
+  type FacetOption = {
+    label: string;
+    value: string;
+    icon?: React.ComponentType<{ className?: string }>;
+  };
+
+  const statusOptions: FacetOption[] = React.useMemo(
+    () =>
+      statuses.map((s) => ({
+        value: s.value,
+        label: t(`status.${s.value}`),
+        icon: s.icon,
+      })),
+    [t]
+  );
 
   return (
     <div className="flex flex-col">
@@ -27,8 +45,8 @@ export function DataTableToolbar<TData>({
             <div>
               <DataTableFacetedFilter
                 column={table.getColumn("status")}
-                title="Status"
-                options={statuses}
+                title={t("filter-by-status")}
+                options={statusOptions}
               />
             </div>
           )}
@@ -40,7 +58,7 @@ export function DataTableToolbar<TData>({
                 onClick={() => table.resetColumnFilters()}
                 className="h-8 px-2 lg:px-3"
               >
-                Reset
+                {t("clear-filters")}
                 <X />
               </Button>
             </div>
@@ -49,14 +67,14 @@ export function DataTableToolbar<TData>({
         <CreatePlannedDialogTrigger>
           <Button className="h-8 px-2 lg:px-3">
             <Plus />
-            <span>Adicionar</span>
+            <span>{t("add")}</span>
           </Button>
         </CreatePlannedDialogTrigger>
       </div>
 
       <div className="pt-2">
         <Input
-          placeholder="Pesquisar"
+          placeholder={t("search-placeholder")}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)

@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/card";
 
 import { Armchair, ArrowUpRight, Plus } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 import { CreatePlannedDialogTrigger } from "../planned/dialogs/dialog-create-trigger";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
   const t = await getTranslations("PlannedPage");
@@ -38,13 +38,13 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
         <CreatePlannedDialogTrigger>
           <Button variant={"default"}>
             <Plus />
-            Adicionar
+            {t("add-planned-button")}
           </Button>
         </CreatePlannedDialogTrigger>
 
         <Button variant={"outline"} asChild>
           <Link href={"/planned"}>
-            Ver mais
+            {t("see-all-planned")}
             <ArrowUpRight />
           </Link>
         </Button>

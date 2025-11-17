@@ -9,14 +9,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 import { ICONS } from "./icons";
 import type { NavGroup } from "./buildSidebarData";
 
 type Props = { pages: NavGroup };
 
 export default function NavPages({ pages }: Props) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     <SidebarGroup key={pages.title}>
@@ -30,10 +30,10 @@ export default function NavPages({ pages }: Props) {
             const Icon = item.icon ? ICONS[item.icon] : null;
 
             // Active: works with locale-aware pathname from next-intl navigation
-            const active =
-              !isExternal &&
-              (pathname === item.url ||
-                (item.url !== "/" && pathname.startsWith(item.url)));
+            // const active =
+            //   !isExternal &&
+            //   (pathname === item.url ||
+            //     (item.url !== "/" && pathname.startsWith(item.url)));
 
             const Inner = (
               <>
@@ -44,11 +44,11 @@ export default function NavPages({ pages }: Props) {
 
             return (
               <SidebarMenuItem key={`${pages.title}-${item.title}`}>
-                <SidebarMenuButton asChild isActive={active}>
+                <SidebarMenuButton asChild>
                   {isExternal ? (
-                    <a href={item.url} rel="noopener noreferrer">
+                    <Link href={item.url} rel="noopener noreferrer">
                       {Inner}
-                    </a>
+                    </Link>
                   ) : (
                     <Link href={item.url}>{Inner}</Link>
                   )}

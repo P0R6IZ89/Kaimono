@@ -21,6 +21,22 @@ export function DataTableToolbar<TData>({
   const t = useTranslations("Table");
   const isFiltered = table.getState().columnFilters.length > 0;
 
+  type FacetOption = {
+    label: string;
+    value: string;
+    icon?: React.ComponentType<{ className?: string }>;
+  };
+
+  const statusOptions: FacetOption[] = React.useMemo(
+    () =>
+      statuses.map((s) => ({
+        value: s.value,
+        label: t(`status.${s.value}`),
+        icon: s.icon,
+      })),
+    [t]
+  );
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between items-center">
@@ -30,7 +46,7 @@ export function DataTableToolbar<TData>({
               <DataTableFacetedFilter
                 column={table.getColumn("status")}
                 title={t("filter-by-status")}
-                options={statuses}
+                options={statusOptions}
               />
             </div>
           )}
@@ -53,7 +69,7 @@ export function DataTableToolbar<TData>({
 
       <div className="pt-2">
         <Input
-          placeholder="Pesquisar"
+          placeholder={t("search-placeholder")}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)

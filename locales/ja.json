@@ -1,35 +1,36 @@
 {
   "Meta": {
     "title": "Kaimono ベータ版",
-    "description": "買い物リストをスマートに管理できるアプリです。"
+    "description": "買い物リストを管理するためのアプリです。"
   },
   "Login": {
-    "title": "ようこそ！\n✨",
+    "title": "ようこそ！✨",
     "description": "ログイン方法を選択してください。"
   },
   "Homepage": {
-    "title": "究極の買い物管理アプリのご紹介",
-    "description": "思いついたものをどんどん追加して分析し、ベストな選択をしましょう！",
+    "title": "究極の買い物リストアプリ",
+    "description": "買いたいものをすべて追加して、分析し、最適な選択をしましょう！",
     "created-by": "{creatorName} が作成",
     "get-started-button": "はじめる"
   },
   "Apps": {
     "title": "アプリ",
-    "description": "管理できるアプリの一覧です",
-    "start-adding-a-new-app": "新しいアプリの追加を始めましょう！",
-    "create-app": "新しいアプリを作成"
+    "description": "管理できるアプリ一覧",
+    "start-adding-a-new-app": "新しいアプリを追加しましょう！",
+    "create-app": "新規アプリ作成"
   },
   "NewApp": {
-    "title": "新しいアプリを作成",
-    "description": "買い物リストのアイテムを管理する新規アプリを作成します。",
+    "title": "新規アプリ作成",
     "app-name": "アプリ名",
+    "subdomain": "サブドメイン",
+    "description": "説明",
     "enter-app-name": "アプリ名を入力してください",
-    "create-button": "作成する"
+    "create-button": "作成"
   },
   "app-layout": {
     "no-invites": "招待はありません。",
-    "new-invite-to-invite-app-name": "{appName} への新しい招待",
-    "new-invite-content": "{appName} に {inviteRole} として招待されています。",
+    "new-invite-to-invite-app-name": "{appName} への新しい招待があります。",
+    "new-invite-content": "あなたは {inviteRole} として {appName} に招待されています。",
     "check-email-for-details": "詳細はメールをご確認ください。"
   },
   "Sidebar": {
@@ -43,13 +44,20 @@
       "title": "ページ",
       "home": "ホーム",
       "essentials": "必需品",
-      "planned": "計画"
+      "planned": "予定品"
     },
     "navSecondary": {
       "contact": "お問い合わせ"
     },
     "config": {
-      "theme": "テーマ"
+      "title": "設定",
+      "theme": {
+        "title": "テーマ",
+        "toggle": "テーマを切り替え",
+        "light": "ライト",
+        "dark": "ダーク",
+        "system": "システム"
+      }
     },
     "invitation": {
       "title": "招待",
@@ -57,63 +65,155 @@
     }
   },
   "Dashboard": {
-    "hello": "こんにちは、{userName} さん！",
+    "hello": "こんにちは {userName} さん！",
     "hello2": "こんにちは！",
-    "welcomeBack": "お帰りなさい！"
+    "welcomeBack": "おかえりなさい！"
   },
   "MembersCard": {
     "title": "メンバー",
-    "description": "このアプリのメンバーを管理します。",
+    "description": "アプリのメンバーを管理します。",
     "manage": "管理",
-    "view-all-members": "すべてのメンバーを表示",
-    "members-count": "{members, plural, =0 {メンバーはまだいません。} =1 {メンバーは 1 人です} other {メンバーは # 人です}}",
-    "invite-members": "共同編集や共有のためにメンバーを招待しましょう。"
+    "view-all-members": "すべてのメンバーを見る",
+    "members-count": "{members, plural, =0 {メンバーがいません。} =1 {1名のメンバー} other {# 名のメンバー}}",
+    "invite-members": "アプリにメンバーを招待して、買い物リストを共有しましょう。"
   },
   "EssentialsPage": {
     "title": "必需品",
-    "essentialsCount": "{count, plural, =0 {必需品アイテムはまだありません。} =1 {必需品アイテムが 1 件あります。} other {必需品アイテムが # 件あります。}}",
-    "description": "あなたの必需品リストです。",
-    "no-essentials": "必需品はまだ追加されていません。",
-    "add-essential-button": "アイテムを追加",
-    "add-new-essential-item": "新しい必需品アイテムを追加",
+    "essentialsCount": "必需品：{count, plural, =0 {まだありません。} =1 {1件} other {# 件}}",
+    "description": "必需品の買い物リスト。",
+    "no-essentials": "必需品がまだ追加されていません。",
+    "add-essential-button": "追加",
+    "add-new-essential-item": "必需品を追加",
     "add-new-essential-item-description": "必需品リストに新しいアイテムを追加します。",
-    "see-all-essentials": "すべて表示",
+    "see-all-essentials": "すべて見る",
     "item-name": "アイテム名",
     "price": "価格",
     "quantity": "数量",
     "save": "保存",
-    "no-result": "該当する結果はありません。"
+    "no-result": "該当する結果がありません。"
   },
   "PlannedPage": {
-    "title": "計画",
-    "plannedCount": "{count, plural, =0 {計画アイテムはまだありません。} =1 {計画アイテムが 1 件あります。} other {計画アイテムが # 件あります。}}",
-    "description": "あなたの計画中の買い物リストです。",
-    "no-planned": "計画アイテムはまだ追加されていません。",
-    "add-planned-button": "アイテムを追加",
-    "add-new-planned-item": "新しい計画アイテムを追加",
-    "add-new-planned-item-description": "計画リストに新しいアイテムを追加します。",
-    "see-all-planned": "すべて表示",
+    "title": "予定品",
+    "plannedCount": "予定品：{count, plural, =0 {まだありません。} =1 {1件} other {# 件}}",
+    "description": "購入予定のアイテム一覧。",
+    "no-planned": "予定品がまだ追加されていません。",
+    "add-planned-button": "追加",
+    "add-new-planned-item": "予定品を追加",
+    "add-new-planned-item-description": "予定リストに新しいアイテムを追加します。",
+    "see-all-planned": "すべて見る",
     "item-name": "アイテム名",
     "price": "価格",
     "quantity": "数量",
-    "save": "保存"
+    "priority": "優先度",
+    "select-priority": "優先度を選択",
+    "save": "保存",
+    "no-result": "該当する結果がありません。",
+    "priority-options": {
+      "LOW": "低",
+      "MEDIUM": "中",
+      "HIGH": "高",
+      "URGENT": "緊急"
+    },
+    "selected": "選択中",
+    "upload-image": "画像をアップロード",
+    "link": "リンク（任意）",
+    "description-comment": "説明（任意）",
+    "mark-as-purchased": "購入済みにする",
+    "revert-to-pending": "保留に戻す",
+    "save-money": "節約します",
+    "comments": "コメント",
+    "delete-comment": "削除",
+    "edit-description": "ここでアイテムを編集できます。保存をお忘れなく！"
+  },
+  "InvitePage": {
+    "title": "アプリに友達を招待しましょう！",
+    "description": "招待リンクまたはメールでアプリに招待できます。",
+    "email": "メールアドレス",
+    "invitee-role": "役割：",
+    "roles": {
+      "OWNER": "オーナー",
+      "ADMIN": "管理者",
+      "MEMBER": "メンバー"
+    },
+    "invite-button": "招待を送る",
+    "pending-invites": "保留中の招待",
+    "manage-invites": "ここで招待を管理できます。",
+    "status": "ステータス",
+    "actions-text": "操作",
+    "app-users": "アプリ {userCount, plural, =0 {ユーザー} =1 {ユーザー} other {ユーザー（#)}}",
+    "app-users-description": "このアプリのユーザーです。",
+    "name": "名前",
+    "actions": {
+      "revoke": {
+        "title": "招待を取り消す",
+        "description": "{status, select, PENDING {この招待はまだ保留です。取り消しますか？} EXPIRED {この招待は期限切れです。完全に取り消しますか？} other {この招待を取り消しますか？}}"
+      },
+      "resend": {
+        "title": "招待を再送する",
+        "description": "{status, select, PENDING {リマインドメールを送信しますか？} other {新しい招待リンクを送信しますか？}}"
+      },
+      "remove": {
+        "title": "ユーザーを削除",
+        "description": "このユーザーをアプリから完全に削除しますか？"
+      },
+      "generic-error": "問題が発生しました"
+    }
   },
   "Table": {
     "next": "次へ",
     "previous": "前へ",
-    "no-result": "該当する結果はありません。",
+    "no-result": "該当する結果がありません。",
     "page": "ページ",
-    "of": "／",
-    "rows": "行",
+    "of": "/",
+    "rows": "件",
     "actions": "操作",
     "add": "追加",
     "edit": "編集",
     "delete": "削除",
-    "clear-filters": "フィルター解除",
-    "filter-by-status": "ステータスで絞り込み"
+    "clear-filters": "クリア",
+    "filter-by-status": "ステータス",
+    "edit-item": "アイテムを編集",
+    "delete-item": "アイテムを削除",
+    "mark-as-purchased": "購入済みにする",
+    "mark-as-pending": "保留に戻す",
+    "search-placeholder": "アイテムを検索...",
+    "status": {
+      "PENDING": "保留",
+      "PURCHASED": "購入済み",
+      "CANCELLED": "キャンセル"
+    },
+    "priority": {
+      "LOW": "低",
+      "MEDIUM": "中",
+      "HIGH": "高"
+    }
+  },
+  "Dialog": {
+    "item-name": "アイテム名",
+    "item-price": "価格",
+    "item-quantity": "数量",
+    "close": "戻る",
+    "save-changes": "変更を保存",
+    "edit-description": "ここでアイテムを編集できます。保存をお忘れなく！",
+    "delete-title": "{title} を削除しますか？",
+    "delete-description": "この操作は元に戻せません。このアイテムは完全に削除されます。",
+    "delete-confirm-button": "はい、削除します",
+    "mark-as-purchased-title": "{title} を購入済みにしますか？",
+    "mark-as-purchased-description": "本当に購入済みに変更しますか？",
+    "mark-as-purchased-confirm-button": "購入済みにする",
+    "mark-as-pending-title": "保留に戻しますか？",
+    "mark-as-pending-description": "本当に保留に戻しますか？",
+    "mark-as-pending-confirm-button": "保留に戻す"
+  },
+  "Errors": {
+    "error": "エラー",
+    "required-field": "この項目は必須です。",
+    "invalid-email": "有効なメールアドレスを入力してください。",
+    "password-min-length": "パスワードは8文字以上である必要があります。",
+    "passwords-no-match": "パスワードが一致しません。"
   },
   "UpdateApp": {
     "title": "新しいアップデート！🚀",
-    "description": "ポルトガル語と日本語のサポートを追加しました。"
+    "description": "ポルトガル語と日本語の言語サポートが追加されました。"
   }
 }

@@ -11,6 +11,7 @@ import {
 } from "@tanstack/react-table";
 import React from "react";
 import { DataTableToolbar } from "./data-table-toolbar";
+import { useTranslations } from "next-intl";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -21,6 +22,7 @@ export function DataTablePlanned<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const t = useTranslations("PlannedPage");
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([
     { id: "status", value: ["PENDING"] },
@@ -70,7 +72,7 @@ export function DataTablePlanned<TData, TValue>({
             );
           })
         ) : (
-          <div className="h-24 text-center">No results.</div>
+          <div className="h-24 text-center">{t("no-result")}</div>
         )}
       </div>
     </div>

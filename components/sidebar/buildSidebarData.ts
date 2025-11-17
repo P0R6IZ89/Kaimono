@@ -26,7 +26,7 @@ export function buildSidebarData(
   const data: SidebarData = {
     navSite: {
       title: t("Sidebar.navSite.title"),
-      url: "", 
+      url: "",
       items: [
         {
           title: t("Sidebar.navSite.items.home"),
@@ -55,7 +55,7 @@ export function buildSidebarData(
     navSecondary: [
       { title: t("Sidebar.navSecondary.contact"), url: "#", icon: "send" },
     ],
-    config: [{ name: t("Sidebar.config.theme"), url: "#" }],
+    config: [{ name: t("Sidebar.config.theme.title"), url: "#" }],
   };
 
   if (role !== "MEMBER") {

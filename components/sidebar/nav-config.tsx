@@ -17,6 +17,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 
 export function NavConfig({
   items,
@@ -26,12 +27,13 @@ export function NavConfig({
     url: string;
   }[];
 }) {
+  const t = useTranslations("Sidebar");
   const { isMobile } = useSidebar();
   const { setTheme } = useTheme();
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Configuração</SidebarGroupLabel>
+      <SidebarGroupLabel>{t("config.title")}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
@@ -51,15 +53,15 @@ export function NavConfig({
               >
                 <DropdownMenuItem onClick={() => setTheme("light")}>
                   <Sun />
-                  Claro
+                  {t("config.theme.light")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme("dark")}>
                   <Moon />
-                  Escuro
+                  {t("config.theme.dark")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme("system")}>
                   <UserRoundCog />
-                  Sistema
+                  {t("config.theme.system")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

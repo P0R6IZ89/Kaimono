@@ -10,13 +10,14 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { CircleCheckBig } from "lucide-react";
 import { updateStatusEssentials } from "@/actions/essentialsActions";
 import { toast } from "sonner";
 import { initialState } from "@/util/initial-action-return";
+import { useTranslations } from "next-intl";
 
 function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { id } = row.original;
+  const t = useTranslations("Dialog");
+  const { id, title } = row.original;
 
   const [state, action, isPending] = useActionState(
     updateStatusEssentials,
@@ -24,36 +25,35 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   );
 
   useEffect(() => {
-    if (state) {
-      if (state.ok) {
-        toast.success(state.message);
-      } else if (!state.ok) {
-        toast.error(state.message);
-      }
+    if (!state) return;
+    if (state.ok) {
+      toast.success(state.message);
+      setOpen(false);
+    } else if (state.message) {
+      toast.error(state.message);
     }
-  }, [state]);
+  }, [state, setOpen]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Deseja marcar como Completo?</DialogTitle>
+          <DialogTitle>{t("mark-as-purchased-title", { title })}</DialogTitle>
           <DialogDescription>
-            O item selecionado será marcado como completo.
+            {t("mark-as-purchased-description")}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant={"outline"}>Voltar</Button>
+            <Button variant={"outline"}>{t("close")}</Button>
           </DialogClose>
-          <DialogClose asChild>
-            <form action={action}>
-              <input value={id} type="id" />
-              <Button type="submit" disabled={isPending}>
-                <CircleCheckBig /> Marcar como completo
-              </Button>
-            </form>
-          </DialogClose>
+          <form action={action}>
+            <input type="hidden" name="id" defaultValue={id} />
+            <input type="hidden" name="status" defaultValue="PURCHASED" />
+            <Button type="submit" disabled={isPending}>
+              {t("mark-as-purchased-confirm-button")}
+            </Button>
+          </form>
         </DialogFooter>
       </DialogContent>
     </Dialog>
