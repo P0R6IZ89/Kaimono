@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -33,7 +32,6 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
           <Armchair />
         </CardAction>
       </CardHeader>
-      <CardContent className="flex-1" />
       <CardFooter className="flex-1 gap-2">
         <CreatePlannedDialogTrigger>
           <Button variant={"default"}>

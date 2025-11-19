@@ -79,7 +79,7 @@
   },
   "EssentialsPage": {
     "title": "Essentials",
-    "essentialsCount": "You have {count, plural, =0 {No essentials items yet.} =1 {1 essential item} other {# essentials items.}}",
+    "essentialsCount": "{count, plural, =0 {No items yet.} =1 {1 essential} other {# essentials}}",
     "description": "Your essential shopping list items.",
     "no-essentials": "No essential items added yet.",
     "add-essential-button": "Add Item",
@@ -94,7 +94,7 @@
   },
   "PlannedPage": {
     "title": "Planned",
-    "plannedCount": "You have {count, plural, =0 {No planned items yet.} =1 {1 planned item} other {# planned items.}}",
+    "plannedCount": "{count, plural, =0 {No items yet.} =1 {1 planned} other {# planneds}}",
     "description": "Your planned shopping list items.",
     "no-planned": "No planned items added yet.",
     "add-planned-button": "Add Item",
