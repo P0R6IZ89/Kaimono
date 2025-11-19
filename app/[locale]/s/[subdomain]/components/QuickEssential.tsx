@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -38,7 +37,6 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
           <Shirt />
         </CardAction>
       </CardHeader>
-      <CardContent className="flex-1" />
       <CardFooter className="flex flex-1 gap-2">
         <Dialog>
           <DialogTrigger asChild>

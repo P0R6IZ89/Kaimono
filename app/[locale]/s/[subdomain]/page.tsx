@@ -20,6 +20,7 @@ export default async function Essentials({
   const { subdomain, locale } = await params;
   const t = await getTranslations({ locale, namespace: "Dashboard" });
   const { user } = await requireSession();
+
   return (
     <div className="@container max-w-5xl flex flex-col p-4 space-y-4 ">
       <InviteToastHandler />
@@ -32,9 +33,10 @@ export default async function Essentials({
         </CardHeader>
       </Card>
       <div className="grid grid-cols-2 gap-3">
-        <MembersCard subdomain={subdomain} locale={locale} />
+        {/* <ExpenseBarEditor /> */}
         <QuickEssentialCard subdomain={subdomain} />
         <QuickPlannedCard subdomain={subdomain} />
+        <MembersCard subdomain={subdomain} locale={locale} />
       </div>
     </div>
   );
