@@ -2,6 +2,7 @@
 import {
   Grip,
   Hexagon,
+  Folder,
   Shirt,
   Armchair,
   Send,
@@ -14,6 +15,7 @@ export const ICONS: Record<
   React.ComponentType<{ className?: string }>
 > = {
   grip: Grip,
+  folder: Folder,
   hexagon: Hexagon,
   shirt: Shirt,
   armchair: Armchair,

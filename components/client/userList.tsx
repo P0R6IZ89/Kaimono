@@ -1,24 +1,31 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getTenFirstUsersOfApp } from "@/actions/userActions";
+import { MOCK_USERS } from "@/data/userData";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export default async function UserList({ subdomain }: { subdomain: string }) {
-  const users = await getTenFirstUsersOfApp(subdomain);
+  const response = await getTenFirstUsersOfApp(subdomain);
+  // const response = { users: [], hasMore: false, overflowCount: 0 }; // Temporarily disable API call
+  const limit = 4;
 
-  if (!users) {
-    return (
-      <p className="text-muted-foreground">Nenhum usuário foi encontrado.</p>
-    );
-  }
+  const users = response?.users?.length
+    ? response.users
+    : MOCK_USERS.slice(0, limit);
+  const hasMore = response?.users?.length
+    ? response.hasMore
+    : MOCK_USERS.length > limit;
+  const overflowCount = response?.users?.length
+    ? response.overflowCount
+    : Math.max(0, MOCK_USERS.length - limit);
 
   return (
-    <div className="max-h-48 flex flex-col space-y-4 overflow-x-auto">
+    <div className="flex justify-end">
       <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 ">
-        {users.users.length === 0 ? (
+        {users.length === 0 ? (
           <p className="p-4 text-sm text-muted-foreground">No users found.</p>
         ) : (
-          users.users.map((user, i) => (
+          users.map((user, i) => (
             <Tooltip key={i}>
               <TooltipTrigger asChild>
                 <Avatar className="size-8 rounded-full">
@@ -39,10 +46,10 @@ export default async function UserList({ subdomain }: { subdomain: string }) {
             </Tooltip>
           ))
         )}
-        {users.hasMore ? (
+        {hasMore ? (
           <Avatar className="size-8 rounded-full bg-muted text-muted-foreground">
             <AvatarFallback className="rounded-lg">
-              +{users.overflowCount}
+              +{overflowCount}
             </AvatarFallback>
           </Avatar>
         ) : null}

@@ -1,5 +1,4 @@
 import React from "react";
-import MembersCard from "./components/MembersCard";
 import QuickEssentialCard from "./components/QuickEssential";
 import QuickPlannedCard from "./components/QuickPlanned";
 import {
@@ -11,6 +10,8 @@ import {
 import InviteToastHandler from "./components/InviteToastHandler";
 import { requireSession } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
+import UserList from "@/components/client/userList";
+// import ExpenseBarEditor from "./components/ExpenseBar";
 
 export default async function Essentials({
   params,
@@ -29,14 +30,15 @@ export default async function Essentials({
           <CardDescription>
             {user?.name ? t("hello", { userName: user.name }) : t("hello2")}
           </CardDescription>
-          <CardTitle className="font-normal">{t("welcomeBack")}</CardTitle>
+          <CardTitle className="grid grid-cols-2 justify-between items-center font-normal">
+            <p>{t("welcomeBack")}</p>
+            <UserList subdomain={subdomain} />
+          </CardTitle>
         </CardHeader>
       </Card>
       <div className="grid grid-cols-2 gap-3">
-        {/* <ExpenseBarEditor /> */}
         <QuickEssentialCard subdomain={subdomain} />
         <QuickPlannedCard subdomain={subdomain} />
-        <MembersCard subdomain={subdomain} locale={locale} />
       </div>
     </div>
   );

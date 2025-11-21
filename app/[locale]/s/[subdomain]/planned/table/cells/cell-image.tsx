@@ -7,7 +7,7 @@ function ImageCell({ row }: { row: Row<PlannedSchema> }) {
   const { image, title } = row.original;
   return (
     <div className="relative top-0 rounded-xl overflow-clip">
-      <div className="absolute bg-gradient-to-b from-black/30 from-10% via-black/0 to-black/30 to-90% h-full w-full" />
+      <div className="absolute h-full w-full" />
       {image ? (
         <CldImage
           src={image}

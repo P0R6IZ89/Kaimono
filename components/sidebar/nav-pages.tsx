@@ -16,11 +16,8 @@ import type { NavGroup } from "./buildSidebarData";
 type Props = { pages: NavGroup };
 
 export default function NavPages({ pages }: Props) {
-  // const pathname = usePathname();
-
   return (
     <SidebarGroup key={pages.title}>
-      {/* use translated title from data */}
       <SidebarGroupLabel>{pages.title}</SidebarGroupLabel>
 
       <SidebarGroupContent>
@@ -28,13 +25,6 @@ export default function NavPages({ pages }: Props) {
           {pages.items.map((item) => {
             const isExternal = /^https?:\/\//.test(item.url);
             const Icon = item.icon ? ICONS[item.icon] : null;
-
-            // Active: works with locale-aware pathname from next-intl navigation
-            // const active =
-            //   !isExternal &&
-            //   (pathname === item.url ||
-            //     (item.url !== "/" && pathname.startsWith(item.url)));
-
             const Inner = (
               <>
                 {Icon ? <Icon className="h-4 w-4" /> : null}

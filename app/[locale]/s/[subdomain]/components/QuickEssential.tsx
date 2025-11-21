@@ -37,10 +37,10 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
           <Shirt />
         </CardAction>
       </CardHeader>
-      <CardFooter className="flex flex-1 gap-2">
+      <CardFooter className="grid grid-cols-2 gap-2">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant={"default"}>
+            <Button variant={"default"} className="col-auto ">
               <Plus />
               {t("add-essential-button")}
             </Button>
@@ -56,7 +56,7 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
           </DialogContent>
         </Dialog>
         <Button variant={"outline"} asChild>
-          <Link href={"/essentials"}>
+          <Link href={"/essentials"} className="col-auto">
             {t("see-all-essentials")}
             <ArrowUpRight />
           </Link>
