@@ -44,7 +44,8 @@
       "title": "ページ",
       "home": "ホーム",
       "essentials": "必需品",
-      "planned": "予定品"
+      "planned": "予定品",
+      "projects": "プロジェクト"
     },
     "navSecondary": {
       "contact": "お問い合わせ"
@@ -124,6 +125,68 @@
     "comments": "コメント",
     "delete-comment": "削除",
     "edit-description": "ここでアイテムを編集できます。保存をお忘れなく！"
+  },
+  "ProjectsPage": {
+    "title": "プロジェクト",
+    "description": "予定品をプロジェクトにまとめて、バックログを前に進めます。",
+    "summary": {
+      "projects": "{count, plural, =0 {プロジェクトはまだありません} =1 {1件のプロジェクト} other {# 件のプロジェクト}}",
+      "planned": "{count, plural, =0 {予定品はまだありません} =1 {1件の予定品} other {# 件の予定品}}",
+      "backlog": "{count, plural, =0 {未割り当てなし} =1 {未割り当て 1 件} other {未割り当て # 件}}"
+    },
+    "backlog": {
+      "title": "未割り当ての予定品",
+      "description": "バックログをプロジェクトに割り当てて、目的を明確にします。",
+      "empty": "未割り当ての予定品はありません。",
+      "badge": "バックログ"
+    },
+    "create": {
+      "title": "プロジェクトを作成",
+      "description": "関連する購入や優先度をまとめましょう。"
+    },
+    "form": {
+      "name": "プロジェクト名",
+      "name-placeholder": "スタジオセットアップ、パントリー刷新など",
+      "description": "説明",
+      "description-placeholder": "成功のイメージを記入してください。",
+      "create": "プロジェクトを作成",
+      "reset": "リセット"
+    },
+    "assign": {
+      "cta": "予定品を追加",
+      "title": "{projectName} に予定品を追加",
+      "description": "プロジェクト未割り当ての予定品を選んで追加します。",
+      "empty": "未割り当ての予定品がありません。",
+      "search-placeholder": "予定品を検索...",
+      "no-results": "該当する予定品がありません。",
+      "submit-selected": "「{title}」を追加",
+      "submit": "プロジェクトに追加"
+    },
+    "project": {
+      "no-description": "説明はまだありません。",
+      "badges": {
+        "total": "{count, plural, =0 {0 件} =1 {1 件} other {# 件}}",
+        "pending": "{count, plural, =0 {0 件 保留} =1 {1 件 保留} other {# 件 保留}}",
+        "purchased": "{count, plural, =0 {0 件 購入済み} =1 {1 件 購入済み} other {# 件 購入済み}}",
+        "cancelled": "{count, plural, =0 {0 件 キャンセル} =1 {1 件 キャンセル} other {# 件 キャンセル}}"
+      },
+      "items-title": "このプロジェクトのアイテム",
+      "items-description": "予定品を目的にひもづけて管理します。",
+      "empty": "まだ予定品がリンクされていません。",
+      "open-planned": "予定品を開く"
+    },
+    "list": {
+      "title": "進行中のプロジェクト",
+      "description": "各プロジェクトの進み具合を確認できます。",
+      "backlog-count": "{count, plural, =0 {未割り当てなし} =1 {未割り当て 1 件} other {未割り当て # 件}}"
+    },
+    "empty": {
+      "title": "最初のプロジェクトを作成しましょう",
+      "description": "プロジェクトで予定品を目標ごとにまとめられます。"
+    },
+    "toast-created": "プロジェクトを作成しました。",
+    "toast-assigned": "予定品を {projectName} に追加しました。",
+    "toast-unassigned": "プロジェクトからアイテムを外しました。"
   },
   "InvitePage": {
     "title": "アプリに友達を招待しましょう！",
