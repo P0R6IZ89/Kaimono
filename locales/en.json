@@ -44,7 +44,8 @@
       "title": "Pages",
       "home": "Home",
       "essentials": "Essentials",
-      "planned": "Planned"
+      "planned": "Planned",
+      "projects": "Projects"
     },
     "navSecondary": {
       "contact": "Contact"
@@ -124,6 +125,68 @@
     "comments": "Comments",
     "delete-comment": "Delete",
     "edit-description": "You can edit the item here, don't forget to save!"
+  },
+  "ProjectsPage": {
+    "title": "Projects",
+    "description": "Group planned purchases into projects and keep the backlog moving.",
+    "summary": {
+      "projects": "{count, plural, =0 {No projects yet} =1 {1 project} other {# projects}}",
+      "planned": "{count, plural, =0 {No planned items tracked} =1 {1 planned item} other {# planned items}}",
+      "backlog": "{count, plural, =0 {No unassigned items} =1 {1 item in backlog} other {# items in backlog}}"
+    },
+    "backlog": {
+      "title": "Unassigned planned items",
+      "description": "Assign backlog items into a project to give them context.",
+      "empty": "No unassigned planned items right now.",
+      "badge": "Backlog"
+    },
+    "create": {
+      "title": "Create a project",
+      "description": "Group related purchases and priorities."
+    },
+    "form": {
+      "name": "Project name",
+      "name-placeholder": "Studio setup, Pantry refresh...",
+      "description": "Description",
+      "description-placeholder": "What does success look like?",
+      "create": "Create project",
+      "reset": "Reset"
+    },
+    "assign": {
+      "cta": "Assign planned item",
+      "title": "Add planned item to {projectName}",
+      "description": "Pick a planned item without a project and drop it into this one.",
+      "empty": "You have no unassigned planned items.",
+      "search-placeholder": "Search planned items...",
+      "no-results": "No planned items found.",
+      "submit-selected": "Add \"{title}\"",
+      "submit": "Add to project"
+    },
+    "project": {
+      "no-description": "No description added yet.",
+      "badges": {
+        "total": "{count, plural, =0 {0 items} =1 {1 item} other {# items}}",
+        "pending": "{count, plural, =0 {0 pending} =1 {1 pending} other {# pending}}",
+        "purchased": "{count, plural, =0 {0 purchased} =1 {1 purchased} other {# purchased}}",
+        "cancelled": "{count, plural, =0 {0 cancelled} =1 {1 cancelled} other {# cancelled}}"
+      },
+      "items-title": "Items in this project",
+      "items-description": "Keep planned purchases attached to the goal they support.",
+      "empty": "No planned items are linked here yet.",
+      "open-planned": "All planneds"
+    },
+    "list": {
+      "title": "Active projects",
+      "description": "See how each project is progressing.",
+      "backlog-count": "{count, plural, =0 {No free items} =1 {1 free item} other {# free items}}"
+    },
+    "empty": {
+      "title": "Create your first project",
+      "description": "Use a project to group planned items by goal."
+    },
+    "toast-created": "Project created.",
+    "toast-assigned": "Planned item assigned to {projectName}.",
+    "toast-unassigned": "Item removed from the project."
   },
   "InvitePage": {
     "title": "Invite your friends to your app!",
@@ -205,7 +268,6 @@
     "mark-as-pending-description": "Are you sure you want to revert this item back to Pending?",
     "mark-as-pending-confirm-button": "Mark as Pending"
   },
-
   "Errors": {
     "error": "Error",
     "required-field": "This field is required.",

@@ -44,7 +44,8 @@
       "title": "Páginas",
       "home": "Início",
       "essentials": "Essenciais",
-      "planned": "Planejados"
+      "planned": "Planejados",
+      "projects": "Projetos"
     },
     "navSecondary": {
       "contact": "Contato"
@@ -124,6 +125,68 @@
     "comments": "Comentários",
     "delete-comment": "Excluir",
     "edit-description": "Você pode editar o item aqui, não esqueça de salvar!"
+  },
+  "ProjectsPage": {
+    "title": "Projetos",
+    "description": "Organize itens planejados em projetos e mova o backlog.",
+    "summary": {
+      "projects": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}",
+      "planned": "{count, plural, =0 {Nenhum item planejado rastreado} =1 {1 item planejado} other {# itens planejados}}",
+      "backlog": "{count, plural, =0 {Nenhum item livre} =1 {1 item livre} other {# itens livres}}"
+    },
+    "backlog": {
+      "title": "Itens planejados sem projeto",
+      "description": "Vincule o backlog a um projeto para dar contexto.",
+      "empty": "Nenhum item planejado livre no momento.",
+      "badge": "Backlog"
+    },
+    "create": {
+      "title": "Criar projeto",
+      "description": "Agrupe compras relacionadas e prioridades."
+    },
+    "form": {
+      "name": "Nome do projeto",
+      "name-placeholder": "Setup do estúdio, Despensa nova...",
+      "description": "Descrição",
+      "description-placeholder": "Como é o sucesso?",
+      "create": "Criar projeto",
+      "reset": "Limpar"
+    },
+    "assign": {
+      "cta": "Adicionar planejado",
+      "title": "Adicionar item a {projectName}",
+      "description": "Escolha um planejado sem projeto e vincule aqui.",
+      "empty": "Você não tem itens planejados livres.",
+      "search-placeholder": "Buscar itens planejados...",
+      "no-results": "Nenhum item encontrado.",
+      "submit-selected": "Adicionar \"{title}\"",
+      "submit": "Adicionar ao projeto"
+    },
+    "project": {
+      "no-description": "Nenhuma descrição adicionada.",
+      "badges": {
+        "total": "{count, plural, =0 {0 itens} =1 {1 item} other {# itens}}",
+        "pending": "{count, plural, =0 {0 pendentes} =1 {1 pendente} other {# pendentes}}",
+        "purchased": "{count, plural, =0 {0 comprados} =1 {1 comprado} other {# comprados}}",
+        "cancelled": "{count, plural, =0 {0 cancelados} =1 {1 cancelado} other {# cancelados}}"
+      },
+      "items-title": "Itens neste projeto",
+      "items-description": "Mantenha as compras ligadas ao objetivo que apoiam.",
+      "empty": "Nenhum item planejado vinculado ainda.",
+      "open-planned": "Abrir planejados"
+    },
+    "list": {
+      "title": "Projetos ativos",
+      "description": "Veja como cada projeto está avançando.",
+      "backlog-count": "{count, plural, =0 {Nenhum item livre} =1 {1 item livre} other {# itens livres}}"
+    },
+    "empty": {
+      "title": "Crie seu primeiro projeto",
+      "description": "Use projetos para agrupar itens planejados por objetivo."
+    },
+    "toast-created": "Projeto criado.",
+    "toast-assigned": "Item atribuído a {projectName}.",
+    "toast-unassigned": "Item removido do projeto."
   },
   "InvitePage": {
     "title": "Convide seus amigos para o app!",
