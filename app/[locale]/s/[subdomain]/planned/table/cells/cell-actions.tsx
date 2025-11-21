@@ -3,12 +3,7 @@
 import React, { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Banknote, Check, Trash2, Undo } from "lucide-react";
-import {
-  completeTask,
-  deleteTask,
-  markSaveMoney,
-  revertTask,
-} from "@/actions/plannedActions";
+import { completeTask, deleteTask, revertTask } from "@/actions/plannedActions";
 import { toast } from "sonner";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
@@ -57,10 +52,7 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
             className="flex-1"
             disabled={true}
             onClick={() => {
-              startTransition(async () => {
-                const result = await markSaveMoney(id, true);
-                setState(result);
-              });
+              startTransition(async () => {});
             }}
           >
             <Banknote className="text-green-700" />

@@ -32,16 +32,16 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
           <Armchair />
         </CardAction>
       </CardHeader>
-      <CardFooter className="flex-1 gap-2">
+      <CardFooter className="grid grid-cols-2 gap-2">
         <CreatePlannedDialogTrigger>
-          <Button variant={"default"}>
+          <Button variant={"default"} className="col-auto">
             <Plus />
             {t("add-planned-button")}
           </Button>
         </CreatePlannedDialogTrigger>
 
         <Button variant={"outline"} asChild>
-          <Link href={"/planned"}>
+          <Link href={"/planned"} className="col-auto">
             {t("see-all-planned")}
             <ArrowUpRight />
           </Link>
