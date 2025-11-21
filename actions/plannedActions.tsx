@@ -241,10 +241,6 @@ export async function revertTask(id: string) {
   }
 }
 
-export async function markSaveMoney(_id: string, _save: boolean) {
-  return { message: { isSuccess: true } };
-}
-
 export async function deleteTask(id: string) {
   const session = await auth();
   if (!session || !session.user?.id) {
