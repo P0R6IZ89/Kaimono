@@ -84,3 +84,21 @@ export const statusUpdateSchema = z.object({
     message: "O status é incopatível",
   }),
 });
+
+export const projectSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Project name is required")
+    .max(120, "Use 120 characters or fewer."),
+  description: z.preprocess(
+    (v) => (v === "" ? undefined : v),
+    z.string().max(500, "Use 500 characters or fewer.").optional()
+  ),
+  subdomain: z.string().min(1, "Verifique seu link"),
+});
+
+export const projectLinkSchema = z.object({
+  projectId: z.string().cuid(),
+  plannedId: z.string().cuid(),
+  subdomain: z.string().min(1, "Verifique seu link"),
+});

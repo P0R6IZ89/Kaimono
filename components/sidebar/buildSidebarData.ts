@@ -3,6 +3,7 @@ export type MemberRole = "OWNER" | "ADMIN" | "MEMBER";
 export type IconKey =
   | "grip"
   | "hexagon"
+  | "folder"
   | "shirt"
   | "armchair"
   | "send"
@@ -41,6 +42,11 @@ export function buildSidebarData(
       items: [
         { title: t("Sidebar.navPages.home"), url: "/", icon: "hexagon" },
         {
+          title: t("Sidebar.navPages.projects"),
+          url: "/projects",
+          icon: "folder",
+        },
+        {
           title: t("Sidebar.navPages.essentials"),
           url: "/essentials",
           icon: "shirt",
@@ -53,9 +59,13 @@ export function buildSidebarData(
       ],
     },
     navSecondary: [
-      { title: t("Sidebar.navSecondary.contact"), url: "#", icon: "send" },
+      {
+        title: t("Sidebar.navSecondary.contact"),
+        url: "/contact",
+        icon: "send",
+      },
     ],
-    config: [{ name: t("Sidebar.config.theme.title"), url: "#" }],
+    config: [{ name: t("Sidebar.config.theme.title"), url: "" }],
   };
 
   if (role !== "MEMBER") {
