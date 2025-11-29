@@ -10,11 +10,12 @@ import prisma from "@/lib/prisma";
 import { plannedSchema } from "@/util/form-zod-schema";
 import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "@/util/error-handler";
+import { ActionResult } from "@/util/initial-action-return";
 
 export async function createPlannedAction(
-  _previousState: unknown,
+  _previousState: ActionResult,
   formData: FormData
-) {
+): Promise<ActionResult> {
   const result = plannedSchema.safeParse({
     title: formData.get("title"),
     price: formData.get("price"),
@@ -29,7 +30,7 @@ export async function createPlannedAction(
 
   if (!result.success) {
     const first = result.error.errors[0];
-    return { error: first.message };
+    return { ok: false, message: first.message };
   }
 
   const data = result.data;
@@ -60,16 +61,16 @@ export async function createPlannedAction(
       },
     });
     revalidatePath(`/s/${data.subdomain}/planned`);
-    return { message: { isSuccess: true } };
+    return { ok: true, message: "Item criado com sucesso!" };
   } catch {
-    return { error: "Falha ao criar o item" };
+    return { ok: false, message: "Falha ao criar o item" };
   }
 }
 
 export async function updatePlanned(
-  _previousState: unknown,
+  _previousState: ActionResult,
   formData: FormData
-) {
+): Promise<ActionResult> {
   const result = plannedSchema.safeParse({
     title: formData.get("title"),
     price: formData.get("price"),
@@ -110,7 +111,10 @@ export async function updatePlanned(
     revalidatePath(`/s/${data.subdomain}/planned`);
     return { ok: true, message: "Item updated successfully" };
   } catch (error: unknown) {
-    throw new Error("Failed to update item: " + getErrorMessage(error));
+    return {
+      ok: false,
+      message: "Failed to update item: " + getErrorMessage(error),
+    };
   }
 }
 
@@ -208,7 +212,7 @@ export async function getPlannedCount(subdomain: string) {
   return _count;
 }
 
-export async function completeTask(id: string) {
+export async function completeTask(id: string): Promise<ActionResult> {
   const session = await auth();
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
@@ -219,12 +223,12 @@ export async function completeTask(id: string) {
       data: { status: "PURCHASED" },
     });
     revalidatePath("/planned");
-    return { message: { isSuccess: true } };
+    return { ok: true, message: "Item atualizado com sucesso" };
   } catch {
-    return { error: "Falha ao atualizar o item" };
+    return { ok: false, message: "Falha ao atualizar o item" };
   }
 }
-export async function revertTask(id: string) {
+export async function revertTask(id: string): Promise<ActionResult> {
   const session = await auth();
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
@@ -235,13 +239,13 @@ export async function revertTask(id: string) {
       data: { status: "PENDING" },
     });
     revalidatePath("/planned");
-    return { message: { isSuccess: true } };
+    return { ok: true, message: "Item atualizado com sucesso" };
   } catch {
-    return { error: "Falha ao atualizar o item" };
+    return { ok: false, message: "Falha ao atualizar o item" };
   }
 }
 
-export async function deleteTask(id: string) {
+export async function deleteTask(id: string): Promise<ActionResult> {
   const session = await auth();
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
@@ -251,8 +255,8 @@ export async function deleteTask(id: string) {
       where: { id: id },
     });
     revalidatePath("/planned");
-    return { message: { isSuccess: true } };
+    return { ok: true, message: "Item deletado com sucesso" };
   } catch {
-    return { error: "Falha ao deletar o item" };
+    return { ok: false, message: "Falha ao deletar o item" };
   }
 }

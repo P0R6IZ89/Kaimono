@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useMemo, useState } from "react";
+import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -52,6 +52,7 @@ export function AssignPlannedDialog({
   const t = useTranslations("ProjectsPage");
   const tTable = useTranslations("Table");
   const tPlanned = useTranslations("PlannedPage");
+  const handledStateRef = useRef<typeof state | null>(null);
 
   const selectedItem = useMemo(
     () => plannedBacklog.find((item) => item.id === selectedId),
@@ -59,7 +60,9 @@ export function AssignPlannedDialog({
   );
 
   useEffect(() => {
-    if (!state) return;
+    if (!state || handledStateRef.current === state) return;
+    handledStateRef.current = state;
+
     if (state.ok) {
       toast.success(t("toast-assigned", { projectName }));
       setSelectedId("");

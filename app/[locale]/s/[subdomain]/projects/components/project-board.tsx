@@ -22,7 +22,7 @@ type Props = {
 
 export function ProjectBoard({ projects, plannedBacklog, subdomain }: Props) {
   const t = useTranslations("ProjectsPage");
-
+  console.log("projects in board:", projects);
   return (
     <section className="space-y-4">
       <Card className="shadow-none border-none">

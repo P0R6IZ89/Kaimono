@@ -1,6 +1,6 @@
-type State = {
-  ok: boolean | null;
-  message: string;
+export type ActionResult = {
+  ok: boolean;
+  message?: string;
 };
 
-export const initialState: State = { ok: null, message: "" };
+export const initialState: ActionResult = { ok: false, message: "" };

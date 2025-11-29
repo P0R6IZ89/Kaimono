@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/form";
 import { createPlannedAction } from "@/actions/plannedActions";
 import { useTranslations } from "next-intl";
+import { ActionResult, initialState } from "@/util/initial-action-return";
 
 export function CreatePlannedDialog() {
   const t = useTranslations("PlannedPage");
@@ -52,18 +53,20 @@ export function CreatePlannedDialog() {
     string | CloudinaryUploadWidgetInfo | undefined
   >(undefined);
 
-  const initialState = { error: "" };
-  const [state, action, isPending] = useActionState(
+  const [state, action, isPending] = useActionState<ActionResult, FormData>(
     createPlannedAction,
     initialState
   );
 
   useEffect(() => {
-    if (state.message?.isSuccess) {
-      toast.success("Item criado com sucesso!");
+    if (!state.message) return;
+    if (state.ok) {
+      toast.success(state.message);
       form.reset();
+    } else {
+      toast.error(state.message);
     }
-  }, [state.message?.isSuccess, form]);
+  }, [state, form]);
 
   return (
     <Form {...form}>
@@ -236,11 +239,11 @@ export function CreatePlannedDialog() {
           )}
         />
         <div>
-          {state?.error && (
+          {!state.ok && state.message && (
             <Alert variant={"destructive"}>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Erro:</AlertTitle>
-              <AlertDescription>{state.error}</AlertDescription>
+              <AlertDescription>{state.message}</AlertDescription>
             </Alert>
           )}
         </div>
