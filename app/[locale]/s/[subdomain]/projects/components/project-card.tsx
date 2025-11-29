@@ -23,6 +23,7 @@ import {
 } from "@/app/[locale]/types/projects";
 import { unassignPlannedFromProjectAction } from "@/actions/projectActions";
 import { Loader2, NotepadText, X } from "lucide-react";
+import { ProjectEditDialog } from "./project-edit-dialog";
 
 type Props = {
   project: ProjectWithPlanned;
@@ -80,7 +81,7 @@ function UnassignButton({
 const formatPrice = (price: number) =>
   new Intl.NumberFormat(undefined, {
     style: "currency",
-    currency: "USD",
+    currency: "JPY",
     maximumFractionDigits: 0,
   }).format(price ?? 0);
 
@@ -88,6 +89,10 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   const t = useTranslations("ProjectsPage");
   const tTable = useTranslations("Table");
   const tPlanned = useTranslations("PlannedPage");
+  const totalPlannedAmount = project.plannedItems.reduce(
+    (sum, item) => sum + (item.price ?? 0),
+    0
+  );
 
   return (
     <Card className="border border-muted shadow-sm">
@@ -101,21 +106,43 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
             {project.description || t("project.no-description")}
           </CardDescription>
         </div>
+        <div className="flex items-baseline gap-1">
+          <span className="font-semibold text-xl">
+            {formatPrice(totalPlannedAmount)}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {" "}
+            {t("project.total-value")}
+          </span>
+        </div>
         <div className="flex flex-wrap gap-2">
-          <Badge variant="secondary">
-            {t("project.badges.total", { count: project.counts.total })}
-          </Badge>
-          <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">
-            {t("project.badges.pending", { count: project.counts.pending })}
-          </Badge>
-          <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">
-            {t("project.badges.purchased", { count: project.counts.purchased })}
-          </Badge>
-          <Badge className="bg-rose-100 text-rose-800 hover:bg-rose-100">
-            {t("project.badges.cancelled", { count: project.counts.cancelled })}
-          </Badge>
+          {project.counts.total ? (
+            <Badge variant="secondary">
+              {t("project.badges.total", { count: project.counts.total })}
+            </Badge>
+          ) : null}
+          {project.counts.pending ? (
+            <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">
+              {t("project.badges.pending", { count: project.counts.pending })}
+            </Badge>
+          ) : null}
+          {project.counts.purchased ? (
+            <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">
+              {t("project.badges.purchased", {
+                count: project.counts.purchased,
+              })}
+            </Badge>
+          ) : null}
+          {project.counts.purchased ? (
+            <Badge className="bg-rose-100 text-rose-800 hover:bg-rose-100">
+              {t("project.badges.cancelled", {
+                count: project.counts.cancelled,
+              })}
+            </Badge>
+          ) : null}
         </div>
       </CardHeader>
+
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
           <AssignPlannedDialog
@@ -124,6 +151,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
             plannedBacklog={plannedBacklog}
             subdomain={subdomain}
           />
+          <div className="text-sm text-muted-foreground"></div>
         </div>
         <Separator />
         {project.plannedItems.length === 0 ? (
@@ -158,6 +186,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
         )}
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
+        <ProjectEditDialog project={project} />
         <Button asChild variant="secondary" size="sm">
           <Link href="/planned">{t("project.open-planned")}</Link>
         </Button>
