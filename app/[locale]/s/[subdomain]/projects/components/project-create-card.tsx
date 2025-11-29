@@ -1,7 +1,6 @@
 "use client";
 
 import { useActionState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createProjectAction } from "@/actions/projectActions";
 import {
@@ -25,7 +24,6 @@ const initialState = { ok: false, message: "" };
 
 export function ProjectCreateCard({ subdomain }: Props) {
   const t = useTranslations("ProjectsPage");
-  const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     createProjectAction,
     initialState
@@ -35,11 +33,10 @@ export function ProjectCreateCard({ subdomain }: Props) {
     if (!state) return;
     if (state.ok) {
       toast.success(t("toast-created"));
-      router.refresh();
     } else if (state.message) {
       toast.error(state.message);
     }
-  }, [router, state, t]);
+  }, [state, t]);
 
   return (
     <Card className=" border-primary/30 bg-gradient-to-br from-primary/5 via-background to-background shadow-none">

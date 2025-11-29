@@ -2,32 +2,28 @@
 
 import React, { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
-import { Banknote, Check, Trash2, Undo } from "lucide-react";
+import { Check, Trash2, Undo } from "lucide-react";
 import { completeTask, deleteTask, revertTask } from "@/actions/plannedActions";
 import { toast } from "sonner";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
 import { useTranslations } from "next-intl";
 import { EditPlannedDialog } from "../../dialogs/dialog-edit";
-
-type ActionState = {
-  error?: string;
-  message?: { isSuccess: boolean };
-};
+import { ActionResult, initialState } from "@/util/initial-action-return";
 
 function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
   const t = useTranslations("PlannedPage");
   const { status, id } = row.original;
-  const [state, setState] = useState<ActionState>({});
+  const [state, setState] = useState<ActionResult>(initialState);
   const [isPending, startTransition] = useTransition();
   useEffect(() => {
-    if (state.message?.isSuccess) {
-      toast.success("Ação bem-sucedida");
+    if (!state.message) return;
+    if (state.ok) {
+      toast.success(state.message || t("action-success"));
+    } else {
+      toast.error(state.message || t("action-failed"));
     }
-    if (state.error) {
-      toast.error(state.error);
-    }
-  }, [state.error, state.message?.isSuccess]);
+  }, [state, t]);
 
   return (
     <div className="flex flex-row gap-2 px-4 pt-4">
@@ -40,14 +36,20 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
             onClick={() => {
               startTransition(async () => {
                 const result = await completeTask(id);
-                setState(result);
+                const message =
+                  result.message ??
+                  (result.ok ? t("action-success") : t("action-failed"));
+                setState({
+                  ok: result.ok,
+                  message,
+                });
               });
             }}
           >
             <Check className="text-green-700" />
             <span>{t("mark-as-purchased")}</span>
           </Button>
-          <Button
+          {/* <Button
             variant={"outline"}
             className="flex-1"
             disabled={true}
@@ -57,7 +59,7 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
           >
             <Banknote className="text-green-700" />
             <span>{t("save-money")}</span>
-          </Button>
+          </Button> */}
         </>
       ) : (
         <Button
@@ -67,7 +69,10 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
           onClick={() => {
             startTransition(async () => {
               const result = await revertTask(id);
-              setState(result);
+              const message =
+                result.message ??
+                (result.ok ? t("action-success") : t("action-failed"));
+              setState({ ok: result.ok, message });
             });
           }}
         >
@@ -81,7 +86,10 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
         onClick={() => {
           startTransition(async () => {
             const result = await deleteTask(id);
-            setState(result);
+            const message =
+              result.message ??
+              (result.ok ? t("action-success") : t("action-failed"));
+            setState({ ok: result.ok, message });
           });
         }}
       >

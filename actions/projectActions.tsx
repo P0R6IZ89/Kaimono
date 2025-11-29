@@ -5,13 +5,10 @@ import prisma from "@/lib/prisma";
 import { projectLinkSchema, projectSchema } from "@/util/form-zod-schema";
 import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "@/util/error-handler";
-
-type ActionResult =
-  | { ok: true; message?: string }
-  | { ok: false; message: string };
+import { ActionResult } from "@/util/initial-action-return";
 
 export async function createProjectAction(
-  _prevState: unknown,
+  _prevState: ActionResult,
   formData: FormData
 ): Promise<ActionResult> {
   const parsed = projectSchema.safeParse({
@@ -199,4 +196,79 @@ export async function getUnassignedPlanned(subdomain: string) {
     status: item.status,
     price: item.price ? item.price.toNumber() : 0,
   }));
+}
+
+export async function editProjectAction(
+  _prevState: ActionResult,
+  formData: FormData
+): Promise<ActionResult> {
+  const parsed = projectSchema.safeParse({
+    name: formData.get("name"),
+    description: formData.get("description"),
+    subdomain: formData.get("subdomain"),
+  });
+
+  if (!parsed.success) {
+    const first = parsed.error.errors[0];
+    return { ok: false, message: first.message };
+  }
+
+  const { appId } = await requireMembership(parsed.data.subdomain);
+
+  const project = await prisma.project.findFirst({
+    where: { id: formData.get("id") as string, appId },
+    select: { id: true },
+  });
+
+  if (!project) {
+    return { ok: false, message: "Project not found." };
+  }
+
+  try {
+    await prisma.project.update({
+      where: { id: formData.get("id") as string },
+      data: {
+        name: parsed.data.name,
+        description: parsed.data.description,
+      },
+    });
+
+    revalidatePath(`/s/${parsed.data.subdomain}/projects`);
+    return { ok: true, message: "Project updated." };
+  } catch (error: unknown) {
+    return { ok: false, message: getErrorMessage(error) };
+  }
+}
+
+export async function deleteProjectAction(
+  subdomain: string,
+  projectId: string
+) {
+  const { appId } = await requireMembership(subdomain);
+
+  const project = await prisma.project.findFirst({
+    where: { id: projectId, appId },
+    select: { id: true },
+  });
+
+  if (!project) {
+    return { ok: false, message: "Project not found." };
+  }
+
+  try {
+    await prisma.$transaction([
+      prisma.planned.updateMany({
+        where: { projectId: projectId },
+        data: { projectId: null },
+      }),
+      prisma.project.delete({
+        where: { id: projectId },
+      }),
+    ]);
+
+    revalidatePath(`/s/${subdomain}/projects`);
+    return { ok: true, message: "Project deleted." };
+  } catch (error: unknown) {
+    return { ok: false, message: getErrorMessage(error) };
+  }
 }
