@@ -173,6 +173,7 @@
       "items-title": "Items in this project",
       "items-description": "Keep planned purchases attached to the goal they support.",
       "empty": "No planned items are linked here yet.",
+      "total-value": "total",
       "open-planned": "All planneds"
     },
     "list": {

@@ -11,8 +11,7 @@ import { toast } from "sonner";
 import { completeTask, deleteTask, revertTask } from "@/actions/plannedActions";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
-
-type ServerResult = { message: { isSuccess: boolean } } | { error: string };
+import { ActionResult } from "@/util/initial-action-return";
 
 function MenuCell(row: Row<PlannedSchema>) {
   const { status, id } = row.original;
@@ -20,20 +19,19 @@ function MenuCell(row: Row<PlannedSchema>) {
   const [isPending, startTransition] = useTransition();
 
   const wrapAction = (
-    action: (id: string) => Promise<ServerResult>,
+    action: (id: string) => Promise<ActionResult>,
     successText: string
   ) => {
     startTransition(async () => {
       try {
         const res = await action(id);
 
-        if ("error" in res) {
-          toast.error(res.error);
-        } else if (res.message.isSuccess) {
-          toast.success(successText);
-        } else {
-          toast.error("Operação não finalizada com sucesso");
+        if (!res.ok) {
+          toast.error(res.message ?? "Operação não finalizada com sucesso");
+          return;
         }
+
+        toast.success(res.message ?? successText);
       } catch (err: unknown) {
         if (err instanceof Error) {
           toast.error(err.message ?? "Algo deu errado");

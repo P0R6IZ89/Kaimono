@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getTranslations } from "next-intl/server";
-import { ProjectCreateCard } from "./components/project-create-card";
 import { ProjectBoard } from "./components/project-board";
+import { ProjectCreateCardV2 } from "./components/project-create-cardV2";
 
 export default async function ProjectsPage({
   params,
@@ -45,8 +45,9 @@ export default async function ProjectsPage({
         </CardHeader>
       </Card>
 
-      <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-        <ProjectCreateCard subdomain={subdomain} />
+      <div className="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
+        {/* <ProjectCreateCard subdomain={subdomain} /> */}
+        <ProjectCreateCardV2 subdomain={subdomain} />
         <Card>
           <CardHeader>
             <CardTitle className="">{t("backlog.title")}</CardTitle>
