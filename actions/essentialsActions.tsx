@@ -139,8 +139,6 @@ export async function updateStatusEssentials(
   _prevState: unknown,
   formData: FormData
 ) {
-  console.log("FORM DATA ENTRIES:", [...formData.entries()]);
-
   const result = statusUpdateSchema.safeParse({
     id: formData.get("id"),
     status: formData.get("status"),

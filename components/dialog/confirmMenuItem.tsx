@@ -36,9 +36,7 @@ export function ConfirmMenuItem({
     try {
       await onConfirm(); // await the API call
       setOpen(false); // then close the dialog
-    } catch (err) {
-      console.error(err);
-    }
+    } catch {}
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>

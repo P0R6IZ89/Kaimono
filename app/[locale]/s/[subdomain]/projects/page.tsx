@@ -31,22 +31,21 @@ export default async function ProjectsPage({
 
   return (
     <div className="p-4 space-y-6">
-      <Card className="shadow-none">
+      <Card className="shadow-none bg-background border-none">
         <CardHeader className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-1.5">
             <CardTitle className="">{t("title")}</CardTitle>
             <CardDescription>{t("description")}</CardDescription>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Badge variant="default">
+            <Badge variant="outline">
               {t("summary.projects", { count: projectCount })}
             </Badge>
           </div>
         </CardHeader>
       </Card>
 
-      <div className="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
-        {/* <ProjectCreateCard subdomain={subdomain} /> */}
+      <div className="grid gap-4 md:grid-cols-[0.7fr_1.3fr]">
         <ProjectCreateCardV2 subdomain={subdomain} />
         <Card>
           <CardHeader>
@@ -66,9 +65,9 @@ export default async function ProjectsPage({
                 >
                   <div className="space-y-1">
                     <p className="font-medium leading-none">{item.title}</p>
-                    <p className="text-xs text-muted-foreground">
+                    {/* <p className="text-xs text-muted-foreground">
                       {item.priority} · {item.status}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               ))
