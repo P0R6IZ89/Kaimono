@@ -50,7 +50,5 @@ export const getUserById = async (id: string) => {
 export async function signOutAction() {
   try {
     await signOut();
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 }

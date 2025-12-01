@@ -22,12 +22,10 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
   return (
     <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
-        <CardDescription>
+        <CardTitle className="flex items-end gap-2 ">
           <p>{t("title")}</p>
-        </CardDescription>
-        <CardTitle className="flex items-end gap-2 text-2xl font-normal">
-          {t("plannedCount", { count })}
         </CardTitle>
+        <CardDescription>{t("plannedCount", { count })}</CardDescription>
         <CardAction className="text-muted-foreground">
           <Armchair />
         </CardAction>

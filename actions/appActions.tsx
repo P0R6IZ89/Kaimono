@@ -178,7 +178,6 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
         }
       }
     }
-    console.error("createAppAction error:", error);
     return {
       ok: false,
       message: "An unexpected error occurred. Please try again.",
@@ -215,7 +214,6 @@ export async function deleteApp(id: string): Promise<Result> {
     ) {
       return { ok: true, message: "App not found (already deleted)." };
     }
-    console.error("deleteApp error:", error);
     return { ok: false, message: "Failed to delete app." };
   }
 }
@@ -287,7 +285,6 @@ export async function removeMemberAction(
         message: "Cannot remove the last Owner. Promote another user first.",
       };
     }
-    console.error("removeMemberAction error:", e);
     return { ok: false, message: "Failed to remove member." };
   }
 }

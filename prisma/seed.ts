@@ -111,13 +111,10 @@ async function main() {
       plannedId: ergonomicChair.id,
     },
   });
-
-  console.log("✅ Seed data created successfully");
 }
 
 main()
-  .catch((e) => {
-    console.error("❌ Seed failed:", e);
+  .catch(() => {
     process.exit(1);
   })
   .finally(async () => {

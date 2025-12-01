@@ -1,6 +1,6 @@
 "use server";
 
-import { requireMembership } from "./appActions";
+import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
 import { projectLinkSchema, projectSchema } from "@/util/form-zod-schema";
 import { revalidatePath } from "next/cache";
@@ -135,6 +135,7 @@ export async function getProjectsWithPlanned(subdomain: string) {
           status: true,
           priority: true,
           price: true,
+          quantity: true,
           createdAt: true,
         },
       },
@@ -166,6 +167,7 @@ export async function getProjectsWithPlanned(subdomain: string) {
         status: item.status,
         priority: item.priority,
         price: item.price ? item.price.toNumber() : 0,
+        quantity: item.quantity ? item.quantity : 0,
         createdAt: item.createdAt,
       })),
       counts,
@@ -271,4 +273,15 @@ export async function deleteProjectAction(
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
   }
+}
+
+export async function countAllProjects(subdomain: string) {
+  requireSession();
+  const { appId } = await requireMembership(subdomain);
+
+  const count = await prisma.project.count({
+    where: { appId },
+  });
+
+  return count;
 }

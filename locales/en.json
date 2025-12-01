@@ -129,6 +129,8 @@
   "ProjectsPage": {
     "title": "Projects",
     "description": "Group planned purchases into projects and keep the backlog moving.",
+    "see-all-projects": "See All",
+    "count": "{count, plural, =0 {No projects yet} =1 {1 project} other {# projects}}",
     "summary": {
       "projects": "{count, plural, =0 {No projects yet} =1 {1 project} other {# projects}}",
       "planned": "{count, plural, =0 {No planned items tracked} =1 {1 planned item} other {# planned items}}",

@@ -11,6 +11,7 @@ import InviteToastHandler from "./components/InviteToastHandler";
 import { requireSession } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
 import UserList from "@/components/client/userList";
+import QuickProjectCard from "./components/QuickProject";
 // import ExpenseBarEditor from "./components/ExpenseBar";
 
 export default async function Essentials({
@@ -37,6 +38,7 @@ export default async function Essentials({
         </CardHeader>
       </Card>
       <div className="grid grid-cols-2 gap-3">
+        <QuickProjectCard subdomain={subdomain} />
         <QuickEssentialCard subdomain={subdomain} />
         <QuickPlannedCard subdomain={subdomain} />
       </div>

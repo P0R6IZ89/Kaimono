@@ -45,11 +45,6 @@ export default function ContactPage() {
     },
   });
 
-  const onSubmit = (values: ContactFormValues) => {
-    // Replace this with your server action, API call, etc.
-    console.log("Contact form submitted:", values);
-  };
-
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-10">
       <Card className="w-full max-w-xl">
@@ -62,7 +57,7 @@ export default function ContactPage() {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form className="space-y-6">
               <FormField
                 control={form.control}
                 name="fullName"

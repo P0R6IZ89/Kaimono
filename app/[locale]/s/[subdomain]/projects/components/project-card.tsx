@@ -90,7 +90,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   const tTable = useTranslations("Table");
   const tPlanned = useTranslations("PlannedPage");
   const totalPlannedAmount = project.plannedItems.reduce(
-    (sum, item) => sum + (item.price ?? 0),
+    (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
     0
   );
 
@@ -165,18 +165,23 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
                 key={item.id}
                 className="flex items-center justify-between rounded-lg border p-3 hover:border-foreground/30"
               >
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-2">
+                  <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
                     <p className="font-medium leading-tight">{item.title}</p>
-                    <Badge variant="outline" className="text-[10px]">
-                      {tTable(`status.${item.status}`)}
-                    </Badge>
-                    <Badge variant="secondary" className="text-[10px]">
-                      {tPlanned(`priority-options.${item.priority}`)}
-                    </Badge>
+                    <div className="flex flex-wrap gap-1">
+                      <Badge variant="outline" className="text-[10px]">
+                        {tTable(`status.${item.status}`)}
+                      </Badge>
+                      <Badge variant="secondary" className="text-[10px]">
+                        {tPlanned(`priority-options.${item.priority}`)}
+                      </Badge>
+                    </div>
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    {formatPrice(item.price)}
+                  <p className="text-sm">
+                    {formatPrice(item.price)}{" "}
+                    <span className="text-muted-foreground">
+                      x{item.quantity}
+                    </span>
                   </p>
                 </div>
                 <UnassignButton plannedId={item.id} subdomain={subdomain} />
