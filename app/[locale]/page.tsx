@@ -30,7 +30,6 @@ export default async function App({
   const session = await requireSession();
   const apps = await getAllAppsAction();
   const t = await getTranslations({ locale, namespace: "Apps" });
-  console.log();
   return (
     <section className="container flex flex-col py-16 px-4 gap-4 min-h-svh mx-auto justify-center">
       <div className="space-y-4">

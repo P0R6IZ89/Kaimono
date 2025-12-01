@@ -16,7 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ArrowUpRight, Plus, Shirt } from "lucide-react";
+import { ArrowUpRight, Shirt } from "lucide-react";
 import React from "react";
 import { CreateEssentialDialog } from "../essentials/dialogs/dialog-create";
 import { Link } from "@/i18n/navigation";
@@ -29,10 +29,8 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
   return (
     <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
-        <CardDescription>{t("title")}</CardDescription>
-        <CardTitle className="flex items-end gap-2 text-2xl font-normal">
-          <p>{t("essentialsCount", { count })}</p>
-        </CardTitle>
+        <CardTitle className="flex items-end gap-2">{t("title")}</CardTitle>
+        <CardDescription>{t("essentialsCount", { count })}</CardDescription>
         <CardAction className="text-muted-foreground">
           <Shirt />
         </CardAction>
@@ -41,7 +39,6 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
         <Dialog>
           <DialogTrigger asChild>
             <Button variant={"default"} className="col-auto ">
-              <Plus />
               {t("add-essential-button")}
             </Button>
           </DialogTrigger>
