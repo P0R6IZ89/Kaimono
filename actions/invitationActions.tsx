@@ -10,18 +10,16 @@ import { protocol, rootDomain } from "@/lib/utils";
 import { addDays } from "@/lib/addDays";
 import { ActionResult } from "next/dist/server/app-render/types";
 import { revalidatePath } from "next/cache";
+import { requireMembership } from "./appActions";
 
 export async function getInvitedUsersActions(subdomain: string) {
   const session = await auth();
   if (!session?.user?.id) {
     redirect("/login");
   }
+  const { appId } = await requireMembership(subdomain);
   const invitedUsers = await prisma.invitation.findMany({
-    where: {
-      app: {
-        subdomain,
-      },
-    },
+    where: { appId },
     orderBy: { createdAt: "desc" },
   });
   return invitedUsers;
