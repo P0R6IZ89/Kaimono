@@ -129,6 +129,8 @@
   "ProjectsPage": {
     "title": "プロジェクト",
     "description": "予定品をプロジェクトにまとめて、バックログを前に進めます。",
+    "see-all-projects": "すべて見る",
+    "count": "{count, plural, =0 {プロジェクトはまだありません} =1 {1件のプロジェクト} other {# 件のプロジェクト}}",
     "summary": {
       "projects": "{count, plural, =0 {プロジェクトはまだありません} =1 {1件のプロジェクト} other {# 件のプロジェクト}}",
       "planned": "{count, plural, =0 {予定品はまだありません} =1 {1件の予定品} other {# 件の予定品}}",
@@ -173,6 +175,7 @@
       "items-title": "このプロジェクトのアイテム",
       "items-description": "予定品を目的にひもづけて管理します。",
       "empty": "まだ予定品がリンクされていません。",
+      "total-value": "合計",
       "open-planned": "予定品を開く"
     },
     "list": {

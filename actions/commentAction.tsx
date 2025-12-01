@@ -1,11 +1,10 @@
 "use server";
 
-import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
 import { plannedCommentSchema } from "@/util/form-zod-schema";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { requireSession } from "./appActions";
 
 async function ensurePlannedAccess(
   plannedId: string,
@@ -43,12 +42,10 @@ export async function createCommentAction(
   prevState: unknown,
   formData: FormData
 ) {
-  const session = await auth();
+  const session = await requireSession();
   const content = formData.get("content")?.toString() as string;
   const plannedId = formData.get("id")?.toString() as string;
-  if (!session?.user) {
-    redirect("/login");
-  }
+
   const { subdomain } = await ensurePlannedAccess(plannedId, session.user.id);
   const result = plannedCommentSchema.safeParse({
     content,
@@ -76,15 +73,14 @@ export async function createCommentAction(
 }
 
 export async function deleteComment(id: string) {
-  const session = await auth();
-  if (!session?.user) {
-    redirect("/login");
-  }
+  const session = await requireSession();
   const comment = await prisma.plannedComment.findUnique({
     where: { id },
     select: {
       authorId: true,
-      planned: { select: { appId: true, app: { select: { subdomain: true } } } },
+      planned: {
+        select: { appId: true, app: { select: { subdomain: true } } },
+      },
     },
   });
 
@@ -107,10 +103,13 @@ export async function deleteComment(id: string) {
   }
 
   const isAuthor = comment.authorId === session.user.id;
-  const isPrivileged = membership.role === "OWNER" || membership.role === "ADMIN";
+  const isPrivileged =
+    membership.role === "OWNER" || membership.role === "ADMIN";
 
   if (!isAuthor && !isPrivileged) {
-    throw new Error("Only the comment author or an app admin can delete comments.");
+    throw new Error(
+      "Only the comment author or an app admin can delete comments."
+    );
   }
 
   await prisma.plannedComment.delete({

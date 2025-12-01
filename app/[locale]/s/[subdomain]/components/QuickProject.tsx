@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
+  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -23,15 +24,19 @@ async function QuickProjectCard({ subdomain }: { subdomain: string }) {
     <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
         <CardTitle className="flex items-end gap-2">{t("title")}</CardTitle>
-        <CardDescription>{t("count", { count })}</CardDescription>
+        <CardDescription>{t("description")}</CardDescription>
+
         <CardAction className="text-muted-foreground">
           <Folder />
         </CardAction>
       </CardHeader>
+      <CardContent>
+        <p className="text-base">{t("count", { count })}</p>
+      </CardContent>
       <CardFooter className="grid grid-cols-2 gap-2">
         <ProjectCreateDialog subdomain={subdomain} />
         <Button variant={"outline"} asChild>
-          <Link href={"/essentials"} className="col-auto">
+          <Link href={"/projects"} className="col-auto">
             {t("see-all-projects")}
             <ArrowUpRight />
           </Link>

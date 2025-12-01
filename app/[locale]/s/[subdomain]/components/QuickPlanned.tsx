@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
+  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -25,11 +26,14 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
         <CardTitle className="flex items-end gap-2 ">
           <p>{t("title")}</p>
         </CardTitle>
-        <CardDescription>{t("plannedCount", { count })}</CardDescription>
+        <CardDescription>{t("description")}</CardDescription>
         <CardAction className="text-muted-foreground">
           <Armchair />
         </CardAction>
       </CardHeader>
+      <CardContent>
+        <p>{t("plannedCount", { count })}</p>
+      </CardContent>
       <CardFooter className="grid grid-cols-2 gap-2">
         <CreatePlannedDialogTrigger>
           <Button variant={"default"} className="col-auto">
