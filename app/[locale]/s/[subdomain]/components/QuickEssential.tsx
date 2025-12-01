@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
+  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -30,11 +31,12 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
     <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
         <CardTitle className="flex items-end gap-2">{t("title")}</CardTitle>
-        <CardDescription>{t("essentialsCount", { count })}</CardDescription>
+        <CardDescription>{t("description")}</CardDescription>
         <CardAction className="text-muted-foreground">
           <Shirt />
         </CardAction>
       </CardHeader>
+      <CardContent>{t("essentialsCount", { count })}</CardContent>
       <CardFooter className="grid grid-cols-2 gap-2">
         <Dialog>
           <DialogTrigger asChild>

@@ -6,7 +6,13 @@ import { createAppAction } from "@/actions/appActions";
 import { initialState } from "@/util/initial-action-return";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -42,7 +48,9 @@ export default function NewAppForm({ session }: { session: Session | null }) {
       <Card>
         <CardHeader>
           <CardTitle>{t("title")}</CardTitle>
+          <CardDescription>{t("description-content")}</CardDescription>
         </CardHeader>
+
         <CardContent>
           <Form {...form}>
             <form className="space-y-4" action={formAction}>
@@ -54,7 +62,10 @@ export default function NewAppForm({ session }: { session: Session | null }) {
                   <FormItem>
                     <FormLabel>{t("app-name")}</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input
+                        placeholder={t("app-name-placeholder")}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -91,14 +102,18 @@ export default function NewAppForm({ session }: { session: Session | null }) {
                   <FormItem>
                     <FormLabel>{t("description")}</FormLabel>
                     <FormControl>
-                      <Textarea className="resize-none" {...field} />
+                      <Textarea
+                        className="resize-none"
+                        placeholder={t("description-placeholder")}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {state?.ok === false && (
+              {state?.ok === false && state.message && (
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>{tErrors("error")}</AlertTitle>
