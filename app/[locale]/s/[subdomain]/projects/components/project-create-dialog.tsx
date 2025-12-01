@@ -1,3 +1,5 @@
+"use client";
+
 import { createProjectAction } from "@/actions/projectActions";
 import { Button } from "@/components/ui/button";
 import {

@@ -59,9 +59,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
   const handleDelete = async (id: string) => {
     try {
       await deleteComment(id);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch {}
   };
   return (
     <div className="pt-4 px-2">

@@ -85,7 +85,6 @@ export async function updatePlanned(
 
   if (!result.success) {
     const first = result.error.errors[0];
-    console.log("Validation error:", result.error);
     return { ok: false, message: first.message };
   }
 
@@ -187,7 +186,6 @@ export async function getPlannedBySubdomain(subdomain: string) {
       })),
     }));
   } catch {
-    console.log("FAIL");
     return [];
   }
 }

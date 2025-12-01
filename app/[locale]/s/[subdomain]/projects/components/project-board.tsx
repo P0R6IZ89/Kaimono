@@ -22,10 +22,9 @@ type Props = {
 
 export function ProjectBoard({ projects, plannedBacklog, subdomain }: Props) {
   const t = useTranslations("ProjectsPage");
-  console.log("projects in board:", projects);
   return (
     <section className="space-y-4">
-      <Card className="shadow-none border-none">
+      <Card className="shadow-none border-none bg-background">
         <CardHeader className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-1.5">
             <CardTitle>{t("list.title")}</CardTitle>

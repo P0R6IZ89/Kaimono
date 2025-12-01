@@ -12,9 +12,7 @@ function LikeStatusCell({ row }: { row: Row<PlannedSchema> }) {
   const handleLike = async () => {
     try {
       await toggleLikeAction(id);
-    } catch (error) {
-      console.error("Failed to toggle like", error);
-    }
+    } catch {}
   };
   return (
     <div className="dark relative flex justify-end">
