@@ -232,3 +232,4 @@ model PlannedLike {
 
   @@unique([creatorId, plannedId])
 }
+
