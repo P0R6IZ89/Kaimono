@@ -52,7 +52,6 @@ model User {
   planneds        Planned[]
   plannedComments PlannedComment[]
   plannedLikes    PlannedLike[]
-  notifications   Notification[]
   Project         Project[]
 }
 
@@ -233,5 +232,4 @@ model PlannedLike {
 
   @@unique([creatorId, plannedId])
 }
-
 
