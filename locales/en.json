@@ -21,9 +21,12 @@
   },
   "NewApp": {
     "title": "Create New App",
+    "description-content": "Apps help you separate different shopping lists — for your home, work, or special projects.",
     "app-name": "App Name",
+    "app-name-placeholder": "e.g. Home Shopping, Office Supplies",
+    "description-placeholder": "e.g. Shopping list for my apartment essentials.",
     "subdomain": "Subdomain",
-    "description": "Description",
+    "description": "Description (optional)",
     "enter-app-name": "Enter the name of your app",
     "create-button": "Create App"
   },
@@ -81,7 +84,7 @@
   "EssentialsPage": {
     "title": "Essentials",
     "essentialsCount": "{count, plural, =0 {No items yet.} =1 {1 essential} other {# essentials}}",
-    "description": "Your essential shopping list items.",
+    "description": "Your essential shopping list items. These are the must-have items you need to purchase regularly.",
     "no-essentials": "No essential items added yet.",
     "add-essential-button": "Add Item",
     "add-new-essential-item": "Add new essential item",
@@ -96,7 +99,7 @@
   "PlannedPage": {
     "title": "Planned",
     "plannedCount": "{count, plural, =0 {No items yet.} =1 {1 planned} other {# planneds}}",
-    "description": "Your planned shopping list items.",
+    "description": "Your planned shopping list items.  You can send to an existing project or keep in backlog for better organization.",
     "no-planned": "No planned items added yet.",
     "add-planned-button": "Add Item",
     "add-new-planned-item": "Add new planned item",
