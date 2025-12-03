@@ -5,39 +5,42 @@
   },
   "Login": {
     "title": "Bem-vindo! ✨",
-    "description": "Escolha como deseja entrar."
+    "description": "Escolha como deseja fazer login."
   },
   "Homepage": {
-    "title": "Apresentando o Melhor App de Lista de Compras",
-    "description": "Adicione tudo o que você tem em mente, analise e tome a melhor decisão!",
+    "title": "Apresentando o Aplicativo Definitivo de Compras",
+    "description": "Adicione tudo que você tem em mente neste aplicativo, analise e tome a melhor decisão!",
     "created-by": "Criado por {creatorName}",
     "get-started-button": "Começar!"
   },
   "Apps": {
-    "title": "Apps",
+    "title": "Aplicativos",
     "description": "Todos os aplicativos que você pode gerenciar",
-    "start-adding-a-new-app": "Comece adicionando um novo app!",
-    "create-app": "Criar novo app"
+    "start-adding-a-new-app": "Comece adicionando um novo aplicativo!",
+    "create-app": "Criar novo aplicativo"
   },
   "NewApp": {
-    "title": "Criar Novo App",
-    "app-name": "Nome do App",
+    "title": "Criar Novo Aplicativo",
+    "description-content": "Aplicativos ajudam você a separar diferentes listas de compras — para sua casa, trabalho ou projetos especiais.",
+    "app-name": "Nome do Aplicativo",
+    "app-name-placeholder": "ex. Compras de Casa, Material de Escritório",
+    "description-placeholder": "ex. Lista de compras para itens essenciais do meu apartamento.",
     "subdomain": "Subdomínio",
-    "description": "Descrição",
-    "enter-app-name": "Digite o nome do seu app",
-    "create-button": "Criar App"
+    "description": "Descrição (opcional)",
+    "enter-app-name": "Digite o nome do seu aplicativo",
+    "create-button": "Criar Aplicativo"
   },
   "app-layout": {
     "no-invites": "Nenhum convite.",
     "new-invite-to-invite-app-name": "Novo convite para {appName}",
-    "new-invite-content": "Você foi convidado para participar do app {appName} com a função de {inviteRole}.",
+    "new-invite-content": "Você foi convidado para participar do {appName} com a função de {inviteRole}.",
     "check-email-for-details": "Verifique seu e-mail para mais detalhes."
   },
   "Sidebar": {
     "navSite": {
       "title": "Site",
       "items": {
-        "home": "Apps"
+        "home": "Aplicativos"
       }
     },
     "navPages": {
@@ -72,16 +75,16 @@
   },
   "MembersCard": {
     "title": "Membros",
-    "description": "Gerencie os membros do seu app.",
+    "description": "Gerencie os membros do seu aplicativo.",
     "manage": "Gerenciar",
     "view-all-members": "Ver todos os membros",
     "members-count": "{members, plural, =0 {Nenhum membro ainda.} =1 {1 membro} other {# membros}}",
-    "invite-members": "Convide membros para colaborar e compartilhar listas de compras."
+    "invite-members": "Convide membros para seu aplicativo para colaborar e compartilhar listas de compras."
   },
   "EssentialsPage": {
     "title": "Essenciais",
-    "essentialsCount": "Você tem {count, plural, =0 {Nenhum item essencial ainda.} =1 {1 item essencial} other {# itens essenciais.}}",
-    "description": "Seus itens essenciais de compras.",
+    "essentialsCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 essencial} other {# essenciais}}",
+    "description": "Seus itens essenciais de lista de compras. Estes são os itens indispensáveis que você precisa comprar regularmente.",
     "no-essentials": "Nenhum item essencial adicionado ainda.",
     "add-essential-button": "Adicionar Item",
     "add-new-essential-item": "Adicionar novo item essencial",
@@ -95,8 +98,8 @@
   },
   "PlannedPage": {
     "title": "Planejados",
-    "plannedCount": "Você tem {count, plural, =0 {Nenhum item planejado ainda.} =1 {1 item planejado} other {# itens planejados.}}",
-    "description": "Seus itens planejados de compras.",
+    "plannedCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 planejado} other {# planejados}}",
+    "description": "Seus itens planejados de lista de compras. Você pode enviar para um projeto existente ou manter no backlog para melhor organização.",
     "no-planned": "Nenhum item planejado adicionado ainda.",
     "add-planned-button": "Adicionar Item",
     "add-new-planned-item": "Adicionar novo item planejado",
@@ -106,7 +109,7 @@
     "price": "Preço",
     "quantity": "Quantidade",
     "priority": "Prioridade",
-    "select-priority": "Selecione a Prioridade",
+    "select-priority": "Selecionar Prioridade",
     "save": "Salvar",
     "no-result": "Nenhum resultado encontrado.",
     "priority-options": {
@@ -121,51 +124,51 @@
     "description-comment": "Descrição (opcional)",
     "mark-as-purchased": "Marcar como Comprado",
     "revert-to-pending": "Reverter para Pendente",
-    "save-money": "Vou economizar",
+    "save-money": "Vou economizar dinheiro",
     "comments": "Comentários",
     "delete-comment": "Excluir",
-    "edit-description": "Você pode editar o item aqui, não esqueça de salvar!"
+    "edit-description": "Você pode editar o item aqui, não se esqueça de salvar!"
   },
   "ProjectsPage": {
     "title": "Projetos",
-    "description": "Organize itens planejados em projetos e mova o backlog.",
+    "description": "Agrupe compras planejadas em projetos e mantenha o backlog em movimento.",
     "see-all-projects": "Ver Todos",
     "count": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}",
     "summary": {
       "projects": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}",
       "planned": "{count, plural, =0 {Nenhum item planejado rastreado} =1 {1 item planejado} other {# itens planejados}}",
-      "backlog": "{count, plural, =0 {Nenhum item livre} =1 {1 item livre} other {# itens livres}}"
+      "backlog": "{count, plural, =0 {Nenhum item não atribuído} =1 {1 item no backlog} other {# itens no backlog}}"
     },
     "backlog": {
-      "title": "Itens planejados sem projeto",
-      "description": "Vincule o backlog a um projeto para dar contexto.",
-      "empty": "Nenhum item planejado livre no momento.",
+      "title": "Itens planejados não atribuídos",
+      "description": "Atribua itens do backlog a um projeto para dar contexto a eles.",
+      "empty": "Nenhum item planejado não atribuído no momento.",
       "badge": "Backlog"
     },
     "create": {
-      "title": "Criar projeto",
+      "title": "Criar um projeto",
       "description": "Agrupe compras relacionadas e prioridades."
     },
     "form": {
       "name": "Nome do projeto",
-      "name-placeholder": "Setup do estúdio, Despensa nova...",
+      "name-placeholder": "Configuração do estúdio, Reposição da despensa...",
       "description": "Descrição",
-      "description-placeholder": "Como é o sucesso?",
+      "description-placeholder": "Como seria o sucesso?",
       "create": "Criar projeto",
-      "reset": "Limpar"
+      "reset": "Redefinir"
     },
     "assign": {
-      "cta": "Adicionar planejado",
-      "title": "Adicionar item a {projectName}",
-      "description": "Escolha um planejado sem projeto e vincule aqui.",
-      "empty": "Você não tem itens planejados livres.",
+      "cta": "Atribuir item planejado",
+      "title": "Adicionar item planejado a {projectName}",
+      "description": "Escolha um item planejado sem projeto e solte-o neste.",
+      "empty": "Você não tem itens planejados não atribuídos.",
       "search-placeholder": "Buscar itens planejados...",
-      "no-results": "Nenhum item encontrado.",
+      "no-results": "Nenhum item planejado encontrado.",
       "submit-selected": "Adicionar \"{title}\"",
       "submit": "Adicionar ao projeto"
     },
     "project": {
-      "no-description": "Nenhuma descrição adicionada.",
+      "no-description": "Nenhuma descrição adicionada ainda.",
       "badges": {
         "total": "{count, plural, =0 {0 itens} =1 {1 item} other {# itens}}",
         "pending": "{count, plural, =0 {0 pendentes} =1 {1 pendente} other {# pendentes}}",
@@ -173,27 +176,27 @@
         "cancelled": "{count, plural, =0 {0 cancelados} =1 {1 cancelado} other {# cancelados}}"
       },
       "items-title": "Itens neste projeto",
-      "items-description": "Mantenha as compras ligadas ao objetivo que apoiam.",
-      "empty": "Nenhum item planejado vinculado ainda.",
+      "items-description": "Mantenha as compras planejadas anexadas ao objetivo que elas apoiam.",
+      "empty": "Nenhum item planejado está vinculado aqui ainda.",
       "total-value": "total",
-      "open-planned": "Abrir planejados"
+      "open-planned": "Todos os planejados"
     },
     "list": {
       "title": "Projetos ativos",
-      "description": "Veja como cada projeto está avançando.",
+      "description": "Veja como cada projeto está progredindo.",
       "backlog-count": "{count, plural, =0 {Nenhum item livre} =1 {1 item livre} other {# itens livres}}"
     },
     "empty": {
       "title": "Crie seu primeiro projeto",
-      "description": "Use projetos para agrupar itens planejados por objetivo."
+      "description": "Use um projeto para agrupar itens planejados por objetivo."
     },
     "toast-created": "Projeto criado.",
-    "toast-assigned": "Item atribuído a {projectName}.",
+    "toast-assigned": "Item planejado atribuído a {projectName}.",
     "toast-unassigned": "Item removido do projeto."
   },
   "InvitePage": {
-    "title": "Convide seus amigos para o app!",
-    "description": "Convide usuários para colaborar no seu app enviando um link ou e-mail.",
+    "title": "Convide seus amigos para seu aplicativo!",
+    "description": "Convide usuários para colaborar em seu aplicativo enviando um link de convite ou e-mail.",
     "email": "E-mail",
     "invitee-role": "Convidar como:",
     "roles": {
@@ -203,16 +206,16 @@
     },
     "invite-button": "Enviar Convite",
     "pending-invites": "Convites Pendentes",
-    "manage-invites": "Gerencie os convites do seu app aqui.",
+    "manage-invites": "Gerencie seus convites de aplicativo aqui.",
     "status": "Status",
     "actions-text": "Ações",
-    "app-users": "App {userCount, plural, =0 {Usuários} =1 {Usuário} other {Usuários (#)}}",
+    "app-users": "Aplicativo {userCount, plural, =0 {Usuários} =1 {Usuário} other {Usuários (#)}}",
     "app-users-description": "Usuários deste aplicativo.",
     "name": "Nome",
     "actions": {
       "revoke": {
         "title": "Revogar Convite",
-        "description": "{status, select, PENDING {Este convite ainda está pendente. Deseja revogá-lo?} EXPIRED {Este convite já expirou. Revogar permanentemente?} other {Deseja revogar este convite?}}"
+        "description": "{status, select, PENDING {Este convite ainda está pendente. Revogá-lo?} EXPIRED {Este convite expirou. Revogar permanentemente?} other {Revogar este convite?}}"
       },
       "resend": {
         "title": "Reenviar Convite",
@@ -220,7 +223,7 @@
       },
       "remove": {
         "title": "Remover Usuário",
-        "description": "Remover este usuário permanentemente do aplicativo?"
+        "description": "Remover este usuário do aplicativo permanentemente?"
       },
       "generic-error": "Algo deu errado"
     }
@@ -260,26 +263,26 @@
     "item-quantity": "Quantidade do Item",
     "close": "Voltar",
     "save-changes": "Salvar alterações",
-    "edit-description": "Você pode editar o item aqui, não esqueça de salvar!",
+    "edit-description": "Você pode editar o item aqui, não se esqueça de salvar!",
     "delete-title": "Tem certeza que deseja excluir {title}?",
-    "delete-description": "Esta ação não pode ser desfeita. O item será removido permanentemente da sua lista.",
+    "delete-description": "Esta ação não pode ser desfeita. Isso excluirá permanentemente o item da sua lista de essenciais.",
     "delete-confirm-button": "Sim, excluir item",
     "mark-as-purchased-title": "Marcar {title} como Comprado?",
-    "mark-as-purchased-description": "Tem certeza que deseja marcar como Comprado?",
+    "mark-as-purchased-description": "Tem certeza que deseja marcar este item como Comprado?",
     "mark-as-purchased-confirm-button": "Marcar como Comprado",
     "mark-as-pending-title": "Reverter item para Pendente?",
-    "mark-as-pending-description": "Tem certeza que deseja reverter este item para Pendente?",
+    "mark-as-pending-description": "Tem certeza que deseja reverter este item de volta para Pendente?",
     "mark-as-pending-confirm-button": "Marcar como Pendente"
   },
   "Errors": {
     "error": "Erro",
     "required-field": "Este campo é obrigatório.",
-    "invalid-email": "Digite um e-mail válido.",
+    "invalid-email": "Por favor, digite um endereço de e-mail válido.",
     "password-min-length": "A senha deve ter pelo menos 8 caracteres.",
-    "passwords-no-match": "As senhas não coincidem."
+    "passwords-no-match": "As senhas não correspondem."
   },
   "UpdateApp": {
     "title": "Nova atualização! 🚀",
-    "description": "Suporte de idiomas Português e Japonês adicionado."
+    "description": "Suporte para idiomas Português e Japonês adicionado."
   }
 }
