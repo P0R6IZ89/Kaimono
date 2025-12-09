@@ -306,3 +306,11 @@ export async function getMembership(
 
   return membership?.role ?? null;
 }
+
+export async function userHasApps(): Promise<boolean> {
+  const session = await requireSession();
+  const count = await prisma.membership.count({
+    where: { userId: session.user.id },
+  });
+  return count > 0;
+}

@@ -13,6 +13,166 @@
     "created-by": "{creatorName} によって作成",
     "get-started-button": "始める！"
   },
+  "UserGuide": {
+    "title": "完全ユーザーガイド",
+    "subtitle": "Kaimonoでプロジェクトベースの購入をマスター",
+    "stepLabel": "ステップ {step}",
+    "hero": {
+      "badge": "🛍️ Kaimonoのご紹介",
+      "title": "究極の買い物アプリ",
+      "subtitle": "Kaimono",
+      "description": "頭にあるものをすべて追加して、最善の購入決定を下しましょう。",
+      "features": {
+        "title": "なぜKaimonoを選ぶのか？",
+        "visualization": {
+          "title": "支出の可視化",
+          "description": "美しいチャートとインサイトでお金がどこへ行くかを確認"
+        },
+        "decisions": {
+          "title": "スマートな決定",
+          "description": "優先度ベースの計画と分析で情報に基づいた選択を"
+        },
+        "organization": {
+          "title": "プロジェクト整理",
+          "description": "より良い管理と追跡のためにプロジェクト別に購入をグループ化"
+        },
+        "collaboration": {
+          "title": "チーム協力",
+          "description": "家族、友人、同僚とリアルタイムで協力"
+        }
+      },
+      "useCase": {
+        "title": "あらゆるプロジェクトに最適",
+        "description": "ホームリフォーム、オフィスセットアップ、イベント企画、整理された購入が必要なあらゆるプロジェクトに最適です。材料から期限までを一か所で追跡。"
+      },
+      "transition": "Kaimonoをマスターする準備はできましたか？ステップバイステップでご案内します。",
+      "startGuide": "ガイドを開始",
+      "viewDashboard": "ダッシュボードを表示"
+    },
+    "gettingStarted": {
+      "title": "始め方",
+      "description": "Kaimonoへようこそ！これまでにない買い物の整理準備をしましょう。",
+      "step1": {
+        "title": "アカウントを作成",
+        "description": "Google、GitHub、またはメールでサインアップ。迅速で安全 - 数分でスマートな買い物ができます！"
+      },
+      "step2": {
+        "title": "最初のアプリを作成",
+        "description": "アプリを買い物本部と考えてください。「ホームリフォーム」「オフィスセットアップ」「イベント企画」など、主要なコンテキストごとに作成します。",
+        "action": "最初のアプリを作成"
+      },
+      "step3": {
+        "title": "ダッシュボードを探索",
+        "description": "コマンドセンターですべてを一目で確認 - クイック統計、最近のアクティビティ、アイテム追加の高速アクション。",
+        "action": "ダッシュボードへ"
+      }
+    },
+    "coreFeatures": {
+      "title": "主要機能",
+      "description": "Kaimonoをプロジェクトベースの購入に完璧にする強力なツールを発見。",
+      "essentials": {
+        "title": "必需品 - 定期的な買い物リスト",
+        "description": "必需品は定番アイテム - 食料品、家庭用品、またはオフィス用品など定期的に購入するもの。",
+        "quickAdd": {
+          "title": "クイック追加",
+          "description": "タイトル、価格、数量でアイテムを即座に追加。迅速な食料品買い物に最適。",
+          "example": "ミルク - $3.50 - 2ガロン"
+        },
+        "statusTracking": {
+          "title": "ステータス追跡",
+          "description": "アイテムを保留中、購入済み、またはキャンセル済みとしてマークし、完了したものを追跡。",
+          "example": "週次買い物の進捗を追跡"
+        }
+      },
+      "planned": {
+        "title": "計画済みアイテム - 今後の購入",
+        "description": "優先度、画像、説明を含む詳細なアイテムを計画し、プロジェクトに整理可能。",
+        "priorityLevels": {
+          "title": "優先度レベル",
+          "description": "低、中、高、または緊急の優先度を設定し、最も重要なものに集中。",
+          "example": "緊急：プロジェクト期限の材料"
+        },
+        "richDetails": {
+          "title": "豊富な詳細",
+          "description": "完全な購入計画のために画像、製品URL、説明、数量を追加。",
+          "example": "参考写真とリンクを添付"
+        }
+      },
+      "projects": {
+        "title": "プロジェクト - ミッション別整理",
+        "description": "ここがKaimonoの真価！プロジェクトは関連する計画済みアイテムをグループ化し、複雑な購入ミッションに最適。",
+        "kanbanBoard": {
+          "title": "かんばんボード表示",
+          "description": "ステージ間で計画済みアイテムをドラッグ＆ドロップ。最高のビジュアルワークフロー管理。",
+          "example": "バックログ → 計画中 → 購入済み"
+        },
+        "projectBased": {
+          "title": "プロジェクトベース整理",
+          "description": "関連する購入をまとめて保持。リフォーム、イベント、またはビジネスセットアップに最適。",
+          "example": "ホームオフィスセットアップ：デスク、椅子、モニター、ランプ",
+          "proTip": true
+        }
+      }
+    },
+    "collaboration": {
+      "title": "チーム協力",
+      "description": "チーム、家族、またはプロジェクトパートナーとシームレスに協力。",
+      "owner": {
+        "title": "オーナー",
+        "description": "完全なコントロール。アプリを管理し、ユーザーを招待し、すべての管理タスクを処理可能。"
+      },
+      "admin": {
+        "title": "管理者",
+        "description": "ユーザーを招待し、ほとんどの機能を管理可能。チームリードとマネージャーに最適。"
+      },
+      "member": {
+        "title": "メンバー",
+        "description": "アイテムの追加と編集にフルアクセス。貢献者とチームメンバーに最適。"
+      },
+      "inviteStep": {
+        "title": "チームメンバーを招待",
+        "description": "アプリから直接メール招待を送信。役割を割り当て、チームを買い物ミッションに参加させましょう。"
+      },
+      "collaborateStep": {
+        "title": "リアルタイムで協力",
+        "description": "更新を即座に確認し、計画済みアイテムにコメントし、購入をいいね。全員が同期状態。"
+      }
+    },
+    "proTips": {
+      "title": "プロのヒントとベストプラクティス",
+      "description": "これらの専門家戦略でプロジェクトベースの購入をレベルアップ。",
+      "projectNaming": {
+        "title": "プロジェクト命名戦略",
+        "description": "明確で実行可能な名前を使用。より良い整理のために日付やフェーズを含める。",
+        "example": "キッチンリフォーム - フェーズ1（2024年第1四半期）",
+        "proTip": true
+      },
+      "priorityManagement": {
+        "title": "優先度管理",
+        "description": "時間敏感なアイテムには緊急を、重要だが柔軟な購入には高を使用。",
+        "example": "緊急：土曜日のイベント用品",
+        "proTip": true
+      },
+      "teamCommunication": {
+        "title": "チームコミュニケーション",
+        "description": "計画済みアイテムのコメントを使用して、選択肢、代替案、決定を議論。",
+        "example": "コメント：この代替案がセール中です - どう思いますか？",
+        "proTip": true
+      },
+      "regularReviews": {
+        "title": "定期的なレビュー",
+        "description": "計画済みアイテムの週次レビューは優先順位付けとタイムライン調整に役立ちます。",
+        "example": "金曜レビュー：3アイテムを購入済みに移動、2を来週へ",
+        "proTip": true
+      }
+    },
+    "cta": {
+      "title": "最初のプロジェクトを始める準備はできましたか？",
+      "description": "知識は得ました。今が実践する時です。最初のアプリを作成し、プロジェクトベース購入の力を体験してください。",
+      "createApp": "最初のアプリを作成",
+      "viewDashboard": "ダッシュボードを表示"
+    }
+  },
   "Apps": {
     "title": "アプリ",
     "description": "管理できるすべてのアプリ",

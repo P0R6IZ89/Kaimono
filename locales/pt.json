@@ -13,6 +13,166 @@
     "created-by": "Criado por {creatorName}",
     "get-started-button": "Começar!"
   },
+  "UserGuide": {
+    "title": "Guia Completo do Usuário",
+    "subtitle": "Domine compras baseadas em projetos com Kaimono",
+    "stepLabel": "Etapa {step}",
+    "hero": {
+      "badge": "🛍️ Apresentando Kaimono",
+      "title": "O Aplicativo Definitivo de Compras",
+      "subtitle": "Kaimono",
+      "description": "Adicione tudo que você tem em mente para tomar as melhores decisões de compra.",
+      "features": {
+        "title": "Por que escolher Kaimono?",
+        "visualization": {
+          "title": "Visualização de Gastos",
+          "description": "Veja para onde seu dinheiro vai com gráficos e insights bonitos"
+        },
+        "decisions": {
+          "title": "Decisões Inteligentes",
+          "description": "Faça escolhas informadas com planejamento e análise baseados em prioridade"
+        },
+        "organization": {
+          "title": "Organização de Projetos",
+          "description": "Agrupe compras por projeto para melhor gerenciamento e acompanhamento"
+        },
+        "collaboration": {
+          "title": "Colaboração em Equipe",
+          "description": "Trabalhe junto com família, amigos ou colegas em tempo real"
+        }
+      },
+      "useCase": {
+        "title": "Perfeito para Qualquer Projeto",
+        "description": "Ideal para reformas residenciais, configuração de escritório, planejamento de eventos e qualquer projeto que exija compras organizadas. Acompanhe tudo desde materiais até prazos em um só lugar."
+      },
+      "transition": "Pronto para dominar Kaimono? Vamos guiar você passo a passo.",
+      "startGuide": "Iniciar Guia",
+      "viewDashboard": "Ver Dashboard"
+    },
+    "gettingStarted": {
+      "title": "Começando",
+      "description": "Bem-vindo ao Kaimono! Vamos deixar tudo pronto para você organizar suas compras como nunca antes.",
+      "step1": {
+        "title": "Crie Sua Conta",
+        "description": "Cadastre-se usando Google, GitHub ou e-mail. É rápido e seguro - você estará comprando de forma mais inteligente em minutos!"
+      },
+      "step2": {
+        "title": "Crie Seu Primeiro Aplicativo",
+        "description": "Pense nos Aplicativos como seu quartel-general de compras. Crie um para cada contexto principal: 'Reforma Residencial', 'Configuração de Escritório' ou 'Planejamento de Eventos'.",
+        "action": "Criar Seu Primeiro Aplicativo"
+      },
+      "step3": {
+        "title": "Explore Seu Dashboard",
+        "description": "Seu centro de comando mostra tudo de relance - estatísticas rápidas, atividades recentes e ações rápidas para adicionar itens.",
+        "action": "Ir para o Dashboard"
+      }
+    },
+    "coreFeatures": {
+      "title": "Recursos Principais",
+      "description": "Descubra ferramentas poderosas que tornam o Kaimono perfeito para compras baseadas em projetos.",
+      "essentials": {
+        "title": "Essenciais - Sua Lista de Compras Regular",
+        "description": "Essenciais são seus itens essenciais - coisas que você compra regularmente como mantimentos, suprimentos domésticos ou materiais de escritório.",
+        "quickAdd": {
+          "title": "Adição Rápida",
+          "description": "Adicione itens instantaneamente com título, preço e quantidade. Perfeito para corridas rápidas ao supermercado.",
+          "example": "Leite - $3.50 - 2 galões"
+        },
+        "statusTracking": {
+          "title": "Acompanhamento de Status",
+          "description": "Marque itens como Pendente, Comprado ou Cancelado para acompanhar o que foi feito.",
+          "example": "Acompanhe seu progresso semanal de compras"
+        }
+      },
+      "planned": {
+        "title": "Itens Planejados - Compras Futuras",
+        "description": "Planeje com antecedência com itens detalhados que incluem prioridades, imagens, descrições e podem ser organizados em projetos.",
+        "priorityLevels": {
+          "title": "Níveis de Prioridade",
+          "description": "Defina prioridades BAIXA, MÉDIA, ALTA ou URGENTE para focar no que mais importa.",
+          "example": "URGENTE: Materiais para prazo do projeto"
+        },
+        "richDetails": {
+          "title": "Detalhes Ricos",
+          "description": "Adicione imagens, URLs de produtos, descrições e quantidade para planejamento completo de compras.",
+          "example": "Anexe fotos de referência e links"
+        }
+      },
+      "projects": {
+        "title": "Projetos - Organize por Missão",
+        "description": "É aqui que o Kaimono brilha! Projetos agrupam itens planejados relacionados, perfeito para missões complexas de compras.",
+        "kanbanBoard": {
+          "title": "Visualização em Quadro Kanban",
+          "description": "Arraste e solte itens planejados entre estágios. Gerenciamento visual de fluxo de trabalho em seu melhor.",
+          "example": "Backlog → Planejamento → Comprado"
+        },
+        "projectBased": {
+          "title": "Organização Baseada em Projetos",
+          "description": "Mantenha compras relacionadas juntas. Perfeito para reformas, eventos ou configurações de negócios.",
+          "example": "Configuração de Escritório Doméstico: Mesa, Cadeira, Monitor, Lâmpada",
+          "proTip": true
+        }
+      }
+    },
+    "collaboration": {
+      "title": "Colaboração em Equipe",
+      "description": "Trabalhe junto perfeitamente com sua equipe, família ou parceiros de projeto.",
+      "owner": {
+        "title": "Proprietário",
+        "description": "Controle completo. Pode gerenciar aplicativos, convidar usuários e lidar com todas as tarefas administrativas."
+      },
+      "admin": {
+        "title": "Administrador",
+        "description": "Pode convidar usuários e gerenciar a maioria dos recursos. Perfeito para líderes de equipe e gerentes."
+      },
+      "member": {
+        "title": "Membro",
+        "description": "Acesso completo para adicionar e editar itens. Ideal para contribuidores e membros da equipe."
+      },
+      "inviteStep": {
+        "title": "Convidar Membros da Equipe",
+        "description": "Envie convites por e-mail diretamente do aplicativo. Atribua funções e deixe sua equipe entrar na missão de compras."
+      },
+      "collaborateStep": {
+        "title": "Colabore em Tempo Real",
+        "description": "Veja atualizações instantaneamente, comente em itens planejados e curta compras. Todos permanecem sincronizados."
+      }
+    },
+    "proTips": {
+      "title": "Dicas Profissionais e Melhores Práticas",
+      "description": "Eleve suas compras baseadas em projetos com essas estratégias especializadas.",
+      "projectNaming": {
+        "title": "Estratégia de Nomenclatura de Projetos",
+        "description": "Use nomes claros e acionáveis. Inclua datas ou fases para melhor organização.",
+        "example": "Reforma da Cozinha - Fase 1 (Q1 2024)",
+        "proTip": true
+      },
+      "priorityManagement": {
+        "title": "Gerenciamento de Prioridade",
+        "description": "Use URGENTE para itens sensíveis ao tempo, ALTO para compras importantes mas flexíveis.",
+        "example": "URGENTE: Suprimentos para evento de sábado",
+        "proTip": true
+      },
+      "teamCommunication": {
+        "title": "Comunicação em Equipe",
+        "description": "Use comentários em itens planejados para discutir opções, alternativas e decisões.",
+        "example": "Comentário: Encontrei esta alternativa em promoção - o que acham?",
+        "proTip": true
+      },
+      "regularReviews": {
+        "title": "Revisões Regulares",
+        "description": "Revisões semanais de itens planejados ajudam a priorizar e ajustar cronogramas.",
+        "example": "Revisão de sexta: Mover 3 itens para comprados, 2 para próxima semana",
+        "proTip": true
+      }
+    },
+    "cta": {
+      "title": "Pronto para Começar Seu Primeiro Projeto?",
+      "description": "Você tem o conhecimento, agora é hora de colocar em prática. Crie seu primeiro aplicativo e experimente o poder de compras baseadas em projetos.",
+      "createApp": "Criar Seu Primeiro Aplicativo",
+      "viewDashboard": "Ver Dashboard"
+    }
+  },
   "Apps": {
     "title": "Aplicativos",
     "description": "Todos os aplicativos que você pode gerenciar",

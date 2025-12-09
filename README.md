@@ -1,5 +1,10 @@
 # Kaimono (買い物) - Multi-Tenant Shopping List Management
 
+![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-15.3.1-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 A sophisticated, collaborative shopping list management application designed for teams, families, and projects. Kaimono (Japanese for "shopping") provides a multi-tenant platform where users can organize their purchasing needs across different contexts with powerful collaboration features.
 
 ## ✨ Key Features
@@ -20,6 +25,7 @@ Coming soon! The application is currently in active development.
 ## 🛠 Technology Stack
 
 ### Frontend
+
 - **[Next.js 15](https://nextjs.org/)** - React framework with App Router
 - **[TypeScript](https://www.typescriptlang.org/)** - Strict typing throughout
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - Utility-first styling
@@ -29,6 +35,7 @@ Coming soon! The application is currently in active development.
 - **[Lucide React](https://lucide.dev/)** - Icon library
 
 ### Backend
+
 - **[Next.js API Routes](https://nextjs.org/docs/api-routes/introduction)** - Server-side functionality
 - **[Prisma ORM](https://www.prisma.io/)** - Database abstraction with PostgreSQL
 - **[NextAuth.js v5](https://authjs.dev/)** - Authentication with multiple providers
@@ -36,6 +43,7 @@ Coming soon! The application is currently in active development.
 - **[Resend](https://resend.com/)** - Email service for invitations
 
 ### Database & Infrastructure
+
 - **[PostgreSQL](https://www.postgresql.org/)** - Primary database with complex relational schema
 - **[Docker](https://www.docker.com/)** - Containerized deployment
 - **[Vercel](https://vercel.com/)** - Cloud hosting with subdomain support
@@ -44,23 +52,27 @@ Coming soon! The application is currently in active development.
 ## 📋 Core Features
 
 ### 🏢 Multi-Tenant Architecture
+
 - **Subdomain Isolation**: Each team gets its own subdomain (e.g., `home.example.com`, `office.example.com`)
 - **App Creation**: Create multiple "apps" to separate different shopping contexts
 - **Team Management**: Role-based access control (OWNER, ADMIN, MEMBER)
 
 ### 🛒 Shopping Management
+
 - **Essentials**: Regular must-have items with basic tracking (title, price, quantity, status)
 - **Planned Items**: Detailed purchases with priority levels, images, product URLs, and descriptions
 - **Projects**: Group planned items into specific projects for better organization
 - **Status Tracking**: Items can be PENDING, PURCHASED, or CANCELLED
 
 ### 👥 Collaboration Features
+
 - **Comments**: Discuss planned items with team members
 - **Likes**: Simple like system for planned purchases
 - **Member Management**: View and manage team members
 - **Invitation System**: Email-based invitations with token verification and expiration
 
 ### 📊 Analytics & Visualization
+
 - **Dashboard**: Quick overview cards showing counts for essentials, planned items, and projects
 - **Spending Trends**: Visual representation of purchase patterns over time
 - **Progress Tracking**: Monitor shopping goals and budget adherence
@@ -70,12 +82,14 @@ Coming soon! The application is currently in active development.
 The application uses a sophisticated relational schema with the following key models:
 
 ### Core Models
+
 - **User**: Authentication and user profile data
 - **App**: Multi-tenant container for teams/projects
 - **Membership**: Junction table for user-app relationships with roles
 - **Invitation**: Pending and historic team invitations
 
 ### Shopping Models
+
 - **Essential**: Basic shopping items with title, price, quantity, and status
 - **Planned**: Detailed purchase items with priority, images, URLs, and descriptions
 - **Project**: Container for grouping related planned items
@@ -83,6 +97,7 @@ The application uses a sophisticated relational schema with the following key mo
 - **PlannedLike**: Like system for planned purchases
 
 ### Key Enums
+
 - **Role**: OWNER, ADMIN, MEMBER
 - **Status**: PENDING, PURCHASED, CANCELLED
 - **Priority**: LOW, MEDIUM, HIGH, URGENT
@@ -91,67 +106,84 @@ The application uses a sophisticated relational schema with the following key mo
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - **Node.js 18+** - Runtime environment
 - **PostgreSQL** - Database server
 - **npm** or **yarn** - Package manager
 
 ### Environment Setup
+
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-username/to-buy-pj.git
    cd to-buy-pj
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    ```
-   
+
    Configure the following variables:
+
    ```env
-   # Database
-   DATABASE_URL="postgresql://username:password@localhost:5432/kaimono"
-   DIRECT_URL="postgresql://username:password@localhost:5432/kaimono"
-   SHADOW_DATABASE_URL="postgresql://username:password@localhost:5432/kaimono_shadow"
+    # Database
+    DATABASE_URL="postgresql://username:password@localhost:5432/kaimono"
+    DIRECT_URL="postgresql://username:password@localhost:5432/kaimono"
+    SHADOW_DATABASE_URL="postgresql://username:password@localhost:5432/kaimono_shadow"
 
-   # Authentication
-   NEXTAUTH_SECRET="your-secret-key"
-   NEXTAUTH_URL="http://localhost:3000"
+    # Auth.js (NextAuth v5)
+    AUTH_SECRET="your-auth-secret"
+    AUTH_URL="http://localhost:3000"
 
-   # OAuth Providers (Optional)
-   GITHUB_ID="your-github-client-id"
-   GITHUB_SECRET="your-github-client-secret"
-   GOOGLE_CLIENT_ID="your-google-client-id"
-   GOOGLE_CLIENT_SECRET="your-google-client-secret"
+    # OAuth Providers (Optional)
+    GITHUB_CLIENT_ID="your-github-client-id"
+    GITHUB_CLIENT_SECRET="your-github-client-secret"
+    GOOGLE_CLIENT_ID="your-google-client-id"
+    GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
-   # Email Service
-   RESEND_API_KEY="your-resend-api-key"
-   FROM_EMAIL="noreply@yourdomain.com"
+    # Email & Resend
+    AUTH_RESEND_KEY="your-resend-api-key"
+    LOGIN_FROM_EMAIL="login@yourdomain.com"
+    INVITE_FROM_EMAIL="invites@yourdomain.com"
+    INVITE_LOGIN_FROM_EMAIL="reminders@yourdomain.com"
 
-   # Image Upload (Optional)
-   CLOUDINARY_CLOUD_NAME="your-cloudinary-cloud-name"
-   CLOUDINARY_API_KEY="your-cloudinary-api-key"
-   CLOUDINARY_API_SECRET="your-cloudinary-api-secret"
-   ```
+    # Domain, Cron & Feature Flags
+    NEXT_PUBLIC_ROOT_DOMAIN="localhost:3000"
+    CRON_SECRET="super-secure-cron-token"
+    KILL_SWITCH="" # set to any truthy value to force 503s
+
+    # Image Upload (Optional)
+    NEXT_PUBLIC_CLOUDINARY_API_KEY="your-cloudinary-api-key"
+    CLOUDINARY_API_SECRET="your-cloudinary-api-secret"
+```
+
+> ℹ️ Cloudinary's `cloud_name` is currently configured directly in `lib/cloudinary.ts`. Update that file if you need to target a different Cloudinary account.
 
 4. **Database Setup**
+
+
    ```bash
    # Generate Prisma client
    npx prisma generate
-   
+
    # Run database migrations
    npx prisma migrate dev
-   
+
    # (Optional) Seed database with sample data
    npm run seed
    ```
 
 5. **Start Development Server**
+
    ```bash
    npm run dev
    ```
@@ -161,7 +193,9 @@ The application uses a sophisticated relational schema with the following key mo
 ## 🐳 Docker Deployment
 
 ### Using Docker Compose
+
 1. **Build and run with Docker Compose**
+
    ```bash
    docker compose up --build
    ```
@@ -171,7 +205,9 @@ The application uses a sophisticated relational schema with the following key mo
    - Database: [localhost:5432](localhost:5432)
 
 ### Manual Docker Build
+
 1. **Build the image**
+
    ```bash
    docker build -t kaimono .
    ```
@@ -184,11 +220,13 @@ The application uses a sophisticated relational schema with the following key mo
 ## ☁️ Vercel Deployment
 
 ### Prerequisites
+
 - **Vercel Account** - Sign up at [vercel.com](https://vercel.com)
 - **GitHub Repository** - Connect your repo to Vercel
 - **PostgreSQL Database** - Use Vercel Postgres or external provider
 
 ### Deployment Steps
+
 1. **Connect Repository**
    - Import your GitHub repository to Vercel
    - Vercel will automatically detect the Next.js framework
@@ -205,15 +243,8 @@ The application uses a sophisticated relational schema with the following key mo
    - Add your custom domain in Vercel dashboard
    - Update DNS records as instructed
 
-## 📝 Development Guidelines
-
-### Code Style & Conventions
-- **Imports**: Always use the `@/` alias for internal imports
-- **Formatting**: Follow Prettier defaults with 2-space indentation
-- **Naming**: Use `camelCase` for functions/variables, `PascalCase` for components
-- **Types**: Strict TypeScript with explicit server action return types
-
 ### Available Scripts
+
 ```bash
 # Development
 npm run dev          # Start development server
@@ -229,6 +260,7 @@ npx prisma studio    # Open Prisma Studio
 ```
 
 ### Project Structure
+
 ```
 ├── app/                    # Next.js App Router pages
 ├── components/             # Reusable React components
@@ -247,48 +279,18 @@ npx prisma studio    # Open Prisma Studio
 └── public/               # Static assets
 ```
 
-### Server Actions Pattern
-Server actions must follow this pattern:
-```typescript
-"use server"
-
-import { z } from "zod"
-import { Result } from "@/lib/utils"
-
-const schema = z.object({
-  // Define your schema here
-})
-
-export async function yourAction(data: z.infer<typeof schema>): Promise<Result<T>> {
-  try {
-    // Validate input
-    const validated = schema.parse(data)
-    
-    // Perform action
-    // ...
-    
-    return { ok: true, data: result }
-  } catch (error) {
-    return { ok: false, message: error.message }
-  }
-}
-```
-
 ## 🌍 Internationalization
 
 The application supports multiple languages using [next-intl](https://next-intl-docs.vercel.app/):
 
 ### Supported Languages
+
 - **English (en)** - Default locale
 - **Japanese (ja)** - Native support
 - **Portuguese (pt)** - Additional language
 
-### Adding New Translations
-1. **Edit locale files** in `locales/` directory
-2. **Add new language** by creating new JSON file (e.g., `es.json`)
-3. **Update routing configuration** in `i18n/routing.ts`
-
 ### Translation Usage
+
 ```typescript
 // In components
 import { useTranslations } from 'next-intl'
@@ -307,40 +309,21 @@ export default async function MyServerComponent() {
 }
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-### Development Workflow
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Run tests and linting**
-   ```bash
-   npm run lint
-   ```
-5. **Commit your changes**
-   ```bash
-   git commit -m 'Add amazing feature'
-   ```
-6. **Push to your branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-7. **Open a Pull Request**
-
-### Code of Conduct
-- Be respectful and inclusive
-- Follow existing code patterns
-- Write clear commit messages
-- Update documentation as needed
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### What the MIT License Allows
+
+✅ **Commercial Use** - You can use this software in commercial products  
+✅ **Modification** - You can modify the source code  
+✅ **Distribution** - You can distribute copies of the software  
+✅ **Private Use** - You can use the software privately without disclosing changes  
+✅ **Sublicensing** - You can license your derivative works under different terms
+
+### Third-Party Notices
+
+This project relies on the open-source packages listed in `package.json`. Refer to each dependency's repository or npm listing for the most accurate licensing details; all current dependencies are compatible with the MIT License.
 
 ## 🙏 Acknowledgments
 
@@ -349,14 +332,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **[shadcn/ui](https://ui.shadcn.com/)** - Beautiful component library
 - **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
 - **[NextAuth.js](https://authjs.dev/)** - Authentication for Next.js
-
-## 📞 Support
-
-If you have any questions or need help, please:
-- Open an issue on [GitHub](https://github.com/your-username/to-buy-pj/issues)
-- Join our Discord community (link coming soon)
-- Email us at support@kaimono.app
-
----
-
-**Made with ❤️ by the Kaimono team**
