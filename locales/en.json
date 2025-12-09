@@ -8,7 +8,7 @@
     "description": "Choose how you want to log in."
   },
   "Homepage": {
-    "title": "Introducing the Ultimate To Buy App",
+    "title": "Introducing the ultimate shopping app",
     "description": "Add everything you have in mind to this app, analyze it, and make the best decision!",
     "created-by": "Created by {creatorName}",
     "get-started-button": "Get Started!"
@@ -226,6 +226,167 @@
         "description": "Remove this user from the app permanently?"
       },
       "generic-error": "Something went wrong"
+    }
+  },
+  "UserGuide": {
+    "title": "Complete User Guide",
+    "subtitle": "Master project-based purchasing with Kaimono",
+    "stepLabel": "Step {step}",
+    "hero": {
+      "badge": "🛍️ Introducing Kaimono",
+      "title": "The Ultimate Shopping App",
+      "subtitle": "Kaimono",
+      "description": "Add everything you have in mind to make your best purchasing decisions.",
+      "features": {
+        "title": "Why Choose Kaimono?",
+        "visualization": {
+          "title": "Spending Visualization",
+          "description": "See where your money goes with beautiful charts and insights"
+        },
+        "decisions": {
+          "title": "Smart Decisions",
+          "description": "Make informed choices with priority-based planning and analysis"
+        },
+        "organization": {
+          "title": "Project Organization",
+          "description": "Group purchases by project for better management and tracking"
+        },
+        "collaboration": {
+          "title": "Team Collaboration",
+          "description": "Work together with family, friends, or colleagues in real-time"
+        }
+      },
+      "useCase": {
+        "title": "Perfect For Any Project",
+        "description": "Ideal for home renovations, office setup, event planning, and any project that requires organized purchasing. Track everything from materials to deadlines in one place."
+      },
+      "transition": "Let's guide you step by step.",
+      "startGuide": "Start Guide",
+      "viewDashboard": "View Dashboard",
+      "goToDashboard": "Go to Dashboard"
+    },
+    "gettingStarted": {
+      "title": "Getting Started",
+      "description": "Welcome to Kaimono! Let's get you set up and ready to organize your shopping like never before.",
+      "step1": {
+        "title": "Create Your Account",
+        "description": "Sign up using Google, GitHub, or email. It's quick and secure - you'll be shopping smarter in minutes!"
+      },
+      "step2": {
+        "title": "Create Your First App",
+        "description": "Think of Apps as your shopping headquarters. Create one for each major context: 'Home Renovation', 'Office Setup', or 'Event Planning'.",
+        "action": "Create Your First App"
+      },
+      "step3": {
+        "title": "Explore Your Dashboard",
+        "description": "Your command center shows everything at a glance - quick stats, recent activity, and fast actions to add items.",
+        "action": "Go to Dashboard"
+      }
+    },
+    "coreFeatures": {
+      "title": "Core Features",
+      "description": "Discover powerful tools that make Kaimono perfect for project-based purchasing.",
+      "essentials": {
+        "title": "Essentials - Your Regular Shopping List",
+        "description": "Essentials are your go-to items - things you buy regularly like groceries, household supplies, or office materials.",
+        "quickAdd": {
+          "title": "Quick Add",
+          "description": "Add items instantly with title, price, and quantity. Perfect for rapid grocery runs.",
+          "example": "Milk - $3.50 - 2 gallons"
+        },
+        "statusTracking": {
+          "title": "Status Tracking",
+          "description": "Mark items as Pending, Purchased, or Cancelled to keep track of what's done.",
+          "example": "Track your weekly shopping progress"
+        }
+      },
+      "planned": {
+        "title": "Planned Items - Future Purchases",
+        "description": "Plan ahead with detailed items that include priorities, images, descriptions, and can be organized into projects.",
+        "priorityLevels": {
+          "title": "Priority Levels",
+          "description": "Set LOW, MEDIUM, HIGH, or URGENT priorities to focus on what matters most.",
+          "example": "URGENT: Project deadline materials"
+        },
+        "richDetails": {
+          "title": "Rich Details",
+          "description": "Add images, product URLs, descriptions, and quantity for complete purchase planning.",
+          "example": "Attach reference photos and links"
+        }
+      },
+      "projects": {
+        "title": "Projects - Organize by Mission",
+        "description": "This is where Kaimono shines! Projects group related planned items together, perfect for complex purchasing missions.",
+        "kanbanBoard": {
+          "title": "Kanban Board View",
+          "description": "Drag and drop planned items between stages. Visual workflow management at its best.",
+          "example": "Backlog → Planning → Purchased"
+        },
+        "projectBased": {
+          "title": "Project-Based Organization",
+          "description": "Keep related purchases together. Perfect for renovations, events, or business setups.",
+          "example": "Home Office Setup: Desk, Chair, Monitor, Lamp",
+          "proTip": true
+        }
+      }
+    },
+    "collaboration": {
+      "title": "Team Collaboration",
+      "description": "Work together seamlessly with your team, family, or project partners.",
+      "owner": {
+        "title": "Owner",
+        "description": "Complete control. Can manage apps, invite users, and handle all administrative tasks."
+      },
+      "admin": {
+        "title": "Admin",
+        "description": "Can invite users and manage most features. Perfect for team leads and managers."
+      },
+      "member": {
+        "title": "Member",
+        "description": "Full access to add and edit items. Ideal for contributors and team members."
+      },
+      "inviteStep": {
+        "title": "Invite Team Members",
+        "description": "Send email invitations directly from the app. Assign roles and let your team join the shopping mission."
+      },
+      "collaborateStep": {
+        "title": "Collaborate in Real-Time",
+        "description": "See updates instantly, comment on planned items, and like purchases. Everyone stays in sync."
+      }
+    },
+    "proTips": {
+      "title": "Pro Tips & Best Practices",
+      "description": "Level up your project-based purchasing with these expert strategies.",
+      "projectNaming": {
+        "title": "Project Naming Strategy",
+        "description": "Use clear, actionable names. Include dates or phases for better organization.",
+        "example": "Kitchen Renovation - Phase 1 (Q1 2024)",
+        "proTip": true
+      },
+      "priorityManagement": {
+        "title": "Priority Management",
+        "description": "Use URGENT for time-sensitive items, HIGH for important but flexible purchases.",
+        "example": "URGENT: Event supplies for Saturday",
+        "proTip": true
+      },
+      "teamCommunication": {
+        "title": "Team Communication",
+        "description": "Use comments on planned items to discuss options, alternatives, and decisions.",
+        "example": "Comment: Found this alternative on sale - thoughts?",
+        "proTip": true
+      },
+      "regularReviews": {
+        "title": "Regular Reviews",
+        "description": "Weekly reviews of planned items help prioritize and adjust timelines.",
+        "example": "Friday review: Move 3 items to purchased, 2 to next week",
+        "proTip": true
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your First Project?",
+      "description": "You've got the knowledge, now it's time to put it into practice. Create your first app and experience the power of project-based purchasing.",
+      "createApp": "Create Your First App",
+      "viewDashboard": "View Dashboard"
     }
   },
   "Table": {
