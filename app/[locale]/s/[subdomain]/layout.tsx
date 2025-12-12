@@ -1,4 +1,4 @@
-import { getCurrentAppAction } from "@/actions/appActions";
+import { getCurrentAppAction, requireSession } from "@/actions/appActions";
 import { getMyInvitationsAction } from "@/actions/membershipActions";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,7 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   const { subdomain } = await params;
+  await requireSession();
   const app = await getCurrentAppAction(subdomain);
   const invitedApp = await getMyInvitationsAction();
   const t = await getTranslations("app-layout");

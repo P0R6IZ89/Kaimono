@@ -96,13 +96,6 @@ The application uses a sophisticated relational schema with the following key mo
 - **PlannedComment**: Comments on planned items
 - **PlannedLike**: Like system for planned purchases
 
-### Key Enums
-
-- **Role**: OWNER, ADMIN, MEMBER
-- **Status**: PENDING, PURCHASED, CANCELLED
-- **Priority**: LOW, MEDIUM, HIGH, URGENT
-- **InvitationStatus**: PENDING, ACCEPTED, REVOKED, EXPIRED
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -164,7 +157,9 @@ The application uses a sophisticated relational schema with the following key mo
     # Image Upload (Optional)
     NEXT_PUBLIC_CLOUDINARY_API_KEY="your-cloudinary-api-key"
     CLOUDINARY_API_SECRET="your-cloudinary-api-secret"
-```
+   ```
+
+````
 
 > ℹ️ Cloudinary's `cloud_name` is currently configured directly in `lib/cloudinary.ts`. Update that file if you need to target a different Cloudinary account.
 
@@ -180,7 +175,7 @@ The application uses a sophisticated relational schema with the following key mo
 
    # (Optional) Seed database with sample data
    npm run seed
-   ```
+````
 
 5. **Start Development Server**
 
@@ -312,14 +307,6 @@ export default async function MyServerComponent() {
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### What the MIT License Allows
-
-✅ **Commercial Use** - You can use this software in commercial products  
-✅ **Modification** - You can modify the source code  
-✅ **Distribution** - You can distribute copies of the software  
-✅ **Private Use** - You can use the software privately without disclosing changes  
-✅ **Sublicensing** - You can license your derivative works under different terms
 
 ### Third-Party Notices
 
