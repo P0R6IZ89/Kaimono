@@ -30,7 +30,8 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
       e.preventDefault();
       try {
         const result = await signIn(providerId, {
-          redirectTo: callbackUrl,
+          redirect: false,
+          callbackUrl,
         });
         if (result?.url) {
           router.push(result.url);
