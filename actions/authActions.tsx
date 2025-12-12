@@ -1,9 +1,9 @@
 "use server";
 
 import { signIn, signOut } from "@/auth";
+import { getCurrentLocale, redirect } from "@/i18n/navigation";
 import prisma from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
-import { redirect } from "next/navigation";
 
 export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
   const email = String(formData.get("email") ?? "");
@@ -17,7 +17,8 @@ export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
   if (result?.error) {
     return { error: "Erro no servidor, tente novamente" };
   }
-  return redirect("/welcome");
+  const locale = await getCurrentLocale();
+  return redirect({ href: "/welcome", locale });
 }
 
 export const getAccountByUserId = async (userId: string) => {
@@ -49,6 +50,11 @@ export const getUserById = async (id: string) => {
 
 export async function signOutAction() {
   try {
-    await signOut();
-  } catch {}
+    await signOut({ redirect: false });
+    const locale = await getCurrentLocale();
+    redirect({ href: "/login", locale });
+    return { ok: true, message: "" };
+  } catch {
+    return { ok: false, message: "" };
+  }
 }

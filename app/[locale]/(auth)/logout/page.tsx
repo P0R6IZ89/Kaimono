@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { signOutAction } from "@/actions/authActions";
 
 export default function LogoutPage() {
   const [loading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ export default function LogoutPage() {
 
   const handleLogout = async () => {
     setLoading(true);
-    await signOut({ redirect: false });
+    await signOutAction();
     router.push("/home");
   };
 

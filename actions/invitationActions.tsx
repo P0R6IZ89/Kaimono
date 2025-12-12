@@ -5,18 +5,16 @@ import { auth } from "@/auth";
 import { makeInviteToken } from "@/lib/make-invite-token";
 import prisma from "@/lib/prisma";
 import { inviteSchema } from "@/util/form-zod-schema";
-import { redirect } from "next/navigation";
 import { protocol, rootDomain } from "@/lib/utils";
 import { addDays } from "@/lib/addDays";
 import { ActionResult } from "next/dist/server/app-render/types";
 import { revalidatePath } from "next/cache";
-import { requireMembership } from "./appActions";
+import { requireMembership, requireSession } from "./appActions";
+import { redirect } from "@/i18n/navigation";
+import { redirect as NextRedirect } from "next/navigation";
 
 export async function getInvitedUsersActions(subdomain: string) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    redirect("/login");
-  }
+  await requireSession();
   const { appId } = await requireMembership(subdomain);
   const invitedUsers = await prisma.invitation.findMany({
     where: { appId },
@@ -29,10 +27,7 @@ export async function createInviteAction(
   prevState: unknown,
   formData: FormData
 ) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    redirect("/login");
-  }
+  const session = await requireSession();
   const appName = formData.get("appName");
   const raw = {
     appId: formData.get("appId"),
@@ -102,7 +97,7 @@ export async function acceptInviteAction(token: string) {
 
   if (!session?.user?.id) {
     const returnTo = encodeURIComponent(`/invite/accept?token=${token}`);
-    redirect(`${protocol}://${rootDomain}/login?callbackUrl=${returnTo}`);
+    NextRedirect(`${protocol}://${rootDomain}/login?callbackUrl=${returnTo}`);
   }
   const userId = session.user.id;
 
@@ -216,10 +211,7 @@ export async function resendInviteAction(
 export async function revokeInviteAction(
   invitationId: string
 ): Promise<ActionResult> {
-  const session = await auth();
-  if (!session?.user?.id) {
-    redirect("/login");
-  }
+  const session = await requireSession();
   const me = session.user.id;
   const invite = await prisma.invitation.findUnique({
     where: { id: invitationId },

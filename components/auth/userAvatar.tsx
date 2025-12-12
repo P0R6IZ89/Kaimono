@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { User } from "next-auth";
-import { signOut } from "next-auth/react";
+import { signOutAction } from "@/actions/authActions";
 
 export default function UserAvatar({ user }: { user: User | undefined }) {
   return (
@@ -40,7 +40,7 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
         align="end"
         sideOffset={4}
       >
-        <DropdownMenuItem onSelect={() => signOut()}>
+        <DropdownMenuItem onSelect={() => signOutAction()}>
           <p className="flex flex-row items-center gap-2">
             <LogOut /> Log out
           </p>

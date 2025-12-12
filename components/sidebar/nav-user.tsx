@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronsUpDown, LogOut } from "lucide-react";
+import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -17,9 +18,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Dialog, DialogTrigger } from "../ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import { $Enums } from "@prisma/client";
-import { signOut } from "next-auth/react";
 import DialogLogout from "@/app/[locale]/(auth)/logout/dialog-logout";
 
 type MemberRole = $Enums.Role;
@@ -41,6 +41,7 @@ const ROLE_LABEL: Record<MemberRole, string> = {
 
 export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
   const { isMobile } = useSidebar();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   if (!user) {
     return (
       <SidebarMenu>
@@ -102,15 +103,18 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Dialog>
-              <DialogTrigger asChild>
-                <DropdownMenuItem onSelect={() => signOut()}>
-                  <p className="flex flex-row items-center gap-2">
-                    <LogOut /> Log out
-                  </p>
-                </DropdownMenuItem>
-              </DialogTrigger>
-
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DropdownMenuItem
+                onSelect={(e) => {
+                  e.preventDefault();
+                  setIsDialogOpen(true);
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <LogOut />
+                  <span>Log out</span>
+                </div>
+              </DropdownMenuItem>
               <DialogLogout />
             </Dialog>
           </DropdownMenuContent>
