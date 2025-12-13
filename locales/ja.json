@@ -444,5 +444,10 @@
   "UpdateApp": {
     "title": "新しいアップデート！🚀",
     "description": "ポルトガル語と日本語の言語サポートが追加されました。"
+  },
+  "KoFiWidget": {
+    "support-button": "Ko-fiでサポートする",
+    "aria-label": "Ko-fiでサポートする",
+    "alt-text": "Ko-fi"
   }
 }

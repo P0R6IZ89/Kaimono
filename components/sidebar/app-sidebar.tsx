@@ -23,6 +23,7 @@ import { getTranslations } from "next-intl/server";
 import { buildSidebarData, MemberRole } from "./buildSidebarData";
 import { Alert, AlertDescription } from "../ui/alert";
 import { Check } from "lucide-react";
+import { KoFiPlainButton } from "../thirdparty/KoFiWidget";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   subdomain: string;
@@ -65,12 +66,7 @@ export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
 
         <NavConfig items={data.config} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
-        <Alert>
-          <Check color="#00f900" />
-          <AlertDescription className="text-xs">
-            {t("UpdateApp.description")}
-          </AlertDescription>
-        </Alert>
+        <KoFiPlainButton />
       </SidebarContent>
       <SidebarFooter>
         {session.user ? (
