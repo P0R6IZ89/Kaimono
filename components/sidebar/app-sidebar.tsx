@@ -21,7 +21,7 @@ import {
 } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
 import { buildSidebarData, MemberRole } from "./buildSidebarData";
-import { KoFiPlainButton } from "../thirdparty/KoFiWidget";
+import { KoFiPlainButton } from "../kofi/KoFiWidget";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   subdomain: string;
