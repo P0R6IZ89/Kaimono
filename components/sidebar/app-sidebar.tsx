@@ -21,8 +21,6 @@ import {
 } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
 import { buildSidebarData, MemberRole } from "./buildSidebarData";
-import { Alert, AlertDescription } from "../ui/alert";
-import { Check } from "lucide-react";
 import { KoFiPlainButton } from "../thirdparty/KoFiWidget";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
