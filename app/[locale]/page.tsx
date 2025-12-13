@@ -56,7 +56,7 @@ export default async function App({
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 justify-start gap-4 pt-4">
         {apps.length === 0 ? (
-          <Alert className="max-w-[500px]">
+          <Alert className="max-w-500">
             <Info />
             <AlertTitle>{t("start-adding-a-new-app")}</AlertTitle>
           </Alert>
@@ -65,7 +65,7 @@ export default async function App({
           return (
             <Card
               key={app.id}
-              className="flex flex-col justify-between max-w-[500px]"
+              className="flex flex-col justify-between max-w-500"
             >
               <CardHeader>
                 <CardTitle>

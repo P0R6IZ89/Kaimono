@@ -444,5 +444,10 @@
   "UpdateApp": {
     "title": "Nova atualização! 🚀",
     "description": "Suporte para idiomas Português e Japonês adicionado."
+  },
+  "KoFiWidget": {
+    "support-button": "Apoie-me no Ko-fi",
+    "aria-label": "Apoie-me no Ko-fi",
+    "alt-text": "Ko-fi"
   }
 }
