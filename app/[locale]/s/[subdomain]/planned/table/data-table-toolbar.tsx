@@ -54,7 +54,7 @@ export function DataTableToolbar<TData>({
           {isFiltered && (
             <div className="flex">
               <Button
-                variant="outline"
+                variant={"secondary"}
                 onClick={() => table.resetColumnFilters()}
                 className="h-8 px-2 lg:px-3"
               >
@@ -74,6 +74,7 @@ export function DataTableToolbar<TData>({
 
       <div className="pt-2">
         <Input
+          className="max-w-sm"
           placeholder={t("search-placeholder")}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>

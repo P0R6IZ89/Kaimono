@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { AlertCircle, Loader2 } from "lucide-react";
 import UserAvatar from "@/components/auth/userAvatar";
-import { rootDomain } from "@/lib/utils";
+import { rootDomain } from "@/util/utils";
 import { Session } from "next-auth";
 import { useTranslations } from "next-intl";
 

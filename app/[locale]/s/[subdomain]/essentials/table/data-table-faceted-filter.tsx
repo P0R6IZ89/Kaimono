@@ -2,7 +2,6 @@ import * as React from "react";
 import { Column } from "@tanstack/react-table";
 import { Check, ListFilter } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "../../../../../../components/ui/button";
 import {
   Command,
@@ -19,6 +18,7 @@ import {
   PopoverTrigger,
 } from "../../../../../../components/ui/popover";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;

@@ -41,18 +41,16 @@ import { requireSession, userHasApps } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
 
 export default async function UserGuide() {
-  // const { data: session } =  useSession();
   const session = await requireSession();
   const hasApps = await userHasApps();
-  // const t = useTranslations("UserGuide");
   const t = await getTranslations("UserGuide");
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
+    <div className="min-h-screen bg-linear-to-b from-background to-primary/40">
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-5xl mx-auto text-center space-y-8">
           <div className="py-40 space-y-1">
-            <Badge variant="outline" className="mb-6 text-base px-4 py-2">
+            <Badge variant="outline" className="mb-6 text-base p-4">
               <Check className="inline-block mr-2 h-4 w-4 text-green-500" />
               {t("hero.title")}
             </Badge>

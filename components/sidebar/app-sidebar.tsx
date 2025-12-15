@@ -12,7 +12,7 @@ import { NavSecondary } from "./nav-secondary";
 import { AppSwitcher } from "./apps-switcher";
 import { NavUser } from "./nav-user";
 import { SkeletonAvatar } from "../skeleton/avatar";
-import { protocol, rootDomain } from "@/lib/utils";
+import { protocol, rootDomain } from "@/util/utils";
 import {
   getAllAppsAction,
   getCurrentAppAction,

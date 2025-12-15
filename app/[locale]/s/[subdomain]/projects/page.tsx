@@ -37,7 +37,7 @@ export default async function ProjectsPage({
 
   return (
     <div className="p-4 space-y-6">
-      <Card className="shadow-none bg-background border-none">
+      <Card className="shadow-none ring-0 bg-transparent">
         <CardHeader className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-1.5">
             <CardTitle className="">{t("title")}</CardTitle>
@@ -79,9 +79,6 @@ export default async function ProjectsPage({
                             <p className="font-medium leading-none">
                               {item.title}
                             </p>
-                            {/* <p className="text-xs text-muted-foreground">
-                      {item.priority} · {item.status}
-                    </p> */}
                           </div>
                         </div>
                       </div>

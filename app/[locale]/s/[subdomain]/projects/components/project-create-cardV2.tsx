@@ -20,7 +20,7 @@ export function ProjectCreateCardV2({ subdomain }: Props) {
     <Card className="flex flex-col gap-4 justify-center ">
       <CardHeader className="text-center">
         <CardTitle className="inline-flex justify-center items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary" />
+          <Sparkles className="h-4 w-4 text-yellow-400" />
           {t("create.title")}
         </CardTitle>
         <CardDescription>{t("create.description")}</CardDescription>

@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { protocol, rootDomain } from "@/lib/utils";
+import { protocol, rootDomain } from "@/util/utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { ChevronRight, Info, Plus, UserRound } from "lucide-react";
