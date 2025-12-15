@@ -45,15 +45,6 @@ export default async function AppLayout({
           <header className="flex h-(--header-height) shrink-0 justify-between items-center gap-2 px-4 lg:px-6 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
             <div className="flex w-full items-center gap-1 lg:gap-2">
               <SidebarTrigger className="-ml-1" />
-              <Separator
-                orientation="vertical"
-                className="mx-2 data-[orientation=vertical]:h-4"
-              />
-              {app && (
-                <span className="flex flex-row gap-2">
-                  <h2 className="text-base capitalize">{`${app.name}`}</h2>
-                </span>
-              )}
             </div>
             <div className="flex">
               <Popover>

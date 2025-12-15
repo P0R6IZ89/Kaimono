@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { makeInviteToken } from "@/lib/make-invite-token";
 import prisma from "@/lib/prisma";
 import { inviteSchema } from "@/util/form-zod-schema";
-import { protocol, rootDomain } from "@/lib/utils";
+import { protocol, rootDomain } from "@/util/utils";
 import { addDays } from "@/lib/addDays";
 import { ActionResult } from "next/dist/server/app-render/types";
 import { revalidatePath } from "next/cache";

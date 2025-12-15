@@ -2,7 +2,7 @@
 
 import React, { useActionState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { capitalizeFirstLetter } from "@/lib/utils";
+import { capitalizeFirstLetter } from "@/util/utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {
@@ -211,7 +211,11 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
               render={({ field }) => (
                 <FormItem className="flex-1">
                   <FormControl>
-                    <Input type="text" {...field} />
+                    <Input
+                      type="text"
+                      placeholder="Add a comment..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -235,11 +239,15 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
             />
 
             <Button
-              variant={"outline"}
+              variant={"default"}
               disabled={isPending}
               className="flex-none"
             >
-              {isPending ? <Loader2 className="animate-spin" /> : <Send />}
+              {isPending ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <Send className="" />
+              )}
             </Button>
           </form>
         </Form>

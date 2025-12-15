@@ -2,13 +2,13 @@
 
 import { auth } from "@/auth";
 import type { Session } from "next-auth";
-import { protocol, rootDomain } from "@/lib/utils";
 import { appSchema } from "@/util/form-zod-schema";
 import { $Enums, Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getCurrentLocale, redirect } from "@/i18n/navigation";
 import prisma from "@/lib/prisma";
+import { protocol, rootDomain } from "@/util/utils";
 
 export type Result<T = unknown> =
   | { ok: true; data?: T; message?: string }

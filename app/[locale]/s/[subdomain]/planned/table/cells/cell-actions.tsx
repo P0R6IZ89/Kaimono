@@ -49,17 +49,6 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
             <Check className="text-green-700" />
             <span>{t("mark-as-purchased")}</span>
           </Button>
-          {/* <Button
-            variant={"outline"}
-            className="flex-1"
-            disabled={true}
-            onClick={() => {
-              startTransition(async () => {});
-            }}
-          >
-            <Banknote className="text-green-700" />
-            <span>{t("save-money")}</span>
-          </Button> */}
         </>
       ) : (
         <Button
@@ -76,7 +65,7 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
             });
           }}
         >
-          <Undo />
+          <Undo className="text-muted-foreground" />
           <span>{t("revert-to-pending")}</span>
         </Button>
       )}

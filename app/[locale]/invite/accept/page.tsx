@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
-import { protocol, rootDomain } from "@/lib/utils";
+import { protocol, rootDomain } from "@/util/utils";
 import { acceptInviteAction } from "@/actions/invitationActions";
 import ClientFeedback from "./clientFeedback";
 

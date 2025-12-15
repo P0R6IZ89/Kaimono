@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { publicPaths, rootDomain } from "./lib/utils";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
 import { auth } from "@/auth-edge";
 import { Locale } from "next-intl";
+import { publicPaths, rootDomain } from "@/util/utils";
 
 const KILL_SWITCH = process.env.KILL_SWITCH;
 

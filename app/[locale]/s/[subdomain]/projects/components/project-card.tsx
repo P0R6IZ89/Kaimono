@@ -99,7 +99,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
       <CardHeader className="flex flex-col gap-3 ">
         <div className="grow space-y-1">
           <CardTitle className="flex items-center gap-2">
-            <NotepadText className="h-5 w-5 text-primary" />
+            <NotepadText className="size-5" />
             {project.name}
           </CardTitle>
           <CardDescription className="max-w-2xl">
