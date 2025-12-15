@@ -163,11 +163,13 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
             {project.plannedItems.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between rounded-lg border p-3 hover:border-foreground/30"
+                className="flex items-center justify-between rounded-lg border p-3 hover:border-foreground/30 bg-background"
               >
-                <div className="space-y-2">
-                  <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
-                    <p className="font-medium leading-tight">{item.title}</p>
+                <div className="space-y-1 w-full">
+                  <div className="flex flex-row justify-between md:flex-row md:items-center gap-1 md:gap-2">
+                    <p className="flex font-medium leading-tight">
+                      {item.title}
+                    </p>
                     <div className="flex flex-wrap gap-1">
                       <Badge variant="outline" className="text-[10px]">
                         {tTable(`status.${item.status}`)}
