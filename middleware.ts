@@ -48,7 +48,7 @@ function isPathLocalized(pathname: string): boolean {
   );
 }
 
-function stripLeadingLocale(pathname: string): {
+export function stripLeadingLocale(pathname: string): {
   locale: Locale;
   rest: string;
 } {
