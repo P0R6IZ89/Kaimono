@@ -22,7 +22,7 @@ export function MobileBottomNav() {
       aria-label="Bottom navigation"
       className="fixed inset-x-0 bottom-0 z-50 md:hidden"
     >
-      <div className=" mx-auto max-w-md px-4 pb-[calc(env(safe-area-inset-bottom)+6px)]">
+      <div className=" mx-auto max-w-md px-4 pb-[calc(env(safe-area-inset-bottom)+12px)]">
         <div className="rounded-2xl border bg-background/95 shadow-lg backdrop-blur supports-backdrop-filter:bg-background/70">
           <ul className="grid grid-cols-4">
             {items.map((item) => {
