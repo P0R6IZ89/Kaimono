@@ -446,6 +446,17 @@
     "title": "New update! 🚀",
     "description": "Added Portuguese and Japanese language support."
   },
+  "Auth": {
+    "continue-with-github": "Continue with Github 🚧Only for dev⚠️",
+    "continue-with-google": "Continue with Google",
+    "continue-with-email": "Continue with Email",
+    "or": "or",
+    "error": "Error:",
+    "email-sent-title": "The login email has been sent to your email.",
+    "email-sent-instruction": "Open the email sent and click the \"Enter\" button to complete your login.",
+    "check-spam": "(Check your spam folder if you don't see it)",
+    "back-to-main": "Back to main page"
+  },
   "KoFiWidget": {
     "support-button": "Support me on Ko-fi",
     "aria-label": "Support me on Ko-fi",

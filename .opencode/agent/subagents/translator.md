@@ -1,7 +1,7 @@
 ---
 description: Maintains English, Portuguese, and Japanese translations based on locales/en.json
 mode: subagent
-model: gpt-5-nano
+model: kimi-k2-thinking
 permission:
   edit: allow
   bash: ask

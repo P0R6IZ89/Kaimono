@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { magicLinkSignIn } from "@/actions/authActions";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useTranslations } from "next-intl";
 
 const SIGNIN_ERROR_URL = "/error";
 
@@ -19,6 +20,7 @@ interface SignInProps {
 
 export default function SignInButtons({ callbackUrl }: SignInProps) {
   const router = useRouter();
+  const t = useTranslations("Auth");
   const initialState = { error: "" };
   const [state, action, isPending] = useActionState(
     magicLinkSignIn,
@@ -53,7 +55,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
       >
         <div className="flex flex-row gap-2 items-center">
           <GithubIcon className="text-background size-4" />
-          <p>Continuar com Github 🚧Only for dev⚠️</p>
+          <p>{t("continue-with-github")}</p>
         </div>
       </Button>
 
@@ -64,13 +66,13 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
       >
         <div className="flex flex-row gap-2 items-center">
           <Google className="text-foreground size-4" />
-          <p>Continuar com Google</p>
+          <p>{t("continue-with-google")}</p>
         </div>
       </Button>
       <div className="flex flex-row gap-2 items-center ">
-        <span className="border-t w-full border-muted-foreground" />
-        <p className="text-muted-foreground">ou</p>
-        <span className="border-t w-full border-muted-foreground" />
+        <span className="border-t flex-1 border-muted-foreground" />
+        <p className="text-muted-foreground text-sm">{t("or")}</p>
+        <span className="border-t flex-1 border-muted-foreground" />
       </div>
       <form action={action} className="space-y-4">
         <div className="flex flex-col gap-2">
@@ -87,13 +89,13 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
           disabled={isPending}
         >
           {isPending ? <Loader2 className="animate-spin" /> : null}
-          Continuar com Email
+          {t("continue-with-email")}
         </Button>
       </form>
       {state?.error && (
         <Alert variant={"destructive"}>
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Erro:</AlertTitle>
+          <AlertTitle>{t("error")}</AlertTitle>
           <AlertDescription>{state.error}</AlertDescription>
         </Alert>
       )}

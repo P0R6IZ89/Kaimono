@@ -1,25 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 function Welcome() {
+  const t = useTranslations("Auth");
   return (
     <div className="flex flex-col min-h-dvh  m-auto justify-center items-center text-center px-4">
       <p className="text-9xl font-semibold leading-none tracking-tighter">✨</p>
-      <p className="text-3xl pt-8 font-semibold">
-        O e-mail de login foi enviado para o seu e-mail.
-      </p>
+      <p className="text-3xl pt-8 font-semibold">{t("email-sent-title")}</p>
       <div className="">
-        <p className="pt-2">
-          Abra o email enviado e clique no botão &quot;Entrar&quot; no para
-          concluir seu login.
-        </p>
-        <p className="text-xs text-muted-foreground">
-          (Verifique sua pasta de spam caso não a veja)
-        </p>
+        <p className="pt-2">{t("email-sent-instruction")}</p>
+        <p className="text-xs text-muted-foreground">{t("check-spam")}</p>
         <div className="pt-8">
           <Link href={"/"}>
-            <Button>Voltar à página principal</Button>
+            <Button>{t("back-to-main")}</Button>
           </Link>
         </div>
       </div>
