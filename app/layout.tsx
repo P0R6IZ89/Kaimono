@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Kaimono ver. beta",
   description: "Ultimate shopping list manager",
-  appleWebApp: { capable: true, statusBarStyle: "black-translucent" },
+  appleWebApp: { capable: true, statusBarStyle: "black" },
 };
 
 export default function RootLayout({
