@@ -1,5 +1,6 @@
-import { getCurrentAppAction, requireSession } from "@/actions/appActions";
+import { requireSession } from "@/actions/appActions";
 import { getMyInvitationsAction } from "@/actions/membershipActions";
+import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,7 +8,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
@@ -27,7 +27,6 @@ export default async function AppLayout({
 }) {
   const { subdomain } = await params;
   await requireSession();
-  const app = await getCurrentAppAction(subdomain);
   const invitedApp = await getMyInvitationsAction();
   const t = await getTranslations("app-layout");
   return (
@@ -97,6 +96,7 @@ export default async function AppLayout({
               </Popover>
             </div>
           </header>
+          <MobileBottomNav />
           {children}
         </SidebarInset>
       </SidebarProvider>
