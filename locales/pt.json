@@ -47,7 +47,8 @@
       },
       "transition": "Pronto para dominar Kaimono? Vamos guiar você passo a passo.",
       "startGuide": "Iniciar Guia",
-      "viewDashboard": "Ver Dashboard"
+      "viewDashboard": "Ver Dashboard",
+      "goToDashboard": "Ir para o Dashboard"
     },
     "gettingStarted": {
       "title": "Começando",
@@ -444,6 +445,17 @@
   "UpdateApp": {
     "title": "Nova atualização! 🚀",
     "description": "Suporte para idiomas Português e Japonês adicionado."
+  },
+  "Auth": {
+    "continue-with-github": "Continuar com Github 🚧Only for dev⚠️",
+    "continue-with-google": "Continuar com Google",
+    "continue-with-email": "Continuar com Email",
+    "or": "ou",
+    "error": "Erro:",
+    "email-sent-title": "O e-mail de login foi enviado para o seu e-mail.",
+    "email-sent-instruction": "Abra o email enviado e clique no botão \"Entrar\" no para concluir seu login.",
+    "check-spam": "(Verifique sua pasta de spam caso não a veja)",
+    "back-to-main": "Voltar à página principal"
   },
   "KoFiWidget": {
     "support-button": "Apoie-me no Ko-fi",

@@ -7,6 +7,7 @@ import { Locale } from "next-intl";
 import { publicPaths, rootDomain } from "@/util/utils";
 
 const KILL_SWITCH = process.env.KILL_SWITCH;
+const LOCALE_HEADER = "X-NEXT-INTL-LOCALE";
 
 function extractSubdomain(req: NextRequest): string | null {
   const url = req.url;
@@ -67,6 +68,12 @@ function stripLeadingLocale(pathname: string): {
 
 const handleI18nRouting = createIntlMiddleware(routing);
 
+function getLocaleHeaders(req: NextRequest, locale: Locale) {
+  const headers = new Headers(req.headers);
+  headers.set(LOCALE_HEADER, locale);
+  return headers;
+}
+
 export default auth(async function middleware(req) {
   if (KILL_SWITCH) {
     return new NextResponse("Service Unavailable", { status: 503 });
@@ -80,6 +87,7 @@ export default auth(async function middleware(req) {
 
   const { locale, rest } = stripLeadingLocale(pathname);
   const subdomain = extractSubdomain(req);
+  const localeHeaders = getLocaleHeaders(req, locale);
 
   if (subdomain) {
     const expectedPrefix = `/${locale}/s/${subdomain}`;
@@ -87,7 +95,9 @@ export default auth(async function middleware(req) {
       const dest = req.nextUrl.clone();
       dest.pathname = `${expectedPrefix}${rest === "/" ? "" : rest}`;
       dest.search = search;
-      return NextResponse.rewrite(dest);
+      return NextResponse.rewrite(dest, {
+        request: { headers: localeHeaders },
+      });
     }
   }
 
@@ -108,7 +118,7 @@ export default auth(async function middleware(req) {
     return NextResponse.redirect(url);
   }
 
-  return NextResponse.next();
+  return NextResponse.next({ request: { headers: localeHeaders } });
 });
 
 export const config = {
