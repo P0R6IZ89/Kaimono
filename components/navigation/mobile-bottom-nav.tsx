@@ -5,6 +5,7 @@ import { Home, ListChecks, Package, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { stripLeadingLocale } from "@/middleware";
+import { Button } from "../ui/button";
 
 const items = [
   { href: "/", label: "Home", icon: Home },
@@ -23,7 +24,7 @@ export function MobileBottomNav() {
       className="fixed inset-x-0 bottom-0 z-50 md:hidden"
     >
       <div className=" mx-auto max-w-md px-4 pb-[calc(env(safe-area-inset-bottom)+12px)]">
-        <div className="rounded-2xl border bg-background/95 shadow-lg backdrop-blur supports-backdrop-filter:bg-background/70">
+        <div className="rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <ul className="grid grid-cols-4">
             {items.map((item) => {
               const active =
@@ -32,14 +33,14 @@ export function MobileBottomNav() {
               const Icon = item.icon;
 
               return (
-                <li key={item.href}>
+                <li key={item.href} className="p-2">
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "flex flex-col items-center justify-center gap-1 py-3 text-xs font-medium transition-colors",
+                      "flex flex-col items-center justify-center gap-1 py-3 text-xs rounded-2xl font-medium transition-colors",
                       active
-                        ? "text-primary"
+                        ? "text-background font-semibold bg-primary"
                         : "text-muted-foreground hover:text-foreground"
                     )}
                   >
