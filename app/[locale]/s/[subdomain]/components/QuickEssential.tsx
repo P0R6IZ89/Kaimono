@@ -3,25 +3,18 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { ArrowUpRight, Shirt } from "lucide-react";
 import React from "react";
 import { CreateEssentialDialog } from "../essentials/dialogs/dialog-create";
+import { QuickEssentialDialog } from "./QuickEssentialDialog";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
+import { Badge } from "@/components/ui/badge";
 
 async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
   const count = await getEssentialCount(subdomain);
@@ -30,36 +23,32 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
   return (
     <Card className="col-span-2 sm:col-span-1">
       <CardHeader>
-        <CardTitle className="flex items-end gap-2">{t("title")}</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          {t("title")}
+          {count !== 0 && <Badge variant="outline">{count}</Badge>}
+        </CardTitle>
         <CardDescription>{t("description")}</CardDescription>
         <CardAction className="text-muted-foreground">
           <Shirt />
         </CardAction>
       </CardHeader>
-      <CardContent>{t("essentialsCount", { count })}</CardContent>
       <CardFooter className="grid grid-cols-2 gap-2">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant={"default"} className="col-auto ">
-              {t("add-essential-button")}
+        {count !== 0 ? (
+          <>
+            <QuickEssentialDialog />
+            <Button variant={"outline"} asChild>
+              <Link href={"/essentials"} className="col-auto">
+                {t("see-all-essentials")}
+                <ArrowUpRight />
+              </Link>
             </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>{t("add-new-essential-item")}</DialogTitle>
-              <DialogDescription>
-                {t("add-new-essential-item-description")}
-              </DialogDescription>
-            </DialogHeader>
-            <CreateEssentialDialog />
-          </DialogContent>
-        </Dialog>
-        <Button variant={"outline"} asChild>
-          <Link href={"/essentials"} className="col-auto">
-            {t("see-all-essentials")}
-            <ArrowUpRight />
-          </Link>
-        </Button>
+          </>
+        ) : (
+          <QuickEssentialDialog
+            className="col-span-2"
+            buttonVariant="default"
+          />
+        )}
       </CardFooter>
     </Card>
   );

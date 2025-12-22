@@ -71,7 +71,8 @@
   "Dashboard": {
     "hello": "Hello {userName}!",
     "hello2": "Hello!",
-    "welcomeBack": "Welcome back!"
+    "welcomeBack": "Welcome back!",
+    "workspace": "You are in the {subdomain} workspace"
   },
   "MembersCard": {
     "title": "Members",

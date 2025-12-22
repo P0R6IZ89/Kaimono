@@ -19,7 +19,7 @@ export default async function Planned({
   const t = await getTranslations({ locale, namespace: "PlannedPage" });
   const planned = await getPlannedBySubdomain(subdomain);
   return (
-    <div className="p-4 space-y-8 ">
+    <div className="p-4 space-y-8 mb-24 md:mb-0">
       <Card className="shadow-none ring-0 bg-trabsparent">
         <CardHeader>
           <CardTitle>{t("title")}</CardTitle>

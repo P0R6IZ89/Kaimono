@@ -232,7 +232,8 @@
   "Dashboard": {
     "hello": "Olá {userName}!",
     "hello2": "Olá!",
-    "welcomeBack": "Bem-vindo de volta!"
+    "welcomeBack": "Bem-vindo de volta!",
+    "workspace": "Você está no workspace {subdomain}"
   },
   "MembersCard": {
     "title": "Membros",

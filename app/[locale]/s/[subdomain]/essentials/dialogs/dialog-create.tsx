@@ -31,7 +31,19 @@ type FormValues = {
   subdomain: string;
 };
 
-export function CreateEssentialDialog() {
+export function CreateEssentialDialog({
+  className,
+  buttonVariant = "default",
+}: {
+  className?: string;
+  buttonVariant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+}) {
   const { subdomain } = useSubdomain();
   const form = useForm<FormValues>({
     defaultValues: {
@@ -58,82 +70,80 @@ export function CreateEssentialDialog() {
 
   const t = useTranslations("EssentialsPage");
   return (
-    <>
-      <Form {...form}>
-        <form action={action} className="space-y-4 pt-4">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("item-name")}</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <Form {...form}>
+      <form action={action} className="space-y-4 pt-4">
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("item-name")}</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field }) => (
-              <FormItem className="">
-                <FormLabel>{t("price")}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel>{t("price")}</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="quantity"
-            render={({ field }) => (
-              <FormItem className="">
-                <FormLabel>{t("quantity")}</FormLabel>
-                <FormControl>
-                  <Input
-                    min={1}
-                    max={99}
-                    step={1}
-                    type="number"
-                    {...field}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div>
-            {state?.error && (
-              <Alert variant={"destructive"}>
-                <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Erro:</AlertTitle>
-                <AlertDescription>{state.error}</AlertDescription>
-              </Alert>
-            )}
-          </div>
-          <input type="hidden" name="subdomain" value={subdomain} />
-          <DialogFooter>
-            <Button type="submit" disabled={isPending}>
-              {isPending ? <Loader2 className="animate-spin" /> : null}
-              {t("save")}
-            </Button>
-          </DialogFooter>
-        </form>
-      </Form>
-    </>
+        <FormField
+          control={form.control}
+          name="quantity"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel>{t("quantity")}</FormLabel>
+              <FormControl>
+                <Input
+                  min={1}
+                  max={99}
+                  step={1}
+                  type="number"
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div>
+          {state?.error && (
+            <Alert variant={"destructive"}>
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Erro:</AlertTitle>
+              <AlertDescription>{state.error}</AlertDescription>
+            </Alert>
+          )}
+        </div>
+        <input type="hidden" name="subdomain" value={subdomain} />
+        <DialogFooter>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? <Loader2 className="animate-spin" /> : null}
+            {t("save")}
+          </Button>
+        </DialogFooter>
+      </form>
+    </Form>
   );
 }

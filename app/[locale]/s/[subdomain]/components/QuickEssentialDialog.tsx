@@ -1,4 +1,6 @@
 "use client";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,11 +9,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { CreatePlannedDialog } from "./dialog-create";
+import { CreateEssentialDialog } from "../essentials/dialogs/dialog-create";
 import { useTranslations } from "next-intl";
 
-export function CreatePlannedDialogTrigger({
+export function QuickEssentialDialog({
   className,
   buttonVariant = "outline",
 }: {
@@ -24,28 +25,26 @@ export function CreatePlannedDialogTrigger({
     | "ghost"
     | "link";
 }) {
-  const t = useTranslations("PlannedPage");
+  const t = useTranslations("EssentialsPage");
+
   return (
-    <Dialog modal={false}>
+    <Dialog>
       <DialogTrigger asChild>
         <Button
           variant={buttonVariant}
           className={`col-auto ${className || ""}`}
         >
-          {t("add-planned-button")}
+          {t("add-essential-button")}
         </Button>
       </DialogTrigger>
-      <DialogContent
-        onInteractOutside={(e) => e.preventDefault()}
-        className="sm:max-w-[425px]"
-      >
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
-          <DialogTitle>{t("add-new-planned-item")}</DialogTitle>
+          <DialogTitle>{t("add-new-essential-item")}</DialogTitle>
           <DialogDescription>
-            {t("add-new-planned-item-description")}
+            {t("add-new-essential-item-description")}
           </DialogDescription>
         </DialogHeader>
-        <CreatePlannedDialog />
+        <CreateEssentialDialog />
       </DialogContent>
     </Dialog>
   );
