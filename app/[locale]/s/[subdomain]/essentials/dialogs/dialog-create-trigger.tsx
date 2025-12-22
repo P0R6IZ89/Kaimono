@@ -12,14 +12,29 @@ import { Plus } from "lucide-react";
 import { CreateEssentialDialog } from "./dialog-create";
 import { useTranslations } from "next-intl";
 
-export function CreateEssentialDialogTrigger() {
+export function CreateEssentialDialogTrigger({
+  className,
+  buttonVariant = "default",
+}: {
+  className?: string;
+  buttonVariant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+}) {
   const t = useTranslations("EssentialsPage");
   const tTable = useTranslations("Table");
   return (
     <div className="space-y-8">
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="h-8 px-2 lg:px-3">
+          <Button
+            variant={buttonVariant}
+            className={`h-8 px-2 lg:px-3 ${className || ""}`}
+          >
             <Plus />
             <span>{tTable("add")}</span>
           </Button>

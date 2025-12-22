@@ -232,7 +232,8 @@
   "Dashboard": {
     "hello": "こんにちは {userName}さん！",
     "hello2": "こんにちは！",
-    "welcomeBack": "おかえりなさい！"
+    "welcomeBack": "おかえりなさい！",
+    "workspace": "あなたは{subdomain}ワークスペースにいます"
   },
   "MembersCard": {
     "title": "メンバー",

@@ -1,6 +1,8 @@
 {
   "name": "Kaimono",
   "short_name": "Kaimono",
+  "start_url": "/",
+  "display": "standalone",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -16,6 +18,5 @@
     }
   ],
   "theme_color": "#ffffff",
-  "background_color": "#000000",
-  "display": "standalone"
+  "background_color": "#000000"
 }

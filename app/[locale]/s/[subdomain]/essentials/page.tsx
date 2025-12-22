@@ -20,7 +20,7 @@ export default async function Essentials({ params }: EssentialsProps) {
   const essentials = await getEssentialsBySubdomain(subdomain);
 
   return (
-    <section className="p-4 space-y-8 max-w-xl ">
+    <section className="p-4 space-y-8 max-w-xl mb-24 md:mb-0">
       <Card className="shadow-none ">
         <CardHeader>
           <CardTitle>{t("title")}</CardTitle>

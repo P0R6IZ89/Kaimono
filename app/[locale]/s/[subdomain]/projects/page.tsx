@@ -36,7 +36,7 @@ export default async function ProjectsPage({
   const projectCount = projects.length;
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="p-4 space-y-6 mb-24 md:mb-0">
       <Card className="shadow-none ring-0 bg-transparent">
         <CardHeader className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-1.5">

@@ -65,13 +65,13 @@ export async function requireMembership(subdomain: string) {
   if (!app) redirect({ href: "/new-app", locale });
 
   const membership = await prisma.membership.findUnique({
-    where: { appId_userId: { appId: app.id, userId: session.user.id } },
+    where: { appId_userId: { appId: app!.id, userId: session.user.id } },
     select: { role: true },
   });
   if (!membership) {
     redirect({ href: "/new-app", locale });
   }
-  return { appId: app.id, role: membership.role as $Enums.Role, session };
+  return { appId: app!.id, role: membership!.role as $Enums.Role, session };
 }
 
 export async function getAllAppsAction() {

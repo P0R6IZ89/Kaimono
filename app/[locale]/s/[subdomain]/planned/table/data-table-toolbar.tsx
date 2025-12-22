@@ -64,12 +64,11 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
-        <CreatePlannedDialogTrigger>
-          <Button className="h-8 px-2 lg:px-3">
-            <Plus />
-            <span>{t("add")}</span>
-          </Button>
-        </CreatePlannedDialogTrigger>
+        <CreatePlannedDialogTrigger buttonVariant="outline" />
+        <Button className="h-8 px-2 lg:px-3">
+          <Plus />
+          <span>{t("add")}</span>
+        </Button>
       </div>
 
       <div className="pt-2">

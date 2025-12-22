@@ -35,7 +35,7 @@ export default async function Invite({
   const users = await getAllUserOfApp(subdomain);
   const userCount = users.length;
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 justify-center gap-4 p-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 justify-center gap-4 p-4 mb-24 md:mb-0">
       <Card className="">
         <CardHeader>
           <CardTitle>{t("title")}</CardTitle>

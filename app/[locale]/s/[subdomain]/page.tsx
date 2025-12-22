@@ -12,7 +12,6 @@ import { requireSession } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
 import UserList from "@/components/client/userList";
 import QuickProjectCard from "./components/QuickProject";
-// import ExpenseBarEditor from "./components/ExpenseBar";
 
 export default async function Essentials({
   params,
@@ -24,17 +23,16 @@ export default async function Essentials({
   const { user } = await requireSession();
 
   return (
-    <div className="@container max-w-5xl flex flex-col p-4 space-y-4 ">
+    <div className="@container max-w-5xl flex flex-col p-4 space-y-4 mb-24 md:mb-0">
       <InviteToastHandler />
-      <Card className="border-none shadow-none">
+      <Card className="border-none shadow-none ring-0 bg-transparent">
         <CardHeader>
-          <CardDescription>
-            {user?.name ? t("hello", { userName: user.name }) : t("hello2")}
-          </CardDescription>
-          <CardTitle className="grid grid-cols-2 justify-between items-center font-normal">
-            <p>{t("welcomeBack")}</p>
+          <CardDescription className="text-sm text-muted-foreground flex flex-col gap-2 items-start md:flex-row md:justify-between md:items-center">
+            <div>
+              {user?.name ? t("hello", { userName: user.name }) : t("hello2")}
+            </div>
             <UserList subdomain={subdomain} />
-          </CardTitle>
+          </CardDescription>
         </CardHeader>
       </Card>
       <div className="grid grid-cols-2 gap-3">

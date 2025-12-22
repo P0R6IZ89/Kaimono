@@ -27,10 +27,24 @@ import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export function ProjectCreateDialog({ subdomain }: { subdomain: string }) {
+export function ProjectCreateDialog({
+  subdomain,
+  className,
+  buttonVariant = "outline",
+}: {
+  subdomain: string;
+  className?: string;
+  buttonVariant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+}) {
   const [state, action, isPending] = useActionState(
     createProjectAction,
-    initialState
+    initialState,
   );
   const t = useTranslations("ProjectsPage");
 
@@ -55,7 +69,12 @@ export function ProjectCreateDialog({ subdomain }: { subdomain: string }) {
     <Dialog>
       <Form {...form}>
         <DialogTrigger asChild>
-          <Button type="submit" disabled={isPending}>
+          <Button
+            variant={buttonVariant}
+            type="submit"
+            disabled={isPending}
+            className={className}
+          >
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
             {t("form.create")}
           </Button>

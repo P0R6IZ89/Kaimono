@@ -15,7 +15,7 @@ import {
 import { protocol, rootDomain } from "@/util/utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { ChevronRight, Info, Plus, UserRound } from "lucide-react";
+import { Info, Plus, UserRound } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
@@ -63,44 +63,41 @@ export default async function App({
         ) : null}
         {apps.map((app) => {
           return (
-            <Card
+            <Link
               key={app.id}
-              className="flex flex-col justify-between max-w-500"
+              href={`${protocol}://${app.subdomain}.${rootDomain}/${locale}`}
             >
-              <CardHeader>
-                <CardTitle>
-                  <p className="capitalize">{app.name}</p>
-                  <p className="pt-1 text-xs font-medium text-muted-foreground">
-                    {dayjs(app.createdAt).fromNow()}
-                  </p>
-                </CardTitle>
-                <CardDescription>{app.description}</CardDescription>
-                <CardAction>
-                  <DeleteDropdown id={app.id} />
-                </CardAction>
-              </CardHeader>
-              <CardContent>
-                <div className="flex space-x-2">
-                  <Badge variant={"outline"} className="flex gap-1">
-                    <UserRound absoluteStrokeWidth size={12} />
-                    <p>{app._count.memberships}</p>
-                  </Badge>
-                  <Badge
-                    variant={"outline"}
-                    className="flex flex-1 justify-between"
-                  >
-                    <Link
-                      href={`${protocol}://${app.subdomain}.${rootDomain}/${locale}`}
+              <Card className="flex flex-col justify-between max-w-500 hover:bg-accent/50 transition-colors">
+                <CardHeader>
+                  <CardTitle>
+                    <p className="capitalize">{app.name}</p>
+                    <p className="pt-1 text-xs font-medium text-muted-foreground">
+                      {dayjs(app.createdAt).fromNow()}
+                    </p>
+                  </CardTitle>
+                  <CardDescription>{app.description}</CardDescription>
+                  <CardAction>
+                    <DeleteDropdown id={app.id} />
+                  </CardAction>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex space-x-2">
+                    <Badge variant={"outline"} className="flex gap-1">
+                      <UserRound absoluteStrokeWidth size={12} />
+                      <p>{app._count.memberships}</p>
+                    </Badge>
+                    <Badge
+                      variant={"outline"}
+                      className="flex flex-1 justify-between"
                     >
                       <span className="hover:underline line-clamp-1 truncate">
                         {app.subdomain}.{rootDomain}
                       </span>
-                    </Link>
-                    <ChevronRight absoluteStrokeWidth size={12} />
-                  </Badge>
-                </div>
-              </CardContent>
-            </Card>
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           );
         })}
       </div>
