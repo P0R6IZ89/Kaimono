@@ -2,9 +2,14 @@
 
 import { getErrorMessage } from "@/util/error-handler";
 import { revalidatePath } from "next/cache";
-import { isUserBelongsTheApp, requireSession } from "./appActions";
+import {
+  isUserBelongsTheApp,
+  requireMembership,
+  requireSession,
+} from "./appActions";
 import prisma from "@/lib/prisma";
 import { essentialsSchema, statusUpdateSchema } from "@/util/form-zod-schema";
+import { Status } from "@prisma/client";
 
 export async function createEssentials(
   _previousState: unknown,
@@ -171,10 +176,7 @@ export async function deleteEssentials(
   subdomain: string
 ): Promise<{ status: "success" | "error"; message: string }> {
   await requireSession();
-  const app = await isUserBelongsTheApp(subdomain);
-  if (!app) {
-    throw new Error("Team not found for subdomain: " + subdomain);
-  }
+  await requireMembership(subdomain);
   try {
     await prisma.essential.delete({
       where: {
@@ -193,16 +195,35 @@ export async function deleteEssentials(
 
 export async function getEssentialCount(subdomain: string) {
   await requireSession();
-  const app = await isUserBelongsTheApp(subdomain);
-  if (!app) {
-    throw new Error("Team not found for subdomain: " + subdomain);
-  }
+  const { appId } = await requireMembership(subdomain);
   const { _count } = await prisma.essential.aggregate({
     where: {
-      appId: app.id,
+      appId: appId,
       status: "PENDING",
     },
     _count: true,
   });
   return _count;
+}
+
+export async function setEssentialStatusAction({
+  essentialId,
+  status,
+  subdomain,
+}: {
+  essentialId: string;
+  status: Extract<Status, "PENDING" | "PURCHASED">;
+  subdomain: string;
+}) {
+  await requireSession();
+  await requireMembership(subdomain);
+  try {
+    await prisma.essential.update({
+      where: { id: essentialId },
+      data: { status },
+    });
+    revalidatePath(`/s`);
+  } catch (error: unknown) {
+    throw new Error(getErrorMessage(error));
+  }
 }

@@ -13,6 +13,8 @@ import {
 import { Button } from "../../../../../../components/ui/button";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { useTranslations } from "next-intl";
+import { Card, CardContent } from "@/components/ui/card";
+import { Item, ItemSeparator } from "@/components/ui/item";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -53,39 +55,35 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="space-y-2">
+    <div>
       <DataTableToolbar table={table} />
-      <div className="grid grid-cols-1 gap-4  pt-4 rounded-md">
-        {table.getRowModel().rows?.length ? (
-          table.getRowModel().rows.map((row) => {
-            return (
-              <div key={row.id} className="p-4">
-                <div className="flex flex-cols-3 space-x-3 items-center">
-                  {row.getVisibleCells().map((cell) => (
-                    <div
-                      key={cell.id}
-                      className={`${
-                        cell.column.columnDef.id === "title"
-                          ? "flex-1 truncate"
-                          : "w-auto"
-                      }`}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <div className="h-24 text-center">{tTable("no-result")}</div>
-        )}
-      </div>
+      <Card>
+        <CardContent>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row, index) => {
+              return (
+                <React.Fragment key={row.id}>
+                  <Item className="flex flex-cols-3 space-x-3 items-center ">
+                    {row.getVisibleCells().map((cell) => (
+                      <React.Fragment key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </Item>
+                  {index !== row.index - 1 && <ItemSeparator />}
+                </React.Fragment>
+              );
+            })
+          ) : (
+            <div className="h-24 text-center">{tTable("no-result")}</div>
+          )}
+        </CardContent>
+      </Card>
 
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-4 max-w-xl">
         <Button
           variant={"outline"}
           size={"sm"}

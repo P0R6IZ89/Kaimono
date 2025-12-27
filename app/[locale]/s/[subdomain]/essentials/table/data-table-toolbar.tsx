@@ -6,7 +6,6 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { statuses } from "@/data/data";
 
 import React from "react";
-import { CreateEssentialDialogTrigger } from "../dialogs/dialog-create-trigger";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
@@ -38,7 +37,7 @@ export function DataTableToolbar<TData>({
   );
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col md:flex-row gap-2 md:items-center justify-start mb-4">
       <div className="flex justify-between items-center">
         <div className="flex space-x-2">
           {table.getColumn("status") && (
@@ -64,18 +63,15 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
-        <CreateEssentialDialogTrigger />
       </div>
-
-      <div className="pt-2">
-        <Input
-          placeholder={t("search-placeholder")}
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-        />
-      </div>
+      <Input
+        className="max-w-lg md:order-first"
+        placeholder={t("search-placeholder")}
+        value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+        onChange={(event) =>
+          table.getColumn("title")?.setFilterValue(event.target.value)
+        }
+      />
     </div>
   );
 }

@@ -96,7 +96,14 @@ export async function getAllAppsAction() {
   }));
 }
 
-export async function getCurrentAppAction(subdomain: string) {
+export async function getCurrentAppAction(subdomain: string): Promise<{
+  id: string;
+  name: string;
+  description: string | null;
+  subdomain: string;
+  image: string | null;
+  _count: { memberships: number };
+}> {
   await requireMembership(subdomain);
 
   const app = await prisma.app.findUnique({
@@ -110,6 +117,12 @@ export async function getCurrentAppAction(subdomain: string) {
       _count: { select: { memberships: true } },
     },
   });
+
+  if (!app) {
+    const locale = await getCurrentLocale();
+    redirect({ href: "/new-app", locale });
+    throw new Error("Redirected to new-app");
+  }
 
   return app;
 }

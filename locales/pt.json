@@ -263,7 +263,7 @@
     "plannedCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 planejado} other {# planejados}}",
     "description": "Seus itens planejados de lista de compras. Você pode enviar para um projeto existente ou manter no backlog para melhor organização.",
     "no-planned": "Nenhum item planejado adicionado ainda.",
-    "add-planned-button": "Adicionar Item",
+    "add-planned-button": "Adicionar",
     "add-new-planned-item": "Adicionar novo item planejado",
     "add-new-planned-item-description": "Adicione um novo item à sua lista de planejados.",
     "see-all-planned": "Ver Todos",

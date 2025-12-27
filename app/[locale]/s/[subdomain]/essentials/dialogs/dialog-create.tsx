@@ -31,19 +31,7 @@ type FormValues = {
   subdomain: string;
 };
 
-export function CreateEssentialDialog({
-  className,
-  buttonVariant = "default",
-}: {
-  className?: string;
-  buttonVariant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
-}) {
+export function CreateEssentialDialog() {
   const { subdomain } = useSubdomain();
   const form = useForm<FormValues>({
     defaultValues: {

@@ -1,11 +1,10 @@
 "use client";
 
 import { Table } from "@tanstack/react-table";
-import { Plus, X } from "lucide-react";
+import { X } from "lucide-react";
 import { statuses } from "@/data/data";
 
 import React from "react";
-import { CreatePlannedDialogTrigger } from "../dialogs/dialog-create-trigger";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
@@ -38,7 +37,7 @@ export function DataTableToolbar<TData>({
   );
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col max-w-xl ">
       <div className="flex justify-between items-center">
         <div className="flex space-x-2">
           {table.getColumn("status") && (
@@ -64,16 +63,11 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
-        <CreatePlannedDialogTrigger buttonVariant="outline" />
-        <Button className="h-8 px-2 lg:px-3">
-          <Plus />
-          <span>{t("add")}</span>
-        </Button>
+        {/* <CreatePlannedDialogTrigger buttonVariant="default" /> */}
       </div>
-
       <div className="pt-2">
         <Input
-          className="max-w-sm"
+          className=""
           placeholder={t("search-placeholder")}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>

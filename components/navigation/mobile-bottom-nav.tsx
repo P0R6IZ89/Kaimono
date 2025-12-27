@@ -35,6 +35,7 @@ export function MobileBottomNav() {
               return (
                 <li key={item.href} className="p-2">
                   <Link
+                    prefetch={true}
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(

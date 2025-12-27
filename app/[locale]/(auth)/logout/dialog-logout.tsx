@@ -15,7 +15,7 @@ interface DialogLogoutProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-function DialogLogout({ open, onOpenChange }: DialogLogoutProps) {
+function DialogLogout({ onOpenChange }: DialogLogoutProps) {
   return (
     <DialogContent>
       <DialogHeader>

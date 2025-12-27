@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card";
 import { ArrowUpRight, Shirt } from "lucide-react";
 import React from "react";
-import { CreateEssentialDialog } from "../essentials/dialogs/dialog-create";
 import { QuickEssentialDialog } from "./QuickEssentialDialog";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
