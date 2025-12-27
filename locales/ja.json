@@ -246,7 +246,7 @@
   "EssentialsPage": {
     "title": "必需品",
     "essentialsCount": "{count, plural, =0 {まだアイテムがありません。} =1 {1つの必需品} other {#つの必需品}}",
-    "description": "あなたの必需品買い物リストアイテム。これらは、定期的に購入する必要がある必須アイテムです。",
+    "description": "定期的に購入する必要がある必須アイテムです。",
     "no-essentials": "まだ必需品が追加されていません。",
     "add-essential-button": "アイテムを追加",
     "add-new-essential-item": "新しい必需品アイテムを追加",
@@ -263,7 +263,7 @@
     "plannedCount": "{count, plural, =0 {まだアイテムがありません。} =1 {1つの計画} other {#つの計画}}",
     "description": "あなたの計画済み買い物リストアイテム。既存のプロジェクトに送信したり、より良い整理のためにバックログに保持したりできます。",
     "no-planned": "まだ計画済みアイテムが追加されていません。",
-    "add-planned-button": "アイテムを追加",
+    "add-planned-button": "追加",
     "add-new-planned-item": "新しい計画済みアイテムを追加",
     "add-new-planned-item-description": "計画リストに新しいアイテムを追加します。",
     "see-all-planned": "すべて表示",

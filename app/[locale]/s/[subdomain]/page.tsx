@@ -1,12 +1,7 @@
 import React from "react";
 import QuickEssentialCard from "./components/QuickEssential";
 import QuickPlannedCard from "./components/QuickPlanned";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import InviteToastHandler from "./components/InviteToastHandler";
 import { requireSession } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";

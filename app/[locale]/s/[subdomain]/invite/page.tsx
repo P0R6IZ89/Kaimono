@@ -89,9 +89,9 @@ export default async function Invite({
             <TableHeader>
               <TableRow>
                 <TableHead />
-                <TableHead className="max-w-[100px]">{t("name")}</TableHead>
+                <TableHead className="max-w-25">{t("name")}</TableHead>
                 <TableHead>{t("email")}</TableHead>
-                <TableHead className="w-[30px]">{t("actions-text")}</TableHead>
+                <TableHead className="w-7.5">{t("actions-text")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

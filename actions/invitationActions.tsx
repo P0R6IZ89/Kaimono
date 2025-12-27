@@ -10,7 +10,6 @@ import { addDays } from "@/lib/addDays";
 import { ActionResult } from "next/dist/server/app-render/types";
 import { revalidatePath } from "next/cache";
 import { requireMembership, requireSession } from "./appActions";
-import { redirect } from "@/i18n/navigation";
 import { redirect as NextRedirect } from "next/navigation";
 
 export async function getInvitedUsersActions(subdomain: string) {

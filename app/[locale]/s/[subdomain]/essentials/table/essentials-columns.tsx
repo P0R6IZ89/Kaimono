@@ -5,12 +5,13 @@ import StatesCell from "./cells/status-cell";
 import TitleCell from "./cells/title-cell";
 import TotalPrice from "./cells/totalPrice-cell";
 import ActionCell from "./cells/action-cell";
+import { Status } from "@prisma/client";
 
 export interface TableRowData {
   id: string;
   title: string;
   price: number;
-  status: string;
+  status: Status;
   quantity: number;
   createdAt: string;
   updatedAt: string;

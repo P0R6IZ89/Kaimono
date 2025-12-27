@@ -4,11 +4,13 @@ import { DataTablePlanned } from "./table/data-table";
 import { columnsPlanned } from "./table/columns";
 import {
   Card,
+  CardAction,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { getTranslations } from "next-intl/server";
+import { CreatePlannedDialogTrigger } from "./dialogs/dialog-create-trigger";
 
 export default async function Planned({
   params,
@@ -20,10 +22,13 @@ export default async function Planned({
   const planned = await getPlannedBySubdomain(subdomain);
   return (
     <div className="p-4 space-y-8 mb-24 md:mb-0">
-      <Card className="shadow-none ring-0 bg-trabsparent">
+      <Card className="">
         <CardHeader>
           <CardTitle>{t("title")}</CardTitle>
           <CardDescription>{t("description")}</CardDescription>
+          <CardAction>
+            <CreatePlannedDialogTrigger buttonVariant="default" />
+          </CardAction>
         </CardHeader>
       </Card>
       <DataTablePlanned columns={columnsPlanned} data={planned} />

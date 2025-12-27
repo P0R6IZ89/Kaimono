@@ -23,7 +23,7 @@ import { getTranslations } from "next-intl/server";
 import { buildSidebarData, MemberRole } from "./buildSidebarData";
 import { KoFiPlainButton } from "../kofi/KoFiWidget";
 
-type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+export type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   subdomain: string;
 };
 
