@@ -2,6 +2,7 @@ import React from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { formatPriceYen } from "@/util/formatPriceYen";
+import { useFormatter, useNow } from "next-intl";
 
 type TitleCellProps = {
   title: string;
@@ -22,16 +23,27 @@ export default function TitleCell({
   quantity,
   createdAt,
 }: TitleCellProps) {
-  const daysOld = dayjs().diff(createdAt, "day");
+  const format = useFormatter();
+  const now = useNow();
+  const createdDate = new Date(createdAt);
+
+  const daysOld = dayjs(now).diff(createdDate, "day");
   const timeClass = daysOld > 7 ? "text-red-500" : "text-muted-foreground";
+  const fromNowText = format.relativeTime(createdDate, now);
   return (
-    <div className="flex flex-col justify-between items-baseline">
-      <p className="text-xs text-muted-foreground">{user.name}</p>
-      <p>{title}</p>
-      <div className="flex flex-row gap-2 mt-1 text-xs text-muted-foreground">
-        <p>{formatPriceYen(price)}</p>
-        <p>x{quantity}</p>
-        <p className={`${timeClass}`}>{dayjs(createdAt).fromNow()}</p>
+    <div className="flex-1 min-w-0 overflow-hidden text-ellipsis">
+      <div className="flex flex-col justify-between items-baseline">
+        <p className="text-xs text-muted-foreground">{user.name}</p>
+        <p className="text-lg font-semibold overflow-hidden text-ellipsis">
+          {title}
+        </p>
+        <div className="flex flex-row gap-3 mt-1 text-xs text-muted-foreground">
+          <p className={`${timeClass} flex-none`}>{fromNowText}</p>
+          <div className="flex flex-row gap-1">
+            <p className="tabular-nums">{formatPriceYen(price)}</p>
+            <p>x{quantity}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

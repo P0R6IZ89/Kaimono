@@ -40,7 +40,7 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
         align="end"
         sideOffset={4}
       >
-        <DropdownMenuItem onSelect={() => signOutAction()}>
+        <DropdownMenuItem onSelect={async () => await signOutAction()}>
           <p className="flex flex-row items-center gap-2">
             <LogOut /> Log out
           </p>

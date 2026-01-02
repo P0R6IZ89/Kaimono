@@ -13,8 +13,8 @@ import {
 import { Button } from "../../../../../../components/ui/button";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { useTranslations } from "next-intl";
-import { Card, CardContent } from "@/components/ui/card";
-import { Item, ItemSeparator } from "@/components/ui/item";
+import { Item, ItemContent, ItemSeparator } from "@/components/ui/item";
+import { Separator } from "@/components/ui/separator";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -55,52 +55,50 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
-      <DataTableToolbar table={table} />
-      <Card>
-        <CardContent>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row, index) => {
-              return (
-                <React.Fragment key={row.id}>
-                  <Item className="flex flex-cols-3 space-x-3 items-center ">
-                    {row.getVisibleCells().map((cell) => (
-                      <React.Fragment key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </Item>
-                  {index !== row.index - 1 && <ItemSeparator />}
-                </React.Fragment>
-              );
-            })
-          ) : (
-            <div className="h-24 text-center">{tTable("no-result")}</div>
-          )}
-        </CardContent>
-      </Card>
-
-      <div className="flex items-center justify-end space-x-2 py-4 max-w-xl">
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          {tTable("previous")}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          {tTable("next")}
-        </Button>
-      </div>
-    </div>
+    <Item variant={"muted"}>
+      <ItemContent>
+        <DataTableToolbar table={table} />
+        <Separator />
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row, index) => {
+            return (
+              <React.Fragment key={row.id}>
+                <div className="flex flex-cols-4 space-x-3 items-center ">
+                  {row.getVisibleCells().map((cell) => (
+                    <React.Fragment key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+                {index !== row.index - 1 && <ItemSeparator />}
+              </React.Fragment>
+            );
+          })
+        ) : (
+          <div className="h-24 text-center">{tTable("no-result")}</div>
+        )}
+        <div className="flex items-center justify-end space-x-2 py-4 max-w-xl">
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {tTable("previous")}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            {tTable("next")}
+          </Button>
+        </div>
+      </ItemContent>
+    </Item>
   );
 }

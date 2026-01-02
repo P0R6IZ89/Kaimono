@@ -14,5 +14,9 @@ dayjs.extend(relativeTime);
 export default function TotalPrice({ price, quantity }: TotalPriceCellProps) {
   const totalPrice = price * quantity;
   const formatedPrice = formatPriceYen(totalPrice);
-  return <p>{formatedPrice}</p>;
+  return (
+    <p className="flex-none text-base font-semibold tabular-nums">
+      {formatedPrice}
+    </p>
+  );
 }

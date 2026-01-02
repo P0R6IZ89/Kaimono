@@ -1,18 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/actions/authActions";
 
 export default function LogoutPage() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleLogout = async () => {
     setLoading(true);
     await signOutAction();
-    router.push("/home");
   };
 
   return (

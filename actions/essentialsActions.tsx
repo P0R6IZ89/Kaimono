@@ -206,6 +206,25 @@ export async function getEssentialCount(subdomain: string) {
   return _count;
 }
 
+export async function getEssentialsPendingTotalExpense(subdomain: string) {
+  await requireSession();
+  const { appId } = await requireMembership(subdomain);
+  const essentials = await prisma.essential.findMany({
+    where: {
+      appId: appId,
+      status: "PENDING",
+    },
+    select: {
+      price: true,
+      quantity: true,
+    },
+  });
+  const totalExpense = essentials.reduce((acc, item) => {
+    return acc + item.price.toNumber() * item.quantity;
+  }, 0);
+  return totalExpense;
+}
+
 export async function setEssentialStatusAction({
   essentialId,
   status,
