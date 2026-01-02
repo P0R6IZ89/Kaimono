@@ -13,19 +13,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { protocol, rootDomain } from "@/util/utils";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Info, Plus, UserRound } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { RelativeTime } from "./components/relativeTime";
 
-dayjs.extend(relativeTime);
+type PageProps = { params: Promise<{ locale: string }> };
 
-export default async function App({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function App({ params }: PageProps) {
   const { locale } = await params;
   const session = await requireSession();
   const apps = await getAllAppsAction();
@@ -72,7 +67,7 @@ export default async function App({
                   <CardTitle>
                     <p className="capitalize">{app.name}</p>
                     <p className="pt-1 text-xs font-medium text-muted-foreground">
-                      {dayjs(app.createdAt).fromNow()}
+                      <RelativeTime date={app.createdAt} />
                     </p>
                   </CardTitle>
                   <CardDescription>{app.description}</CardDescription>

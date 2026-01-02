@@ -37,7 +37,7 @@ export function MobileBottomNav() {
                   <Link
                     prefetch={true}
                     href={item.href}
-                    aria-current={active ? "page" : undefined}
+                    aria-current={"page"}
                     className={cn(
                       "flex flex-col items-center justify-center gap-1 py-3 text-xs rounded-2xl transition-colors",
                       active

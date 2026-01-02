@@ -40,7 +40,6 @@ const StatusCell: React.FC<StatusCellProps> = ({ row }) => {
           subdomain,
         });
       } catch {
-        // Roll back if the server update fails
         setStatus(prevStatus);
       }
     });

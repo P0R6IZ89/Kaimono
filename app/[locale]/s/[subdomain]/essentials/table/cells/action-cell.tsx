@@ -44,7 +44,7 @@ function ActionCell({ row }: ActionDialogProps) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+          className="flex flex-none h-8 w-8 p-0 data-[state=open]:bg-muted"
         >
           <MoreHorizontal size={16} strokeWidth={1} />
         </Button>
