@@ -37,32 +37,26 @@ export function DataTableToolbar<TData>({
   );
 
   return (
-    <div className="flex flex-col md:flex-row gap-2 md:items-center justify-start mb-4">
-      <div className="flex justify-between items-center">
-        <div className="flex space-x-2">
-          {table.getColumn("status") && (
-            <div>
-              <DataTableFacetedFilter
-                column={table.getColumn("status")}
-                title={t("filter-by-status")}
-                options={statusOptions}
-              />
-            </div>
-          )}
+    <div className="flex flex-col gap-2 justify-start md:flex-row md:items-center mb-4">
+      <div className="flex flex-1 justify-start items-center space-x-2 ">
+        {table.getColumn("status") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("status")}
+            title={t("filter-by-status")}
+            options={statusOptions}
+          />
+        )}
 
-          {isFiltered && (
-            <div className="flex">
-              <Button
-                variant="outline"
-                onClick={() => table.resetColumnFilters()}
-                className="h-8 px-2 lg:px-3"
-              >
-                {t("clear-filters")}
-                <X />
-              </Button>
-            </div>
-          )}
-        </div>
+        {isFiltered && (
+          <Button
+            variant="outline"
+            onClick={() => table.resetColumnFilters()}
+            className="h-8 px-2 lg:px-3"
+          >
+            {t("clear-filters")}
+            <X />
+          </Button>
+        )}
       </div>
       <Input
         className="max-w-lg md:order-first"

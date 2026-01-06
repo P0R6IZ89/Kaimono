@@ -95,7 +95,9 @@
     "price": "Price",
     "quantity": "Quantity",
     "save": "Save",
-    "no-result": "No results found."
+    "no-result": "No results found.",
+    "pending-items": "Pending Items",
+    "total-pending": "Total Pending"
   },
   "PlannedPage": {
     "title": "Planned",
@@ -457,6 +459,12 @@
     "email-sent-instruction": "Open the email sent and click the \"Enter\" button to complete your login.",
     "check-spam": "(Check your spam folder if you don't see it)",
     "back-to-main": "Back to main page"
+  },
+  "MobileNav": {
+    "home": "Home",
+    "essentials": "Essentials",
+    "planned": "Planned",
+    "settings": "Settings"
   },
   "KoFiWidget": {
     "support-button": "Support me on Ko-fi",

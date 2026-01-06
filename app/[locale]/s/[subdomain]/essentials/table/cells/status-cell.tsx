@@ -48,6 +48,7 @@ const StatusCell: React.FC<StatusCellProps> = ({ row }) => {
   return (
     <ItemMedia variant={"icon"}>
       <Checkbox
+        className="m-1.5"
         checked={checked}
         disabled={isCancelled || isSaving}
         onCheckedChange={(value) => onCheckedChange(Boolean(value))}

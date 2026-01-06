@@ -30,19 +30,16 @@ export default function TitleCell({
   const daysOld = dayjs(now).diff(createdDate, "day");
   const timeClass = daysOld > 7 ? "text-red-500" : "text-muted-foreground";
   const fromNowText = format.relativeTime(createdDate, now);
+
   return (
-    <div className="flex-1 min-w-0 overflow-hidden text-ellipsis">
-      <div className="flex flex-col justify-between items-baseline">
-        <p className="text-xs text-muted-foreground">{user.name}</p>
-        <p className="text-lg font-semibold overflow-hidden text-ellipsis">
-          {title}
-        </p>
-        <div className="flex flex-row gap-3 mt-1 text-xs text-muted-foreground">
-          <p className={`${timeClass} flex-none`}>{fromNowText}</p>
-          <div className="flex flex-row gap-1">
-            <p className="tabular-nums">{formatPriceYen(price)}</p>
-            <p>x{quantity}</p>
-          </div>
+    <div className="flex-1 min-w-0 w-0 overflow-hidden">
+      <p className="text-xs text-muted-foreground">{user.name}</p>
+      <p className="text-lg font-semibold truncate">{title}</p>
+      <div className="flex flex-row gap-3 mt-1 text-xs text-muted-foreground">
+        <p className={`${timeClass} flex-none`}>{fromNowText}</p>
+        <div className="flex flex-row gap-1">
+          <p className="tabular-nums">{formatPriceYen(price)}</p>
+          <p>x{quantity}</p>
         </div>
       </div>
     </div>

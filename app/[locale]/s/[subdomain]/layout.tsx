@@ -1,4 +1,4 @@
-import { requireSession } from "@/actions/appActions";
+import { getCurrentAppAction, requireSession } from "@/actions/appActions";
 import { getMyInvitationsAction } from "@/actions/membershipActions";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
@@ -8,6 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
@@ -27,6 +28,7 @@ export default async function AppLayout({
 }) {
   const { subdomain } = await params;
   await requireSession();
+  const app = await getCurrentAppAction(subdomain);
   const invitedApp = await getMyInvitationsAction();
   const t = await getTranslations("app-layout");
   return (
@@ -44,6 +46,8 @@ export default async function AppLayout({
           <header className="flex h-(--header-height) shrink-0 justify-between items-center gap-2 px-4 lg:px-6 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
             <div className="flex w-full items-center gap-1 lg:gap-2">
               <SidebarTrigger className="-ml-1" />
+              <Separator orientation="vertical" />
+              <h1 className="ml-2 text-base font-semibold">{app.name}</h1>
             </div>
             <div className="flex">
               <Popover>
