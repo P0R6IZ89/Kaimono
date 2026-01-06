@@ -55,15 +55,15 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <Item variant={"muted"}>
+    <Item variant={"muted"} className="overflow-hidden w-full">
       <ItemContent>
         <DataTableToolbar table={table} />
-        <Separator />
+        <Separator className="mb-2" />
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row, index) => {
             return (
               <React.Fragment key={row.id}>
-                <div className="flex flex-cols-4 space-x-3 items-center ">
+                <div className="flex space-x-3 items-center ">
                   {row.getVisibleCells().map((cell) => (
                     <React.Fragment key={cell.id}>
                       {flexRender(

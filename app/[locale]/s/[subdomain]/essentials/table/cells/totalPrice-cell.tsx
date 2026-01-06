@@ -15,8 +15,6 @@ export default function TotalPrice({ price, quantity }: TotalPriceCellProps) {
   const totalPrice = price * quantity;
   const formatedPrice = formatPriceYen(totalPrice);
   return (
-    <p className="flex-none text-base font-semibold tabular-nums">
-      {formatedPrice}
-    </p>
+    <p className="text-base font-semibold tabular-nums">{formatedPrice}</p>
   );
 }

@@ -43,13 +43,13 @@ export default async function Essentials({ params }: EssentialsProps) {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <Card>
             <CardHeader>
-              <CardDescription>Pending Items</CardDescription>
+              <CardDescription>{t("pending-items")}</CardDescription>
               <CardTitle className="text-xl font-semibold">{count}</CardTitle>
             </CardHeader>
           </Card>
           <Card>
             <CardHeader>
-              <CardDescription>Total Pending </CardDescription>
+              <CardDescription>{t("total-pending")}</CardDescription>
               <CardTitle className="text-xl font-semibold">
                 {formatPriceYen(totalExpense)}
               </CardTitle>

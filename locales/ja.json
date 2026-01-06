@@ -256,7 +256,9 @@
     "price": "価格",
     "quantity": "数量",
     "save": "保存",
-    "no-result": "結果が見つかりません。"
+    "no-result": "結果が見つかりません。",
+    "pending-items": "保留中のアイテム",
+    "total-pending": "保留中の合計"
   },
   "PlannedPage": {
     "title": "計画済み",
@@ -457,6 +459,12 @@
     "email-sent-instruction": "送信されたメールを開き、\"ログイン\"ボタンをクリックしてログインを完了してください。",
     "check-spam": "(表示されない場合は迷惑メールフォルダを確認してください)",
     "back-to-main": "メインページに戻る"
+  },
+  "MobileNav": {
+    "home": "ホーム",
+    "essentials": "必需品",
+    "planned": "計画済み",
+    "settings": "設定"
   },
   "KoFiWidget": {
     "support-button": "Ko-fiでサポートする",

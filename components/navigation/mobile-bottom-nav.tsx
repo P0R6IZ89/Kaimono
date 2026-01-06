@@ -5,17 +5,19 @@ import { Home, ListChecks, Package, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { stripLeadingLocale } from "@/middleware";
-
-const items = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/essentials", label: "Essentials", icon: Package },
-  { href: "/planned", label: "Planned", icon: ListChecks },
-  { href: "/settings", label: "Settings", icon: Settings },
-];
+import { useTranslations } from "next-intl";
 
 export function MobileBottomNav() {
   const pathname = usePathname() ?? "";
   const { rest } = stripLeadingLocale(pathname);
+  const t = useTranslations("MobileNav");
+
+  const items = [
+    { href: "/", label: t("home"), icon: Home },
+    { href: "/essentials", label: t("essentials"), icon: Package },
+    { href: "/planned", label: t("planned"), icon: ListChecks },
+    { href: "/settings", label: t("settings"), icon: Settings },
+  ];
 
   return (
     <nav
@@ -42,7 +44,7 @@ export function MobileBottomNav() {
                       "flex flex-col items-center justify-center gap-1 py-3 text-xs rounded-2xl transition-colors",
                       active
                         ? "text-foreground font-semibold bg-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
                     )}
                   >
                     <Icon className="h-6 w-6" aria-hidden="true" />
