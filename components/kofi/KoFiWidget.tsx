@@ -5,13 +5,15 @@ import { useTranslations } from "next-intl";
 
 export function KoFiPlainButton({
   code = process.env.NEXT_PUBLIC_KOFI_CODE || "",
+  className = "",
 }: {
   code?: string;
+  className?: string | null | undefined;
 }) {
   const t = useTranslations("KoFiWidget");
 
   return (
-    <Button asChild className="gap-2">
+    <Button asChild className={`${className}`}>
       <Link
         href={`https://ko-fi.com/${code}`}
         target="_blank"

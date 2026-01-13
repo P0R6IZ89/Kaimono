@@ -25,9 +25,14 @@ import { KoFiPlainButton } from "../kofi/KoFiWidget";
 
 export type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   subdomain: string;
+  locale: string;
 };
 
-export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
+export async function AppSidebar({
+  subdomain,
+  locale,
+  ...props
+}: AppSidebarProps) {
   const session = await requireSession();
   const [apps, currentApp, memberRole] = await Promise.all([
     getAllAppsAction(),
@@ -38,7 +43,7 @@ export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
   const t = await getTranslations();
 
   const urls = {
-    home: `${protocol}://${rootDomain}`,
+    home: `${protocol}://${rootDomain}/${locale}`,
     invite: `/invite`,
   };
 

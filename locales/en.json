@@ -473,6 +473,16 @@
       "MEMBER": "Member"
     }
   },
+  "Settings": {
+    "account": "Account",
+    "team": "Team",
+    "inviteMembers": "Invite Members",
+    "inviteDescription": "Send an invite email",
+    "help": "Help",
+    "tutorialTitle": "Tutorial",
+    "tutorialDescription": "Go through the tutorial to master the app",
+    "support": "Support"
+  },
   "MobileNav": {
     "home": "Home",
     "essentials": "Essentials",

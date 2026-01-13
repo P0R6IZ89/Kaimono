@@ -23,10 +23,10 @@ export default async function AppLayout({
   params,
   children,
 }: {
-  params: Promise<{ subdomain: string }>;
+  params: Promise<{ subdomain: string; locale: string }>;
   children: React.ReactNode;
 }) {
-  const { subdomain } = await params;
+  const { subdomain, locale } = await params;
   await requireSession();
   const app = await getCurrentAppAction(subdomain);
   const invitedApp = await getMyInvitationsAction();
@@ -41,7 +41,7 @@ export default async function AppLayout({
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="inset" subdomain={subdomain} />
+        <AppSidebar variant="inset" subdomain={subdomain} locale={locale} />
         <SidebarInset>
           <header className="flex h-(--header-height) shrink-0 justify-between items-center gap-2 px-4 lg:px-6 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
             <div className="flex w-full items-center gap-1 lg:gap-2">
