@@ -130,9 +130,9 @@ export function QuickAction({
   variant = "default",
 }: QuickActionProps) {
   return (
-    <Button asChild variant={variant} className="h-auto p-4 justify-start">
-      <Link href={href} className="flex items-center gap-3">
-        <div className="flex-shrink-0">{icon}</div>
+    <Button asChild variant={variant} className="justify-start">
+      <Link href={href} className="flex items-center gap-2">
+        <div className="shrink-0">{icon}</div>
         <div className="text-left">
           <div className="font-medium">{title}</div>
           <div className="text-xs text-muted-foreground">{description}</div>

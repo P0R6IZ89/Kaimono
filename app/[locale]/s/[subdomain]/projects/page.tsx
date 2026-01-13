@@ -12,13 +12,20 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { getTranslations } from "next-intl/server";
 import { ProjectBoard } from "./components/project-board";
-import { ProjectCreateCardV2 } from "./components/project-create-cardV2";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item";
+import { ProjectCreateDialog } from "./components/project-create-dialog";
 
 export default async function ProjectsPage({
   params,
@@ -37,27 +44,32 @@ export default async function ProjectsPage({
 
   return (
     <div className="p-4 space-y-6 mb-24 md:mb-0">
-      <Card className="shadow-none ring-0 bg-transparent">
-        <CardHeader className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-1.5">
-            <CardTitle className="">{t("title")}</CardTitle>
-            <CardDescription>{t("description")}</CardDescription>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Badge variant="outline">
-              {t("summary.projects", { count: projectCount })}
-            </Badge>
-          </div>
-        </CardHeader>
-      </Card>
+      <Item variant={"muted"} className="bg-transparent">
+        <ItemContent>
+          <ItemTitle>
+            {t("title")}
+            {projectCount !== 0 && (
+              <Badge variant="secondary">{projectCount}</Badge>
+            )}
+          </ItemTitle>
+          <ItemDescription>{t("description")}</ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <ProjectCreateDialog buttonVariant="default" subdomain={subdomain} />
+        </ItemActions>
+      </Item>
 
-      <div className="grid gap-4 md:grid-cols-[0.7fr_1.3fr]">
-        <ProjectCreateCardV2 subdomain={subdomain} />
-        <Card>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <Card className="col-span-2 md:col-span-3 lg:col-span-4">
           <Accordion type="single" collapsible>
             <AccordionItem value="backlog">
               <CardHeader>
-                <CardTitle className="">{t("backlog.title")}</CardTitle>
+                <CardTitle className="flex gap-2 ">
+                  <p>{t("backlog.title")}</p>
+                  {plannedBacklog.length > 0 && (
+                    <Badge variant="secondary">{plannedBacklog.length}</Badge>
+                  )}
+                </CardTitle>
                 <AccordionTrigger className="p-0 mb-3 hover:no-underline">
                   <CardDescription>{t("backlog.description")}</CardDescription>
                 </AccordionTrigger>

@@ -20,6 +20,7 @@ import {
 import React from "react";
 import { protocol, rootDomain } from "@/util/utils";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export interface App {
   name: string;
@@ -33,6 +34,7 @@ interface AppSwitcherProps {
 
 export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
   const { isMobile } = useSidebar();
+  const t = useTranslations("Teams");
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -99,12 +101,12 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
             ))}
 
             <DropdownMenuItem asChild className="gap-2 p-2">
-              <Link href={`${protocol}://${rootDomain}/new-app`}>
+              <Link href={`${protocol}://${rootDomain}/new-team`}>
                 <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                   <Plus className="size-4" />
                 </div>
                 <div className="font-medium text-muted-foreground">
-                  Adicionar novo aplicativo
+                  {t("create-team")}
                 </div>
               </Link>
             </DropdownMenuItem>

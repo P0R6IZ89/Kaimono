@@ -30,7 +30,7 @@ export default async function AppLayout({
   await requireSession();
   const app = await getCurrentAppAction(subdomain);
   const invitedApp = await getMyInvitationsAction();
-  const t = await getTranslations("app-layout");
+  const t = await getTranslations("team-layout");
   return (
     <SubdomainContextProvider>
       <SidebarProvider
@@ -47,7 +47,7 @@ export default async function AppLayout({
             <div className="flex w-full items-center gap-1 lg:gap-2">
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" />
-              <h1 className="ml-2 text-base font-semibold">{app.name}</h1>
+              <h1 className="ml-2 text-base ">{app.name}</h1>
             </div>
             <div className="flex">
               <Popover>
@@ -78,14 +78,14 @@ export default async function AppLayout({
                           <p className="text-sm font-bold flex items-center gap-2">
                             <Mail className="size-4" />
                             <span>
-                              {t("new-invite-to-invite-app-name", {
-                                appName: invite.app.name,
+                              {t("new-invite-to-invite-team-name", {
+                                teamName: invite.app.name,
                               })}
                             </span>
                           </p>
                           <p className="text-xs pt-1">
                             {t("new-invite-content", {
-                              appName: invite.app.name,
+                              teamName: invite.app.name,
                               inviteRole: invite.role,
                             })}
                           </p>

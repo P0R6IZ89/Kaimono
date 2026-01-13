@@ -1,7 +1,7 @@
 {
   "Meta": {
     "title": "Kaimono Beta ver.",
-    "description": "An application to manage your shopping lists."
+    "description": "Una aplicación para administrar tus listas de compras."
   },
   "Login": {
     "title": "Welcome! ✨",
@@ -14,13 +14,13 @@
     "get-started-button": "Get Started!"
   },
   "Teams": {
-    "title": "Teams",
-    "description": "Collaborative workspaces for families and organizations. Make blurred spending visible and create projects for better financial management.",
-    "start-adding-a-new-team": "Start tracking your spending together!",
-    "create-team": "Create team",
+    "title": "Equipos",
+    "description": "Espacios de trabajo colaborativos para familias y organizaciones. Haz visibles los gastos difuminados y crea proyectos para una mejor gestión financiera.",
+    "start-adding-a-new-team": "¡Empiecen a registrar sus gastos juntos!",
+    "create-team": "Crear equipo",
     "new-team-card": {
-      "title": "Create a new team",
-      "description": "Create a new team to collaborate with others"
+      "title": "Crea un nuevo equipo",
+      "description": "Crea un nuevo equipo para colaborar con otras personas"
     }
   },
   "NewTeam": {
@@ -468,9 +468,9 @@
   },
   "UserManager": {
     "roles": {
-      "OWNER": "Owner",
-      "ADMIN": "Admin",
-      "MEMBER": "Member"
+      "OWNER": "Propietario",
+      "ADMIN": "Administrador",
+      "MEMBER": "Miembro"
     }
   },
   "MobileNav": {

@@ -81,8 +81,8 @@ export default async function Invite({
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>{t("app-users", { userCount })}</CardTitle>
-          <CardDescription>{t("app-users-description")}</CardDescription>
+          <CardTitle>{t("team-users", { userCount })}</CardTitle>
+          <CardDescription>{t("team-users-description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>

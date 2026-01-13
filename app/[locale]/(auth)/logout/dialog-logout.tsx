@@ -27,6 +27,7 @@ function DialogLogout({ onOpenChange }: DialogLogoutProps) {
             const result = await signOutAction();
             onOpenChange?.(false);
             if (result.ok) {
+              console.log("Logout successful");
               window.location.reload();
             }
           }}
