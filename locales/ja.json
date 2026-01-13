@@ -473,6 +473,16 @@
       "MEMBER": "メンバー"
     }
   },
+  "Settings": {
+    "account": "アカウント",
+    "team": "チーム",
+    "inviteMembers": "メンバーを招待",
+    "inviteDescription": "招待メールを送信",
+    "help": "ヘルプ",
+    "tutorialTitle": "チュートリアル",
+    "tutorialDescription": "アプリをマスターするためにチュートリアルを進めましょう",
+    "support": "サポート"
+  },
   "MobileNav": {
     "home": "ホーム",
     "essentials": "必需品",

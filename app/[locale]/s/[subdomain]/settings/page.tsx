@@ -1,67 +1,110 @@
-import { requireMembership, requireSession } from "@/actions/appActions";
+import {
+  getAllAppsAction,
+  getCurrentAppAction,
+  requireMembership,
+  requireSession,
+} from "@/actions/appActions";
 import { UserManager } from "@/components/auth/userManage";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { KoFiPlainButton } from "@/components/kofi/KoFiWidget";
+import { AppSwitcher } from "@/components/sidebar/apps-switcher";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
+  ItemGroup,
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import { Separator } from "@/components/ui/separator";
-import { ChevronsUpDown, User, User2 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { protocol, rootDomain } from "@/util/utils";
+import { ChevronRight, GraduationCap, UserPlus2 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 export default async function Settings({
   params,
 }: {
-  params: Promise<{ subdomain: string }>;
+  params: Promise<{ subdomain: string; locale: string }>;
 }) {
-  const { subdomain } = await params;
+  const { subdomain, locale } = await params;
   const { user } = await requireSession();
   const membership = await requireMembership(subdomain);
+  const apps = await getAllAppsAction();
+  const currentApp = await getCurrentAppAction(subdomain);
+  const t = await getTranslations("Settings");
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 mb-24 md:mb-0">
-      <div className="p-4">
-        <p className="text-xl font-semibold px-4 py-2">Setting</p>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-24 md:mb-0 px-4 pt-8">
+      <div>
+        <p className="text-xl font-semibold py-2">{t("account")}</p>
         <UserManager
-          variant={"muted"}
+          variant={"outline"}
           user={user}
           memberRole={membership.role}
-          className={"w-full"}
+          className={"w-full bg-muted/50"}
         />
       </div>
-      <p className="text-lg font-semibold">
-        ⚠️ In Development - Em Desenvolvimento - 開発中のページです ⚠️
-      </p>
-      <div className="p-4">{/* <UserAvatar user={user} /> */}</div>
-      <div className="p-4">
-        {/* <AppSwitcher apps={apps} currentApp={currentApp} /> */}
+      <div>
+        <p className="text-xl font-semibold py-2">{t("team")}</p>
+        <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
+          <AppSwitcher apps={apps} currentApp={currentApp} />
+          <Item className="p-2 gap-4" asChild>
+            <Link href={"/invite"}>
+              <ItemMedia
+                variant={"icon"}
+                className="bg-muted rounded-lg size-8"
+              >
+                <UserPlus2 />
+              </ItemMedia>
+              <ItemContent className="gap-0">
+                <ItemTitle>{t("inviteMembers")}</ItemTitle>
+                <ItemDescription className="text-xs">
+                  {t("inviteDescription")}
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
+          </Item>
+        </ItemGroup>
       </div>
-      <p>user</p>
-      <p>role</p>
-      <p>Image</p>
-      <p>email</p>
-      <p>logout</p>
-      <Separator />
-      <p>App</p>
-      <p>App image</p>
-      <p>App Name</p>
-      <p>App link</p>
-      <p>Add new app</p>
-      <Separator />
+      <div>
+        <p className="text-xl font-semibold py-2">{t("help")}</p>
+        <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
+          <Item className="p-2 gap-4" asChild>
+            <Link
+              href={`${protocol}://${rootDomain}/${locale}/home/#getting-started`}
+            >
+              <ItemMedia
+                variant={"icon"}
+                className="bg-muted rounded-lg size-8"
+              >
+                <GraduationCap />
+              </ItemMedia>
+              <ItemContent className="gap-0">
+                <ItemTitle>{t("tutorialTitle")}</ItemTitle>
+                <ItemDescription className="text-xs">
+                  {t("tutorialDescription")}
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
+          </Item>
+        </ItemGroup>
+      </div>
 
-      <User2 />
-      <p>invite user</p>
-      <Separator />
-
-      <p>Help</p>
-      <p>tutorial</p>
-      <Separator />
-
-      <p>Support</p>
-      <p>Donate</p>
+      <div>
+        <p className="text-xl font-semibold py-2">{t("support")}</p>
+        <KoFiPlainButton className={"w-full"} />
+      </div>
+      <div className="flex justify-center">
+        <p className="text-xs text-muted-foreground">
+          Developed by Alam Sawamme
+        </p>
+      </div>
     </div>
   );
 }

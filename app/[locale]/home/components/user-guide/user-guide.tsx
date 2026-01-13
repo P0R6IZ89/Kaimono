@@ -112,22 +112,6 @@ export default async function UserGuide() {
               </p>
             </CardContent>
           </Card>
-
-          {/* <div className="space-y-6 mt-12">
-            <div className="flex flex-wrap gap-4 justify-center">
-              <QuickAction
-                title={t("hero.startGuide")}
-                icon={<BookOpen className="size-5" />}
-                href="#getting-started"
-              />
-              <QuickAction
-                title={t("hero.viewDashboard")}
-                icon={<Home className="size-5" />}
-                href="/"
-                variant="outline"
-              />
-            </div>
-          </div> */}
         </div>
       </section>
 
@@ -213,23 +197,23 @@ export default async function UserGuide() {
                         <FeatureHighlight
                           title={t("coreFeatures.essentials.quickAdd.title")}
                           description={t(
-                            "coreFeatures.essentials.quickAdd.description",
+                            "coreFeatures.essentials.quickAdd.description"
                           )}
                           icon={<Plus className="h-4 w-4 text-green-500" />}
                           example={t(
-                            "coreFeatures.essentials.quickAdd.example",
+                            "coreFeatures.essentials.quickAdd.example"
                           )}
                         />
                         <FeatureHighlight
                           title={t(
-                            "coreFeatures.essentials.statusTracking.title",
+                            "coreFeatures.essentials.statusTracking.title"
                           )}
                           description={t(
-                            "coreFeatures.essentials.statusTracking.description",
+                            "coreFeatures.essentials.statusTracking.description"
                           )}
                           icon={<Star className="h-4 w-4 text-yellow-500" />}
                           example={t(
-                            "coreFeatures.essentials.statusTracking.example",
+                            "coreFeatures.essentials.statusTracking.example"
                           )}
                         />
                       </div>
@@ -258,23 +242,23 @@ export default async function UserGuide() {
                         <FeatureHighlight
                           title={t("coreFeatures.planned.priorityLevels.title")}
                           description={t(
-                            "coreFeatures.planned.priorityLevels.description",
+                            "coreFeatures.planned.priorityLevels.description"
                           )}
                           icon={<Target className="h-4 w-4 text-red-500" />}
                           example={t(
-                            "coreFeatures.planned.priorityLevels.example",
+                            "coreFeatures.planned.priorityLevels.example"
                           )}
                         />
                         <FeatureHighlight
                           title={t("coreFeatures.planned.richDetails.title")}
                           description={t(
-                            "coreFeatures.planned.richDetails.description",
+                            "coreFeatures.planned.richDetails.description"
                           )}
                           icon={
                             <Lightbulb className="h-4 w-4 text-purple-500" />
                           }
                           example={t(
-                            "coreFeatures.planned.richDetails.example",
+                            "coreFeatures.planned.richDetails.example"
                           )}
                         />
                       </div>
@@ -303,24 +287,24 @@ export default async function UserGuide() {
                         <FeatureHighlight
                           title={t("coreFeatures.projects.kanbanBoard.title")}
                           description={t(
-                            "coreFeatures.projects.kanbanBoard.description",
+                            "coreFeatures.projects.kanbanBoard.description"
                           )}
                           icon={<Settings className="h-4 w-4 text-blue-500" />}
                           example={t(
-                            "coreFeatures.projects.kanbanBoard.example",
+                            "coreFeatures.projects.kanbanBoard.example"
                           )}
                         />
                         <FeatureHighlight
                           title={t("coreFeatures.projects.projectBased.title")}
                           description={t(
-                            "coreFeatures.projects.projectBased.description",
+                            "coreFeatures.projects.projectBased.description"
                           )}
                           icon={
                             <FolderOpen className="h-4 w-4 text-green-500" />
                           }
                           isPro={true}
                           example={t(
-                            "coreFeatures.projects.projectBased.example",
+                            "coreFeatures.projects.projectBased.example"
                           )}
                         />
                       </div>
