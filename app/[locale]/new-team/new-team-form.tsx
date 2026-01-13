@@ -31,8 +31,8 @@ import { useTranslations } from "next-intl";
 
 type FormValues = { name: string; subdomain: string; description: string };
 
-export default function NewAppForm({ session }: { session: Session | null }) {
-  const t = useTranslations("NewApp");
+export default function NewTeamForm({ session }: { session: Session | null }) {
+  const t = useTranslations("NewTeam");
   const tErrors = useTranslations("Errors");
   const form = useForm<FormValues>({
     defaultValues: { name: "", subdomain: "", description: "" },
@@ -40,7 +40,7 @@ export default function NewAppForm({ session }: { session: Session | null }) {
 
   const [state, formAction, isPending] = useActionState(
     createAppAction,
-    initialState
+    initialState,
   );
 
   return (
@@ -60,10 +60,10 @@ export default function NewAppForm({ session }: { session: Session | null }) {
                 rules={{ required: tErrors("required-field") }}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("app-name")}</FormLabel>
+                    <FormLabel>{t("team-name")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("app-name-placeholder")}
+                        placeholder={t("team-name-placeholder")}
                         {...field}
                       />
                     </FormControl>

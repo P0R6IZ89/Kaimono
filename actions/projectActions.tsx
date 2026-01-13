@@ -181,13 +181,14 @@ export async function getUnassignedPlanned(subdomain: string) {
   const items = await prisma.planned.findMany({
     where: { appId, projectId: null },
     orderBy: { createdAt: "desc" },
-    take: 50,
+    // take: 50,
     select: {
       id: true,
       title: true,
       priority: true,
       status: true,
       price: true,
+      quantity: true,
     },
   });
 
@@ -197,6 +198,7 @@ export async function getUnassignedPlanned(subdomain: string) {
     priority: item.priority,
     status: item.status,
     price: item.price ? item.price.toNumber() : 0,
+    quantity: item.quantity ? item.quantity : 1,
   }));
 }
 

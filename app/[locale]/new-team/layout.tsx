@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function CreateAppLayout({
+export default function CreateTeamLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -23,7 +23,7 @@ export function MobileBottomNav() {
     <nav
       aria-label="Bottom navigation"
       suppressHydrationWarning
-      className="fixed inset-x-0 bottom-0 z-50 "
+      className="fixed inset-x-0 bottom-0 z-50 lg:hidden"
     >
       <div className=" mx-auto max-w-md px-4 pb-[calc(env(safe-area-inset-bottom)+12px)]">
         <div className="rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
@@ -44,7 +44,7 @@ export function MobileBottomNav() {
                       "flex flex-col items-center justify-center gap-1 py-3 text-xs rounded-2xl transition-colors",
                       active
                         ? "text-foreground font-semibold bg-primary"
-                        : "text-muted-foreground hover:text-foreground",
+                        : "text-muted-foreground hover:text-foreground"
                     )}
                   >
                     <Icon className="h-6 w-6" aria-hidden="true" />

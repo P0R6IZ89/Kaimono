@@ -62,14 +62,14 @@ export async function requireMembership(subdomain: string) {
     select: { id: true },
   });
   const locale = await getCurrentLocale();
-  if (!app) redirect({ href: "/new-app", locale });
+  if (!app) redirect({ href: "/new-team", locale });
 
   const membership = await prisma.membership.findUnique({
     where: { appId_userId: { appId: app!.id, userId: session.user.id } },
     select: { role: true },
   });
   if (!membership) {
-    redirect({ href: "/new-app", locale });
+    redirect({ href: "/new-team", locale });
   }
   return { appId: app!.id, role: membership!.role as $Enums.Role, session };
 }
@@ -120,7 +120,7 @@ export async function getCurrentAppAction(subdomain: string): Promise<{
 
   if (!app) {
     const locale = await getCurrentLocale();
-    redirect({ href: "/new-app", locale });
+    redirect({ href: "/new-team", locale });
     throw new Error("Redirected to new-app");
   }
 
@@ -321,9 +321,10 @@ export async function getMembership(
 }
 
 export async function userHasApps(): Promise<boolean> {
-  const session = await requireSession();
+  const session = await auth();
+  if (!session?.user?.id) return false;
   const count = await prisma.membership.count({
     where: { userId: session.user.id },
   });
-  return count > 0;
+  return count > 0 ? true : false;
 }

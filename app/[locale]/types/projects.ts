@@ -4,7 +4,7 @@ export type PlannedBacklogItem = {
   status: "PENDING" | "PURCHASED" | "CANCELLED";
   priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
   price: number;
-  quantity?: number;
+  quantity: number;
   createdAt?: string | Date;
 };
 

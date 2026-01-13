@@ -26,6 +26,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Loader2, Plus } from "lucide-react";
 import { PlannedBacklogItem } from "@/app/[locale]/types/projects";
+import { formatPriceYen } from "@/util/formatPriceYen";
 
 type Props = {
   projectId: string;
@@ -73,13 +74,6 @@ export function AssignPlannedDialog({
     }
   }, [projectName, router, state, t]);
 
-  const formatPrice = (price: number) =>
-    new Intl.NumberFormat(undefined, {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 0,
-    }).format(price ?? 0);
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -102,7 +96,7 @@ export function AssignPlannedDialog({
             {t("assign.empty")}
           </p>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 h-fit">
             <Command className="rounded-lg border shadow-none">
               <CommandInput placeholder={t("assign.search-placeholder")} />
               <CommandList className="max-h-60">
@@ -133,7 +127,7 @@ export function AssignPlannedDialog({
                         className="h-8 bg-border"
                       />
                       <Badge variant="secondary">
-                        {formatPrice(item.price)}
+                        {formatPriceYen(item.price * item.quantity)}
                       </Badge>
                     </CommandItem>
                   ))}

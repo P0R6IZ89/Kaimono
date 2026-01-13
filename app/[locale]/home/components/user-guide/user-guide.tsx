@@ -15,9 +15,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { StepCard, FeatureHighlight, QuickAction } from "./guide-components";
+import { StepCard, FeatureHighlight } from "./guide-components";
 import {
-  BookOpen,
   Rocket,
   ShoppingCart,
   FolderOpen,
@@ -36,21 +35,23 @@ import {
   User,
   Shirt,
   Armchair,
+  BookOpen,
 } from "lucide-react";
-import { requireSession, userHasApps } from "@/actions/appActions";
+import { userHasApps } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
+import { auth } from "@/auth";
 
 export default async function UserGuide() {
-  const session = await requireSession();
+  const session = await auth();
   const hasApps = await userHasApps();
   const t = await getTranslations("UserGuide");
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-background to-primary/40">
+    <div className="min-h-screen">
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-5xl mx-auto text-center space-y-8">
           <div className="py-40 space-y-1">
-            <Badge variant="outline" className="mb-6 text-base p-4">
+            <Badge variant="outline" className="mb-6 text-sm p-4">
               <Check className="inline-block mr-2 h-4 w-4 text-green-500" />
               {t("hero.title")}
             </Badge>
@@ -60,6 +61,21 @@ export default async function UserGuide() {
             <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               {t("hero.description")}
             </p>
+            <div className="flex flex-wrap gap-4 justify-center mt-2">
+              <Button asChild size="lg" className="mt-4">
+                <Link href="/">
+                  <Sparkles className="text-yellow-200" />
+                  {t("hero.getStarted")}
+                </Link>
+              </Button>
+
+              <Button asChild size={"lg"} variant="outline" className="mt-4">
+                <Link href="#getting-started">
+                  <BookOpen />
+                  {t("hero.startGuide")}
+                </Link>
+              </Button>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
@@ -85,10 +101,10 @@ export default async function UserGuide() {
             />
           </div>
 
-          <Card className="max-w-4xl mx-auto mt-12 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-blue-200 dark:border-blue-800">
+          <Card className="max-w-4xl mx-auto mt-12 bg-background">
             <CardContent className="p-8 text-center">
-              <h3 className="inline-flex gap-2 text-xl font-semibold mb-3">
-                <Sparkles />
+              <h3 className="inline-flex gap-2 text-xl mb-3">
+                <Sparkles strokeWidth={1.6} className="text-yellow-400" />
                 {t("hero.useCase.title")}
               </h3>
               <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
@@ -97,23 +113,21 @@ export default async function UserGuide() {
             </CardContent>
           </Card>
 
-          <div className="space-y-6 mt-12">
+          {/* <div className="space-y-6 mt-12">
             <div className="flex flex-wrap gap-4 justify-center">
               <QuickAction
                 title={t("hero.startGuide")}
-                description={t("hero.transition")}
-                icon={<BookOpen className="h-5 w-5" />}
+                icon={<BookOpen className="size-5" />}
                 href="#getting-started"
               />
               <QuickAction
                 title={t("hero.viewDashboard")}
-                description={t("hero.goToDashboard")}
-                icon={<Home className="h-5 w-5" />}
+                icon={<Home className="size-5" />}
                 href="/"
                 variant="outline"
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -146,7 +160,7 @@ export default async function UserGuide() {
                   title={t("gettingStarted.step2.title")}
                   description={t("gettingStarted.step2.description")}
                   actionText={t("gettingStarted.step2.action")}
-                  actionLink="/new-app"
+                  actionLink="/new-team"
                   icon={<FolderOpen className="h-5 w-5" />}
                 />
                 <StepCard
@@ -199,23 +213,23 @@ export default async function UserGuide() {
                         <FeatureHighlight
                           title={t("coreFeatures.essentials.quickAdd.title")}
                           description={t(
-                            "coreFeatures.essentials.quickAdd.description"
+                            "coreFeatures.essentials.quickAdd.description",
                           )}
                           icon={<Plus className="h-4 w-4 text-green-500" />}
                           example={t(
-                            "coreFeatures.essentials.quickAdd.example"
+                            "coreFeatures.essentials.quickAdd.example",
                           )}
                         />
                         <FeatureHighlight
                           title={t(
-                            "coreFeatures.essentials.statusTracking.title"
+                            "coreFeatures.essentials.statusTracking.title",
                           )}
                           description={t(
-                            "coreFeatures.essentials.statusTracking.description"
+                            "coreFeatures.essentials.statusTracking.description",
                           )}
                           icon={<Star className="h-4 w-4 text-yellow-500" />}
                           example={t(
-                            "coreFeatures.essentials.statusTracking.example"
+                            "coreFeatures.essentials.statusTracking.example",
                           )}
                         />
                       </div>
@@ -244,23 +258,23 @@ export default async function UserGuide() {
                         <FeatureHighlight
                           title={t("coreFeatures.planned.priorityLevels.title")}
                           description={t(
-                            "coreFeatures.planned.priorityLevels.description"
+                            "coreFeatures.planned.priorityLevels.description",
                           )}
                           icon={<Target className="h-4 w-4 text-red-500" />}
                           example={t(
-                            "coreFeatures.planned.priorityLevels.example"
+                            "coreFeatures.planned.priorityLevels.example",
                           )}
                         />
                         <FeatureHighlight
                           title={t("coreFeatures.planned.richDetails.title")}
                           description={t(
-                            "coreFeatures.planned.richDetails.description"
+                            "coreFeatures.planned.richDetails.description",
                           )}
                           icon={
                             <Lightbulb className="h-4 w-4 text-purple-500" />
                           }
                           example={t(
-                            "coreFeatures.planned.richDetails.example"
+                            "coreFeatures.planned.richDetails.example",
                           )}
                         />
                       </div>
@@ -289,24 +303,24 @@ export default async function UserGuide() {
                         <FeatureHighlight
                           title={t("coreFeatures.projects.kanbanBoard.title")}
                           description={t(
-                            "coreFeatures.projects.kanbanBoard.description"
+                            "coreFeatures.projects.kanbanBoard.description",
                           )}
                           icon={<Settings className="h-4 w-4 text-blue-500" />}
                           example={t(
-                            "coreFeatures.projects.kanbanBoard.example"
+                            "coreFeatures.projects.kanbanBoard.example",
                           )}
                         />
                         <FeatureHighlight
                           title={t("coreFeatures.projects.projectBased.title")}
                           description={t(
-                            "coreFeatures.projects.projectBased.description"
+                            "coreFeatures.projects.projectBased.description",
                           )}
                           icon={
                             <FolderOpen className="h-4 w-4 text-green-500" />
                           }
                           isPro={true}
                           example={t(
-                            "coreFeatures.projects.projectBased.example"
+                            "coreFeatures.projects.projectBased.example",
                           )}
                         />
                       </div>
@@ -365,7 +379,7 @@ export default async function UserGuide() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+          <Card className="dark">
             <CardContent className="p-8 text-center">
               <h2 className="text-2xl font-bold mb-4">{t("cta.title")}</h2>
               <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
@@ -373,21 +387,13 @@ export default async function UserGuide() {
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Button asChild size="lg" variant="secondary">
-                  <Link href="/new-app">
-                    <Plus className="mr-2 h-5 w-5" />
+                  <Link href="/new-team">
+                    <Plus />
                     {t("cta.createApp")}
                   </Link>
                 </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="text-white border-white hover:bg-white hover:text-blue-600"
-                >
-                  <Link href="/">
-                    <Home className="mr-2 h-5 w-5" />
-                    {t("cta.viewDashboard")}
-                  </Link>
+                <Button asChild size="lg" variant="secondary">
+                  <Link href="/">{t("cta.viewDashboard")}</Link>
                 </Button>
               </div>
             </CardContent>

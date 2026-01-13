@@ -1,22 +1,22 @@
 import { getAllAppsAction, requireSession } from "@/actions/appActions";
 import DeleteDropdown from "@/components/client/deleteDropdown";
-import UserAvatar from "@/components/auth/userAvatar";
-import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { protocol, rootDomain } from "@/util/utils";
-import { Info, Plus, UserRound } from "lucide-react";
+import { Folder, Plus, UserRound, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { RelativeTime } from "./components/relativeTime";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item";
+import { UserManager } from "@/components/auth/userManage";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -24,58 +24,77 @@ export default async function App({ params }: PageProps) {
   const { locale } = await params;
   const session = await requireSession();
   const apps = await getAllAppsAction();
-  const t = await getTranslations({ locale, namespace: "Apps" });
+  const t = await getTranslations({ locale, namespace: "Teams" });
   return (
-    <section className="container flex flex-col py-16 px-4 gap-4 min-h-svh mx-auto justify-center">
-      <div className="space-y-4">
-        <div>
-          <p className=" text-center text-xl font-bold leading-tight tracking-tighter">
-            {t("title")}
-          </p>
-          <p className="text-center text-muted-foreground">
-            {t("description")}
-          </p>
-        </div>
-        <div className="flex justify-center items-center">
-          <Button asChild size={"sm"} className="">
-            <span className="flex items-center">
-              <Link href="/new-app">{t("create-app")}</Link>
-              <Plus />
-            </span>
-          </Button>
-        </div>
-
+    <section className="flex flex-col py-16 px-8 gap-8 min-h-svh mx-auto justify-center">
+      <div className="mx-auto space-y-2">
+        <Item variant={"default"} className="">
+          <ItemMedia>
+            <Users />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>{t("title")}</ItemTitle>
+            <ItemDescription className="line-clamp-none">
+              {t("description")}
+            </ItemDescription>
+          </ItemContent>
+        </Item>
         <div className="flex">
-          <UserAvatar user={session.user} />
+          <UserManager user={session.user} />
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 justify-start gap-4 pt-4">
-        {apps.length === 0 ? (
-          <Alert className="max-w-500">
-            <Info />
-            <AlertTitle>{t("start-adding-a-new-app")}</AlertTitle>
-          </Alert>
-        ) : null}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+        <Card className="p-0 gap-3 justify-between outline-1 outline-dashed ring-0 bg-muted/50 border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
+          <Item className="">
+            <ItemMedia variant={"default"}>
+              <Folder />
+            </ItemMedia>
+            <ItemContent className="gap-0">
+              <ItemTitle>{t("new-team-card.title")}</ItemTitle>
+              <ItemDescription>
+                {t("new-team-card.description")}
+              </ItemDescription>
+            </ItemContent>
+          </Item>
+
+          <CardContent className="pb-4">
+            <Button asChild className="w-full" variant={"outline"} size={"sm"}>
+              <span className="flex items-center">
+                <Plus />
+                <Link href="/new-team">{t("create-team")}</Link>
+              </span>
+            </Button>
+          </CardContent>
+        </Card>
+
         {apps.map((app) => {
           return (
             <Link
               key={app.id}
               href={`${protocol}://${app.subdomain}.${rootDomain}/${locale}`}
+              className="w-full h-full"
             >
-              <Card className="flex flex-col justify-between max-w-500 hover:bg-accent/50 transition-colors">
-                <CardHeader>
-                  <CardTitle>
-                    <p className="capitalize">{app.name}</p>
-                    <p className="pt-1 text-xs font-medium text-muted-foreground">
+              <Card className="p-0 gap-3 justify-between border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
+                <Item className="">
+                  <ItemMedia variant={"default"}>
+                    <Folder />
+                  </ItemMedia>
+                  <ItemContent className="gap-0">
+                    <ItemTitle>{app.name}</ItemTitle>
+                    <ItemDescription className="text-xs">
                       <RelativeTime date={app.createdAt} />
-                    </p>
-                  </CardTitle>
-                  <CardDescription>{app.description}</CardDescription>
-                  <CardAction>
+                    </ItemDescription>
+                    <ItemDescription className="text-foreground pt-2">
+                      {app.description}
+                    </ItemDescription>
+                  </ItemContent>
+                  <ItemActions>
                     <DeleteDropdown id={app.id} />
-                  </CardAction>
-                </CardHeader>
-                <CardContent>
+                  </ItemActions>
+                </Item>
+
+                <CardContent className="pb-4">
                   <div className="flex space-x-2">
                     <Badge variant={"outline"} className="flex gap-1">
                       <UserRound absoluteStrokeWidth size={12} />

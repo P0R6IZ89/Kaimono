@@ -8,11 +8,11 @@ import {
   ProjectWithPlanned,
 } from "@/app/[locale]/types/projects";
 import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item";
 
 type Props = {
   projects: ProjectWithPlanned[];
@@ -24,19 +24,20 @@ export function ProjectBoard({ projects, plannedBacklog, subdomain }: Props) {
   const t = useTranslations("ProjectsPage");
   return (
     <section className="space-y-4">
-      <Card className="shadow-none ring-0 bg-transparent">
-        <CardHeader className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+      <Item className="shadow-none ring-0 bg-transparent">
+        <ItemContent className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-1.5">
-            <CardTitle>{t("list.title")}</CardTitle>
-            <CardDescription>{t("list.description")}</CardDescription>
+            <ItemTitle>
+              {t("list.title")}
+              {projects.length > 0 && (
+                <Badge variant="secondary">{projects.length}</Badge>
+              )}
+            </ItemTitle>
+            <ItemDescription>{t("list.description")}</ItemDescription>
           </div>
-          <div>
-            <Badge variant="outline">
-              {t("list.backlog-count", { count: plannedBacklog.length })}
-            </Badge>
-          </div>
-        </CardHeader>
-      </Card>
+          <div></div>
+        </ItemContent>
+      </Item>
 
       {projects.length === 0 ? (
         <div className="rounded-xl border border-dashed bg-muted/40 p-6 text-sm text-muted-foreground">
@@ -44,7 +45,7 @@ export function ProjectBoard({ projects, plannedBacklog, subdomain }: Props) {
           <p>{t("empty.description")}</p>
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 lg:grid-cols-2">
           {projects.map((project) => (
             <ProjectCard
               key={project.id}

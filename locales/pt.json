@@ -46,6 +46,7 @@
         "description": "Ideal para reformas residenciais, configuração de escritório, planejamento de eventos e qualquer projeto que exija compras organizadas. Acompanhe tudo desde materiais até prazos em um só lugar."
       },
       "transition": "Pronto para dominar Kaimono? Vamos guiar você passo a passo.",
+      "getStarted": "Começar",
       "startGuide": "Iniciar Guia",
       "viewDashboard": "Ver Dashboard",
       "goToDashboard": "Ir para o Dashboard"
@@ -174,34 +175,39 @@
       "viewDashboard": "Ver Dashboard"
     }
   },
-  "Apps": {
-    "title": "Aplicativos",
-    "description": "Todos os aplicativos que você pode gerenciar",
-    "start-adding-a-new-app": "Comece adicionando um novo aplicativo!",
-    "create-app": "Criar novo aplicativo"
+  "Teams": {
+    "title": "Equipes",
+    "description": "Espaços de trabalho colaborativos para famílias e organizações. Torne gastos borrados visíveis e crie projetos para uma gestão financeira mais clara.",
+    "start-adding-a-new-team": "Comece a rastrear seus gastos juntos!",
+    "create-team": "Criar nova equipe",
+    "new-team-card": {
+      "title": "Crie uma nova equipe",
+      "description": "Crie uma nova equipe para colaborar com outras pessoas"
+    }
   },
-  "NewApp": {
-    "title": "Criar Novo Aplicativo",
-    "description-content": "Aplicativos ajudam você a separar diferentes listas de compras — para sua casa, trabalho ou projetos especiais.",
-    "app-name": "Nome do Aplicativo",
-    "app-name-placeholder": "ex. Compras de Casa, Material de Escritório",
-    "description-placeholder": "ex. Lista de compras para itens essenciais do meu apartamento.",
+  "NewTeam": {
+    "title": "Criar Nova Equipe",
+    "description-content": "Equipes ajudam a organizar gastos por finalidade - seja despesas domésticas, projetos familiares ou orçamentos de empresa. Cada equipe mostra claramente para onde o dinheiro vai.",
+    "team-name": "Nome da Equipe",
+    "team-name-placeholder": "ex. Casa da Família, Orçamento de Marketing, Planejamento de Férias",
+    "description-placeholder": "ex. Espaço para acompanhar despesas mensais e investimentos corporativos.",
     "subdomain": "Subdomínio",
     "description": "Descrição (opcional)",
-    "enter-app-name": "Digite o nome do seu aplicativo",
-    "create-button": "Criar Aplicativo"
+    "enter-team-name": "Digite o nome da sua equipe",
+    "create-button": "Criar Equipe"
   },
-  "app-layout": {
+  "team-layout": {
     "no-invites": "Nenhum convite.",
-    "new-invite-to-invite-app-name": "Novo convite para {appName}",
-    "new-invite-content": "Você foi convidado para participar do {appName} com a função de {inviteRole}.",
+    "new-invite-to-invite-team-name": "Novo convite para {teamName}",
+    "new-invite-content": "Você foi convidado a participar de {teamName} com a função de {inviteRole}.",
     "check-email-for-details": "Verifique seu e-mail para mais detalhes."
   },
+
   "Sidebar": {
     "navSite": {
-      "title": "Site",
+      "title": "Espaços",
       "items": {
-        "home": "Aplicativos"
+        "home": "Equipes"
       }
     },
     "navPages": {
@@ -233,15 +239,16 @@
     "hello": "Olá {userName}!",
     "hello2": "Olá!",
     "welcomeBack": "Bem-vindo de volta!",
-    "workspace": "Você está no workspace {subdomain}"
+    "workspace": "Você está no workspace {subdomain}",
+    "mainFeature": "Funcionalidade principal"
   },
   "MembersCard": {
-    "title": "Membros",
-    "description": "Gerencie os membros do seu aplicativo.",
+    "title": "Membros da Equipe",
+    "description": "Gerencie quem pode ver e contribuir nos gastos da equipe.",
     "manage": "Gerenciar",
     "view-all-members": "Ver todos os membros",
     "members-count": "{members, plural, =0 {Nenhum membro ainda.} =1 {1 membro} other {# membros}}",
-    "invite-members": "Convide membros para seu aplicativo para colaborar e compartilhar listas de compras."
+    "invite-members": "Convide familiares ou colegas para colaborar em orçamentos e projetos."
   },
   "EssentialsPage": {
     "title": "Essenciais",
@@ -359,8 +366,8 @@
     "toast-unassigned": "Item removido do projeto."
   },
   "InvitePage": {
-    "title": "Convide seus amigos para seu aplicativo!",
-    "description": "Convide usuários para colaborar em seu aplicativo enviando um link de convite ou e-mail.",
+    "title": "Convide membros da equipe!",
+    "description": "Compartilhe o acesso ao espaço de gastos da equipe enviando um link de convite ou e-mail.",
     "email": "E-mail",
     "invitee-role": "Convidar como:",
     "roles": {
@@ -370,11 +377,11 @@
     },
     "invite-button": "Enviar Convite",
     "pending-invites": "Convites Pendentes",
-    "manage-invites": "Gerencie seus convites de aplicativo aqui.",
+    "manage-invites": "Gerencie os convites da equipe aqui.",
     "status": "Status",
     "actions-text": "Ações",
-    "app-users": "Aplicativo {userCount, plural, =0 {Usuários} =1 {Usuário} other {Usuários (#)}}",
-    "app-users-description": "Usuários deste aplicativo.",
+    "team-users": "Equipe {userCount, plural, =0 {Membros} =1 {Membro} other {Membros (#)}}",
+    "team-users-description": "Membros com acesso a esta equipe.",
     "name": "Nome",
     "actions": {
       "revoke": {
@@ -386,8 +393,8 @@
         "description": "{status, select, PENDING {Enviar um lembrete por e-mail?} other {Enviar um novo link de convite?}}"
       },
       "remove": {
-        "title": "Remover Usuário",
-        "description": "Remover este usuário do aplicativo permanentemente?"
+        "title": "Remover Membro",
+        "description": "Remover este membro da equipe permanentemente?"
       },
       "generic-error": "Algo deu errado"
     }
@@ -459,6 +466,13 @@
     "email-sent-instruction": "Abra o email enviado e clique no botão \"Entrar\" no para concluir seu login.",
     "check-spam": "(Verifique sua pasta de spam caso não a veja)",
     "back-to-main": "Voltar à página principal"
+  },
+  "UserManager": {
+    "roles": {
+      "OWNER": "Proprietário",
+      "ADMIN": "Administrador",
+      "MEMBER": "Membro"
+    }
   },
   "MobileNav": {
     "home": "Início",
