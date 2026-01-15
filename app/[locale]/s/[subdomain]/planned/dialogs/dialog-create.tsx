@@ -55,7 +55,7 @@ export function CreatePlannedDialog() {
 
   const [state, action, isPending] = useActionState<ActionResult, FormData>(
     createPlannedAction,
-    initialState
+    initialState,
   );
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export function CreatePlannedDialog() {
             <FormItem>
               <FormLabel>{t("item-name")}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} placeholder={t("item-name-placeholder")} />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -98,6 +98,7 @@ export function CreatePlannedDialog() {
                     min={0}
                     step={"any"}
                     {...field}
+                    placeholder={t("price-placeholder")}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
                 </FormControl>
@@ -118,6 +119,7 @@ export function CreatePlannedDialog() {
                     min={1}
                     step={1}
                     {...field}
+                    placeholder={t("quantity-placeholder")}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
                 </FormControl>
@@ -219,7 +221,12 @@ export function CreatePlannedDialog() {
             <FormItem>
               <FormLabel>{t("link")}</FormLabel>
               <FormControl>
-                <Input className="resize-none" type="url" {...field} />
+                <Input
+                  className="resize-none"
+                  type="url"
+                  {...field}
+                  placeholder={t("link-placeholder")}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -232,7 +239,11 @@ export function CreatePlannedDialog() {
             <FormItem>
               <FormLabel>{t("description-comment")}</FormLabel>
               <FormControl>
-                <Textarea className="resize-none" {...field} />
+                <Textarea
+                  className="resize-none"
+                  {...field}
+                  placeholder={t("description-comment-placeholder")}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

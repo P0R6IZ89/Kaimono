@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 export function QuickEssentialDialog({
   className,
   buttonVariant = "outline",
+  children,
 }: {
   className?: string;
   buttonVariant?:
@@ -24,6 +25,7 @@ export function QuickEssentialDialog({
     | "secondary"
     | "ghost"
     | "link";
+  children?: React.ReactNode;
 }) {
   const t = useTranslations("EssentialsPage");
 
@@ -34,7 +36,7 @@ export function QuickEssentialDialog({
           variant={buttonVariant}
           className={`col-auto ${className || ""}`}
         >
-          {t("add-essential-button")}
+          {children ? children : t("add-new-essential-item")}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-106.25">

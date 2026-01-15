@@ -30,7 +30,8 @@ import { toast } from "sonner";
 export function ProjectCreateDialog({
   subdomain,
   className,
-  buttonVariant = "outline",
+  buttonVariant = "default",
+  children,
 }: {
   subdomain: string;
   className?: string;
@@ -41,10 +42,11 @@ export function ProjectCreateDialog({
     | "secondary"
     | "ghost"
     | "link";
+  children?: React.ReactNode;
 }) {
   const [state, action, isPending] = useActionState(
     createProjectAction,
-    initialState,
+    initialState
   );
   const t = useTranslations("ProjectsPage");
 
@@ -68,15 +70,10 @@ export function ProjectCreateDialog({
   return (
     <Dialog>
       <Form {...form}>
-        <DialogTrigger asChild>
-          <Button
-            variant={buttonVariant}
-            type="submit"
-            disabled={isPending}
-            className={className}
-          >
+        <DialogTrigger asChild className={className}>
+          <Button variant={buttonVariant} type="submit" disabled={isPending}>
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            {t("form.create")}
+            {children ? children : t("create.button")}
           </Button>
         </DialogTrigger>
         <DialogContent>

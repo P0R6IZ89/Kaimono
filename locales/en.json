@@ -130,6 +130,11 @@
     "upload-image": "Upload Image",
     "link": "Link (optional)",
     "description-comment": "Description (optional)",
+    "item-name-placeholder": "e.g., 3D printer, cosmetic or cloth item",
+    "price-placeholder": "Enter price",
+    "quantity-placeholder": "Enter quantity",
+    "link-placeholder": "Enter product link (optional)",
+    "description-comment-placeholder": "Add description or notes (optional)",
     "mark-as-purchased": "Mark as Purchased",
     "revert-to-pending": "Revert to Pending",
     "save-money": "I will save Money",
@@ -485,6 +490,7 @@
   },
   "MobileNav": {
     "home": "Home",
+    "projects": "Projects",
     "essentials": "Essentials",
     "planned": "Planned",
     "settings": "Settings"

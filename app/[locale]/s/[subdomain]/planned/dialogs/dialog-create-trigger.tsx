@@ -10,11 +10,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { CreatePlannedDialog } from "./dialog-create";
 import { useTranslations } from "next-intl";
-import { Plus } from "lucide-react";
 
 export function CreatePlannedDialogTrigger({
   className,
-  buttonVariant = "outline",
+  buttonVariant = "default",
+  children,
 }: {
   className?: string;
   buttonVariant?:
@@ -24,6 +24,7 @@ export function CreatePlannedDialogTrigger({
     | "secondary"
     | "ghost"
     | "link";
+  children?: React.ReactNode;
 }) {
   const t = useTranslations("PlannedPage");
   return (
@@ -33,8 +34,7 @@ export function CreatePlannedDialogTrigger({
           variant={buttonVariant}
           className={`col-auto ${className || ""}`}
         >
-          <Plus className="" />
-          {t("add-planned-button")}
+          {children ? children : t("add-new-planned-item")}
         </Button>
       </DialogTrigger>
       <DialogContent

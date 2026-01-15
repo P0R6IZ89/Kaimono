@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/item";
 import { Link } from "@/i18n/navigation";
 import { protocol, rootDomain } from "@/util/utils";
-import { ChevronRight, GraduationCap, UserPlus2 } from "lucide-react";
+import { ChevronRight, GraduationCap, SunMoon, UserPlus2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export default async function Settings({
@@ -36,7 +36,7 @@ export default async function Settings({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-24 md:mb-0 px-4 pt-8">
       <div>
-        <p className="text-xl font-semibold py-2">{t("account")}</p>
+        <p className="text-xs py-2">{t("account")}</p>
         <UserManager
           variant={"outline"}
           user={user}
@@ -45,7 +45,7 @@ export default async function Settings({
         />
       </div>
       <div>
-        <p className="text-xl font-semibold py-2">{t("team")}</p>
+        <p className="text-xs py-2">{t("team")}</p>
         <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
           <AppSwitcher apps={apps} currentApp={currentApp} />
           <Item className="p-2 gap-4" asChild>
@@ -70,7 +70,7 @@ export default async function Settings({
         </ItemGroup>
       </div>
       <div>
-        <p className="text-xl font-semibold py-2">{t("help")}</p>
+        <p className="text-xs py-2">{t("help")}</p>
         <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
           <Item className="p-2 gap-4" asChild>
             <Link
@@ -95,9 +95,32 @@ export default async function Settings({
           </Item>
         </ItemGroup>
       </div>
+      <div>
+        <p className="text-xs py-2">Apperance</p>
+        <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
+          <Item className="p-2 gap-4" asChild>
+            <Link
+              href={`${protocol}://${rootDomain}/${locale}/home/#getting-started`}
+            >
+              <ItemMedia
+                variant={"icon"}
+                className="bg-muted rounded-lg size-8"
+              >
+                <SunMoon />
+              </ItemMedia>
+              <ItemContent className="gap-0">
+                <ItemTitle>Theme</ItemTitle>
+              </ItemContent>
+              <ItemActions>
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
+          </Item>
+        </ItemGroup>
+      </div>
 
       <div>
-        <p className="text-xl font-semibold py-2">{t("support")}</p>
+        <p className="text-xs py-2">{t("support")}</p>
         <KoFiPlainButton className={"w-full"} />
       </div>
       <div className="flex justify-center">

@@ -24,24 +24,20 @@ export default async function Essentials({
 
       <Card className="">
         <CardHeader>
-          <CardTitle className="text-base text-foreground flex flex-col gap-2 items-start md:flex-row md:justify-between md:items-center">
-            <div>
-              {user?.name ? t("hello", { userName: user.name }) : t("hello2")}
+          <CardTitle className="text-base text-foreground flex flex-row gap-2 items-start ">
+            <div className="flex-1 flex flex-col">
+              <p>
+                {user?.name ? t("hello", { userName: user.name }) : t("hello2")}
+              </p>
+              <p className="text-xs text-muted-foreground">{user.email}</p>
             </div>
             <UserList subdomain={subdomain} />
           </CardTitle>
         </CardHeader>
       </Card>
-      <div className="grid grid-cols-2 gap-3">
-        <p className="text-xl font-semibold col-span-2 px-4">
-          {t("mainFeature")}
-        </p>
+      <div className="flex flex-col gap-3">
         <QuickProjectCard subdomain={subdomain} />
         <QuickPlannedCard subdomain={subdomain} />
-        <Separator className="col-span-2 my-8" />
-        {/* <p className="text-xl font-semibold col-span-2 px-4 pt-6">
-          Shopping List
-        </p> */}
         <QuickEssentialCard subdomain={subdomain} />
       </div>
     </div>

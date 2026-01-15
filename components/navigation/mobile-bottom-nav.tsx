@@ -1,11 +1,22 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Home, ListChecks, Package, Settings } from "lucide-react";
+import {
+  Folder,
+  Home,
+  Layers,
+  Plus,
+  Settings,
+  ShoppingCart,
+  Sofa,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { stripLeadingLocale } from "@/middleware";
 import { useTranslations } from "next-intl";
+import { Button } from "../ui/button";
+import { toast } from "sonner";
+import { RadialItem, RadialPieMenu } from "./quick-action-pie-menu";
 
 export function MobileBottomNav() {
   const pathname = usePathname() ?? "";
@@ -14,20 +25,40 @@ export function MobileBottomNav() {
 
   const items = [
     { href: "/", label: t("home"), icon: Home },
-    { href: "/essentials", label: t("essentials"), icon: Package },
-    { href: "/planned", label: t("planned"), icon: ListChecks },
+    { href: "/projects", label: t("projects"), icon: Folder },
     { href: "/settings", label: t("settings"), icon: Settings },
+  ];
+
+  const itemsMenu: RadialItem[] = [
+    {
+      id: "essential",
+      label: "essential",
+      icon: ShoppingCart,
+      onSelect: () => toast("essential"),
+    },
+    {
+      id: "planned",
+      label: "planned",
+      icon: Sofa,
+      onSelect: () => toast("planned"),
+    },
+    {
+      id: "project",
+      label: "project",
+      icon: Layers,
+      onSelect: () => toast("project"),
+    },
   ];
 
   return (
     <nav
       aria-label="Bottom navigation"
       suppressHydrationWarning
-      className="fixed inset-x-0 bottom-0 z-50 lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 lg:hidden bg-transparent px-4 pt-3"
     >
-      <div className=" mx-auto max-w-md px-4 pb-[calc(env(safe-area-inset-bottom)+12px)]">
-        <div className="rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
-          <ul className="grid grid-cols-4">
+      <div className="flex gap-6 items-center justify-around mx-auto max-w-md px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] ">
+        <div className="flex-1 rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
+          <ul className="flex flex-row justify-between">
             {items.map((item) => {
               const active =
                 rest === item.href || rest.startsWith(item.href + "/");
@@ -35,7 +66,7 @@ export function MobileBottomNav() {
               const Icon = item.icon;
 
               return (
-                <li key={item.href} className="p-2">
+                <li key={item.href} className="p-2 flex-1">
                   <Link
                     prefetch={true}
                     href={item.href}
@@ -43,7 +74,7 @@ export function MobileBottomNav() {
                     className={cn(
                       "flex flex-col items-center justify-center gap-1 py-3 text-xs rounded-2xl transition-colors",
                       active
-                        ? "text-background font-semibold bg-primary"
+                        ? "text-background dark:text-foreground font-semibold bg-primary"
                         : "text-muted-foreground hover:text-foreground"
                     )}
                   >
@@ -54,6 +85,20 @@ export function MobileBottomNav() {
               );
             })}
           </ul>
+        </div>
+        <div className="rounded-full border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
+          <RadialPieMenu
+            asChild
+            items={itemsMenu}
+            radius={120}
+            itemSize={48}
+            startAngleCW={(3 * Math.PI) / 2} // 9 o’clock
+            sweepAngleCW={Math.PI / 2} // to 12 o’clock
+          >
+            <Button variant="ghost" size="icon" className="m-3">
+              <Plus />
+            </Button>
+          </RadialPieMenu>
         </div>
       </div>
     </nav>
