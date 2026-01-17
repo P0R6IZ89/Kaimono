@@ -1,7 +1,6 @@
 import { getEssentialCount } from "@/actions/essentialsActions";
-import { ChevronRight, Plus, ShoppingCart } from "lucide-react";
+import { ChevronRight, ShoppingCart } from "lucide-react";
 import React from "react";
-import { QuickEssentialDialog } from "./QuickEssentialDialog";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +18,7 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
 
   return (
     <div className="flex items-stretch gap-2">
-      <Item variant={"outline"} asChild>
+      <Item asChild>
         <Link href={"/essentials"} prefetch={true}>
           <ItemMedia
             className="text-background dark:text-foreground rounded-md p-1.5 bg-green-600"
@@ -36,12 +35,12 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
           <ChevronRight className="size-4 text-muted-foreground" />
         </Link>
       </Item>
-      <QuickEssentialDialog
+      {/* <QuickEssentialDialog
         className="p-2 h-full aspect-square rounded-md"
         buttonVariant="outline"
       >
         <Plus />
-      </QuickEssentialDialog>
+      </QuickEssentialDialog> */}
     </div>
   );
 }

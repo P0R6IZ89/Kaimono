@@ -54,17 +54,15 @@ export function MobileBottomNav() {
     <nav
       aria-label="Bottom navigation"
       suppressHydrationWarning
-      className="fixed inset-x-0 bottom-0 z-50 lg:hidden bg-transparent px-4 pt-3"
+      className="fixed inset-x-0 bottom-0 z-50 lg:hidden bg-transparent px-4"
     >
-      <div className="flex gap-6 items-center justify-around mx-auto max-w-md px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] ">
+      <div className="flex gap-4 items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
         <div className="flex-1 rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
-          <ul className="flex flex-row justify-between">
+          <ul className="grid grid-cols-3 items-center">
             {items.map((item) => {
               const active =
                 rest === item.href || rest.startsWith(item.href + "/");
-
               const Icon = item.icon;
-
               return (
                 <li key={item.href} className="p-2 flex-1">
                   <Link
@@ -75,7 +73,7 @@ export function MobileBottomNav() {
                       "flex flex-col items-center justify-center gap-1 py-3 text-xs rounded-2xl transition-colors",
                       active
                         ? "text-background dark:text-foreground font-semibold bg-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
                     )}
                   >
                     <Icon className="h-6 w-6" aria-hidden="true" />
@@ -86,7 +84,7 @@ export function MobileBottomNav() {
             })}
           </ul>
         </div>
-        <div className="rounded-full border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
+        {/* <div className="flex justify-center items-center rounded-full border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <RadialPieMenu
             asChild
             items={itemsMenu}
@@ -95,11 +93,18 @@ export function MobileBottomNav() {
             startAngleCW={(3 * Math.PI) / 2} // 9 o’clock
             sweepAngleCW={Math.PI / 2} // to 12 o’clock
           >
-            <Button variant="ghost" size="icon" className="m-3">
-              <Plus />
-            </Button>
+            <div className="p-5">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="flex flex-col items-center justify-center gap-1 text-xs rounded-2xl"
+              >
+                <Plus className="size-6" />
+                <span>Add</span>
+              </Button>
+            </div>
           </RadialPieMenu>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

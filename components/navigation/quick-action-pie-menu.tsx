@@ -257,7 +257,7 @@ export function RadialPieMenu({
                             "bg-background hover:bg-muted focus:outline-none",
                             "transition-colors",
                             isActive && "ring-2 ring-primary",
-                            item.disabled && "opacity-50 cursor-not-allowed"
+                            item.disabled && "opacity-50 cursor-not-allowed",
                           )}
                           style={{
                             left: pos.x,
@@ -292,7 +292,7 @@ export function RadialPieMenu({
               </motion.div>
             )}
           </AnimatePresence>,
-          document.body
+          document.body,
         )}
     </>
   );

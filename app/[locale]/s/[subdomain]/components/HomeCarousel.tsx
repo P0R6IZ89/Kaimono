@@ -31,7 +31,7 @@ export default function HomeCarousel({}) {
       icon: Sofa,
       color: "text-blue-600",
       imageUrl:
-        "https://res.cloudinary.com/dsttcre2h/image/upload/v1768544258/387e5a9476026814f93d7910d50a15d04db8b56bd8baa4cf04fd302dc90f29fc_mxfuhs.jpg",
+        "https://res.cloudinary.com/dsttcre2h/image/upload/v1768644916/Planned_qtnawj.png",
     },
     {
       title: tEssentials("title"),
@@ -39,42 +39,50 @@ export default function HomeCarousel({}) {
       icon: ShoppingCart,
       color: "text-green-600",
       imageUrl:
-        "https://res.cloudinary.com/dsttcre2h/image/upload/v1768544258/387e5a9476026814f93d7910d50a15d04db8b56bd8baa4cf04fd302dc90f29fc_mxfuhs.jpg",
+        "https://res.cloudinary.com/dsttcre2h/image/upload/v1768646275/ChatGPT_Image_2026%E5%B9%B41%E6%9C%8817%E6%97%A5_19_37_36_y12qx5.png",
     },
   ];
   return (
-    <Carousel className="w-[calc(100%-20%)] mx-auto">
-      <CarouselContent>
+    <Carousel className="w-full mx-auto px-2">
+      <CarouselContent className="">
         {carouselItems.map((item, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
-              <Card className="bg-background">
+              <Card className="p-0 bg-muted/50 ">
                 <CardContent className="flex flex-col p-0 items-center justify-center ">
                   <CldImage
-                    className=""
                     src={item.imageUrl}
-                    width={1536 / 3}
-                    height={1024 / 3}
-                    crop={"crop"}
+                    width={1536 / 6}
+                    height={1024 / 6}
                     alt={"Project Image"}
                   />
-                  <p className="flex gap-2 pt-4 items-center ">
-                    <Badge variant={"secondary"} className="text-md">
-                      {item.icon && <item.icon className={` ${item.color}`} />}
-                      {item.title}
-                    </Badge>
-                  </p>
-                  <span className="pt-2 text-sm text-center text-muted-foreground">
-                    {tProjects("description")}
-                  </span>
+                  <div className="p-4 flex flex-col items-center">
+                    <p className="flex gap-2 items-center ">
+                      <Badge variant={"secondary"} className="text-md">
+                        {item.icon && (
+                          <item.icon className={` ${item.color}`} />
+                        )}
+                        {item.title}
+                      </Badge>
+                    </p>
+                    <span className="pt-2 text-sm text-center text-muted-foreground">
+                      {item.description}
+                    </span>
+                  </div>
                 </CardContent>
               </Card>
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious
+        variant={"ghost"}
+        className="absolute left-2 z-10 flex items-center justify-center w-10 h-10 cursor-pointer"
+      />
+      <CarouselNext
+        variant={"ghost"}
+        className="absolute right-2 z-10 flex items-center justify-center w-10 h-10 cursor-pointer"
+      />
     </Carousel>
   );
 }

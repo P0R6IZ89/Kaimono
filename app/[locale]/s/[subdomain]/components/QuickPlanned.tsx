@@ -1,8 +1,7 @@
 import { getPlannedCount } from "@/actions/plannedActions";
 
-import { ChevronRight, Plus, Sofa } from "lucide-react";
+import { ChevronRight, Sofa } from "lucide-react";
 import React from "react";
-import { CreatePlannedDialogTrigger } from "../planned/dialogs/dialog-create-trigger";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +19,7 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
 
   return (
     <div className="flex items-stretch gap-2">
-      <Item variant={"outline"} asChild>
+      <Item asChild>
         <Link href={"/planned"} prefetch={true}>
           <ItemMedia
             className="text-background dark:text-foreground rounded-md p-1.5 bg-blue-600"
@@ -37,12 +36,12 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
           <ChevronRight className="size-4 text-muted-foreground" />
         </Link>
       </Item>
-      <CreatePlannedDialogTrigger
+      {/* <CreatePlannedDialogTrigger
         className="p-2 h-full aspect-square rounded-md"
         buttonVariant="outline"
       >
         <Plus />
-      </CreatePlannedDialogTrigger>
+      </CreatePlannedDialogTrigger> */}
     </div>
   );
 }
