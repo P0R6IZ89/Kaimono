@@ -297,6 +297,8 @@
     "quantity-placeholder": "数量を入力",
     "link-placeholder": "商品リンクを入力（オプション）",
     "description-comment-placeholder": "説明やメモを追加（オプション）",
+    "link-placeholder": "商品リンクを入力（オプション）",
+    "description-comment-placeholder": "説明やメモを追加（オプション）",
     "mark-as-purchased": "購入済みとしてマーク",
     "revert-to-pending": "保留に戻す",
     "save-money": "お金を節約します",
@@ -370,7 +372,7 @@
     "toast-unassigned": "アイテムがプロジェクトから削除されました。"
   },
   "InvitePage": {
-    "title": "チームメンバーを招待しましょう！",
+    "title": "チームメンバーを招待して支出を合わせましょう！",
     "description": "招待リンクやメールでチームの支出ワークスペースへのアクセスを共有しましょう。",
     "email": "メール",
     "invitee-role": "として招待：",
@@ -429,7 +431,8 @@
     "priority": {
       "LOW": "低",
       "MEDIUM": "中",
-      "HIGH": "高"
+      "HIGH": "高",
+      "URGENT": "緊急"
     }
   },
   "Dialog": {
@@ -461,7 +464,7 @@
     "description": "ポルトガル語と日本語の言語サポートが追加されました。"
   },
   "Auth": {
-    "continue-with-github": "Githubで続行",
+    "continue-with-github": "Githubで続行 🚧開発者専用⚠️",
     "continue-with-google": "Googleで続行",
     "continue-with-email": "Emailで続行",
     "or": "または",
@@ -490,6 +493,7 @@
   },
   "MobileNav": {
     "home": "ホーム",
+    "projects": "プロジェクト",
     "essentials": "必需品",
     "planned": "計画済み",
     "settings": "設定"

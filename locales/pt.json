@@ -298,6 +298,8 @@
     "quantity-placeholder": "Digite a quantidade",
     "link-placeholder": "Digite o link do produto (opcional)",
     "description-comment-placeholder": "Adicione descrição ou notas (opcional)",
+    "link-placeholder": "Digite o link do produto (opcional)",
+    "description-comment-placeholder": "Adicione descrição ou notas (opcional)",
     "mark-as-purchased": "Marcar como Comprado",
     "revert-to-pending": "Reverter para Pendente",
     "save-money": "Vou economizar dinheiro",
@@ -371,7 +373,7 @@
     "toast-unassigned": "Item removido do projeto."
   },
   "InvitePage": {
-    "title": "Convide membros da equipe!",
+    "title": "Convide membros da equipe para alinhar gastos!",
     "description": "Compartilhe o acesso ao espaço de gastos da equipe enviando um link de convite ou e-mail.",
     "email": "E-mail",
     "invitee-role": "Convidar como:",
@@ -430,7 +432,8 @@
     "priority": {
       "LOW": "Baixa",
       "MEDIUM": "Média",
-      "HIGH": "Alta"
+      "HIGH": "Alta",
+      "URGENT": "Urgente"
     }
   },
   "Dialog": {
@@ -491,6 +494,7 @@
   },
   "MobileNav": {
     "home": "Início",
+    "projects": "Projetos",
     "essentials": "Essenciais",
     "planned": "Planejados",
     "settings": "Configurações"

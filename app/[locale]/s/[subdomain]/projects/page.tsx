@@ -31,7 +31,10 @@ export default async function ProjectsPage({
 
   return (
     <div className="p-4 space-y-6 mb-24 md:mb-0">
-      <Item variant={"muted"} className="bg-transparent">
+      <Item
+        variant={"muted"}
+        className="flex flex-col items-start lg:flex-row bg-transparent"
+      >
         <ItemContent>
           <ItemTitle>
             {t("title")}

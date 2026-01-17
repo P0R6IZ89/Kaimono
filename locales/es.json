@@ -4,14 +4,14 @@
     "description": "Una aplicación para administrar tus listas de compras."
   },
   "Login": {
-    "title": "Welcome! ✨",
-    "description": "Choose how you want to log in."
+    "title": "¡Bienvenido! ✨",
+    "description": "Elige cómo quieres iniciar sesión."
   },
   "Homepage": {
-    "title": "Introducing the ultimate shopping app",
-    "description": "Add everything you have in mind to this app, analyze it, and make the best decision!",
-    "created-by": "Created by {creatorName}",
-    "get-started-button": "Get Started!"
+    "title": "Presentando la aplicación de compras definitiva",
+    "description": "¡Agrega todo lo que tienes en mente a esta aplicación, analízala y toma la mejor decisión!",
+    "created-by": "Creado por {creatorName}",
+    "get-started-button": "¡Comenzar!"
   },
   "Teams": {
     "title": "Equipos",
@@ -24,118 +24,123 @@
     }
   },
   "NewTeam": {
-    "title": "Create New Team",
-    "description-content": "Teams help you organize spending by purpose — whether it's household expenses, family projects, or business budgets. Each team gives visibility into where money goes.",
-    "team-name": "Team Name",
-    "team-name-placeholder": "e.g. Family Home, Marketing Budget, Vacation Planning",
-    "description-placeholder": "e.g. Workspace for tracking household expenses and company spending.",
-    "subdomain": "Subdomain",
-    "description": "Description (optional)",
-    "enter-team-name": "Enter the name of your team",
-    "create-button": "Create Team"
+    "title": "Crear Nuevo Equipo",
+    "description-content": "Los equipos te ayudan a organizar los gastos por propósito — ya sea gastos del hogar, proyectos familiares o presupuestos empresariales. Cada equipo da visibilidad hacia dónde va el dinero.",
+    "team-name": "Nombre del Equipo",
+    "team-name-placeholder": "ej. Hogar Familiar, Presupuesto de Marketing, Planificación de Vacaciones",
+    "description-placeholder": "ej. Espacio de trabajo para seguir gastos del hogar y gastos de la empresa.",
+    "subdomain": "Subdominio",
+    "description": "Descripción (opcional)",
+    "enter-team-name": "Ingresa el nombre de tu equipo",
+    "create-button": "Crear Equipo"
   },
   "team-layout": {
-    "no-invites": "No invites.",
-    "new-invite-to-invite-team-name": "New invite to {teamName}",
-    "new-invite-content": "You're invited to join {teamName} with the role of {inviteRole}.",
-    "check-email-for-details": "Check your email for details."
+    "no-invites": "Sin invitaciones.",
+    "new-invite-to-invite-team-name": "Nueva invitación a {teamName}",
+    "new-invite-content": "Estás invitado a unirte a {teamName} con el rol de {inviteRole}.",
+    "check-email-for-details": "Revisa tu correo para más detalles."
   },
   "Sidebar": {
     "navSite": {
-      "title": "Workspaces",
+      "title": "Espacios de Trabajo",
       "items": {
-        "home": "Teams"
+        "home": "Equipos"
       }
     },
     "navPages": {
-      "title": "Pages",
-      "home": "Home",
-      "essentials": "Essentials",
-      "planned": "Planned",
-      "projects": "Projects"
+      "title": "Páginas",
+      "home": "Inicio",
+      "essentials": "Esenciales",
+      "planned": "Planificado",
+      "projects": "Proyectos"
     },
     "navSecondary": {
-      "contact": "Contact"
+      "contact": "Contacto"
     },
     "config": {
-      "title": "Configuration",
+      "title": "Configuración",
       "theme": {
-        "title": "Theme",
-        "toggle": "Toggle theme",
-        "light": "Light",
-        "dark": "Dark",
-        "system": "System"
+        "title": "Tema",
+        "toggle": "Cambiar tema",
+        "light": "Claro",
+        "dark": "Oscuro",
+        "system": "Sistema"
       }
     },
     "invitation": {
-      "title": "Invitations",
-      "inviteUser": "Invite User"
+      "title": "Invitaciones",
+      "inviteUser": "Invitar Usuario"
     }
   },
   "Dashboard": {
-    "hello": "Hello {userName}!",
-    "hello2": "Hello!",
-    "welcomeBack": "Welcome back!",
-    "workspace": "You are in the {subdomain} workspace",
-    "mainFeature": "Main Feature"
+    "hello": "¡Hola {userName}!",
+    "hello2": "¡Hola!",
+    "welcomeBack": "¡Bienvenido de nuevo!",
+    "workspace": "Estás en el espacio de trabajo {subdomain}",
+    "mainFeature": "Función Principal"
   },
   "MembersCard": {
-    "title": "Team Members",
-    "description": "Manage who can view and contribute to your team's spending.",
-    "manage": "Manage",
-    "view-all-members": "View all members",
-    "members-count": "{members, plural, =0 {No members yet.} =1 {1 member} other {# members}}",
-    "invite-members": "Invite family or colleagues to collaborate on budgets and projects."
+    "title": "Miembros del Equipo",
+    "description": "Administra quién puede ver y contribuir a los gastos del equipo.",
+    "manage": "Administrar",
+    "view-all-members": "Ver todos los miembros",
+    "members-count": "{members, plural, =0 {Aún no hay miembros.} =1 {1 miembro} other {# miembros}}",
+    "invite-members": "Invita a familiares o colegas para colaborar en presupuestos y proyectos."
   },
   "EssentialsPage": {
-    "title": "Essentials",
-    "essentialsCount": "{count, plural, =0 {No items yet.} =1 {1 essential} other {# essentials}}",
-    "description": "Your essential shopping list items. These are the must-have items you need to purchase regularly.",
-    "no-essentials": "No essential items added yet.",
-    "add-essential-button": "Add Item",
-    "add-new-essential-item": "Add new essential item",
-    "add-new-essential-item-description": "Add a new item to your essentials list.",
-    "see-all-essentials": "See All",
-    "item-name": "Item Name",
-    "price": "Price",
-    "quantity": "Quantity",
-    "save": "Save",
-    "no-result": "No results found.",
-    "pending-items": "Pending Items",
-    "total-pending": "Total Pending"
+    "title": "Esenciales",
+    "essentialsCount": "{count, plural, =0 {Aún no hay artículos.} =1 {1 esencial} other {# esenciales}}",
+    "description": "Tus artículos esenciales de la lista de compras. Estos son los artículos imprescindibles que necesitas comprar regularmente.",
+    "no-essentials": "Aún no se han agregado artículos esenciales.",
+    "add-essential-button": "Agregar Artículo",
+    "add-new-essential-item": "Agregar nuevo artículo esencial",
+    "add-new-essential-item-description": "Agrega un nuevo artículo a tu lista de esenciales.",
+    "see-all-essentials": "Ver Todos",
+    "item-name": "Nombre del Artículo",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "save": "Guardar",
+    "no-result": "No se encontraron resultados.",
+    "pending-items": "Artículos Pendientes",
+    "total-pending": "Total Pendiente"
   },
   "PlannedPage": {
-    "title": "Planned",
-    "plannedCount": "{count, plural, =0 {No items yet.} =1 {1 planned} other {# planneds}}",
-    "description": "Your planned shopping list items.  You can send to an existing project or keep in backlog for better organization.",
-    "no-planned": "No planned items added yet.",
-    "add-planned-button": "Add Item",
-    "add-new-planned-item": "Add new planned item",
-    "add-new-planned-item-description": "Add a new item to your planned list.",
-    "see-all-planned": "See All",
-    "item-name": "Item Name",
-    "price": "Price",
-    "quantity": "Quantity",
-    "priority": "Priority",
-    "select-priority": "Select Priority",
-    "save": "Save",
-    "no-result": "No results found.",
+    "title": "Planificado",
+    "plannedCount": "{count, plural, =0 {Aún no hay artículos.} =1 {1 planificado} other {# planificados}}",
+    "description": "Tus artículos planificados de la lista de compras. Puedes enviarlos a un proyecto existente o mantenerlos en el backlog para mejor organización.",
+    "no-planned": "Aún no se han agregado artículos planificados.",
+    "add-planned-button": "Agregar Artículo",
+    "add-new-planned-item": "Agregar nuevo artículo planificado",
+    "add-new-planned-item-description": "Agrega un nuevo artículo a tu lista planificada.",
+    "see-all-planned": "Ver Todos",
+    "item-name": "Nombre del Artículo",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "priority": "Prioridad",
+    "select-priority": "Seleccionar Prioridad",
+    "save": "Guardar",
+    "no-result": "No se encontraron resultados.",
     "priority-options": {
-      "LOW": "Low",
-      "MEDIUM": "Medium",
-      "HIGH": "High",
-      "URGENT": "Urgent"
+      "LOW": "Baja",
+      "MEDIUM": "Media",
+      "HIGH": "Alta",
+      "URGENT": "Urgente"
     },
-    "selected": "Selected",
-    "upload-image": "Upload Image",
-    "link": "Link (optional)",
-    "description-comment": "Description (optional)",
-    "mark-as-purchased": "Mark as Purchased",
-    "revert-to-pending": "Revert to Pending",
-    "save-money": "I will save Money",
-    "comments": "Comments",
-    "delete-comment": "Delete",
-    "edit-description": "You can edit the item here, don't forget to save!"
+    "selected": "Seleccionado",
+    "upload-image": "Subir Imagen",
+    "link": "Enlace (opcional)",
+    "description-comment": "Descripción (opcional)",
+    "item-name-placeholder": "ej: impresora 3D, cosmético o prenda de vestir",
+    "price-placeholder": "Ingresa el precio",
+    "quantity-placeholder": "Ingresa la cantidad",
+    "link-placeholder": "Ingresa el enlace del producto (opcional)",
+    "description-comment-placeholder": "Agrega descripción o notas (opcional)",
+    "mark-as-purchased": "Marcar como Comprado",
+    "revert-to-pending": "Revertir a Pendiente",
+    "save-money": "Ahorraré Dinero",
+    "comments": "Comentarios",
+    "delete-comment": "Eliminar",
+    "edit-description": "¡Puedes editar el artículo aquí, no olvides guardar!"
   },
   "ProjectsPage": {
     "title": "Projects",
@@ -203,76 +208,76 @@
     "toast-unassigned": "Item removed from the project."
   },
   "InvitePage": {
-    "title": "Invite team members to align spending!",
-    "description": "Share access to your team's spending workspace by sending an invitation link or email.",
-    "email": "Email",
-    "invitee-role": "Invite as:",
+    "title": "¡Invita a miembros del equipo para alinear los gastos!",
+    "description": "Comparte el acceso al espacio de trabajo de gastos de tu equipo enviando un enlace de invitación o correo electrónico.",
+    "email": "Correo Electrónico",
+    "invitee-role": "Invitar como:",
     "roles": {
-      "OWNER": "Owner",
-      "ADMIN": "Admin",
-      "MEMBER": "Member"
+      "OWNER": "Propietario",
+      "ADMIN": "Administrador",
+      "MEMBER": "Miembro"
     },
-    "invite-button": "Send Invite",
-    "pending-invites": "Pending Invites",
-    "manage-invites": "Manage your team invites here.",
-    "status": "Status",
-    "actions-text": "Actions",
-    "team-users": "Team {userCount, plural, =0 {Members} =1 {Member} other {Members (#)}}",
-    "team-users-description": "Members of this team.",
-    "name": "Name",
+    "invite-button": "Enviar Invitación",
+    "pending-invites": "Invitaciones Pendientes",
+    "manage-invites": "Administra tus invitaciones de equipo aquí.",
+    "status": "Estado",
+    "actions-text": "Acciones",
+    "team-users": "Equipo {userCount, plural, =0 {Miembros} =1 {Miembro} other {Miembros (#)}}",
+    "team-users-description": "Miembros de este equipo.",
+    "name": "Nombre",
     "actions": {
       "revoke": {
-        "title": "Revoke Invite",
-        "description": "{status, select, PENDING {This invite is still pending. Revoke it?} EXPIRED {This invite has expired. Revoke permanently?} other {Revoke this invite?}}"
+        "title": "Revocar Invitación",
+        "description": "{status, select, PENDING {Esta invitación aún está pendiente. ¿Revocarla?} EXPIRED {Esta invitación ha expirado. ¿Revocar permanentemente?} other {¿Revocar esta invitación?}}"
       },
       "resend": {
-        "title": "Resend Invite",
-        "description": "{status, select, PENDING {Send an email reminder?} other {Send a new invite link?}}"
+        "title": "Reenviar Invitación",
+        "description": "{status, select, PENDING {¿Enviar un recordatorio por correo?} other {¿Enviar un nuevo enlace de invitación?}}"
       },
       "remove": {
-        "title": "Remove Member",
-        "description": "Remove this member from the team permanently?"
+        "title": "Eliminar Miembro",
+        "description": "¿Eliminar este miembro del equipo permanentemente?"
       },
-      "generic-error": "Something went wrong"
+      "generic-error": "Algo salió mal"
     }
   },
   "UserGuide": {
-    "title": "Complete User Guide",
-    "subtitle": "Master project-based purchasing with Kaimono",
-    "stepLabel": "Step {step}",
+    "title": "Guía Completa del Usuario",
+    "subtitle": "Domina las compras basadas en proyectos con Kaimono",
+    "stepLabel": "Paso {step}",
     "hero": {
-      "badge": "🛍️ Introducing Kaimono",
-      "title": "The Ultimate Shopping App",
+      "badge": "🛍️ Presentando Kaimono",
+      "title": "La Aplicación de Compras Definitiva",
       "subtitle": "Kaimono",
-      "description": "Add everything you have in mind to make your best purchasing decisions.",
+      "description": "Agrega todo lo que tienes en mente para tomar tus mejores decisiones de compra.",
       "features": {
-        "title": "Why Choose Kaimono?",
+        "title": "¿Por qué elegir Kaimono?",
         "visualization": {
-          "title": "Spending Visualization",
-          "description": "See where your money goes with beautiful charts and insights"
+          "title": "Visualización de Gastos",
+          "description": "Ve hacia dónde va tu dinero con hermosos gráficos e insights"
         },
         "decisions": {
-          "title": "Smart Decisions",
-          "description": "Make informed choices with priority-based planning and analysis"
+          "title": "Decisiones Inteligentes",
+          "description": "Toma elecciones informadas con planificación y análisis basados en prioridad"
         },
         "organization": {
-          "title": "Project Organization",
-          "description": "Group purchases by project for better management and tracking"
+          "title": "Organización de Proyectos",
+          "description": "Agrupa compras por proyecto para mejor gestión y seguimiento"
         },
         "collaboration": {
-          "title": "Team Collaboration",
-          "description": "Work together with family, friends, or colleagues in real-time"
+          "title": "Colaboración en Equipo",
+          "description": "Trabaja junto con familia, amigos o colegas en tiempo real"
         }
       },
       "useCase": {
-        "title": "Perfect For Any Project",
-        "description": "Ideal for home renovations, office setup, event planning, and any project that requires organized purchasing. Track everything from materials to deadlines in one place."
+        "title": "Perfecto para Cualquier Proyecto",
+        "description": "Ideal para renovaciones de hogar, configuración de oficina, planificación de eventos y cualquier proyecto que requiera compras organizadas."
       },
-      "transition": "Let's guide you step by step.",
-      "getStarted": "Get Started",
-      "startGuide": "Start Guide",
-      "viewDashboard": "View Dashboard",
-      "goToDashboard": "Go to Dashboard"
+      "transition": "Guíate paso a paso.",
+      "getStarted": "Comenzar",
+      "startGuide": "Iniciar Guía",
+      "viewDashboard": "Ver Dashboard",
+      "goToDashboard": "Ir al Dashboard"
     },
     "gettingStarted": {
       "title": "Getting Started",
@@ -422,9 +427,10 @@
       "CANCELLED": "Cancelled"
     },
     "priority": {
-      "LOW": "Low",
-      "MEDIUM": "Medium",
-      "HIGH": "High"
+      "LOW": "Baja",
+      "MEDIUM": "Media",
+      "HIGH": "Alta",
+      "URGENT": "Urgente"
     }
   },
   "Dialog": {
@@ -456,13 +462,13 @@
     "description": "Added Portuguese and Japanese language support."
   },
   "Auth": {
-    "continue-with-github": "Continue with Github 🚧Only for dev⚠️",
+    "continue-with-github": "Continuar con Github 🚧Solo para desarrollo⚠️",
     "continue-with-google": "Continue with Google",
     "continue-with-email": "Continue with Email",
     "or": "or",
     "error": "Error:",
     "email-sent-title": "The login email has been sent to your email.",
-    "email-sent-instruction": "Open the email sent and click the \"Enter\" button to complete your login.",
+    "email-sent-instruction": "Abre el correo enviado y haz clic en el botón \"Entrar\" para completar tu inicio de sesión.",
     "check-spam": "(Check your spam folder if you don't see it)",
     "back-to-main": "Back to main page"
   },
@@ -484,10 +490,11 @@
     "support": "Soporte"
   },
   "MobileNav": {
-    "home": "Home",
-    "essentials": "Essentials",
-    "planned": "Planned",
-    "settings": "Settings"
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "essentials": "Esenciales",
+    "planned": "Planificado",
+    "settings": "Configuración"
   },
   "KoFiWidget": {
     "support-button": "Support me on Ko-fi",

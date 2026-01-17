@@ -46,7 +46,7 @@ export function ProjectCreateDialog({
 }) {
   const [state, action, isPending] = useActionState(
     createProjectAction,
-    initialState
+    initialState,
   );
   const t = useTranslations("ProjectsPage");
 
@@ -73,7 +73,7 @@ export function ProjectCreateDialog({
         <DialogTrigger asChild className={className}>
           <Button variant={buttonVariant} type="submit" disabled={isPending}>
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            {children ? children : t("create.button")}
+            {children ? children : t("create.title")}
           </Button>
         </DialogTrigger>
         <DialogContent>
