@@ -1,5 +1,5 @@
 export type ActionResult = {
-  ok: boolean;
+  ok?: boolean;
   message?: string;
 };
 

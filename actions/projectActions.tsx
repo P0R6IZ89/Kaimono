@@ -137,6 +137,7 @@ export async function getProjectsWithPlanned(subdomain: string) {
           price: true,
           quantity: true,
           createdAt: true,
+          image: true,
         },
       },
     },
@@ -169,6 +170,7 @@ export async function getProjectsWithPlanned(subdomain: string) {
         price: item.price ? item.price.toNumber() : 0,
         quantity: item.quantity ? item.quantity : 0,
         createdAt: item.createdAt,
+        image: item.image,
       })),
       counts,
     };

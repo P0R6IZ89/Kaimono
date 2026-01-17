@@ -4,7 +4,6 @@ import { ConfirmMenuItem } from "@/components/dialog/confirmMenuItem";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -177,15 +176,14 @@ export default function ActionsButton({
         <DropdownMenuLabel>{t("actions-text")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {actions.map((cfg) => (
-          <DropdownMenuItem asChild key={cfg.key}>
-            <ConfirmMenuItem
-              onConfirm={cfg.onConfirm}
-              title={cfg.title}
-              description={cfg.description}
-              icon={cfg.icon}
-              isPending={cfg.isPending}
-            />
-          </DropdownMenuItem>
+          <ConfirmMenuItem
+            key={cfg.key}
+            onConfirm={cfg.onConfirm}
+            title={cfg.title}
+            description={cfg.description}
+            icon={cfg.icon}
+            isPending={cfg.isPending}
+          />
         ))}
       </DropdownMenuContent>
     </DropdownMenu>

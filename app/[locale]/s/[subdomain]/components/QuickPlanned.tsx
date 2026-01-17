@@ -1,15 +1,6 @@
 import { getPlannedCount } from "@/actions/plannedActions";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
-import { Armchair, ArrowUpRight, ChevronRight, Plus, Sofa } from "lucide-react";
+import { ChevronRight, Plus, Sofa } from "lucide-react";
 import React from "react";
 import { CreatePlannedDialogTrigger } from "../planned/dialogs/dialog-create-trigger";
 import { getTranslations } from "next-intl/server";
@@ -32,7 +23,7 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
       <Item variant={"outline"} asChild>
         <Link href={"/planned"} prefetch={true}>
           <ItemMedia
-            className="text-background dark:text-foreground rounded-md p-1.5 bg-blue-500"
+            className="text-background dark:text-foreground rounded-md p-1.5 bg-blue-600"
             variant={"icon"}
           >
             <Sofa />

@@ -165,8 +165,10 @@ model Project {
   plannedItems Planned[]
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  App          App?      @relation(fields: [appId], references: [id])
-  appId        String?
+  appId        String
+  App          App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+
+  @@unique([id, appId])
 }
 
 model Essential {
@@ -192,7 +194,7 @@ model Planned {
   priority    Priority
   status      Status   @default(PENDING)
   quantity    Int      @default(1)
-  image       String?
+  image       String   @default("https://res.cloudinary.com/dsttcre2h/image/upload/v1751870559/placeholder_dtzhrr.png")
   productUrl  String?
   description String?
   createdAt   DateTime @default(now())
@@ -203,13 +205,14 @@ model Planned {
   creator     User?    @relation(fields: [creatorId], references: [id], onDelete: SetNull)
 
   projectId String?
-  project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  projectAppId String?
+  project   Project? @relation(fields: [projectId, projectAppId], references: [id, appId], onDelete: SetNull)
 
   comments PlannedComment[]
   likes    PlannedLike[]
 
   @@index([creatorId, createdAt])
-  @@index([appId, projectId])
+  @@index([ projectId, projectAppId ])
 }
 
 model PlannedComment {
@@ -226,7 +229,7 @@ model PlannedLike {
   id        String   @id @default(cuid())
   liked     Boolean  @default(false)
   createdAt DateTime @default(now())
-  creator   User     @relation(fields: [creatorId], references: [id])
+  creator   User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId String
   planned   Planned  @relation(fields: [plannedId], references: [id], onDelete: Cascade)
   plannedId String

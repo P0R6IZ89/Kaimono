@@ -32,7 +32,11 @@ import { createPlannedAction } from "@/actions/plannedActions";
 import { useTranslations } from "next-intl";
 import { ActionResult, initialState } from "@/util/initial-action-return";
 
-export function CreatePlannedDialog() {
+export function CreatePlannedDialog({
+  onUploadWidgetOpenChange,
+}: {
+  onUploadWidgetOpenChange?: (isOpen: boolean) => void;
+}) {
   const t = useTranslations("PlannedPage");
   const { subdomain } = useSubdomain();
   const form = useForm({
@@ -55,7 +59,7 @@ export function CreatePlannedDialog() {
 
   const [state, action, isPending] = useActionState<ActionResult, FormData>(
     createPlannedAction,
-    initialState,
+    initialState
   );
 
   useEffect(() => {
@@ -171,29 +175,34 @@ export function CreatePlannedDialog() {
             <FormItem className="">
               <FormControl>
                 <CldUploadWidget
-                  {...field}
                   options={{
                     sources: ["local", "url", "camera"],
                   }}
                   uploadPreset="test-preset"
+                  onOpen={() => onUploadWidgetOpenChange?.(true)}
+                  onClose={() => onUploadWidgetOpenChange?.(false)}
                   onSuccess={(result, { widget }) => {
                     const info = result.info;
                     if (!info || typeof info === "string") {
                       widget.close();
+                      onUploadWidgetOpenChange?.(false);
                       return;
                     }
                     field.onChange(info.secure_url);
                     setUploadedInfo(info);
                     widget.close();
+                    onUploadWidgetOpenChange?.(false);
                   }}
                 >
                   {({ open }) => {
                     return (
                       <Button
+                        type="button"
                         variant={"secondary"}
                         className="justify-between"
                         onClick={(e) => {
                           e.preventDefault();
+                          onUploadWidgetOpenChange?.(true);
                           open();
                         }}
                       >

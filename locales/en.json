@@ -126,6 +126,11 @@
       "HIGH": "High",
       "URGENT": "Urgent"
     },
+    "statuses-options": {
+      "PENDING": "Pending",
+      "PURCHASED": "Purchased",
+      "CANCELLED": "Cancelled"
+    },
     "selected": "Selected",
     "upload-image": "Upload Image",
     "link": "Link (optional)",

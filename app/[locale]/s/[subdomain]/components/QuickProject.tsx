@@ -1,14 +1,4 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import { ArrowUpRight, ChevronRight, Folder, Layers, Plus } from "lucide-react";
+import { ChevronRight, Layers, Plus } from "lucide-react";
 import React from "react";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
@@ -32,7 +22,7 @@ async function QuickProjectCard({ subdomain }: { subdomain: string }) {
       <Item className="flex-1" variant={"outline"} asChild>
         <Link href={"/projects"} prefetch={true}>
           <ItemMedia
-            className="text-background dark:text-foreground rounded-md p-1.5 bg-amber-500"
+            className="text-background dark:text-foreground rounded-md p-1.5 bg-amber-600"
             variant={"icon"}
           >
             <Layers />

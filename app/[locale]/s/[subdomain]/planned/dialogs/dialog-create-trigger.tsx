@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -27,8 +28,10 @@ export function CreatePlannedDialogTrigger({
   children?: React.ReactNode;
 }) {
   const t = useTranslations("PlannedPage");
+  const [open, setOpen] = useState(false);
+  const [uploadWidgetOpen, setUploadWidgetOpen] = useState(false);
   return (
-    <Dialog modal={false}>
+    <Dialog open={open} onOpenChange={setOpen} modal={false}>
       <DialogTrigger asChild>
         <Button
           variant={buttonVariant}
@@ -38,8 +41,16 @@ export function CreatePlannedDialogTrigger({
         </Button>
       </DialogTrigger>
       <DialogContent
-        onInteractOutside={(e) => e.preventDefault()}
         className="sm:max-w-106.25"
+        onInteractOutside={(e) => {
+          if (uploadWidgetOpen) e.preventDefault();
+        }}
+        onPointerDownOutside={(e) => {
+          if (uploadWidgetOpen) e.preventDefault();
+        }}
+        onFocusOutside={(e) => {
+          if (uploadWidgetOpen) e.preventDefault();
+        }}
       >
         <DialogHeader>
           <DialogTitle>{t("add-new-planned-item")}</DialogTitle>
@@ -47,7 +58,7 @@ export function CreatePlannedDialogTrigger({
             {t("add-new-planned-item-description")}
           </DialogDescription>
         </DialogHeader>
-        <CreatePlannedDialog />
+        <CreatePlannedDialog onUploadWidgetOpenChange={setUploadWidgetOpen} />
       </DialogContent>
     </Dialog>
   );

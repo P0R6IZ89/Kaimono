@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  getEssentialCount,
-  getEssentialsBySubdomain,
-  getEssentialsPendingTotalExpense,
-} from "@/actions/essentialsActions";
+import { getEssentialsBySubdomain } from "@/actions/essentialsActions";
 import {
   Card,
   CardAction,
@@ -15,7 +11,6 @@ import { DataTable } from "./table/data-table";
 import { columns } from "./table/essentials-columns";
 import { getTranslations } from "next-intl/server";
 import { CreateEssentialDialogTrigger } from "./dialogs/dialog-create-trigger";
-import { formatPriceYen } from "@/util/formatPriceYen";
 
 interface EssentialsProps {
   params: Promise<{ subdomain: string; locale: string }>;
@@ -25,8 +20,6 @@ export default async function Essentials({ params }: EssentialsProps) {
   const { subdomain, locale } = await params;
   const t = await getTranslations({ locale, namespace: "EssentialsPage" });
   const essentials = await getEssentialsBySubdomain(subdomain);
-  const count = await getEssentialCount(subdomain);
-  const totalExpense = await getEssentialsPendingTotalExpense(subdomain);
 
   return (
     <section className="p-4 space-y-8 mb-24 md:mb-0">
@@ -40,7 +33,7 @@ export default async function Essentials({ params }: EssentialsProps) {
         </CardHeader>
       </Card>
       <div className="flex flex-col gap-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <Card>
             <CardHeader>
               <CardDescription>{t("pending-items")}</CardDescription>
@@ -55,7 +48,7 @@ export default async function Essentials({ params }: EssentialsProps) {
               </CardTitle>
             </CardHeader>
           </Card>
-        </div>
+        </div> */}
         <div>
           {essentials ? (
             <div className="space-y-8">

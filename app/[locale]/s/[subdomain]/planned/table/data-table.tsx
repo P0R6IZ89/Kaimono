@@ -52,7 +52,9 @@ export function DataTablePlanned<TData, TValue>({
   });
   return (
     <div>
-      <DataTableToolbar table={table} />
+      <div className="px-4">
+        <DataTableToolbar table={table} />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 pt-4 gap-6">
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => {

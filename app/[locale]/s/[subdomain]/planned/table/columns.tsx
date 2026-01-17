@@ -6,10 +6,9 @@ import ProfileCell from "./cells/cell-profile";
 import ImageCell from "./cells/cell-image";
 import TitleCell from "./cells/cell-title-priority";
 import PriceCell from "./cells/cell-price";
-import CommentsCell from "./cells/cell-comments";
-import LikeStatusCell from "./cells/cell-like-status";
 import ActionsCell from "./cells/cell-actions";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
+import BadgeRowCell from "./cells/cell-badge-row";
 
 dayjs.extend(relativeTime);
 
@@ -32,7 +31,7 @@ export const columnsPlanned: ColumnDef<PlannedSchema>[] = [
   {
     accessorKey: "status",
     header: () => null,
-    cell: ({ row }) => <LikeStatusCell row={row} />,
+    cell: ({ row }) => <BadgeRowCell row={row} />,
     filterFn: "arrIncludesSome",
   },
   {
@@ -45,11 +44,7 @@ export const columnsPlanned: ColumnDef<PlannedSchema>[] = [
     header: () => null,
     cell: ({ row }) => <PriceCell row={row} />,
   },
-  {
-    id: "comments",
-    header: () => null,
-    cell: ({ row }) => <CommentsCell row={row} />,
-  },
+
   {
     id: "actions",
     header: () => null,

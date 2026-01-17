@@ -15,6 +15,10 @@ export type PlannedSchema = {
   userImage?: string | null;
   description?: string | null;
   commentsCount: number;
+  project?: {
+    id: string;
+    name: string;
+  } | null;
   comments: {
     id: string;
     content: string;

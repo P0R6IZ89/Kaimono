@@ -158,6 +158,9 @@ export async function getPlannedBySubdomain(subdomain: string) {
         creator: {
           select: { name: true, email: true, image: true },
         },
+        project: {
+          select: { name: true, id: true },
+        },
         _count: {
           select: {
             likes: {
@@ -205,6 +208,12 @@ export async function getPlannedBySubdomain(subdomain: string) {
       username: item.creator?.name ?? "",
       userImage: item.creator?.image ?? "",
       commentsCount: item._count.comments,
+      project: item.project
+        ? {
+            id: item.project.id,
+            name: item.project.name,
+          }
+        : null,
       comments: item.comments.map((c) => ({
         id: c.id,
         authorImage: c.author?.image,

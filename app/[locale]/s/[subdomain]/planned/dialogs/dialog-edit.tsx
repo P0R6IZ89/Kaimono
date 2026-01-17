@@ -9,7 +9,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Form,
@@ -23,13 +22,21 @@ import { Input } from "@/components/ui/input";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { initialState } from "@/util/initial-action-return";
 import { Row } from "@tanstack/react-table";
-import { Loader2, Pencil } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export function EditPlannedDialog({ row }: { row: Row<PlannedSchema> }) {
+export function EditPlannedDialog({
+  row,
+  open,
+  onOpenChange,
+}: {
+  row: Row<PlannedSchema>;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
   const t = useTranslations("PlannedPage");
   const tD = useTranslations("Dialog");
   const { subdomain } = useSubdomain();
@@ -71,14 +78,9 @@ export function EditPlannedDialog({ row }: { row: Row<PlannedSchema> }) {
     }
   }, [state]);
   return (
-    <Dialog>
-      <Form {...form}>
-        <DialogTrigger asChild>
-          <Button variant={"outline"}>
-            <Pencil />
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <Form {...form}>
           <form action={action}>
             <DialogHeader>
               <DialogTitle>{title}</DialogTitle>
@@ -170,7 +172,9 @@ export function EditPlannedDialog({ row }: { row: Row<PlannedSchema> }) {
             </div>
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant="outline">{tD("close")}</Button>
+                <Button type="button" variant="outline">
+                  {tD("close")}
+                </Button>
               </DialogClose>
               <Button type="submit" disabled={isPending}>
                 {isPending ? (
@@ -180,8 +184,8 @@ export function EditPlannedDialog({ row }: { row: Row<PlannedSchema> }) {
               </Button>
             </DialogFooter>
           </form>
-        </DialogContent>
-      </Form>
+        </Form>
+      </DialogContent>
     </Dialog>
   );
 }

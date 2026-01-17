@@ -12,18 +12,15 @@ export const statuses = [
   {
     value: "PENDING",
     icon: Clock,
-    color: "",
   },
 
   {
     value: "PURCHASED",
     icon: CircleCheckBig,
-    color: "text-green-700",
   },
   {
     value: "CANCELLED",
     icon: CircleMinus,
-    color: "text-red-700",
   },
 ];
 

@@ -55,21 +55,18 @@ export async function createCommentAction(
   if (!result.success) {
     return { ok: false, error: result.error.errors[0].message };
   }
-  try {
-    await prisma.plannedComment.create({
-      data: {
-        content,
-        author: { connect: { id: session.user.id } },
-        planned: { connect: { id: plannedId } },
-      },
-    });
-    if (subdomain) {
-      revalidatePath(`/s/${subdomain}/planned`);
-    }
-    return { ok: true, error: "" };
-  } catch (error) {
-    throw new Error(getErrorMessage(error));
+
+  await prisma.plannedComment.create({
+    data: {
+      content,
+      author: { connect: { id: session.user.id } },
+      planned: { connect: { id: plannedId } },
+    },
+  });
+  if (subdomain) {
+    revalidatePath(`/s/${subdomain}/planned`);
   }
+  return { ok: true, error: "" };
 }
 
 export async function deleteComment(id: string) {

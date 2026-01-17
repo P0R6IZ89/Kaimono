@@ -6,13 +6,13 @@ import { PlannedSchema } from "@/app/[locale]/types/planned";
 function ImageCell({ row }: { row: Row<PlannedSchema> }) {
   const { image, title } = row.original;
   return (
-    <div className="relative top-0 rounded-xl overflow-clip">
+    <div className="relative top-0 rounded-t-xl overflow-clip">
       <div className="absolute h-full w-full" />
       {image ? (
         <CldImage
           src={image}
-          width={800}
-          height={800}
+          width={1280}
+          height={720}
           crop={"fill"}
           alt={title}
           gravity="center"
@@ -21,8 +21,8 @@ function ImageCell({ row }: { row: Row<PlannedSchema> }) {
       ) : (
         <CldImage
           src="https://res.cloudinary.com/dsttcre2h/image/upload/v1751870559/placeholder_dtzhrr.png"
-          width={800}
-          height={800}
+          width={1280}
+          height={720}
           crop={"fill"}
           alt={title}
         />

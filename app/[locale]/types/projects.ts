@@ -6,6 +6,7 @@ export type PlannedBacklogItem = {
   price: number;
   quantity: number;
   createdAt?: string | Date;
+  image?: string | null;
 };
 
 export type ProjectWithPlanned = {
