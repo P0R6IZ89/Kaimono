@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { isUserBelongsTheApp } from "./appActions";
+import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
 
 export async function getAllUserOfApp(subdomain: string) {
@@ -7,11 +7,10 @@ export async function getAllUserOfApp(subdomain: string) {
   if (!session?.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
-  console.debug("getAllUserOfApp called with:", { subdomain, session });
 
-  const app = await isUserBelongsTheApp(subdomain);
+  const app = await requireMembership(subdomain);
   const users = await prisma.user.findMany({
-    where: { memberships: { some: { appId: app.id } } },
+    where: { memberships: { some: { appId: app.appId } } },
     select: {
       id: true,
       name: true,
@@ -20,4 +19,28 @@ export async function getAllUserOfApp(subdomain: string) {
     },
   });
   return users;
+}
+
+export async function getTenFirstUsersOfApp(subdomain: string) {
+  const limit = 10;
+  await requireSession();
+  const app = await requireMembership(subdomain);
+  const [totalCount, users] = await prisma.$transaction([
+    prisma.user.count({
+      where: { memberships: { some: { appId: app.appId } } },
+    }),
+    prisma.user.findMany({
+      where: { memberships: { some: { appId: app.appId } } },
+      select: { id: true, name: true, email: true, image: true },
+      orderBy: { createdAt: "asc" },
+      take: limit,
+    }),
+  ]);
+
+  return {
+    totalCount,
+    users,
+    hasMore: totalCount > limit,
+    overflowCount: Math.max(0, totalCount - limit),
+  };
 }

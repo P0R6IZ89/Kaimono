@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   SidebarGroup,
@@ -7,44 +9,45 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar";
-import Link from "next/link";
-import { LucideIcon } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { ICONS } from "./icons";
+import type { NavGroup } from "./buildSidebarData";
 
-interface pagesProps {
-  pages: {
-    title: string;
-    url: string;
-    items: {
-      title: string;
-      url: string;
-      isActive?: boolean;
-      icon?: LucideIcon;
-    }[];
-  };
-}
+type Props = { pages: NavGroup };
 
-const NavPages: React.FC<pagesProps> = ({ pages }) => {
+export default function NavPages({ pages }: Props) {
   return (
-    <>
-      <SidebarGroup key={pages.title}>
-        <SidebarGroupLabel>Paginas</SidebarGroupLabel>
-        <SidebarGroupContent>
-          <SidebarMenu>
-            {pages.items.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild isActive={item.isActive}>
-                  <Link href={pages.url + item.url}>
-                    {item.icon && <item.icon />}
-                    {item.title}
-                  </Link>
+    <SidebarGroup key={pages.title}>
+      <SidebarGroupLabel>{pages.title}</SidebarGroupLabel>
+
+      <SidebarGroupContent>
+        <SidebarMenu>
+          {pages.items.map((item) => {
+            const isExternal = /^https?:\/\//.test(item.url);
+            const Icon = item.icon ? ICONS[item.icon] : null;
+            const Inner = (
+              <>
+                {Icon ? <Icon className="h-4 w-4" /> : null}
+                {item.title}
+              </>
+            );
+
+            return (
+              <SidebarMenuItem key={`${pages.title}-${item.title}`}>
+                <SidebarMenuButton asChild>
+                  {isExternal ? (
+                    <Link href={item.url} rel="noopener noreferrer">
+                      {Inner}
+                    </Link>
+                  ) : (
+                    <Link href={item.url}>{Inner}</Link>
+                  )}
                 </SidebarMenuButton>
               </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </SidebarGroup>
-    </>
+            );
+          })}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
   );
-};
-
-export default NavPages;
+}

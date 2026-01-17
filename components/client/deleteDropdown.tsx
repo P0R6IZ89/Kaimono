@@ -30,7 +30,7 @@ function DeleteDropdown({ id }: { id: string }) {
   };
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="p-2 border border-muted rounded-md hover:bg-accent/50 transition-colors">
         <Ellipsis className="size-3" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

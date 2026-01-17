@@ -1,0 +1,503 @@
+{
+  "Meta": {
+    "title": "Kaimono Versão Beta",
+    "description": "Um aplicativo para gerenciar suas listas de compras."
+  },
+  "Login": {
+    "title": "Bem-vindo! ✨",
+    "description": "Escolha como deseja fazer login."
+  },
+  "Homepage": {
+    "title": "Apresentando o Aplicativo Definitivo de Compras",
+    "description": "Adicione tudo que você tem em mente neste aplicativo, analise e tome a melhor decisão!",
+    "created-by": "Criado por {creatorName}",
+    "get-started-button": "Começar!"
+  },
+  "UserGuide": {
+    "title": "Guia Completo do Usuário",
+    "subtitle": "Domine compras baseadas em projetos com Kaimono",
+    "stepLabel": "Etapa {step}",
+    "hero": {
+      "badge": "🛍️ Apresentando Kaimono",
+      "title": "O Aplicativo Definitivo de Compras",
+      "subtitle": "Kaimono",
+      "description": "Adicione tudo que você tem em mente para tomar as melhores decisões de compra.",
+      "features": {
+        "title": "Por que escolher Kaimono?",
+        "visualization": {
+          "title": "Visualização de Gastos",
+          "description": "Veja para onde seu dinheiro vai com gráficos e insights bonitos"
+        },
+        "decisions": {
+          "title": "Decisões Inteligentes",
+          "description": "Faça escolhas informadas com planejamento e análise baseados em prioridade"
+        },
+        "organization": {
+          "title": "Organização de Projetos",
+          "description": "Agrupe compras por projeto para melhor gerenciamento e acompanhamento"
+        },
+        "collaboration": {
+          "title": "Colaboração em Equipe",
+          "description": "Trabalhe junto com família, amigos ou colegas em tempo real"
+        }
+      },
+      "useCase": {
+        "title": "Perfeito para Qualquer Projeto",
+        "description": "Ideal para reformas residenciais, configuração de escritório, planejamento de eventos e qualquer projeto que exija compras organizadas. Acompanhe tudo desde materiais até prazos em um só lugar."
+      },
+      "transition": "Pronto para dominar Kaimono? Vamos guiar você passo a passo.",
+      "getStarted": "Começar",
+      "startGuide": "Iniciar Guia",
+      "viewDashboard": "Ver Dashboard",
+      "goToDashboard": "Ir para o Dashboard"
+    },
+    "gettingStarted": {
+      "title": "Começando",
+      "description": "Bem-vindo ao Kaimono! Vamos deixar tudo pronto para você organizar suas compras como nunca antes.",
+      "step1": {
+        "title": "Crie Sua Conta",
+        "description": "Cadastre-se usando Google, GitHub ou e-mail. É rápido e seguro - você estará comprando de forma mais inteligente em minutos!"
+      },
+      "step2": {
+        "title": "Crie Seu Primeiro Aplicativo",
+        "description": "Pense nos Aplicativos como seu quartel-general de compras. Crie um para cada contexto principal: 'Reforma Residencial', 'Configuração de Escritório' ou 'Planejamento de Eventos'.",
+        "action": "Criar Seu Primeiro Aplicativo"
+      },
+      "step3": {
+        "title": "Explore Seu Dashboard",
+        "description": "Seu centro de comando mostra tudo de relance - estatísticas rápidas, atividades recentes e ações rápidas para adicionar itens.",
+        "action": "Ir para o Dashboard"
+      }
+    },
+    "coreFeatures": {
+      "title": "Recursos Principais",
+      "description": "Descubra ferramentas poderosas que tornam o Kaimono perfeito para compras baseadas em projetos.",
+      "essentials": {
+        "title": "Essenciais - Sua Lista de Compras Regular",
+        "description": "Essenciais são seus itens essenciais - coisas que você compra regularmente como mantimentos, suprimentos domésticos ou materiais de escritório.",
+        "quickAdd": {
+          "title": "Adição Rápida",
+          "description": "Adicione itens instantaneamente com título, preço e quantidade. Perfeito para corridas rápidas ao supermercado.",
+          "example": "Leite - $3.50 - 2 galões"
+        },
+        "statusTracking": {
+          "title": "Acompanhamento de Status",
+          "description": "Marque itens como Pendente, Comprado ou Cancelado para acompanhar o que foi feito.",
+          "example": "Acompanhe seu progresso semanal de compras"
+        }
+      },
+      "planned": {
+        "title": "Itens Planejados - Compras Futuras",
+        "description": "Planeje com antecedência com itens detalhados que incluem prioridades, imagens, descrições e podem ser organizados em projetos.",
+        "priorityLevels": {
+          "title": "Níveis de Prioridade",
+          "description": "Defina prioridades BAIXA, MÉDIA, ALTA ou URGENTE para focar no que mais importa.",
+          "example": "URGENTE: Materiais para prazo do projeto"
+        },
+        "richDetails": {
+          "title": "Detalhes Ricos",
+          "description": "Adicione imagens, URLs de produtos, descrições e quantidade para planejamento completo de compras.",
+          "example": "Anexe fotos de referência e links"
+        }
+      },
+      "projects": {
+        "title": "Projetos - Organize por Missão",
+        "description": "É aqui que o Kaimono brilha! Projetos agrupam itens planejados relacionados, perfeito para missões complexas de compras.",
+        "kanbanBoard": {
+          "title": "Visualização em Quadro Kanban",
+          "description": "Arraste e solte itens planejados entre estágios. Gerenciamento visual de fluxo de trabalho em seu melhor.",
+          "example": "Backlog → Planejamento → Comprado"
+        },
+        "projectBased": {
+          "title": "Organização Baseada em Projetos",
+          "description": "Mantenha compras relacionadas juntas. Perfeito para reformas, eventos ou configurações de negócios.",
+          "example": "Configuração de Escritório Doméstico: Mesa, Cadeira, Monitor, Lâmpada",
+          "proTip": true
+        }
+      }
+    },
+    "collaboration": {
+      "title": "Colaboração em Equipe",
+      "description": "Trabalhe junto perfeitamente com sua equipe, família ou parceiros de projeto.",
+      "owner": {
+        "title": "Proprietário",
+        "description": "Controle completo. Pode gerenciar aplicativos, convidar usuários e lidar com todas as tarefas administrativas."
+      },
+      "admin": {
+        "title": "Administrador",
+        "description": "Pode convidar usuários e gerenciar a maioria dos recursos. Perfeito para líderes de equipe e gerentes."
+      },
+      "member": {
+        "title": "Membro",
+        "description": "Acesso completo para adicionar e editar itens. Ideal para contribuidores e membros da equipe."
+      },
+      "inviteStep": {
+        "title": "Convidar Membros da Equipe",
+        "description": "Envie convites por e-mail diretamente do aplicativo. Atribua funções e deixe sua equipe entrar na missão de compras."
+      },
+      "collaborateStep": {
+        "title": "Colabore em Tempo Real",
+        "description": "Veja atualizações instantaneamente, comente em itens planejados e curta compras. Todos permanecem sincronizados."
+      }
+    },
+    "proTips": {
+      "title": "Dicas Profissionais e Melhores Práticas",
+      "description": "Eleve suas compras baseadas em projetos com essas estratégias especializadas.",
+      "projectNaming": {
+        "title": "Estratégia de Nomenclatura de Projetos",
+        "description": "Use nomes claros e acionáveis. Inclua datas ou fases para melhor organização.",
+        "example": "Reforma da Cozinha - Fase 1 (Q1 2024)",
+        "proTip": true
+      },
+      "priorityManagement": {
+        "title": "Gerenciamento de Prioridade",
+        "description": "Use URGENTE para itens sensíveis ao tempo, ALTO para compras importantes mas flexíveis.",
+        "example": "URGENTE: Suprimentos para evento de sábado",
+        "proTip": true
+      },
+      "teamCommunication": {
+        "title": "Comunicação em Equipe",
+        "description": "Use comentários em itens planejados para discutir opções, alternativas e decisões.",
+        "example": "Comentário: Encontrei esta alternativa em promoção - o que acham?",
+        "proTip": true
+      },
+      "regularReviews": {
+        "title": "Revisões Regulares",
+        "description": "Revisões semanais de itens planejados ajudam a priorizar e ajustar cronogramas.",
+        "example": "Revisão de sexta: Mover 3 itens para comprados, 2 para próxima semana",
+        "proTip": true
+      }
+    },
+    "cta": {
+      "title": "Pronto para Começar Seu Primeiro Projeto?",
+      "description": "Você tem o conhecimento, agora é hora de colocar em prática. Crie seu primeiro aplicativo e experimente o poder de compras baseadas em projetos.",
+      "createApp": "Criar Seu Primeiro Aplicativo",
+      "viewDashboard": "Ver Dashboard"
+    }
+  },
+  "Teams": {
+    "title": "Equipes",
+    "description": "Espaços de trabalho colaborativos para famílias e organizações. Torne gastos borrados visíveis e crie projetos para uma gestão financeira mais clara.",
+    "start-adding-a-new-team": "Comece a rastrear seus gastos juntos!",
+    "create-team": "Criar nova equipe",
+    "new-team-card": {
+      "title": "Crie uma nova equipe",
+      "description": "Crie uma nova equipe para colaborar com outras pessoas"
+    }
+  },
+  "NewTeam": {
+    "title": "Criar Nova Equipe",
+    "description-content": "Equipes ajudam a organizar gastos por finalidade - seja despesas domésticas, projetos familiares ou orçamentos de empresa. Cada equipe mostra claramente para onde o dinheiro vai.",
+    "team-name": "Nome da Equipe",
+    "team-name-placeholder": "ex. Casa da Família, Orçamento de Marketing, Planejamento de Férias",
+    "description-placeholder": "ex. Espaço para acompanhar despesas mensais e investimentos corporativos.",
+    "subdomain": "Subdomínio",
+    "description": "Descrição (opcional)",
+    "enter-team-name": "Digite o nome da sua equipe",
+    "create-button": "Criar Equipe"
+  },
+  "team-layout": {
+    "no-invites": "Nenhum convite.",
+    "new-invite-to-invite-team-name": "Novo convite para {teamName}",
+    "new-invite-content": "Você foi convidado a participar de {teamName} com a função de {inviteRole}.",
+    "check-email-for-details": "Verifique seu e-mail para mais detalhes."
+  },
+
+  "Sidebar": {
+    "navSite": {
+      "title": "Espaços",
+      "items": {
+        "home": "Equipes"
+      }
+    },
+    "navPages": {
+      "title": "Páginas",
+      "home": "Início",
+      "essentials": "Essenciais",
+      "planned": "Planejados",
+      "projects": "Projetos"
+    },
+    "navSecondary": {
+      "contact": "Contato"
+    },
+    "config": {
+      "title": "Configuração",
+      "theme": {
+        "title": "Tema",
+        "toggle": "Alternar tema",
+        "light": "Claro",
+        "dark": "Escuro",
+        "system": "Sistema"
+      }
+    },
+    "invitation": {
+      "title": "Convites",
+      "inviteUser": "Convidar Usuário"
+    }
+  },
+  "Dashboard": {
+    "hello": "Olá {userName}!",
+    "hello2": "Olá!",
+    "welcomeBack": "Bem-vindo de volta!",
+    "workspace": "Você está no workspace {subdomain}",
+    "mainFeature": "Funcionalidade principal"
+  },
+  "MembersCard": {
+    "title": "Membros da Equipe",
+    "description": "Gerencie quem pode ver e contribuir nos gastos da equipe.",
+    "manage": "Gerenciar",
+    "view-all-members": "Ver todos os membros",
+    "members-count": "{members, plural, =0 {Nenhum membro ainda.} =1 {1 membro} other {# membros}}",
+    "invite-members": "Convide familiares ou colegas para colaborar em orçamentos e projetos."
+  },
+  "EssentialsPage": {
+    "title": "Essenciais",
+    "essentialsCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 essencial} other {# essenciais}}",
+    "description": "Seus itens essenciais de lista de compras. Estes são os itens indispensáveis que você precisa comprar regularmente.",
+    "no-essentials": "Nenhum item essencial adicionado ainda.",
+    "add-essential-button": "Adicionar Item",
+    "add-new-essential-item": "Adicionar novo item essencial",
+    "add-new-essential-item-description": "Adicione um novo item à sua lista de essenciais.",
+    "see-all-essentials": "Ver Todos",
+    "item-name": "Nome do Item",
+    "price": "Preço",
+    "quantity": "Quantidade",
+    "save": "Salvar",
+    "no-result": "Nenhum resultado encontrado.",
+    "pending-items": "Itens Pendentes",
+    "total-pending": "Total Pendente"
+  },
+  "PlannedPage": {
+    "title": "Planejados",
+    "plannedCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 planejado} other {# planejados}}",
+    "description": "Seus itens planejados de lista de compras. Você pode enviar para um projeto existente ou manter no backlog para melhor organização.",
+    "no-planned": "Nenhum item planejado adicionado ainda.",
+    "add-planned-button": "Adicionar",
+    "add-new-planned-item": "Adicionar novo item planejado",
+    "add-new-planned-item-description": "Adicione um novo item à sua lista de planejados.",
+    "see-all-planned": "Ver Todos",
+    "item-name": "Nome do Item",
+    "price": "Preço",
+    "quantity": "Quantidade",
+    "priority": "Prioridade",
+    "select-priority": "Selecionar Prioridade",
+    "save": "Salvar",
+    "no-result": "Nenhum resultado encontrado.",
+    "priority-options": {
+      "LOW": "Baixa",
+      "MEDIUM": "Média",
+      "HIGH": "Alta",
+      "URGENT": "Urgente"
+    },
+    "selected": "Selecionado",
+    "upload-image": "Enviar Imagem",
+    "link": "Link (opcional)",
+    "description-comment": "Descrição (opcional)",
+    "item-name-placeholder": "ex.: impressora 3D, cosmético ou roupa",
+    "price-placeholder": "Digite o preço",
+    "quantity-placeholder": "Digite a quantidade",
+    "link-placeholder": "Digite o link do produto (opcional)",
+    "description-comment-placeholder": "Adicione descrição ou notas (opcional)",
+    "mark-as-purchased": "Marcar como Comprado",
+    "revert-to-pending": "Reverter para Pendente",
+    "save-money": "Vou economizar dinheiro",
+    "comments": "Comentários",
+    "delete-comment": "Excluir",
+    "edit-description": "Você pode editar o item aqui, não se esqueça de salvar!"
+  },
+  "ProjectsPage": {
+    "title": "Projetos",
+    "description": "Agrupe compras planejadas em projetos e mantenha o backlog em movimento.",
+    "see-all-projects": "Ver Todos",
+    "count": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}",
+    "summary": {
+      "projects": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}",
+      "planned": "{count, plural, =0 {Nenhum item planejado rastreado} =1 {1 item planejado} other {# itens planejados}}",
+      "backlog": "{count, plural, =0 {Nenhum item não atribuído} =1 {1 item no backlog} other {# itens no backlog}}"
+    },
+    "backlog": {
+      "title": "Itens planejados não atribuídos",
+      "description": "Atribua itens do backlog a um projeto para dar contexto a eles.",
+      "empty": "Nenhum item planejado não atribuído no momento.",
+      "badge": "Backlog"
+    },
+    "create": {
+      "title": "Criar um projeto",
+      "description": "Agrupe compras relacionadas e prioridades."
+    },
+    "form": {
+      "name": "Nome do projeto",
+      "name-placeholder": "Configuração do estúdio, Reposição da despensa...",
+      "description": "Descrição",
+      "description-placeholder": "Como seria o sucesso?",
+      "create": "Criar projeto",
+      "reset": "Redefinir"
+    },
+    "assign": {
+      "cta": "Atribuir item planejado",
+      "title": "Adicionar item planejado a {projectName}",
+      "description": "Escolha um item planejado sem projeto e solte-o neste.",
+      "empty": "Você não tem itens planejados não atribuídos.",
+      "search-placeholder": "Buscar itens planejados...",
+      "no-results": "Nenhum item planejado encontrado.",
+      "submit-selected": "Adicionar \"{title}\"",
+      "submit": "Adicionar ao projeto"
+    },
+    "project": {
+      "no-description": "Nenhuma descrição adicionada ainda.",
+      "badges": {
+        "total": "{count, plural, =0 {0 itens} =1 {1 item} other {# itens}}",
+        "pending": "{count, plural, =0 {0 pendentes} =1 {1 pendente} other {# pendentes}}",
+        "purchased": "{count, plural, =0 {0 comprados} =1 {1 comprado} other {# comprados}}",
+        "cancelled": "{count, plural, =0 {0 cancelados} =1 {1 cancelado} other {# cancelados}}"
+      },
+      "items-title": "Itens neste projeto",
+      "items-description": "Mantenha as compras planejadas anexadas ao objetivo que elas apoiam.",
+      "empty": "Nenhum item planejado está vinculado aqui ainda.",
+      "total-value": "total",
+      "open-planned": "Todos os planejados"
+    },
+    "list": {
+      "title": "Projetos ativos",
+      "description": "Veja como cada projeto está progredindo.",
+      "backlog-count": "{count, plural, =0 {Nenhum item livre} =1 {1 item livre} other {# itens livres}}"
+    },
+    "empty": {
+      "title": "Crie seu primeiro projeto",
+      "description": "Use um projeto para agrupar itens planejados por objetivo."
+    },
+    "toast-created": "Projeto criado.",
+    "toast-assigned": "Item planejado atribuído a {projectName}.",
+    "toast-unassigned": "Item removido do projeto."
+  },
+  "InvitePage": {
+    "title": "Convide membros da equipe!",
+    "description": "Compartilhe o acesso ao espaço de gastos da equipe enviando um link de convite ou e-mail.",
+    "email": "E-mail",
+    "invitee-role": "Convidar como:",
+    "roles": {
+      "OWNER": "Proprietário",
+      "ADMIN": "Administrador",
+      "MEMBER": "Membro"
+    },
+    "invite-button": "Enviar Convite",
+    "pending-invites": "Convites Pendentes",
+    "manage-invites": "Gerencie os convites da equipe aqui.",
+    "status": "Status",
+    "actions-text": "Ações",
+    "team-users": "Equipe {userCount, plural, =0 {Membros} =1 {Membro} other {Membros (#)}}",
+    "team-users-description": "Membros com acesso a esta equipe.",
+    "name": "Nome",
+    "actions": {
+      "revoke": {
+        "title": "Revogar Convite",
+        "description": "{status, select, PENDING {Este convite ainda está pendente. Revogá-lo?} EXPIRED {Este convite expirou. Revogar permanentemente?} other {Revogar este convite?}}"
+      },
+      "resend": {
+        "title": "Reenviar Convite",
+        "description": "{status, select, PENDING {Enviar um lembrete por e-mail?} other {Enviar um novo link de convite?}}"
+      },
+      "remove": {
+        "title": "Remover Membro",
+        "description": "Remover este membro da equipe permanentemente?"
+      },
+      "generic-error": "Algo deu errado"
+    }
+  },
+  "Table": {
+    "next": "Próximo",
+    "previous": "Anterior",
+    "no-result": "Nenhum resultado encontrado.",
+    "page": "Página",
+    "of": "de",
+    "rows": "linhas",
+    "actions": "Ações",
+    "add": "Adicionar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "clear-filters": "Limpar",
+    "filter-by-status": "Status",
+    "edit-item": "Editar Item",
+    "delete-item": "Excluir Item",
+    "mark-as-purchased": "Marcar como Comprado",
+    "mark-as-pending": "Marcar como Pendente",
+    "search-placeholder": "Buscar itens...",
+    "status": {
+      "PENDING": "Pendente",
+      "PURCHASED": "Comprado",
+      "CANCELLED": "Cancelado"
+    },
+    "priority": {
+      "LOW": "Baixa",
+      "MEDIUM": "Média",
+      "HIGH": "Alta"
+    }
+  },
+  "Dialog": {
+    "item-name": "Nome do Item",
+    "item-price": "Preço do Item",
+    "item-quantity": "Quantidade do Item",
+    "close": "Voltar",
+    "save-changes": "Salvar alterações",
+    "edit-description": "Você pode editar o item aqui, não se esqueça de salvar!",
+    "delete-title": "Tem certeza que deseja excluir {title}?",
+    "delete-description": "Esta ação não pode ser desfeita. Isso excluirá permanentemente o item da sua lista de essenciais.",
+    "delete-confirm-button": "Sim, excluir item",
+    "mark-as-purchased-title": "Marcar {title} como Comprado?",
+    "mark-as-purchased-description": "Tem certeza que deseja marcar este item como Comprado?",
+    "mark-as-purchased-confirm-button": "Marcar como Comprado",
+    "mark-as-pending-title": "Reverter item para Pendente?",
+    "mark-as-pending-description": "Tem certeza que deseja reverter este item de volta para Pendente?",
+    "mark-as-pending-confirm-button": "Marcar como Pendente"
+  },
+  "Errors": {
+    "error": "Erro",
+    "required-field": "Este campo é obrigatório.",
+    "invalid-email": "Por favor, digite um endereço de e-mail válido.",
+    "password-min-length": "A senha deve ter pelo menos 8 caracteres.",
+    "passwords-no-match": "As senhas não correspondem."
+  },
+  "UpdateApp": {
+    "title": "Nova atualização! 🚀",
+    "description": "Suporte para idiomas Português e Japonês adicionado."
+  },
+  "Auth": {
+    "continue-with-github": "Continuar com Github 🚧Only for dev⚠️",
+    "continue-with-google": "Continuar com Google",
+    "continue-with-email": "Continuar com Email",
+    "or": "ou",
+    "error": "Erro:",
+    "email-sent-title": "O e-mail de login foi enviado para o seu e-mail.",
+    "email-sent-instruction": "Abra o email enviado e clique no botão \"Entrar\" no para concluir seu login.",
+    "check-spam": "(Verifique sua pasta de spam caso não a veja)",
+    "back-to-main": "Voltar à página principal"
+  },
+  "UserManager": {
+    "roles": {
+      "OWNER": "Proprietário",
+      "ADMIN": "Administrador",
+      "MEMBER": "Membro"
+    }
+  },
+  "Settings": {
+    "account": "Conta",
+    "team": "Equipe",
+    "inviteMembers": "Convidar membros",
+    "inviteDescription": "Enviar um e-mail de convite",
+    "help": "Ajuda",
+    "tutorialTitle": "Tutorial",
+    "tutorialDescription": "Siga o tutorial para dominar o app",
+    "support": "Suporte"
+  },
+  "MobileNav": {
+    "home": "Início",
+    "essentials": "Essenciais",
+    "planned": "Planejados",
+    "settings": "Configurações"
+  },
+  "KoFiWidget": {
+    "support-button": "Apoie-me no Ko-fi",
+    "aria-label": "Apoie-me no Ko-fi",
+    "alt-text": "Ko-fi"
+  }
+}

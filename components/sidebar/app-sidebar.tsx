@@ -9,104 +9,49 @@ import {
 import NavPages from "./nav-pages";
 import { NavConfig } from "./nav-config";
 import { NavSecondary } from "./nav-secondary";
-import {
-  Armchair,
-  Grip,
-  Hexagon,
-  Send,
-  Shirt,
-  UserRoundPlus,
-} from "lucide-react";
 import { AppSwitcher } from "./apps-switcher";
 import { NavUser } from "./nav-user";
-import { auth } from "@/auth";
 import { SkeletonAvatar } from "../skeleton/avatar";
-import { protocol, rootDomain } from "@/lib/utils";
+import { protocol, rootDomain } from "@/util/utils";
 import {
   getAllAppsAction,
   getCurrentAppAction,
   getMembership,
+  requireSession,
 } from "@/actions/appActions";
+import { getTranslations } from "next-intl/server";
+import { buildSidebarData, MemberRole } from "./buildSidebarData";
+import { KoFiPlainButton } from "../kofi/KoFiWidget";
 
-const data = {
-  navSite: {
-    title: "",
-    url: "",
-    items: [
-      {
-        title: "Todos os apps",
-        url: `${protocol}://${rootDomain}`,
-        isActive: false,
-        icon: Grip,
-      },
-    ],
-  },
-  navPages: {
-    title: "Paginas",
-    url: "",
-    items: [
-      {
-        title: "Início",
-        url: "/",
-        isActive: false,
-        icon: Hexagon,
-      },
-      {
-        title: "Essenciais",
-        url: "/essentials",
-        isActive: false,
-        icon: Shirt,
-      },
-      {
-        title: "Planejados",
-        url: "/planned",
-        isActive: false,
-        icon: Armchair,
-      },
-    ],
-  },
-
-  navSecondary: [
-    {
-      title: "Contato",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  config: [
-    {
-      name: "Tema",
-      url: "#",
-    },
-  ],
-};
-
-type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+export type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   subdomain: string;
+  locale: string;
 };
 
-export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return <p>Unauthenticated</p>;
-  }
-  const apps = await getAllAppsAction();
-  const currentApp = await getCurrentAppAction(subdomain);
-  const memberRole = await getMembership(subdomain);
-  const data2 = {
-    invitation: {
-      title: "Convidar Usuário",
-      url: "",
-      items: [
-        {
-          title: "Convidar Usuário",
-          url: `${protocol}://${subdomain}.${rootDomain}/invite`,
-          isActive: false,
-          icon: UserRoundPlus,
-        },
-      ],
-    },
+export async function AppSidebar({
+  subdomain,
+  locale,
+  ...props
+}: AppSidebarProps) {
+  const session = await requireSession();
+  const [apps, currentApp, memberRole] = await Promise.all([
+    getAllAppsAction(),
+    getCurrentAppAction(subdomain),
+    getMembership(subdomain),
+  ]);
+
+  const t = await getTranslations();
+
+  const urls = {
+    home: `${protocol}://${rootDomain}/${locale}`,
+    invite: `/invite`,
   };
+
+  const data = buildSidebarData(
+    t,
+    urls,
+    (memberRole as MemberRole) ?? "MEMBER"
+  );
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -120,13 +65,14 @@ export async function AppSidebar({ subdomain, ...props }: AppSidebarProps) {
       <SidebarContent>
         <NavPages pages={data.navSite} />
         <NavPages pages={data.navPages} />
-        {memberRole !== "MEMBER" ? <NavPages pages={data2.invitation} /> : null}
+        {data.invitation && <NavPages pages={data.invitation} />}
 
         <NavConfig items={data.config} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <KoFiPlainButton />
       </SidebarContent>
       <SidebarFooter>
-        {session?.user ? (
+        {session.user ? (
           <NavUser
             memberRole={memberRole ?? undefined}
             user={{

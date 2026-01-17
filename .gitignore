@@ -47,3 +47,5 @@ README.md
 ToDo
 .env*.local
 schemaBackup.txt
+
+prisma/seed.ts

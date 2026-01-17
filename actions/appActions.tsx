@@ -2,13 +2,13 @@
 
 import { auth } from "@/auth";
 import type { Session } from "next-auth";
-import prisma from "@/lib/prisma";
-import { protocol, rootDomain } from "@/lib/utils";
 import { appSchema } from "@/util/form-zod-schema";
 import { $Enums, Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { z } from "zod";
+import { getCurrentLocale, redirect } from "@/i18n/navigation";
+import prisma from "@/lib/prisma";
+import { protocol, rootDomain } from "@/util/utils";
 
 export type Result<T = unknown> =
   | { ok: true; data?: T; message?: string }
@@ -44,30 +44,34 @@ function assertAllowedSubdomain(sub: string) {
     throw new Error("Subdomain cannot contain consecutive hyphens.");
 }
 
-type SessionWithUser = Session & { user: { id: string } };
+type SessionWithUser = Session & {
+  user: { id: string; name: string | null; email: string };
+};
 
-async function requireSession(): Promise<SessionWithUser> {
+export async function requireSession(): Promise<SessionWithUser> {
   const s = await auth();
-  if (!s?.user?.id) redirect("/login");
+  const locale = await getCurrentLocale();
+  if (!s?.user?.id) redirect({ href: "/login", locale });
   return s as SessionWithUser;
 }
 
-async function requireMembership(subdomain: string) {
+export async function requireMembership(subdomain: string) {
   const session = await requireSession();
   const app = await prisma.app.findUnique({
     where: { subdomain },
     select: { id: true },
   });
-  if (!app) redirect("/new-app");
+  const locale = await getCurrentLocale();
+  if (!app) redirect({ href: "/new-team", locale });
 
   const membership = await prisma.membership.findUnique({
-    where: { appId_userId: { appId: app.id, userId: session.user.id } },
+    where: { appId_userId: { appId: app!.id, userId: session.user.id } },
     select: { role: true },
   });
   if (!membership) {
-    redirect("/new-app");
+    redirect({ href: "/new-team", locale });
   }
-  return { appId: app.id, role: membership.role as $Enums.Role, session };
+  return { appId: app!.id, role: membership!.role as $Enums.Role, session };
 }
 
 export async function getAllAppsAction() {
@@ -85,17 +89,21 @@ export async function getAllAppsAction() {
     orderBy: { createdAt: "desc" },
   });
 
-  if (apps.length === 0) {
-    redirect("/new-app");
-  }
-
+  // This adds the currentUserRole found in the first membership for convenience.
   return apps.map((a) => ({
     ...a,
     currentUserRole: a.memberships[0]?.role ?? null,
   }));
 }
 
-export async function getCurrentAppAction(subdomain: string) {
+export async function getCurrentAppAction(subdomain: string): Promise<{
+  id: string;
+  name: string;
+  description: string | null;
+  subdomain: string;
+  image: string | null;
+  _count: { memberships: number };
+}> {
   await requireMembership(subdomain);
 
   const app = await prisma.app.findUnique({
@@ -109,6 +117,12 @@ export async function getCurrentAppAction(subdomain: string) {
       _count: { select: { memberships: true } },
     },
   });
+
+  if (!app) {
+    const locale = await getCurrentLocale();
+    redirect({ href: "/new-team", locale });
+    throw new Error("Redirected to new-app");
+  }
 
   return app;
 }
@@ -132,6 +146,7 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
 
   const session = await requireSession();
   const userId = session.user.id;
+  const locale = await getCurrentLocale();
 
   const normalized = normalizeSubdomain(parsed.data.subdomain);
   try {
@@ -176,13 +191,12 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
         }
       }
     }
-    console.error("createAppAction error:", error);
     return {
       ok: false,
       message: "An unexpected error occurred. Please try again.",
     } satisfies Result;
   }
-  redirect(`${protocol}://${normalized}.${rootDomain}`);
+  redirect({ href: `${protocol}://${normalized}.${rootDomain}`, locale });
 }
 
 export async function isUserBelongsTheApp(subdomain: string) {
@@ -213,7 +227,6 @@ export async function deleteApp(id: string): Promise<Result> {
     ) {
       return { ok: true, message: "App not found (already deleted)." };
     }
-    console.error("deleteApp error:", error);
     return { ok: false, message: "Failed to delete app." };
   }
 }
@@ -285,7 +298,6 @@ export async function removeMemberAction(
         message: "Cannot remove the last Owner. Promote another user first.",
       };
     }
-    console.error("removeMemberAction error:", e);
     return { ok: false, message: "Failed to remove member." };
   }
 }
@@ -306,4 +318,13 @@ export async function getMembership(
   });
 
   return membership?.role ?? null;
+}
+
+export async function userHasApps(): Promise<boolean> {
+  const session = await auth();
+  if (!session?.user?.id) return false;
+  const count = await prisma.membership.count({
+    where: { userId: session.user.id },
+  });
+  return count > 0 ? true : false;
 }

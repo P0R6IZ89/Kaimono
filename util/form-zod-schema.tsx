@@ -5,15 +5,19 @@ export const essentialsSchema = z.object({
     .string()
     .min(1, "O Nome do produto é obrigatório")
     .max(50, "Produto deve ter no máximo 50 caracteres"),
-  price: z
+  price: z.coerce
     .number({ invalid_type_error: "O preço deve ser um número" })
     .nonnegative("O preço não pode ser negativo")
     .default(0),
-  status: z.enum(["pending", "purchased", "canceled"], {
+  status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
     message: "O status é incopatível",
   }),
-  quantity: z.number().int("A quantidade deve ser um número inteiro"),
+  quantity: z.coerce
+    .number()
+    .int("A quantidade deve ser um número inteiro")
+    .default(1),
   subdomain: z.string().min(1, "Verifique seu link"),
+  id: z.string().cuid().optional(),
 });
 
 export const plannedSchema = z.object({
@@ -29,10 +33,10 @@ export const plannedSchema = z.object({
     (v) => (v === "" || v == null ? 1 : v),
     z.coerce.number().nonnegative()
   ),
-  priority: z.enum(["low", "medium", "high"], {
-    message: "O status é incopatível",
+  priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"], {
+    message: "Escolha a prioridade copatível",
   }),
-  status: z.enum(["pending", "purchased", "canceled"], {
+  status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
     message: "O status é incopatível",
   }),
   productUrl: z.preprocess(
@@ -72,4 +76,29 @@ export const inviteSchema = z.object({
   appId: z.string().cuid(),
   email: z.string().email("Deve ser um e-mail válido"),
   role: z.enum(["OWNER", "ADMIN", "MEMBER"]).default("MEMBER"),
+});
+
+export const statusUpdateSchema = z.object({
+  id: z.string().cuid(),
+  status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
+    message: "O status é incopatível",
+  }),
+});
+
+export const projectSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Project name is required")
+    .max(120, "Use 120 characters or fewer."),
+  description: z.preprocess(
+    (v) => (v === "" ? undefined : v),
+    z.string().max(500, "Use 500 characters or fewer.").optional()
+  ),
+  subdomain: z.string().min(1, "Verifique seu link"),
+});
+
+export const projectLinkSchema = z.object({
+  projectId: z.string().cuid(),
+  plannedId: z.string().cuid(),
+  subdomain: z.string().min(1, "Verifique seu link"),
 });

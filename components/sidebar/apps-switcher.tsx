@@ -18,13 +18,14 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import React from "react";
-import Link from "next/link";
-import { protocol, rootDomain } from "@/lib/utils";
+import { protocol, rootDomain } from "@/util/utils";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export interface App {
   name: string;
   subdomain: string;
-  image: string | null;
+  image?: string | null | undefined;
 }
 interface AppSwitcherProps {
   apps: App[];
@@ -33,6 +34,7 @@ interface AppSwitcherProps {
 
 export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
   const { isMobile } = useSidebar();
+  const t = useTranslations("Teams");
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -40,17 +42,17 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="gap-4 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage
-                    src={currentApp.image ?? ""}
-                    alt={currentApp.name ?? ""}
-                  />
-                  <AvatarFallback className="rounded-lg">
-                    {currentApp.name[0].toUpperCase()}
-                  </AvatarFallback>
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+                <Avatar className="size-8 rounded-lg">
+                  {currentApp.image ? (
+                    <AvatarImage src={currentApp.image} alt={currentApp.name} />
+                  ) : (
+                    <AvatarFallback className="bg-muted border-0 text-foreground rounded-full">
+                      {currentApp.name[0].toUpperCase()}
+                    </AvatarFallback>
+                  )}
                 </Avatar>
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -66,7 +68,7 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             align="start"
-            side={isMobile ? "bottom" : "right"}
+            side={isMobile ? "bottom" : "bottom"}
             sideOffset={4}
           >
             {apps.length > 1 ? (
@@ -99,12 +101,12 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
             ))}
 
             <DropdownMenuItem asChild className="gap-2 p-2">
-              <Link href={`${protocol}://${rootDomain}/new-app`}>
+              <Link href={`${protocol}://${rootDomain}/new-team`}>
                 <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                   <Plus className="size-4" />
                 </div>
                 <div className="font-medium text-muted-foreground">
-                  Adicionar novo aplicativo
+                  {t("create-team")}
                 </div>
               </Link>
             </DropdownMenuItem>

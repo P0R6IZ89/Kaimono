@@ -5,45 +5,41 @@ import {
   CircleCheckBig,
   CircleMinus,
   Clock,
+  TriangleAlert,
 } from "lucide-react";
 
 export const statuses = [
   {
-    value: "pending",
-    label: "Pendente",
+    value: "PENDING",
     icon: Clock,
-    color: "",
   },
 
   {
-    value: "complete",
-    label: "Comprado",
+    value: "PURCHASED",
     icon: CircleCheckBig,
-    color: "text-green-700",
   },
   {
-    value: "canceled",
-    label: "Cancelado",
+    value: "CANCELLED",
     icon: CircleMinus,
-    color: "text-red-700",
   },
 ];
 
 export const priorities = [
   {
-    label: "Low",
-    value: "low",
+    value: "LOW",
     icon: ArrowDown,
   },
   {
-    label: "Medium",
-    value: "medium",
+    value: "MEDIUM",
     icon: ArrowRight,
   },
   {
-    label: "High",
-    value: "high",
+    value: "HIGH",
     icon: ArrowUp,
+  },
+  {
+    value: "URGENT",
+    icon: TriangleAlert,
   },
 ];
 

@@ -1,16 +1,49 @@
 "use server";
 
 import { auth } from "@/auth";
-import { AuthError } from "next-auth";
-import { isUserBelongsTheApp } from "./appActions";
+import {
+  isUserBelongsTheApp,
+  requireMembership,
+  requireSession,
+} from "./appActions";
 import prisma from "@/lib/prisma";
 import { plannedSchema } from "@/util/form-zod-schema";
 import { revalidatePath } from "next/cache";
+import { getErrorMessage } from "@/util/error-handler";
+import { ActionResult } from "@/util/initial-action-return";
+
+async function requirePlannedAccess(
+  plannedId: string,
+  userId: string
+): Promise<{ appId: string; subdomain: string | null }> {
+  const planned = await prisma.planned.findUnique({
+    where: { id: plannedId },
+    select: {
+      appId: true,
+      app: { select: { subdomain: true } },
+    },
+  });
+
+  if (!planned) {
+    throw new Error("Planned item not found.");
+  }
+
+  const membership = await prisma.membership.findUnique({
+    where: { appId_userId: { appId: planned.appId, userId } },
+    select: { role: true },
+  });
+
+  if (!membership) {
+    throw new Error("You do not have access to this item.");
+  }
+
+  return { appId: planned.appId, subdomain: planned.app?.subdomain ?? null };
+}
 
 export async function createPlannedAction(
-  previousState: unknown,
+  _previousState: ActionResult,
   formData: FormData
-) {
+): Promise<ActionResult> {
   const result = plannedSchema.safeParse({
     title: formData.get("title"),
     price: formData.get("price"),
@@ -25,20 +58,11 @@ export async function createPlannedAction(
 
   if (!result.success) {
     const first = result.error.errors[0];
-    return { error: first.message };
+    return { ok: false, message: first.message };
   }
 
   const data = result.data;
-
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Unauthorized");
-  }
-
-  const app = await prisma.app.findUnique({
-    where: { subdomain: data.subdomain },
-  });
-  if (!app) throw new Error("App not found for subdomain: " + data.subdomain);
+  const { appId, session } = await requireMembership(data.subdomain);
 
   try {
     await prisma.planned.create({
@@ -51,35 +75,91 @@ export async function createPlannedAction(
         image: data.image,
         productUrl: data.productUrl,
         description: data.description,
-        appId: app.id,
+        appId,
         creatorId: session.user.id,
       },
     });
     revalidatePath(`/s/${data.subdomain}/planned`);
-    return { message: { isSuccess: true } };
-  } catch (error) {
-    console.log(error);
-    return { error: "Falha ao criar o item" };
+    return { ok: true, message: "Item criado com sucesso!" };
+  } catch {
+    return { ok: false, message: "Falha ao criar o item" };
+  }
+}
+
+export async function updatePlanned(
+  _previousState: ActionResult,
+  formData: FormData
+): Promise<ActionResult> {
+  const result = plannedSchema.safeParse({
+    title: formData.get("title"),
+    price: formData.get("price"),
+    status: formData.get("status"),
+    quantity: formData.get("quantity"),
+    priority: formData.get("priority"),
+    productUrl: formData.get("productUrl"),
+    description: formData.get("description"),
+    subdomain: formData.get("subdomain"),
+    image: formData.get("image"),
+  });
+
+  if (!result.success) {
+    const first = result.error.errors[0];
+    return { ok: false, message: first.message };
+  }
+
+  const data = result.data;
+
+  await requireSession();
+  const membership = await requireMembership(data.subdomain);
+  const plannedId = formData.get("id") as string;
+
+  const belongsToApp = await prisma.planned.findFirst({
+    where: { id: plannedId, appId: membership.appId },
+    select: { id: true },
+  });
+
+  if (!belongsToApp) {
+    return { ok: false, message: "Item not found for this app." };
+  }
+
+  try {
+    await prisma.planned.update({
+      where: { id: plannedId },
+      data: {
+        title: data.title,
+        price: data.price,
+        status: data.status,
+        quantity: data.quantity,
+        priority: data.priority,
+        productUrl: data.productUrl,
+        description: data.description,
+        image: data.image,
+      },
+    });
+    revalidatePath(`/s/${data.subdomain}/planned`);
+    return { ok: true, message: "Item updated successfully" };
+  } catch (error: unknown) {
+    return {
+      ok: false,
+      message: "Failed to update item: " + getErrorMessage(error),
+    };
   }
 }
 
 export async function getPlannedBySubdomain(subdomain: string) {
-  const session = await auth();
-  if (!session || !session?.user) {
-    throw new AuthError("Unauthorized user");
-  }
-  const app = await isUserBelongsTheApp(subdomain);
-  if (!app) {
-    throw new Error("Team not found for subdomain: " + subdomain);
-  }
+  const app = await requireMembership(subdomain);
+  const session = await requireSession();
   try {
     const planneds = await prisma.planned.findMany({
       where: {
-        appId: app.id,
+        appId: app.appId,
       },
       include: {
         creator: {
           select: { name: true, email: true, image: true },
+        },
+        project: {
+          select: { name: true, id: true },
         },
         _count: {
           select: {
@@ -113,35 +193,37 @@ export async function getPlannedBySubdomain(subdomain: string) {
       id: item.id,
       image: item.image,
       title: item.title,
-      price: item.price ? item.price.toNumber() : null,
+      price: item.price ? item.price.toNumber() : 0,
       quantity: item.quantity,
       status: item.status,
       priority: item.priority,
       productUrl: item.productUrl,
       description: item.description,
-      createdAt: item.createdAt.toISOString(),
-      updatedAt: item.updatedAt.toISOString(),
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt,
       appId: item.appId,
-      // Likes
       likedByMe: item.likes.length > 0 ? item.likes[0].liked : false,
       likesCount: item._count.likes,
-      // User
-      userEmail: item.creator?.email ?? null,
-      username: item.creator?.name ?? null,
-      userImage: item.creator.image ?? null,
-      // Comments
+      userEmail: item.creator?.email ?? "",
+      username: item.creator?.name ?? "",
+      userImage: item.creator?.image ?? "",
       commentsCount: item._count.comments,
+      project: item.project
+        ? {
+            id: item.project.id,
+            name: item.project.name,
+          }
+        : null,
       comments: item.comments.map((c) => ({
         id: c.id,
-        authorImage: c.author.image,
-        authorName: c.author.name,
-        authorEmail: c.author.email,
+        authorImage: c.author?.image,
+        authorName: c.author?.name,
+        authorEmail: c.author?.email,
         content: c.content,
-        createdAt: c.createdAt.toISOString(),
+        createdAt: c.createdAt,
       })),
     }));
-  } catch (error) {
-    console.log(error);
+  } catch {
     return [];
   }
 }
@@ -151,7 +233,6 @@ export async function getPlannedCount(subdomain: string) {
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
-  console.debug("getPlannedCount called with:", { subdomain, session });
 
   const app = await isUserBelongsTheApp(subdomain);
   if (!app) {
@@ -160,61 +241,79 @@ export async function getPlannedCount(subdomain: string) {
   const { _count } = await prisma.planned.aggregate({
     where: {
       appId: app.id,
-      status: "pending",
+      status: "PENDING",
     },
     _count: true,
   });
   return _count;
 }
 
-export async function completeTask(id: string) {
+export async function completeTask(id: string): Promise<ActionResult> {
   const session = await auth();
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
+
+  const { appId, subdomain } = await requirePlannedAccess(id, session.user.id);
   try {
-    await prisma.planned.update({
-      where: { id: id },
-      data: { status: "complete" },
+    const result = await prisma.planned.updateMany({
+      where: { id, appId },
+      data: { status: "PURCHASED" },
     });
-    revalidatePath("/planned");
-    return { message: { isSuccess: true } };
-  } catch (error) {
-    console.log(error);
-    return { error: "Falha ao atualizar o item" };
+    if (result.count === 0) {
+      return { ok: false, message: "Item not found for this app." };
+    }
+    if (subdomain) {
+      revalidatePath(`/s/${subdomain}/planned`);
+    }
+    return { ok: true, message: "Item atualizado com sucesso" };
+  } catch {
+    return { ok: false, message: "Falha ao atualizar o item" };
   }
 }
-export async function revertTask(id: string) {
+export async function revertTask(id: string): Promise<ActionResult> {
   const session = await auth();
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
+
+  const { appId, subdomain } = await requirePlannedAccess(id, session.user.id);
   try {
-    await prisma.planned.update({
-      where: { id: id },
-      data: { status: "pending" },
+    const result = await prisma.planned.updateMany({
+      where: { id, appId },
+      data: { status: "PENDING" },
     });
-    revalidatePath("/planned");
-    return { message: { isSuccess: true } };
-  } catch (error) {
-    console.log(error);
-    return { error: "Falha ao atualizar o item" };
+    if (result.count === 0) {
+      return { ok: false, message: "Item not found for this app." };
+    }
+    if (subdomain) {
+      revalidatePath(`/s/${subdomain}/planned`);
+    }
+    return { ok: true, message: "Item atualizado com sucesso" };
+  } catch {
+    return { ok: false, message: "Falha ao atualizar o item" };
   }
 }
 
-export async function deleteTask(id: string) {
+export async function deleteTask(id: string): Promise<ActionResult> {
   const session = await auth();
   if (!session || !session.user?.id) {
     throw new Error("Unauthorized. User session not found.");
   }
+
+  const { appId, subdomain } = await requirePlannedAccess(id, session.user.id);
   try {
-    await prisma.planned.delete({
-      where: { id: id },
+    const result = await prisma.planned.deleteMany({
+      where: { id, appId },
     });
-    revalidatePath("/planned");
-    return { message: { isSuccess: true } };
-  } catch (error) {
-    console.log(error);
-    return { error: "Falha ao deletar o item" };
+    if (result.count === 0) {
+      return { ok: false, message: "Item not found for this app." };
+    }
+    if (subdomain) {
+      revalidatePath(`/s/${subdomain}/planned`);
+    }
+    return { ok: true, message: "Item deletado com sucesso" };
+  } catch {
+    return { ok: false, message: "Falha ao deletar o item" };
   }
 }

@@ -1,40 +1,55 @@
-import * as React from "react"
-import { type LucideIcon } from "lucide-react"
+"use client";
 
+import * as React from "react";
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { Link } from "@/i18n/navigation";
+import { ICONS } from "./icons";
+import type { NavItem } from "./buildSidebarData";
 
-export function NavSecondary({
-  items,
-  ...props
-}: {
-  items: {
-    title: string
-    url: string
-    icon: LucideIcon
-  }[]
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+type Props = {
+  items: NavItem[];
+} & React.ComponentPropsWithoutRef<typeof SidebarGroup>;
+
+export function NavSecondary({ items, ...props }: Props) {
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild size="sm">
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {items.map((item) => {
+            const Icon = item.icon ? ICONS[item.icon] : null;
+            const isExternal = /^https?:\/\//.test(item.url);
+
+            const Inner = (
+              <>
+                {Icon ? <Icon className="h-4 w-4" /> : null}
+                <span>{item.title}</span>
+              </>
+            );
+
+            return (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild size="sm">
+                  {isExternal ? (
+                    <Link href={item.url} rel="noopener noreferrer">
+                      {Inner}
+                    </Link>
+                  ) : (
+                    <Link href={item.url}>{Inner}</Link>
+                  )}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
-  )
+  );
 }
+
+export default NavSecondary;
