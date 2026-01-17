@@ -33,7 +33,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 type Props = {
   project: ProjectWithPlanned;
@@ -214,37 +214,6 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
                 </ItemActions>
               </Item>
             ))}
-            {/* <div className="space-y-3">
-              {project.plannedItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between rounded-lg border p-3 hover:border-foreground/30 bg-background"
-                >
-                  <div className="space-y-1 w-full">
-                    <div className="flex flex-row justify-between md:flex-row md:items-center gap-1 md:gap-2">
-                      <p className="flex font-medium leading-tight">
-                        {item.title}
-                      </p>
-                      <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-[10px]">
-                          {tTable(`status.${item.status}`)}
-                        </Badge>
-                        <Badge variant="secondary" className="text-[10px]">
-                          {tPlanned(`priority-options.${item.priority}`)}
-                        </Badge>
-                      </div>
-                    </div>
-                    <p className="text-sm">
-                      {formatPrice(item.price)}{" "}
-                      <span className="text-muted-foreground">
-                        x{item.quantity}
-                      </span>
-                    </p>
-                  </div>
-                  <UnassignButton plannedId={item.id} subdomain={subdomain} />
-                </div>
-              ))}
-            </div> */}
           </>
         )}
       </CardContent>
