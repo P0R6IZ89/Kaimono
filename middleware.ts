@@ -44,7 +44,7 @@ const isLocale = (l: string): l is Locale =>
 
 function isPathLocalized(pathname: string): boolean {
   return routing.locales.some(
-    (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`)
+    (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`),
   );
 }
 
@@ -89,18 +89,6 @@ export default auth(async function middleware(req) {
   const subdomain = extractSubdomain(req);
   const localeHeaders = getLocaleHeaders(req, locale);
 
-  if (subdomain) {
-    const expectedPrefix = `/${locale}/s/${subdomain}`;
-    if (!pathname.startsWith(expectedPrefix)) {
-      const dest = req.nextUrl.clone();
-      dest.pathname = `${expectedPrefix}${rest === "/" ? "" : rest}`;
-      dest.search = search;
-      return NextResponse.rewrite(dest, {
-        request: { headers: localeHeaders },
-      });
-    }
-  }
-
   const user = req.auth?.user;
   const isPublic = publicPaths.includes(rest);
 
@@ -116,6 +104,18 @@ export default auth(async function middleware(req) {
     url.pathname = `/${locale}/`;
     url.search = search;
     return NextResponse.redirect(url);
+  }
+
+  if (subdomain) {
+    const expectedPrefix = `/${locale}/s/${subdomain}`;
+    if (!pathname.startsWith(expectedPrefix)) {
+      const dest = req.nextUrl.clone();
+      dest.pathname = `${expectedPrefix}${rest === "/" ? "" : rest}`;
+      dest.search = search;
+      return NextResponse.rewrite(dest, {
+        request: { headers: localeHeaders },
+      });
+    }
   }
 
   return NextResponse.next({ request: { headers: localeHeaders } });
