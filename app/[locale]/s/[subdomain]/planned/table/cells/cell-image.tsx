@@ -17,6 +17,7 @@ function ImageCell({ row }: { row: Row<PlannedSchema> }) {
           alt={title}
           gravity="center"
           defaultImage="placeholder_dtzhrr.png"
+          removeBackground={true}
         />
       ) : (
         <CldImage
