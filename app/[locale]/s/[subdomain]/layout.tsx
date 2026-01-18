@@ -101,7 +101,9 @@ export default async function AppLayout({
             </div>
           </header>
           <MobileBottomNav />
-          {children}
+          <div className="pb-[calc(env(safe-area-inset-bottom)+96px)] md:pb-0">
+            {children}
+          </div>
         </SidebarInset>
       </SidebarProvider>
     </SubdomainContextProvider>

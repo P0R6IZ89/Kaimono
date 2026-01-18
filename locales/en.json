@@ -50,7 +50,7 @@
     "navPages": {
       "title": "Pages",
       "home": "Home",
-      "essentials": "Essentials",
+      "essentials": "Shopping list",
       "planned": "Planned",
       "projects": "Projects"
     },
@@ -88,13 +88,13 @@
     "invite-members": "Invite family or colleagues to collaborate on budgets and projects."
   },
   "EssentialsPage": {
-    "title": "Essentials",
-    "essentialsCount": "{count, plural, =0 {No items yet.} =1 {1 essential} other {# essentials}}",
-    "description": "Your essential shopping list items. These are the must-have items you need to purchase regularly.",
-    "no-essentials": "No essential items added yet.",
+    "title": "Shopping list",
+    "essentialsCount": "{count, plural, =0 {No items yet.} =1 {1 item} other {# items}}",
+    "description": "Your regular shopping list items. These are the items you need to purchase regularly.",
+    "no-essentials": "No shopping list items added yet.",
     "add-essential-button": "Add Item",
-    "add-new-essential-item": "Add new essential item",
-    "add-new-essential-item-description": "Add a new item to your essentials list.",
+    "add-new-essential-item": "Add new shopping list item",
+    "add-new-essential-item-description": "Add a new item to your shopping list.",
     "see-all-essentials": "See All",
     "item-name": "Item Name",
     "price": "Price",
@@ -110,7 +110,7 @@
     "description": "Your planned shopping list items.  You can send to an existing project or keep in backlog for better organization.",
     "no-planned": "No planned items added yet.",
     "add-planned-button": "Add Item",
-    "add-new-planned-item": "Add new planned item",
+    "add-new-planned-item": "Add planned",
     "add-new-planned-item-description": "Add a new item to your planned list.",
     "see-all-planned": "See All",
     "item-name": "Item Name",
@@ -306,8 +306,8 @@
       "title": "Core Features",
       "description": "Discover powerful tools that make Kaimono perfect for project-based purchasing.",
       "essentials": {
-        "title": "Essentials - Your Regular Shopping List",
-        "description": "Essentials are your go-to items - things you buy regularly like groceries, household supplies, or office materials.",
+        "title": "Shopping list - Your Regular Items",
+        "description": "Your shopping list items are the things you buy regularly like groceries, household supplies, or office materials.",
         "quickAdd": {
           "title": "Quick Add",
           "description": "Add items instantly with title, price, and quantity. Perfect for rapid grocery runs.",
@@ -445,7 +445,7 @@
     "save-changes": "Save changes",
     "edit-description": "You can edit the item here, don't forget to save!",
     "delete-title": "Are you sure you want to delete {title}?",
-    "delete-description": "This action cannot be undone. This will permanently delete the item from your essentials list.",
+    "delete-description": "This action cannot be undone. This will permanently delete the item from your shopping list.",
     "delete-confirm-button": "Yes, delete item",
     "mark-as-purchased-title": "Mark {title} as Purchased?",
     "mark-as-purchased-description": "Are you sure you want to mark this item as Purchased?",
@@ -496,7 +496,7 @@
   "MobileNav": {
     "home": "Home",
     "projects": "Projects",
-    "essentials": "Essentials",
+    "essentials": "Shopping list",
     "planned": "Planned",
     "settings": "Settings"
   },

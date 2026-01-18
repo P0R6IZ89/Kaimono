@@ -1,5 +1,4 @@
 import React from "react";
-import { formatPriceYen } from "@/util/formatPriceYen";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -11,10 +10,14 @@ type TotalPriceCellProps = {
 
 dayjs.extend(relativeTime);
 
-export default function TotalPrice({ price, quantity }: TotalPriceCellProps) {
-  const totalPrice = price * quantity;
-  const formatedPrice = formatPriceYen(totalPrice);
+export default function Quantity({ quantity }: TotalPriceCellProps) {
   return (
-    <p className="text-base font-semibold tabular-nums">{formatedPrice}</p>
+    <>
+      {quantity !== 0 ? (
+        <p className="tabular-nums slashed-zero">x {quantity}</p>
+      ) : (
+        <p className="tabular-nums slashed-zero">x 1</p>
+      )}
+    </>
   );
 }

@@ -5,13 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  CircleCheckBig,
-  Clock,
-  Info,
-  MoreHorizontal,
-  Trash,
-} from "lucide-react";
+import { Info, MoreHorizontal, Trash } from "lucide-react";
 import { useState } from "react";
 import { Row } from "@tanstack/react-table";
 import { TableRowData } from "../essentials-columns";
@@ -22,8 +16,6 @@ interface ActionDialogProps {
   row: Row<TableRowData>;
 }
 
-type StatusType = "PENDING" | "PURCHASED" | "CANCELLED";
-
 function ActionCell({ row }: ActionDialogProps) {
   const t = useTranslations("Table");
   const [open, setOpen] = useState(false);
@@ -31,13 +23,11 @@ function ActionCell({ row }: ActionDialogProps) {
     "edit" | "delete" | "mark-as-purchased" | "mark-as-pending"
   >();
   const handleActionClick = (
-    type: "edit" | "delete" | "mark-as-purchased" | "mark-as-pending"
+    type: "edit" | "delete" | "mark-as-purchased" | "mark-as-pending",
   ) => {
     setActiontype(type);
     setOpen(true);
   };
-
-  const status: StatusType = row.original.status as StatusType;
 
   return (
     <DropdownMenu>
@@ -58,21 +48,6 @@ function ActionCell({ row }: ActionDialogProps) {
           <Trash className="text-destructive" />
           {t("delete-item")}
         </DropdownMenuItem>
-        {status === "PENDING" ? (
-          <DropdownMenuItem
-            onSelect={() => handleActionClick("mark-as-purchased")}
-          >
-            <CircleCheckBig className="text-green-400" />
-            {t("mark-as-purchased")}
-          </DropdownMenuItem>
-        ) : status === "PURCHASED" ? (
-          <DropdownMenuItem
-            onSelect={() => handleActionClick("mark-as-pending")}
-          >
-            <Clock className="text-orange-400" />
-            {t("mark-as-pending")}
-          </DropdownMenuItem>
-        ) : null}
       </DropdownMenuContent>
       {actionType && (
         <>
