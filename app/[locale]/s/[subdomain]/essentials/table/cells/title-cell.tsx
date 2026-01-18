@@ -1,7 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { formatPriceYen } from "@/util/formatPriceYen";
 import { useFormatter, useNow } from "next-intl";
 
 type TitleCellProps = {
@@ -16,13 +15,7 @@ type TitleCellProps = {
 
 dayjs.extend(relativeTime);
 
-export default function TitleCell({
-  user,
-  price,
-  title,
-  quantity,
-  createdAt,
-}: TitleCellProps) {
+export default function TitleCell({ user, title, createdAt }: TitleCellProps) {
   const format = useFormatter();
   const now = useNow();
   const createdDate = new Date(createdAt);
@@ -37,10 +30,6 @@ export default function TitleCell({
       <p className="text-lg font-semibold truncate">{title}</p>
       <div className="flex flex-row gap-3 mt-1 text-xs text-muted-foreground">
         <p className={`${timeClass} flex-none`}>{fromNowText}</p>
-        <div className="flex flex-row gap-1">
-          <p className="tabular-nums">{formatPriceYen(price)}</p>
-          <p>x{quantity}</p>
-        </div>
       </div>
     </div>
   );

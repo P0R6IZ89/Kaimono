@@ -50,7 +50,7 @@
     "navPages": {
       "title": "Páginas",
       "home": "Inicio",
-      "essentials": "Esenciales",
+      "essentials": "Lista de compras",
       "planned": "Planificado",
       "projects": "Proyectos"
     },
@@ -88,13 +88,13 @@
     "invite-members": "Invita a familiares o colegas para colaborar en presupuestos y proyectos."
   },
   "EssentialsPage": {
-    "title": "Esenciales",
-    "essentialsCount": "{count, plural, =0 {Aún no hay artículos.} =1 {1 esencial} other {# esenciales}}",
-    "description": "Tus artículos esenciales de la lista de compras. Estos son los artículos imprescindibles que necesitas comprar regularmente.",
-    "no-essentials": "Aún no se han agregado artículos esenciales.",
+    "title": "Lista de compras",
+    "essentialsCount": "{count, plural, =0 {Aún no hay artículos.} =1 {1 artículo} other {# artículos}}",
+    "description": "Tus artículos regulares de la lista de compras. Estos son los artículos que necesitas comprar regularmente.",
+    "no-essentials": "Aún no se han agregado artículos a la lista de compras.",
     "add-essential-button": "Agregar Artículo",
-    "add-new-essential-item": "Agregar nuevo artículo esencial",
-    "add-new-essential-item-description": "Agrega un nuevo artículo a tu lista de esenciales.",
+    "add-new-essential-item": "Agregar nuevo artículo a la lista",
+    "add-new-essential-item-description": "Agrega un nuevo artículo a tu lista de compras.",
     "see-all-essentials": "Ver Todos",
     "item-name": "Nombre del Artículo",
     "price": "Precio",
@@ -126,6 +126,11 @@
       "HIGH": "Alta",
       "URGENT": "Urgente"
     },
+    "statuses-options": {
+      "PENDING": "Pendiente",
+      "PURCHASED": "Comprado",
+      "CANCELLED": "Cancelado"
+    },
     "selected": "Seleccionado",
     "upload-image": "Subir Imagen",
     "link": "Enlace (opcional)",
@@ -144,17 +149,17 @@
   },
   "ProjectsPage": {
     "title": "Projects",
-    "description": "Group planned purchases into projects and keep the backlog moving.",
+    "description": "Agrupa compras planificadas en proyectos y mantén el backlog en movimiento.",
     "see-all-projects": "See All",
     "count": "{count, plural, =0 {No projects yet} =1 {1 project} other {# projects}}",
     "summary": {
       "projects": "{count, plural, =0 {No projects yet} =1 {1 project} other {# projects}}",
       "planned": "{count, plural, =0 {No planned items tracked} =1 {1 planned item} other {# planned items}}",
-      "backlog": "{count, plural, =0 {No unassigned items} =1 {1 item in backlog} other {# items in backlog}}"
+      "backlog": "{count, plural, =0 {No hay artículos no asignados} =1 {1 artículo en backlog} other {# artículos en backlog}}"
     },
     "backlog": {
-      "title": "Unassigned planned items",
-      "description": "Assign backlog items into a project to give them context.",
+      "title": "Artículos planificados no asignados",
+      "description": "Asigna artículos del backlog a un proyecto para darles contexto.",
       "empty": "No unassigned planned items right now.",
       "badge": "Backlog"
     },
@@ -197,7 +202,7 @@
     "list": {
       "title": "Active projects",
       "description": "See how each project is progressing.",
-      "backlog-count": "{count, plural, =0 {No free items} =1 {1 free item} other {# free items}}"
+      "backlog-count": "{count, plural, =0 {No hay artículos libres} =1 {1 artículo libre} other {# artículos libres}}"
     },
     "empty": {
       "title": "Create your first project",
@@ -280,127 +285,127 @@
       "goToDashboard": "Ir al Dashboard"
     },
     "gettingStarted": {
-      "title": "Getting Started",
-      "description": "Welcome to Kaimono! Let's get you set up and ready to organize your shopping like never before.",
+      "title": "Comenzando",
+      "description": "¡Bienvenido a Kaimono! Prepárate para organizar tus compras como nunca antes.",
       "step1": {
-        "title": "Create Your Account",
-        "description": "Sign up using Google, GitHub, or email. It's quick and secure - you'll be shopping smarter in minutes!"
+        "title": "Crea tu Cuenta",
+        "description": "Regístrate usando Google, GitHub o correo electrónico. Es rápido y seguro - estarás comprando de forma más inteligente en minutos."
       },
       "step2": {
-        "title": "Create Your First App",
-        "description": "Think of Apps as your shopping headquarters. Create one for each major context: 'Home Renovation', 'Office Setup', or 'Event Planning'.",
-        "action": "Create Your First App"
+        "title": "Crea tu Primera Aplicación",
+        "description": "Piensa en las Aplicaciones como tu cuartel general de compras. Crea una para cada contexto principal: 'Renovación del Hogar', 'Configuración de la Oficina' o 'Planificación de Eventos'.",
+        "action": "Crear tu Primera Aplicación"
       },
       "step3": {
-        "title": "Explore Your Dashboard",
-        "description": "Your command center shows everything at a glance - quick stats, recent activity, and fast actions to add items.",
-        "action": "Go to Dashboard"
+        "title": "Explora tu Panel",
+        "description": "Tu centro de comando muestra todo de un vistazo - estadísticas rápidas, actividad reciente y acciones rápidas para agregar artículos.",
+        "action": "Ir al Panel"
       }
     },
     "coreFeatures": {
-      "title": "Core Features",
-      "description": "Discover powerful tools that make Kaimono perfect for project-based purchasing.",
+      "title": "Características Principales",
+      "description": "Descubre herramientas poderosas que hacen de Kaimono la opción perfecta para compras basadas en proyectos.",
       "essentials": {
-        "title": "Essentials - Your Regular Shopping List",
-        "description": "Essentials are your go-to items - things you buy regularly like groceries, household supplies, or office materials.",
+        "title": "Lista de compras - Tus Artículos Regulares",
+        "description": "Los artículos de tu lista de compras son las cosas que compras regularmente como comestibles, artículos del hogar o materiales de oficina.",
         "quickAdd": {
-          "title": "Quick Add",
-          "description": "Add items instantly with title, price, and quantity. Perfect for rapid grocery runs.",
-          "example": "Milk - $3.50 - 2 gallons"
+          "title": "Adición Rápida",
+          "description": "Agrega artículos instantáneamente con título, precio y cantidad. Perfecto para compras rápidas de comestibles.",
+          "example": "Leche - $3.50 - 2 galones"
         },
         "statusTracking": {
-          "title": "Status Tracking",
-          "description": "Mark items as Pending, Purchased, or Cancelled to keep track of what's done.",
-          "example": "Track your weekly shopping progress"
+          "title": "Seguimiento de Estado",
+          "description": "Marca artículos como Pendiente, Comprado o Cancelado para realizar un seguimiento de lo completado.",
+          "example": "Seguimiento del progreso semanal de compras"
         }
       },
       "planned": {
-        "title": "Planned Items - Future Purchases",
-        "description": "Plan ahead with detailed items that include priorities, images, descriptions, and can be organized into projects.",
+        "title": "Artículos Planificados - Compras Futuras",
+        "description": "Planifica con anticipación artículos detallados que incluyen prioridades, imágenes, descripciones y pueden organizarse en proyectos.",
         "priorityLevels": {
-          "title": "Priority Levels",
-          "description": "Set LOW, MEDIUM, HIGH, or URGENT priorities to focus on what matters most.",
-          "example": "URGENT: Project deadline materials"
+          "title": "Niveles de Prioridad",
+          "description": "Establece prioridades BAJA, MEDIA, ALTA o URGENTE para concentrarse en lo más importante.",
+          "example": "URGENTE: Materiales para plazo del proyecto"
         },
         "richDetails": {
-          "title": "Rich Details",
-          "description": "Add images, product URLs, descriptions, and quantity for complete purchase planning.",
-          "example": "Attach reference photos and links"
+          "title": "Detalles Enriquecidos",
+          "description": "Agrega imágenes, URLs de productos, descripciones y cantidad para planificación completa de compras.",
+          "example": "Adjunta fotos de referencia y enlaces"
         }
       },
       "projects": {
-        "title": "Projects - Organize by Mission",
-        "description": "This is where Kaimono shines! Projects group related planned items together, perfect for complex purchasing missions.",
+        "title": "Proyectos - Organiza por Misión",
+        "description": "¡Aquí es donde Kaimono brilla! Los proyectos agrupan artículos planificados relacionados, perfecto para misiones complejas de compras.",
         "kanbanBoard": {
-          "title": "Kanban Board View",
-          "description": "Drag and drop planned items between stages. Visual workflow management at its best.",
-          "example": "Backlog → Planning → Purchased"
+          "title": "Vista de Tablero Kanban",
+          "description": "Arrastra y suelta artículos planificados entre etapas. Gestión visual del flujo de trabajo en su mejor momento.",
+          "example": "Backlog → Planificación → Comprado"
         },
         "projectBased": {
-          "title": "Project-Based Organization",
-          "description": "Keep related purchases together. Perfect for renovations, events, or business setups.",
-          "example": "Home Office Setup: Desk, Chair, Monitor, Lamp",
+          "title": "Organización Basada en Proyectos",
+          "description": "Mantén compras relacionadas juntas. Perfecto para renovaciones, eventos o configuraciones empresariales.",
+          "example": "Configuración de Oficina en Casa: Escritorio, Silla, Monitor, Lámpara",
           "proTip": true
         }
       }
     },
     "collaboration": {
-      "title": "Team Collaboration",
-      "description": "Work together seamlessly with your team, family, or project partners.",
+      "title": "Colaboración en Equipo",
+      "description": "Trabaja junto sin problemas con tu equipo, familia o socios del proyecto.",
       "owner": {
-        "title": "Owner",
-        "description": "Complete control. Can manage apps, invite users, and handle all administrative tasks."
+        "title": "Propietario",
+        "description": "Control completo. Puede gestionar aplicaciones, invitar usuarios y manejar todas las tareas administrativas."
       },
       "admin": {
-        "title": "Admin",
-        "description": "Can invite users and manage most features. Perfect for team leads and managers."
+        "title": "Administrador",
+        "description": "Puede invitar usuarios y gestionar la mayoría de funciones. Perfecto para líderes de equipo y gerentes."
       },
       "member": {
-        "title": "Member",
-        "description": "Full access to add and edit items. Ideal for contributors and team members."
+        "title": "Miembro",
+        "description": "Acceso completo para agregar y editar artículos. Ideal para contribuidores y miembros del equipo."
       },
       "inviteStep": {
-        "title": "Invite Team Members",
-        "description": "Send email invitations directly from the app. Assign roles and let your team join the shopping mission."
+        "title": "Invitar Miembros del Equipo",
+        "description": "Envía invitaciones por correo electrónico directamente desde la aplicación. Asigna roles y deja que tu equipo se una a la misión de compras."
       },
       "collaborateStep": {
-        "title": "Collaborate in Real-Time",
-        "description": "See updates instantly, comment on planned items, and like purchases. Everyone stays in sync."
+        "title": "Colaborar en Tiempo Real",
+        "description": "Ve actualizaciones instantáneamente, comenta en artículos planificados y da me gusta a compras. Todos permanecen sincronizados."
       }
     },
     "proTips": {
-      "title": "Pro Tips & Best Practices",
-      "description": "Level up your project-based purchasing with these expert strategies.",
+      "title": "Consejos Profesionales y Mejores Prácticas",
+      "description": "Eleva tus compras basadas en proyectos con estas estrategias expertas.",
       "projectNaming": {
-        "title": "Project Naming Strategy",
-        "description": "Use clear, actionable names. Include dates or phases for better organization.",
-        "example": "Kitchen Renovation - Phase 1 (Q1 2024)",
+        "title": "Estrategia de Nomenclatura de Proyectos",
+        "description": "Usa nombres claros y accionables. Incluye fechas o fases para mejor organización.",
+        "example": "Renovación de Cocina - Fase 1 (Q1 2024)",
         "proTip": true
       },
       "priorityManagement": {
-        "title": "Priority Management",
-        "description": "Use URGENT for time-sensitive items, HIGH for important but flexible purchases.",
-        "example": "URGENT: Event supplies for Saturday",
+        "title": "Gestión de Prioridades",
+        "description": "Usa URGENTE para artículos sensibles al tiempo, ALTO para compras importantes pero flexibles.",
+        "example": "URGENTE: Suministros para evento del sábado",
         "proTip": true
       },
       "teamCommunication": {
-        "title": "Team Communication",
-        "description": "Use comments on planned items to discuss options, alternatives, and decisions.",
-        "example": "Comment: Found this alternative on sale - thoughts?",
+        "title": "Comunicación en Equipo",
+        "description": "Usa comentarios en artículos planificados para discutir opciones, alternativas y decisiones.",
+        "example": "Comentario: Encontré esta alternativa en oferta - ¿qué piensan?",
         "proTip": true
       },
       "regularReviews": {
-        "title": "Regular Reviews",
-        "description": "Weekly reviews of planned items help prioritize and adjust timelines.",
-        "example": "Friday review: Move 3 items to purchased, 2 to next week",
+        "title": "Revisiones Regulares",
+        "description": "Las revisiones semanales de artículos planificados ayudan a priorizar y ajustar cronogramas.",
+        "example": "Revisión del viernes: Mover 3 artículos a comprados, 2 a la próxima semana",
         "proTip": true
       }
     },
     "cta": {
-      "title": "Ready to Start Your First Project?",
-      "description": "You've got the knowledge, now it's time to put it into practice. Create your first app and experience the power of project-based purchasing.",
-      "createApp": "Create Your First App",
-      "viewDashboard": "View Dashboard"
+      "title": "¿Listo para Comenzar tu Primer Proyecto?",
+      "description": "Tienes el conocimiento, ahora es hora de ponerlo en práctica. Crea tu primera aplicación y experimenta el poder de las compras basadas en proyectos.",
+      "createApp": "Crear tu Primera Aplicación",
+      "viewDashboard": "Ver Panel"
     }
   },
   "Table": {
@@ -434,28 +439,28 @@
     }
   },
   "Dialog": {
-    "item-name": "Item Name",
-    "item-price": "Item Price",
-    "item-quantity": "Item Quantity",
-    "close": "Return",
-    "save-changes": "Save changes",
-    "edit-description": "You can edit the item here, don't forget to save!",
-    "delete-title": "Are you sure you want to delete {title}?",
-    "delete-description": "This action cannot be undone. This will permanently delete the item from your essentials list.",
-    "delete-confirm-button": "Yes, delete item",
-    "mark-as-purchased-title": "Mark {title} as Purchased?",
-    "mark-as-purchased-description": "Are you sure you want to mark this item as Purchased?",
-    "mark-as-purchased-confirm-button": "Mark as Purchased",
-    "mark-as-pending-title": "Revert item to Pending?",
-    "mark-as-pending-description": "Are you sure you want to revert this item back to Pending?",
-    "mark-as-pending-confirm-button": "Mark as Pending"
+    "item-name": "Nombre del Artículo",
+    "item-price": "Precio del Artículo",
+    "item-quantity": "Cantidad del Artículo",
+    "close": "Volver",
+    "save-changes": "Guardar cambios",
+    "edit-description": "¡Puedes editar el artículo aquí, no olvides guardar!",
+    "delete-title": "¿Estás seguro de que quieres eliminar {title}?",
+    "delete-description": "Esta acción no se puede deshacer. Esto eliminará permanentemente el artículo de tu lista de compras.",
+    "delete-confirm-button": "Sí, eliminar artículo",
+    "mark-as-purchased-title": "¿Marcar {title} como Comprado?",
+    "mark-as-purchased-description": "¿Estás seguro de que quieres marcar este artículo como Comprado?",
+    "mark-as-purchased-confirm-button": "Marcar como Comprado",
+    "mark-as-pending-title": "¿Revertir artículo a Pendiente?",
+    "mark-as-pending-description": "¿Estás seguro de que quieres revertir este artículo de vuelta a Pendiente?",
+    "mark-as-pending-confirm-button": "Marcar como Pendiente"
   },
   "Errors": {
     "error": "Error",
-    "required-field": "This field is required.",
-    "invalid-email": "Please enter a valid email address.",
-    "password-min-length": "Password must be at least 8 characters long.",
-    "passwords-no-match": "Passwords do not match."
+    "required-field": "Este campo es obligatorio.",
+    "invalid-email": "Por favor, introduce una dirección de correo electrónico válida.",
+    "password-min-length": "La contraseña debe tener al menos 8 caracteres.",
+    "passwords-no-match": "Las contraseñas no coinciden."
   },
   "UpdateApp": {
     "title": "New update! 🚀",
@@ -463,14 +468,14 @@
   },
   "Auth": {
     "continue-with-github": "Continuar con Github 🚧Solo para desarrollo⚠️",
-    "continue-with-google": "Continue with Google",
-    "continue-with-email": "Continue with Email",
-    "or": "or",
+    "continue-with-google": "Continuar con Google",
+    "continue-with-email": "Continuar con Email",
+    "or": "o",
     "error": "Error:",
-    "email-sent-title": "The login email has been sent to your email.",
+    "email-sent-title": "El correo electrónico de inicio de sesión ha sido enviado a tu email.",
     "email-sent-instruction": "Abre el correo enviado y haz clic en el botón \"Entrar\" para completar tu inicio de sesión.",
-    "check-spam": "(Check your spam folder if you don't see it)",
-    "back-to-main": "Back to main page"
+    "check-spam": "(Revisa tu carpeta de spam si no lo ves)",
+    "back-to-main": "Volver a la página principal"
   },
   "UserManager": {
     "roles": {
@@ -492,13 +497,13 @@
   "MobileNav": {
     "home": "Inicio",
     "projects": "Proyectos",
-    "essentials": "Esenciales",
+    "essentials": "Lista de compras",
     "planned": "Planificado",
     "settings": "Configuración"
   },
   "KoFiWidget": {
-    "support-button": "Support me on Ko-fi",
-    "aria-label": "Support me on Ko-fi",
+    "support-button": "Apóyame en Ko-fi",
+    "aria-label": "Apóyame en Ko-fi",
     "alt-text": "Ko-fi"
   }
 }

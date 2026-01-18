@@ -1,22 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import {
-  Folder,
-  Home,
-  Layers,
-  Plus,
-  Settings,
-  ShoppingCart,
-  Sofa,
-} from "lucide-react";
+import { Folder, Home, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { stripLeadingLocale } from "@/middleware";
 import { useTranslations } from "next-intl";
-import { Button } from "../ui/button";
-import { toast } from "sonner";
-import { RadialItem, RadialPieMenu } from "./quick-action-pie-menu";
 
 export function MobileBottomNav() {
   const pathname = usePathname() ?? "";
@@ -29,26 +18,26 @@ export function MobileBottomNav() {
     { href: "/settings", label: t("settings"), icon: Settings },
   ];
 
-  const itemsMenu: RadialItem[] = [
-    {
-      id: "essential",
-      label: "essential",
-      icon: ShoppingCart,
-      onSelect: () => toast("essential"),
-    },
-    {
-      id: "planned",
-      label: "planned",
-      icon: Sofa,
-      onSelect: () => toast("planned"),
-    },
-    {
-      id: "project",
-      label: "project",
-      icon: Layers,
-      onSelect: () => toast("project"),
-    },
-  ];
+  // const itemsMenu: RadialItem[] = [
+  //   {
+  //     id: "essential",
+  //     label: "essential",
+  //     icon: ShoppingCart,
+  //     onSelect: () => toast("essential"),
+  //   },
+  //   {
+  //     id: "planned",
+  //     label: "planned",
+  //     icon: Sofa,
+  //     onSelect: () => toast("planned"),
+  //   },
+  //   {
+  //     id: "project",
+  //     label: "project",
+  //     icon: Layers,
+  //     onSelect: () => toast("project"),
+  //   },
+  // ];
 
   return (
     <nav

@@ -31,7 +31,7 @@ export default function HomeCarousel({}) {
       icon: Sofa,
       color: "text-blue-600",
       imageUrl:
-        "https://res.cloudinary.com/dsttcre2h/image/upload/v1768644916/Planned_qtnawj.png",
+        "https://res.cloudinary.com/dsttcre2h/image/upload/v1768714071/Plannedv2_fp2qq1.png",
     },
     {
       title: tEssentials("title"),

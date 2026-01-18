@@ -73,8 +73,8 @@
       "title": "コア機能",
       "description": "Kaimonoをプロジェクトベースの購入に完璧にする強力なツールを発見。",
       "essentials": {
-        "title": "必需品 - 定期的な買い物リスト",
-        "description": "必需品は定番アイテム - 食料品、家庭用品、またはオフィス用品など定期的に購入するもの。",
+        "title": "買い物リスト - 定期的な購入アイテム",
+        "description": "買い物リストは定期的に購入するもの - 食料品、家庭用品、またはオフィス用品など。",
         "quickAdd": {
           "title": "クイック追加",
           "description": "タイトル、価格、数量でアイテムを即座に追加。迅速な食料品買い物に最適。",
@@ -87,7 +87,7 @@
         }
       },
       "planned": {
-        "title": "計画済みアイテム - 今後の購入",
+        "title": "購入予定 - 今後の購入",
         "description": "優先度、画像、説明を含む詳細なアイテムを計画し、プロジェクトに整理可能。",
         "priorityLevels": {
           "title": "優先度レベル",
@@ -102,11 +102,11 @@
       },
       "projects": {
         "title": "プロジェクト - ミッション別整理",
-        "description": "ここがKaimonoの真価！プロジェクトは関連する計画済みアイテムをグループ化し、複雑な購入ミッションに最適。",
+        "description": "ここがKaimonoの真価！プロジェクトは関連する予約アイテムをグループ化し、複雑な購入ミッションに最適。",
         "kanbanBoard": {
           "title": "かんばんボード表示",
-          "description": "ステージ間で計画済みアイテムをドラッグ＆ドロップして、直感的なビジュアルワークフロー管理を実現します。",
-          "example": "バックログ → 計画中 → 購入済み"
+          "description": "ステージ間で予約アイテムをドラッグ＆ドロップして、直感的なビジュアルワークフロー管理を実現します。",
+          "example": "保留リスト → 計画中 → 購入済み"
         },
         "projectBased": {
           "title": "プロジェクトベース整理",
@@ -137,7 +137,7 @@
       },
       "collaborateStep": {
         "title": "リアルタイムで協力",
-        "description": "更新を即座に確認し、計画済みアイテムにコメントし、購入をいいね。全員が同期状態。"
+        "description": "更新を即座に確認し、予約アイテムにコメントし、購入をいいね。全員が同期状態。"
       }
     },
     "proTips": {
@@ -157,13 +157,13 @@
       },
       "teamCommunication": {
         "title": "チームコミュニケーション",
-        "description": "計画済みアイテムのコメントを使用して、選択肢、代替案、決定を議論。",
+        "description": "予約アイテムのコメントを使用して、選択肢、代替案、決定を議論。",
         "example": "コメント：この代替案がセール中です - どう思いますか？",
         "proTip": true
       },
       "regularReviews": {
         "title": "定期的なレビュー",
-        "description": "計画済みアイテムの週次レビューは優先順位付けとタイムライン調整に役立ちます。",
+        "description": "予約アイテムの週次レビューは優先順位付けとタイムライン調整に役立ちます。",
         "example": "金曜レビュー：3アイテムを購入済みに移動、2を来週へ",
         "proTip": true
       }
@@ -212,8 +212,8 @@
     "navPages": {
       "title": "ページ",
       "home": "ホーム",
-      "essentials": "必需品",
-      "planned": "計画済み",
+      "essentials": "買い物リスト",
+      "planned": "購入予定",
       "projects": "プロジェクト"
     },
     "navSecondary": {
@@ -250,13 +250,13 @@
     "invite-members": "家族や同僚を招待して予算やプロジェクトを共同で管理しましょう。"
   },
   "EssentialsPage": {
-    "title": "必需品",
-    "essentialsCount": "{count, plural, =0 {まだアイテムがありません。} =1 {1つの必需品} other {#つの必需品}}",
-    "description": "定期的に購入する必要がある必須アイテムです。",
-    "no-essentials": "まだ必需品が追加されていません。",
+    "title": "買い物リスト",
+    "essentialsCount": "{count, plural, =0 {まだアイテムがありません。} =1 {1つのアイテム} other {#つのアイテム}}",
+    "description": "定期的に購入する必要があるアイテムです。",
+    "no-essentials": "まだ買い物リストにアイテムが追加されていません。",
     "add-essential-button": "アイテムを追加",
-    "add-new-essential-item": "新しい必需品アイテムを追加",
-    "add-new-essential-item-description": "必需品リストに新しいアイテムを追加します。",
+    "add-new-essential-item": "新しい買い物アイテムを追加",
+    "add-new-essential-item-description": "買い物リストに新しいアイテムを追加します。",
     "see-all-essentials": "すべて表示",
     "item-name": "アイテム名",
     "price": "価格",
@@ -267,13 +267,13 @@
     "total-pending": "保留中の合計"
   },
   "PlannedPage": {
-    "title": "計画済み",
-    "plannedCount": "{count, plural, =0 {まだアイテムがありません。} =1 {1つの計画} other {#つの計画}}",
-    "description": "あなたの計画済みの買い物リスト項目。既存のプロジェクトに送信したり、より良い整理のためにバックログに保持したりできます。",
-    "no-planned": "まだ計画済みアイテムが追加されていません。",
+    "title": "購入予定",
+    "plannedCount": "{count, plural, =0 {まだアイテムがありません。} =1 {1つの予定} other {#つの予定}}",
+    "description": "将来購入する予定の買い物リスト項目。既存のプロジェクトに割り当てたり、整理のために保留リストに置いたりできます。",
+    "no-planned": "まだ購入予定アイテムが追加されていません。",
     "add-planned-button": "追加",
-    "add-new-planned-item": "新しい計画済みアイテムを追加",
-    "add-new-planned-item-description": "計画リストに新しいアイテムを追加します。",
+    "add-new-planned-item": "購入予定追加",
+    "add-new-planned-item-description": "購入予定リストに新しいアイテムを追加します。",
     "see-all-planned": "すべて表示",
     "item-name": "アイテム名",
     "price": "価格",
@@ -288,6 +288,11 @@
       "HIGH": "高",
       "URGENT": "緊急"
     },
+    "statuses-options": {
+      "PENDING": "保留中",
+      "PURCHASED": "購入済み",
+      "CANCELLED": "キャンセル済み"
+    },
     "selected": "選択済み",
     "upload-image": "画像をアップロード",
     "link": "リンク（オプション）",
@@ -295,8 +300,6 @@
     "item-name-placeholder": "例: 3Dプリンター、化粧品、衣類",
     "price-placeholder": "価格を入力",
     "quantity-placeholder": "数量を入力",
-    "link-placeholder": "商品リンクを入力（オプション）",
-    "description-comment-placeholder": "説明やメモを追加（オプション）",
     "link-placeholder": "商品リンクを入力（オプション）",
     "description-comment-placeholder": "説明やメモを追加（オプション）",
     "mark-as-purchased": "購入済みとしてマーク",
@@ -308,19 +311,19 @@
   },
   "ProjectsPage": {
     "title": "プロジェクト",
-    "description": "計画済みの購入をプロジェクトにグループ化し、バックログを進め続けましょう。",
+    "description": "購入予定のアイテムをプロジェクトにグループ化し、保留リストを進め続けましょう。",
     "see-all-projects": "すべて表示",
     "count": "{count, plural, =0 {まだプロジェクトがありません} =1 {1つのプロジェクト} other {#つのプロジェクト}}",
     "summary": {
       "projects": "{count, plural, =0 {まだプロジェクトがありません} =1 {1つのプロジェクト} other {#つのプロジェクト}}",
-      "planned": "{count, plural, =0 {追跡中の計画済みアイテムがありません} =1 {1つの計画済みアイテム} other {#つの計画済みアイテム}}",
-      "backlog": "{count, plural, =0 {未割り当てのアイテムがありません} =1 {バックログに1つのアイテム} other {バックログに#つのアイテム}}"
+      "planned": "{count, plural, =0 {追跡中の購入予定アイテムがありません} =1 {1つの購入予定アイテム} other {#つの購入予定アイテム}}",
+      "backlog": "{count, plural, =0 {未割り当てのアイテムがありません} =1 {保留リストに1つのアイテム} other {保留リストに#つのアイテム}}"
     },
     "backlog": {
-      "title": "未割り当ての計画アイテム",
-      "description": "バックログアイテムをプロジェクトに割り当てて、文脈を与えましょう。",
-      "empty": "現在、未割り当ての計画済みアイテムはありません。",
-      "badge": "バックログ"
+      "title": "未割り当ての購入予定アイテム",
+      "description": "保留リストのアイテムをプロジェクトに割り当てて、文脈を与えましょう。",
+      "empty": "現在、未割り当ての購入予定アイテムはありません。",
+      "badge": "保留リスト"
     },
     "create": {
       "title": "プロジェクトを作成",
@@ -335,12 +338,12 @@
       "reset": "リセット"
     },
     "assign": {
-      "cta": "計画済みアイテムを割り当て",
-      "title": "{projectName}に計画済みアイテムを追加",
-      "description": "プロジェクトのない計画済みアイテムを選択して、これにドロップしてください。",
-      "empty": "未割り当ての計画済みアイテムがありません。",
-      "search-placeholder": "計画済みアイテムを検索...",
-      "no-results": "計画済みアイテムが見つかりません。",
+      "cta": "購入予定アイテムを割り当て",
+      "title": "{projectName}に購入予定アイテムを追加",
+      "description": "プロジェクトのない購入予定アイテムを選択して、これにドロップしてください。",
+      "empty": "未割り当ての購入予定アイテムがありません。",
+      "search-placeholder": "購入予定アイテムを検索...",
+      "no-results": "購入予定アイテムが見つかりません。",
       "submit-selected": "\"{title}\"を追加",
       "submit": "プロジェクトに追加"
     },
@@ -353,22 +356,22 @@
         "cancelled": "{count, plural, =0 {0キャンセル済み} =1 {1キャンセル済み} other {#キャンセル済み}}"
       },
       "items-title": "このプロジェクトのアイテム",
-      "items-description": "計画済みの購入を、それらがサポートする目標に結びつけたままにしましょう。",
-      "empty": "まだ計画済みアイテムがここにリンクされていません。",
+      "items-description": "購入予定の購入を、それらがサポートする目標に結びつけたままにしましょう。",
+      "empty": "まだ購入予定アイテムがここにリンクされていません。",
       "total-value": "合計",
-      "open-planned": "すべての計画済み"
+      "open-planned": "すべての予約"
     },
     "list": {
       "title": "アクティブなプロジェクト",
       "description": "各プロジェクトがどのように進んでいるかを確認しましょう。",
-      "backlog-count": "{count, plural, =0 {無料アイテムなし} =1 {1つの無料アイテム} other {#つの無料アイテム}}"
+      "backlog-count": "{count, plural, =0 {未割り当てアイテムなし} =1 {1つの未割り当てアイテム} other {#つの未割り当てアイテム}}"
     },
     "empty": {
       "title": "最初のプロジェクトを作成しましょう",
-      "description": "プロジェクトを使用して、目標別に計画済みアイテムをグループ化しましょう。"
+      "description": "プロジェクトを使用して、目標別に予約アイテムをグループ化しましょう。"
     },
     "toast-created": "プロジェクトが作成されました。",
-    "toast-assigned": "計画済みアイテムが{projectName}に割り当てられました。",
+    "toast-assigned": "購入予定アイテムが{projectName}に割り当てられました。",
     "toast-unassigned": "アイテムがプロジェクトから削除されました。"
   },
   "InvitePage": {
@@ -443,7 +446,7 @@
     "save-changes": "変更を保存",
     "edit-description": "ここでアイテムを編集できます。保存を忘れないでください！",
     "delete-title": "{title}を削除してもよろしいですか？",
-    "delete-description": "この操作は元に戻せません。これにより、アイテムが必需品リストから完全に削除されます。",
+    "delete-description": "この操作は元に戻せません。これにより、アイテムが買い物リストから完全に削除されます。",
     "delete-confirm-button": "はい、アイテムを削除",
     "mark-as-purchased-title": "{title}を購入済みとしてマークしますか？",
     "mark-as-purchased-description": "このアイテムを購入済みとしてマークしてもよろしいですか？",
@@ -494,8 +497,8 @@
   "MobileNav": {
     "home": "ホーム",
     "projects": "プロジェクト",
-    "essentials": "必需品",
-    "planned": "計画済み",
+    "essentials": "買い物リスト",
+    "planned": "購入予定",
     "settings": "設定"
   },
   "KoFiWidget": {

@@ -3,9 +3,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import StatesCell from "./cells/status-cell";
 import TitleCell from "./cells/title-cell";
-import TotalPrice from "./cells/totalPrice-cell";
 import ActionCell from "./cells/action-cell";
 import { Status } from "@prisma/client";
+import Quantity from "./cells/totalPrice-cell";
 
 export interface TableRowData {
   id: string;
@@ -51,7 +51,7 @@ export const columns: ColumnDef<TableRowData>[] = [
     cell: (info) => {
       const { price, quantity, createdAt } = info.row.original;
       return (
-        <TotalPrice price={price} quantity={quantity} createdAt={createdAt} />
+        <Quantity price={price} quantity={quantity} createdAt={createdAt} />
       );
     },
   },

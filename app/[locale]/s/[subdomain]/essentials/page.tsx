@@ -1,16 +1,16 @@
 import React from "react";
 import { getEssentialsBySubdomain } from "@/actions/essentialsActions";
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { DataTable } from "./table/data-table";
 import { columns } from "./table/essentials-columns";
 import { getTranslations } from "next-intl/server";
 import { CreateEssentialDialogTrigger } from "./dialogs/dialog-create-trigger";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item";
 
 interface EssentialsProps {
   params: Promise<{ subdomain: string; locale: string }>;
@@ -23,32 +23,20 @@ export default async function Essentials({ params }: EssentialsProps) {
 
   return (
     <section className="p-4 space-y-8 mb-24 md:mb-0">
-      <Card className="">
-        <CardHeader>
-          <CardTitle>{t("title")}</CardTitle>
-          <CardDescription>{t("description")}</CardDescription>
-          <CardAction>
-            <CreateEssentialDialogTrigger />
-          </CardAction>
-        </CardHeader>
-      </Card>
+      <Item
+        variant={"muted"}
+        className="flex flex-col items-start lg:flex-row lg:items-center"
+      >
+        <ItemContent>
+          <ItemTitle>{t("title")}</ItemTitle>
+          <ItemDescription>{t("description")}</ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <CreateEssentialDialogTrigger />
+        </ItemActions>
+      </Item>
+
       <div className="flex flex-col gap-4">
-        {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader>
-              <CardDescription>{t("pending-items")}</CardDescription>
-              <CardTitle className="text-xl font-semibold">{count}</CardTitle>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardDescription>{t("total-pending")}</CardDescription>
-              <CardTitle className="text-xl font-semibold">
-                {formatPriceYen(totalExpense)}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-        </div> */}
         <div>
           {essentials ? (
             <div className="space-y-8">

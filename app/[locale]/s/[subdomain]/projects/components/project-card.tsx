@@ -54,7 +54,7 @@ function UnassignButton({
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     unassignPlannedFromProjectAction,
-    initialState
+    initialState,
   );
 
   useEffect(() => {
@@ -101,7 +101,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   const tPlanned = useTranslations("PlannedPage");
   const totalPlannedAmount = project.plannedItems.reduce(
     (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
-    0
+    0,
   );
 
   return (
@@ -116,14 +116,17 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
             {project.description || t("project.no-description")}
           </CardDescription>
         </div>
-        <div className="flex items-baseline gap-1">
-          <span className="font-semibold text-xl">
-            {formatPrice(totalPlannedAmount)}
-          </span>
-          <span className="text-xs text-muted-foreground">
-            {t("project.total-value")}
-          </span>
-        </div>
+        {totalPlannedAmount !== 0 && (
+          <div className="flex items-baseline gap-1">
+            <span className="font-semibold text-xl">
+              {formatPrice(totalPlannedAmount)}
+            </span>
+
+            <span className="text-xs text-muted-foreground">
+              {t("project.total-value")}
+            </span>
+          </div>
+        )}
         <div className="flex flex-wrap gap-2">
           {project.counts.total ? (
             <Badge variant="secondary">

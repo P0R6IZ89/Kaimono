@@ -73,8 +73,8 @@
       "title": "Recursos Principais",
       "description": "Descubra ferramentas poderosas que tornam o Kaimono perfeito para compras baseadas em projetos.",
       "essentials": {
-        "title": "Essenciais - Sua Lista de Compras Regular",
-        "description": "Essenciais são seus itens essenciais - coisas que você compra regularmente como mantimentos, suprimentos domésticos ou materiais de escritório.",
+        "title": "Lista de compras - Seus Itens Regulares",
+        "description": "Os itens da sua lista de compras são as coisas que você compra regularmente como mantimentos, suprimentos domésticos ou materiais de escritório.",
         "quickAdd": {
           "title": "Adição Rápida",
           "description": "Adicione itens instantaneamente com título, preço e quantidade. Perfeito para corridas rápidas ao supermercado.",
@@ -213,7 +213,7 @@
     "navPages": {
       "title": "Páginas",
       "home": "Início",
-      "essentials": "Essenciais",
+      "essentials": "Lista de compras",
       "planned": "Planejados",
       "projects": "Projetos"
     },
@@ -251,13 +251,13 @@
     "invite-members": "Convide familiares ou colegas para colaborar em orçamentos e projetos."
   },
   "EssentialsPage": {
-    "title": "Essenciais",
-    "essentialsCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 essencial} other {# essenciais}}",
-    "description": "Seus itens essenciais de lista de compras. Estes são os itens indispensáveis que você precisa comprar regularmente.",
-    "no-essentials": "Nenhum item essencial adicionado ainda.",
+    "title": "Lista de compras",
+    "essentialsCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 item} other {# itens}}",
+    "description": "Seus itens regulares da lista de compras. Estes são os itens que você precisa comprar regularmente.",
+    "no-essentials": "Nenhum item adicionado à lista de compras ainda.",
     "add-essential-button": "Adicionar Item",
-    "add-new-essential-item": "Adicionar novo item essencial",
-    "add-new-essential-item-description": "Adicione um novo item à sua lista de essenciais.",
+    "add-new-essential-item": "Adicionar novo item à lista",
+    "add-new-essential-item-description": "Adicione um novo item à sua lista de compras.",
     "see-all-essentials": "Ver Todos",
     "item-name": "Nome do Item",
     "price": "Preço",
@@ -270,7 +270,7 @@
   "PlannedPage": {
     "title": "Planejados",
     "plannedCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 planejado} other {# planejados}}",
-    "description": "Seus itens planejados de lista de compras. Você pode enviar para um projeto existente ou manter no backlog para melhor organização.",
+    "description": "Seus itens planejados de lista de compras. Você pode enviar para um projeto existente ou manter na lista de espera para melhor organização.",
     "no-planned": "Nenhum item planejado adicionado ainda.",
     "add-planned-button": "Adicionar",
     "add-new-planned-item": "Adicionar novo item planejado",
@@ -288,6 +288,11 @@
       "MEDIUM": "Média",
       "HIGH": "Alta",
       "URGENT": "Urgente"
+    },
+    "statuses-options": {
+      "PENDING": "Pendente",
+      "PURCHASED": "Comprado",
+      "CANCELLED": "Cancelado"
     },
     "selected": "Selecionado",
     "upload-image": "Enviar Imagem",
@@ -309,19 +314,19 @@
   },
   "ProjectsPage": {
     "title": "Projetos",
-    "description": "Agrupe compras planejadas em projetos e mantenha o backlog em movimento.",
+    "description": "Agrupe compras planejadas em projetos e mantenha a lista de espera em movimento.",
     "see-all-projects": "Ver Todos",
     "count": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}",
     "summary": {
       "projects": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}",
       "planned": "{count, plural, =0 {Nenhum item planejado rastreado} =1 {1 item planejado} other {# itens planejados}}",
-      "backlog": "{count, plural, =0 {Nenhum item não atribuído} =1 {1 item no backlog} other {# itens no backlog}}"
+      "backlog": "{count, plural, =0 {Nenhum item não atribuído} =1 {1 item na lista de espera} other {# itens na lista de espera}}"
     },
     "backlog": {
       "title": "Itens planejados não atribuídos",
-      "description": "Atribua itens do backlog a um projeto para dar contexto a eles.",
+      "description": "Atribua itens da lista de espera a um projeto para dar contexto a eles.",
       "empty": "Nenhum item planejado não atribuído no momento.",
-      "badge": "Backlog"
+      "badge": "Lista de espera"
     },
     "create": {
       "title": "Criar um projeto",
@@ -444,7 +449,7 @@
     "save-changes": "Salvar alterações",
     "edit-description": "Você pode editar o item aqui, não se esqueça de salvar!",
     "delete-title": "Tem certeza que deseja excluir {title}?",
-    "delete-description": "Esta ação não pode ser desfeita. Isso excluirá permanentemente o item da sua lista de essenciais.",
+    "delete-description": "Esta ação não pode ser desfeita. Isso excluirá permanentemente o item da sua lista de compras.",
     "delete-confirm-button": "Sim, excluir item",
     "mark-as-purchased-title": "Marcar {title} como Comprado?",
     "mark-as-purchased-description": "Tem certeza que deseja marcar este item como Comprado?",
@@ -495,7 +500,7 @@
   "MobileNav": {
     "home": "Início",
     "projects": "Projetos",
-    "essentials": "Essenciais",
+    "essentials": "Lista de compras",
     "planned": "Planejados",
     "settings": "Configurações"
   },
