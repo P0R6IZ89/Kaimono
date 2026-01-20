@@ -3,17 +3,18 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/actions/authActions";
-import { useRouter } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
+import { protocol, rootDomain } from "@/util/utils";
 
 export default function LogoutPage() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const locale = useLocale();
 
   const handleLogout = async () => {
     setLoading(true);
     const result = await signOutAction();
     if (result.ok) {
-      router.push("/login");
+      window.location.assign(`${protocol}://${rootDomain}/${locale}/login`);
       return;
     }
     setLoading(false);

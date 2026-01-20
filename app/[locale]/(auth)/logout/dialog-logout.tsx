@@ -8,9 +8,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import React from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { signOutAction } from "@/actions/authActions";
-import { useRouter } from "@/i18n/navigation";
+import { protocol, rootDomain } from "@/util/utils";
 
 interface DialogLogoutProps {
   open?: boolean;
@@ -19,7 +19,7 @@ interface DialogLogoutProps {
 
 function DialogLogout({ onOpenChange }: DialogLogoutProps) {
   const t = useTranslations("LogoutDialog");
-  const router = useRouter();
+  const locale = useLocale();
 
   return (
     <DialogContent>
@@ -32,7 +32,9 @@ function DialogLogout({ onOpenChange }: DialogLogoutProps) {
             const result = await signOutAction();
             onOpenChange?.(false);
             if (result.ok) {
-              router.push("/login");
+              window.location.assign(
+                `${protocol}://${rootDomain}/${locale}/login`,
+              );
             }
           }}
         >
