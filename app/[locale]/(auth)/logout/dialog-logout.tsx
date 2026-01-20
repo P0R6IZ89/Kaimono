@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { signOutAction } from "@/actions/authActions";
 import { protocol, rootDomain } from "@/util/utils";
 
 interface DialogLogoutProps {
@@ -27,9 +28,14 @@ function DialogLogout({ onOpenChange }: DialogLogoutProps) {
       </DialogHeader>
       <DialogFooter className="sm:justify-start">
         <Button
-          onClick={() => {
+          onClick={async () => {
+            const result = await signOutAction();
             onOpenChange?.(false);
-            window.location.assign(`${protocol}://${rootDomain}/${locale}/logout`);
+            if (result.ok) {
+              window.location.assign(
+                `${protocol}://${rootDomain}/${locale}/login`,
+              );
+            }
           }}
         >
           {t("confirm")}

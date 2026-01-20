@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { User } from "next-auth";
+import { signOutAction } from "@/actions/authActions";
 import { useLocale } from "next-intl";
 import { protocol, rootDomain } from "@/util/utils";
 
@@ -44,10 +45,13 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
         sideOffset={4}
       >
         <DropdownMenuItem
-          onSelect={() => {
-            window.location.assign(
-              `${protocol}://${rootDomain}/${locale}/logout`,
-            );
+          onSelect={async () => {
+            const result = await signOutAction();
+            if (result.ok) {
+              window.location.assign(
+                `${protocol}://${rootDomain}/${locale}/login`,
+              );
+            }
           }}
         >
           <p className="flex flex-row items-center gap-2">
