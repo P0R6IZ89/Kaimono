@@ -8,7 +8,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import React from "react";
+import { useTranslations } from "next-intl";
 import { signOutAction } from "@/actions/authActions";
+import { useRouter } from "@/i18n/navigation";
 
 interface DialogLogoutProps {
   open?: boolean;
@@ -16,10 +18,13 @@ interface DialogLogoutProps {
 }
 
 function DialogLogout({ onOpenChange }: DialogLogoutProps) {
+  const t = useTranslations("LogoutDialog");
+  const router = useRouter();
+
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Deseja fazer logout?</DialogTitle>
+        <DialogTitle>{t("title")}</DialogTitle>
       </DialogHeader>
       <DialogFooter className="sm:justify-start">
         <Button
@@ -27,16 +32,15 @@ function DialogLogout({ onOpenChange }: DialogLogoutProps) {
             const result = await signOutAction();
             onOpenChange?.(false);
             if (result.ok) {
-              console.log("Logout successful");
-              window.location.reload();
+              router.push("/login");
             }
           }}
         >
-          Logout
+          {t("confirm")}
         </Button>
         <DialogClose asChild>
           <Button type="button" variant={"secondary"}>
-            Cancelar
+            {t("cancel")}
           </Button>
         </DialogClose>
       </DialogFooter>

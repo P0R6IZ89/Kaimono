@@ -115,7 +115,7 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
                   <span>Log out</span>
                 </div>
               </DropdownMenuItem>
-              <DialogLogout />
+              <DialogLogout onOpenChange={setIsDialogOpen} />
             </Dialog>
           </DropdownMenuContent>
         </DropdownMenu>

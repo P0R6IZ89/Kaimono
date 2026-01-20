@@ -4,6 +4,8 @@ export const protocol =
 export const rootDomain =
   process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost:3000";
 
+export const rootDomainHost = rootDomain.split(":")[0];
+
 export const publicPaths = ["/login", "/home", "/logout", "/welcome"];
 
 export function capitalizeFirstLetter(str: string) {

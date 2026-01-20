@@ -14,14 +14,16 @@ import { updateStatusEssentials } from "@/actions/essentialsActions";
 import { toast } from "sonner";
 import { initialState } from "@/util/initial-action-return";
 import { useTranslations } from "next-intl";
+import { useSubdomain } from "@/context/SubdomainContext";
 
 function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
+  const { subdomain } = useSubdomain();
   const t = useTranslations("Dialog");
   const { id, title } = row.original;
 
   const [state, action, isPending] = useActionState(
     updateStatusEssentials,
-    initialState
+    initialState,
   );
 
   useEffect(() => {
@@ -48,6 +50,7 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
             <Button variant={"outline"}>{t("close")}</Button>
           </DialogClose>
           <form action={action}>
+            <input type="hidden" name="subdomain" defaultValue={subdomain} />
             <input type="hidden" name="id" defaultValue={id} />
             <input type="hidden" name="status" defaultValue="PURCHASED" />
             <Button type="submit" disabled={isPending}>

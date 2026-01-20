@@ -11,8 +11,11 @@ import {
 } from "../ui/dropdown-menu";
 import { User } from "next-auth";
 import { signOutAction } from "@/actions/authActions";
+import { useRouter } from "@/i18n/navigation";
 
 export default function UserAvatar({ user }: { user: User | undefined }) {
+  const router = useRouter();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,7 +43,14 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
         align="end"
         sideOffset={4}
       >
-        <DropdownMenuItem onSelect={async () => await signOutAction()}>
+        <DropdownMenuItem
+          onSelect={async () => {
+            const result = await signOutAction();
+            if (result.ok) {
+              router.push("/login");
+            }
+          }}
+        >
           <p className="flex flex-row items-center gap-2">
             <LogOut /> Log out
           </p>

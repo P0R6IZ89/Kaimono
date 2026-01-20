@@ -3,6 +3,11 @@
     "title": "Kaimono Beta ver.",
     "description": "An application to manage your shopping lists."
   },
+  "LogoutDialog": {
+    "title": "Do you want to log out?",
+    "confirm": "Log out",
+    "cancel": "Cancel"
+  },
   "Login": {
     "title": "Welcome! ✨",
     "description": "Choose how you want to log in."
@@ -504,5 +509,10 @@
     "support-button": "Support me on Ko-fi",
     "aria-label": "Support me on Ko-fi",
     "alt-text": "Ko-fi"
+  },
+  "LogoutDialog": {
+    "title": "Do you want to log out?",
+    "confirm": "Log out",
+    "cancel": "Cancel"
   }
 }

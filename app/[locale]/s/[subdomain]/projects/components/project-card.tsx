@@ -163,7 +163,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
             plannedBacklog={plannedBacklog}
             subdomain={subdomain}
           />
-          <div className="text-sm text-muted-foreground"></div>
+          {/* <CreatePlannedDialogTrigger /> */}
         </div>
         <Separator />
         {project.plannedItems.length === 0 ? (

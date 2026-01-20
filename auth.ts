@@ -3,9 +3,12 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "./auth.config";
 import Resend from "next-auth/providers/resend";
 import prisma from "./lib/prisma";
+import { rootDomainHost } from "@/util/utils";
 
 const isEdge = process.env.NEXT_RUNTIME === "edge";
 export const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
+const isProd = process.env.NODE_ENV === "production";
+const cookieDomain = isProd && rootDomainHost ? `.${rootDomainHost}` : undefined;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: isEdge ? undefined : PrismaAdapter(prisma),
@@ -30,19 +33,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   cookies: {
     sessionToken: {
-      name: VERCEL_DEPLOYMENT
-        ? "__Secure-authjs.session-token"
-        : "authjs.session-token",
+      name: isProd ? "__Secure-authjs.session-token" : "authjs.session-token",
       options: {
-        httpOnly: VERCEL_DEPLOYMENT,
+        httpOnly: true,
         sameSite: "lax",
         path: "/",
-        secure: VERCEL_DEPLOYMENT,
+        secure: isProd,
         // This is an arrangement for the browser to accept the subdomain on localhost
         // It does not works with firefox
-        domain: VERCEL_DEPLOYMENT
-          ? `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
-          : undefined,
+        domain: cookieDomain,
       },
     },
   },

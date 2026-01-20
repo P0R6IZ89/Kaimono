@@ -233,7 +233,7 @@ export async function deleteApp(id: string): Promise<Result> {
 
 export async function removeMemberAction(
   subdomain: string,
-  targetUserId: string
+  targetUserId: string,
 ): Promise<Result> {
   const {
     appId,
@@ -303,7 +303,7 @@ export async function removeMemberAction(
 }
 
 export async function getMembership(
-  subdomain: string
+  subdomain: string,
 ): Promise<$Enums.Role | null> {
   const session = await requireSession();
   const app = await prisma.app.findUnique({

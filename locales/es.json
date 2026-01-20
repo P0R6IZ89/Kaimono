@@ -3,6 +3,11 @@
     "title": "Kaimono Beta ver.",
     "description": "Una aplicación para administrar tus listas de compras."
   },
+  "LogoutDialog": {
+    "title": "¿Quieres cerrar sesión?",
+    "confirm": "Cerrar sesión",
+    "cancel": "Cancelar"
+  },
   "Login": {
     "title": "¡Bienvenido! ✨",
     "description": "Elige cómo quieres iniciar sesión."
@@ -505,5 +510,10 @@
     "support-button": "Apóyame en Ko-fi",
     "aria-label": "Apóyame en Ko-fi",
     "alt-text": "Ko-fi"
+  },
+  "LogoutDialog": {
+    "title": "¿Quieres cerrar sesión?",
+    "confirm": "Cerrar sesión",
+    "cancel": "Cancelar"
   }
 }

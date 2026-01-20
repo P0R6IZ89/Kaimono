@@ -14,13 +14,15 @@ import { updateStatusEssentials } from "@/actions/essentialsActions";
 import { toast } from "sonner";
 import { initialState } from "@/util/initial-action-return";
 import { useTranslations } from "next-intl";
+import { useSubdomain } from "@/context/SubdomainContext";
 
 function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
   const t = useTranslations("Dialog");
+  const { subdomain } = useSubdomain();
   const { id } = row.original;
   const [state, action, isPending] = useActionState(
     updateStatusEssentials,
-    initialState
+    initialState,
   );
 
   useEffect(() => {
@@ -47,6 +49,8 @@ function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
             <Button variant={"outline"}>{t("close")}</Button>
           </DialogClose>
           <form action={action}>
+            <input type="hidden" name="subdomain" defaultValue={subdomain} />
+
             <input defaultValue={id} type="hidden" name="id" />
             <input defaultValue="PENDING" type="hidden" name="status" />
             <Button type="submit" disabled={isPending}>
