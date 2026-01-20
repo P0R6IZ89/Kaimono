@@ -4,7 +4,7 @@ import { routing } from "./i18n/routing";
 
 import { auth } from "@/auth-edge";
 import { Locale } from "next-intl";
-import { publicPaths, rootDomain } from "@/util/utils";
+import { publicPaths, rootDomainHost } from "@/util/utils";
 
 const KILL_SWITCH = process.env.KILL_SWITCH;
 const LOCALE_HEADER = "X-NEXT-INTL-LOCALE";
@@ -28,15 +28,13 @@ function extractSubdomain(req: NextRequest): string | null {
     return parts.length > 0 ? parts[0] : null;
   }
 
-  const rootDomainFormatted = rootDomain.split(":")[0];
-
   // Regular subdomain detection
   const isSubdomain =
-    hostname !== rootDomainFormatted &&
-    hostname !== `www.${rootDomainFormatted}` &&
-    hostname.endsWith(`.${rootDomainFormatted}`);
+    hostname !== rootDomainHost &&
+    hostname !== `www.${rootDomainHost}` &&
+    hostname.endsWith(`.${rootDomainHost}`);
 
-  return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, "") : null;
+  return isSubdomain ? hostname.replace(`.${rootDomainHost}`, "") : null;
 }
 
 const isLocale = (l: string): l is Locale =>

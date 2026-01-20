@@ -3,13 +3,20 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/actions/authActions";
+import { useRouter } from "@/i18n/navigation";
 
 export default function LogoutPage() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleLogout = async () => {
     setLoading(true);
-    await signOutAction();
+    const result = await signOutAction();
+    if (result.ok) {
+      router.push("/login");
+      return;
+    }
+    setLoading(false);
   };
 
   return (

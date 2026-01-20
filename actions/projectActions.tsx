@@ -9,7 +9,7 @@ import { ActionResult } from "@/util/initial-action-return";
 
 export async function createProjectAction(
   _prevState: ActionResult,
-  formData: FormData
+  formData: FormData,
 ): Promise<ActionResult> {
   const parsed = projectSchema.safeParse({
     name: formData.get("name"),
@@ -43,7 +43,7 @@ export async function createProjectAction(
 
 export async function attachPlannedToProjectAction(
   _prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ): Promise<ActionResult> {
   const parsed = projectLinkSchema.safeParse({
     projectId: formData.get("projectId"),
@@ -87,7 +87,7 @@ export async function attachPlannedToProjectAction(
 
 export async function unassignPlannedFromProjectAction(
   _prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ): Promise<ActionResult> {
   const parsed = projectLinkSchema.omit({ projectId: true }).safeParse({
     plannedId: formData.get("plannedId"),
@@ -153,7 +153,7 @@ export async function getProjectsWithPlanned(subdomain: string) {
         if (item.status === "CANCELLED") acc.cancelled += 1;
         return acc;
       },
-      { total: 0, pending: 0, purchased: 0, cancelled: 0 }
+      { total: 0, pending: 0, purchased: 0, cancelled: 0 },
     );
 
     return {
@@ -206,7 +206,7 @@ export async function getUnassignedPlanned(subdomain: string) {
 
 export async function editProjectAction(
   _prevState: ActionResult,
-  formData: FormData
+  formData: FormData,
 ): Promise<ActionResult> {
   const parsed = projectSchema.safeParse({
     name: formData.get("name"),
@@ -248,7 +248,7 @@ export async function editProjectAction(
 
 export async function deleteProjectAction(
   subdomain: string,
-  projectId: string
+  projectId: string,
 ) {
   const { appId } = await requireMembership(subdomain);
 

@@ -505,5 +505,10 @@
     "support-button": "Ko-fiでサポートする",
     "aria-label": "Ko-fiでサポートする",
     "alt-text": "Ko-fi"
+  },
+  "LogoutDialog": {
+    "title": "ログアウトしますか？",
+    "confirm": "ログアウト",
+    "cancel": "キャンセル"
   }
 }

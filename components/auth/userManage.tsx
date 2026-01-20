@@ -106,7 +106,7 @@ export function UserManager({
               <span>Log out</span>
             </div>
           </DropdownMenuItem>
-          <DialogLogout />
+          <DialogLogout onOpenChange={setIsDialogOpen} />
         </Dialog>
       </DropdownMenuContent>
     </DropdownMenu>

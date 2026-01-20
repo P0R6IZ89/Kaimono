@@ -4,6 +4,7 @@ import { signIn, signOut } from "@/auth";
 import { getCurrentLocale, redirect } from "@/i18n/navigation";
 import prisma from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
+import type { ActionResult } from "@/util/initial-action-return";
 import { revalidatePath } from "next/cache";
 
 export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
@@ -49,15 +50,12 @@ export const getUserById = async (id: string) => {
   }
 };
 
-export async function signOutAction() {
+export async function signOutAction(): Promise<ActionResult> {
   try {
     await signOut({ redirect: false });
-    const locale = await getCurrentLocale();
-    console.log("Redirecting to login", locale);
     revalidatePath("/");
-    redirect({ href: "/login", locale });
     return { ok: true, message: "" };
-  } catch {
-    return { ok: false, message: "" };
+  } catch (error: unknown) {
+    return { ok: false, message: getErrorMessage(error) };
   }
 }

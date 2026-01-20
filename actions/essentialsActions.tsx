@@ -2,18 +2,14 @@
 
 import { getErrorMessage } from "@/util/error-handler";
 import { revalidatePath } from "next/cache";
-import {
-  isUserBelongsTheApp,
-  requireMembership,
-  requireSession,
-} from "./appActions";
+import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
 import { essentialsSchema, statusUpdateSchema } from "@/util/form-zod-schema";
 import { Status } from "@prisma/client";
 
 export async function createEssentials(
   _previousState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   const result = essentialsSchema.safeParse({
     title: formData.get("title"),
@@ -29,9 +25,9 @@ export async function createEssentials(
   const { title, price, quantity, status, subdomain } = result.data;
   const session = await requireSession();
   try {
-    const app = await isUserBelongsTheApp(subdomain);
-    if (!app) {
-      throw new Error("Team not found for subdomain: " + subdomain);
+    const app = await requireMembership(subdomain);
+    if (!app.appId) {
+      return { error: "Team does not exist" };
     }
     await prisma.essential.create({
       data: {
@@ -43,7 +39,7 @@ export async function createEssentials(
           connect: { id: session.user.id },
         },
         app: {
-          connect: { id: app.id },
+          connect: { id: app.appId },
         },
       },
     });
@@ -55,12 +51,11 @@ export async function createEssentials(
 }
 
 export async function getEssentialsBySubdomain(subdomain: string) {
-  await requireSession();
   try {
-    const app = await isUserBelongsTheApp(subdomain);
+    const app = await requireMembership(subdomain);
     const essentials = await prisma.essential.findMany({
       where: {
-        appId: app.id,
+        appId: app.appId,
       },
       include: {
         creator: {
@@ -73,9 +68,6 @@ export async function getEssentialsBySubdomain(subdomain: string) {
         createdAt: "desc",
       },
     });
-    if (essentials.length === 0) {
-      return [];
-    }
     const formatted = essentials.map((item) => ({
       id: item.id,
       title: item.title,
@@ -96,11 +88,11 @@ export async function getEssentialsBySubdomain(subdomain: string) {
 
 export async function updateEssentials(
   _prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   const result = essentialsSchema.safeParse({
     title: formData.get("title"),
-    price: formData.get("quantity"),
+    price: formData.get("price"),
     status: formData.get("status"),
     quantity: formData.get("quantity"),
     subdomain: formData.get("subdomain"),
@@ -112,29 +104,22 @@ export async function updateEssentials(
     return { ok: false, message: first.message };
   }
   const { price, quantity, subdomain, title, id, status } = result.data;
-  const session = await requireSession();
+  const membership = await requireMembership(subdomain);
   try {
-    const app = await isUserBelongsTheApp(subdomain);
-    if (!app) {
-      throw new Error("Team not found for subdomain: " + subdomain);
-    }
-    await prisma.essential.update({
-      where: { id },
+    const result = await prisma.essential.updateMany({
+      where: { id, appId: membership.appId },
       data: {
         title,
         price,
         status,
         quantity,
-        creator: {
-          connect: { id: session.user.id },
-        },
-        app: {
-          connect: { id: app.id },
-        },
       },
     });
+    if (result.count === 0) {
+      return { ok: false, message: "Item not found for this app." };
+    }
     revalidatePath(`/s/${subdomain}/essentials`);
-    return { ok: true, message: "O item foi atualizado com sucesso" };
+    return { ok: true, message: "Ok!" };
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }
@@ -142,48 +127,52 @@ export async function updateEssentials(
 
 export async function updateStatusEssentials(
   _prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   const result = statusUpdateSchema.safeParse({
     id: formData.get("id"),
     status: formData.get("status"),
+    subdomain: formData.get("subdomain"),
   });
 
   if (!result.success) {
     const first = result.error.errors[0];
     return { ok: false, message: first.message };
   }
-  const { id, status } = result.data;
-  await requireSession();
+  const { id, status, subdomain } = result.data;
+  const membership = await requireMembership(subdomain);
   try {
-    await prisma.essential.update({
-      where: { id },
+    const result = await prisma.essential.updateMany({
+      where: { id, appId: membership.appId },
       data: { status },
     });
-    revalidatePath(`/s`);
+    if (result.count === 0) {
+      return { ok: false, message: "Item not found for this app." };
+    }
+    revalidatePath(`/s/${subdomain}/essentials`);
     return {
       ok: true,
-      message: "O item foi atualizado com sucesso!",
+      message: "Ok!",
     };
   } catch {
-    return { ok: false, message: "O item não pode ser atualizado!" };
+    return { ok: false, message: "Somthing went wrong" };
   }
 }
 
 export async function deleteEssentials(
   _previusState: unknown,
   id: string,
-  subdomain: string
+  subdomain: string,
 ): Promise<{ status: "success" | "error"; message: string }> {
-  await requireSession();
-  await requireMembership(subdomain);
+  const membership = await requireMembership(subdomain);
   try {
-    await prisma.essential.delete({
-      where: {
-        id,
-      },
+    const result = await prisma.essential.deleteMany({
+      where: { id, appId: membership.appId },
     });
-    revalidatePath(`/s`);
+    if (result.count === 0) {
+      return { status: "error", message: "Item not found for this app." };
+    }
+    revalidatePath(`/s/${subdomain}/essentials`);
     return {
       status: "success",
       message: "O Essentials foi deletado com sucesso!",
@@ -234,14 +223,16 @@ export async function setEssentialStatusAction({
   status: Extract<Status, "PENDING" | "PURCHASED">;
   subdomain: string;
 }) {
-  await requireSession();
-  await requireMembership(subdomain);
+  const membership = await requireMembership(subdomain);
   try {
-    await prisma.essential.update({
-      where: { id: essentialId },
+    const result = await prisma.essential.updateMany({
+      where: { id: essentialId, appId: membership.appId },
       data: { status },
     });
-    revalidatePath(`/s`);
+    if (result.count === 0) {
+      throw new Error("Item not found for this app.");
+    }
+    revalidatePath(`/s/${subdomain}/essentials`);
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }

@@ -27,11 +27,11 @@ export const plannedSchema = z.object({
     .max(500, "Produto deve ter no máximo 500 caracteres"),
   price: z.preprocess(
     (v) => (v === "" || v == null ? 0 : v),
-    z.coerce.number().nonnegative()
+    z.coerce.number().nonnegative(),
   ),
   quantity: z.preprocess(
     (v) => (v === "" || v == null ? 1 : v),
-    z.coerce.number().nonnegative()
+    z.coerce.number().nonnegative(),
   ),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"], {
     message: "Escolha a prioridade copatível",
@@ -41,11 +41,11 @@ export const plannedSchema = z.object({
   }),
   productUrl: z.preprocess(
     (v) => (v === "" ? undefined : v),
-    z.string().url().optional()
+    z.string().url().optional(),
   ),
   description: z.preprocess(
     (v) => (v === "" ? undefined : v),
-    z.string().optional()
+    z.string().optional(),
   ),
   subdomain: z.string().min(1, "Verifique seu link"),
   image: z.string(),
@@ -83,6 +83,14 @@ export const statusUpdateSchema = z.object({
   status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
     message: "O status é incopatível",
   }),
+  subdomain: z
+    .string()
+    .min(1)
+    .max(63)
+    .transform((val) => val.toLowerCase())
+    .refine((val) => SUBDOMAIN_REGEX.test(val), {
+      message: "Error",
+    }),
 });
 
 export const projectSchema = z.object({
@@ -92,7 +100,7 @@ export const projectSchema = z.object({
     .max(120, "Use 120 characters or fewer."),
   description: z.preprocess(
     (v) => (v === "" ? undefined : v),
-    z.string().max(500, "Use 500 characters or fewer.").optional()
+    z.string().max(500, "Use 500 characters or fewer.").optional(),
   ),
   subdomain: z.string().min(1, "Verifique seu link"),
 });

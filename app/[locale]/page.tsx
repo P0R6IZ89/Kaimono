@@ -3,7 +3,7 @@ import DeleteDropdown from "@/components/client/deleteDropdown";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { protocol, rootDomain } from "@/util/utils";
+import { protocol, rootDomain, rootDomainHost } from "@/util/utils";
 import { Folder, Plus, UserRound, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -105,7 +105,7 @@ export default async function App({ params }: PageProps) {
                       className="flex flex-1 justify-between"
                     >
                       <span className="hover:underline line-clamp-1 truncate">
-                        {app.subdomain}.{rootDomain}
+                        {app.subdomain}.{rootDomainHost}
                       </span>
                     </Badge>
                   </div>

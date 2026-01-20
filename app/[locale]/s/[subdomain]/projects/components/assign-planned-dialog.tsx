@@ -47,7 +47,7 @@ export function AssignPlannedDialog({
   const [selectedId, setSelectedId] = useState<string>("");
   const [state, formAction, isPending] = useActionState(
     attachPlannedToProjectAction,
-    initialState
+    initialState,
   );
   const router = useRouter();
   const t = useTranslations("ProjectsPage");
@@ -57,7 +57,7 @@ export function AssignPlannedDialog({
 
   const selectedItem = useMemo(
     () => plannedBacklog.find((item) => item.id === selectedId),
-    [plannedBacklog, selectedId]
+    [plannedBacklog, selectedId],
   );
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export function AssignPlannedDialog({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="w-full"
+          className=""
           disabled={plannedBacklog.length === 0}
         >
           <Plus className="h-4 w-4" />
