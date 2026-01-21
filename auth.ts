@@ -9,12 +9,6 @@ const isEdge = process.env.NEXT_RUNTIME === "edge";
 export const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 const isProd = process.env.NODE_ENV === "production";
 
-// Important for subdomain multi-tenant setups:
-// If the session cookie is host-only (no Domain attribute), logging out on a different subdomain
-// will not delete the cookie that was set on the original host.
-//
-// Prefer an explicit root domain (your custom domain). If not available, fall back to Vercel's
-// deployment host (e.g. p0r6iz89.cloud) so preview deployments still share cookies across subdomains.
 const cookieDomain = isProd
   ? rootDomainHost
     ? `.${rootDomainHost}`
