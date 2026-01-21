@@ -8,8 +8,20 @@ import { rootDomainHost } from "@/util/utils";
 const isEdge = process.env.NEXT_RUNTIME === "edge";
 export const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 const isProd = process.env.NODE_ENV === "production";
-const cookieDomain =
-  isProd && rootDomainHost ? `.${rootDomainHost}` : undefined;
+
+// Important for subdomain multi-tenant setups:
+// If the session cookie is host-only (no Domain attribute), logging out on a different subdomain
+// will not delete the cookie that was set on the original host.
+//
+// Prefer an explicit root domain (your custom domain). If not available, fall back to Vercel's
+// deployment host (e.g. p0r6iz89.cloud) so preview deployments still share cookies across subdomains.
+const cookieDomain = isProd
+  ? rootDomainHost
+    ? `.${rootDomainHost}`
+    : process.env.VERCEL_URL
+      ? `.${process.env.VERCEL_URL}`
+      : undefined
+  : undefined;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: isEdge ? undefined : PrismaAdapter(prisma),
@@ -29,7 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   pages: {
     signIn: "/login",
-    error: "/error",
+    signOut: "/logout",
   },
 
   cookies: {
