@@ -51,7 +51,7 @@ export const getUserById = async (id: string) => {
 
 export async function signOutAction(): Promise<ActionResult> {
   try {
-    await signOut({ redirect: false });
+    await signOut();
     revalidatePath("/");
     return { ok: true, message: "" };
   } catch (error: unknown) {
