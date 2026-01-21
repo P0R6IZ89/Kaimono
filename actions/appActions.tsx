@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import type { Session } from "next-auth";
 import { appSchema } from "@/util/form-zod-schema";
-import { $Enums, Prisma } from "@prisma/client";
+import { Prisma, Role } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getCurrentLocale, redirect } from "@/i18n/navigation";
@@ -71,7 +71,7 @@ export async function requireMembership(subdomain: string) {
   if (!membership) {
     redirect({ href: "/new-team", locale });
   }
-  return { appId: app!.id, role: membership!.role as $Enums.Role, session };
+  return { appId: app!.id, role: membership!.role as Role, session };
 }
 
 export async function getAllAppsAction() {
@@ -302,9 +302,7 @@ export async function removeMemberAction(
   }
 }
 
-export async function getMembership(
-  subdomain: string,
-): Promise<$Enums.Role | null> {
+export async function getMembership(subdomain: string): Promise<Role | null> {
   const session = await requireSession();
   const app = await prisma.app.findUnique({
     where: { subdomain },
