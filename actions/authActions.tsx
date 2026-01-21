@@ -51,8 +51,15 @@ export const getUserById = async (id: string) => {
 
 export async function signOutAction(): Promise<ActionResult> {
   try {
-    await signOut();
-    revalidatePath("/");
+    // In Auth.js/NextAuth, `signOut()` defaults to redirecting.
+    // In a Server Action, redirects are implemented by throwing a redirect error.
+    // If we catch it here, the Set-Cookie header may not be applied, so the session cookie remains.
+    // Using `redirect: false` avoids the redirect throw and lets the cookie be cleared reliably.
+    await signOut({ redirect: false });
+
+    // Revalidate the root layout so server-rendered nav/state updates on next request.
+    revalidatePath("/", "layout");
+
     return { ok: true, message: "" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
