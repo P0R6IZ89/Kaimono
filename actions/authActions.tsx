@@ -53,9 +53,6 @@ export const getUserById = async (id: string) => {
 
 export async function signOutAction(): Promise<ActionResult> {
   try {
-    const cookieStore = await cookies();
-    cookieStore.delete("__Secure-authjs.session-token");
-    cookieStore.delete("authjs.session-token");
     revalidatePath("/");
     return { ok: true, message: "" };
   } catch (error: unknown) {

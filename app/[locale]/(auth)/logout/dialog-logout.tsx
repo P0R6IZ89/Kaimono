@@ -12,6 +12,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { signOutAction } from "@/actions/authActions";
 import { protocol, rootDomain } from "@/util/utils";
 import { toast } from "sonner";
+import { redirect } from "@/i18n/navigation";
 
 interface DialogLogoutProps {
   open?: boolean;
@@ -34,9 +35,13 @@ function DialogLogout({ onOpenChange }: DialogLogoutProps) {
             onOpenChange?.(false);
             if (result.ok) {
               toast(result.message);
-              window.location.assign(
-                `${protocol}://${rootDomain}/${locale}/login`,
-              );
+              redirect({
+                href: `${protocol}://${rootDomain}/${locale}/login`,
+                locale,
+              });
+              // window.location.assign(
+              //   `${protocol}://${rootDomain}/${locale}/login`,
+              // );
             }
           }}
         >

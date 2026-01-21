@@ -6,7 +6,13 @@ export const rootDomain =
 
 export const rootDomainHost = rootDomain.split(":")[0];
 
-export const publicPaths = ["/login", "/home", "/logout", "/welcome"];
+export const publicPaths = [
+  "/login",
+  "/home",
+  "/logout",
+  "/welcome",
+  "/api/auth",
+];
 
 export function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase();
