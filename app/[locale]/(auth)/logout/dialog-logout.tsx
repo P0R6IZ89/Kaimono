@@ -11,6 +11,7 @@ import React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { signOutAction } from "@/actions/authActions";
 import { protocol, rootDomain } from "@/util/utils";
+import { toast } from "sonner";
 
 interface DialogLogoutProps {
   open?: boolean;
@@ -32,6 +33,7 @@ function DialogLogout({ onOpenChange }: DialogLogoutProps) {
             const result = await signOutAction();
             onOpenChange?.(false);
             if (result.ok) {
+              toast(result.message);
               window.location.assign(
                 `${protocol}://${rootDomain}/${locale}/login`,
               );
