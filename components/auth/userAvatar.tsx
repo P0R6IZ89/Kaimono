@@ -11,10 +11,11 @@ import {
 } from "../ui/dropdown-menu";
 import { User } from "next-auth";
 import { signOutAction } from "@/actions/authActions";
-import { useRouter } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
+import { protocol, rootDomain } from "@/util/utils";
 
 export default function UserAvatar({ user }: { user: User | undefined }) {
-  const router = useRouter();
+  const locale = useLocale();
 
   return (
     <DropdownMenu>
@@ -47,7 +48,9 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
           onSelect={async () => {
             const result = await signOutAction();
             if (result.ok) {
-              router.push("/login");
+              window.location.assign(
+                `${protocol}://${rootDomain}/${locale}/login`,
+              );
             }
           }}
         >

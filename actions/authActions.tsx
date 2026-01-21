@@ -36,7 +36,6 @@ export const getAccountByUserId = async (userId: string) => {
   }
 };
 
-// Don't need a Google provider Account
 export const getUserById = async (id: string) => {
   try {
     const user = await prisma.user.findUnique({
