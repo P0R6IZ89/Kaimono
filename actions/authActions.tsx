@@ -55,28 +55,28 @@ export async function signOutAction(): Promise<ActionResult> {
   try {
     await signOut({ redirect: false });
     const isProd = process.env.NODE_ENV === "production";
-    const cookieDomain = isProd
-      ? rootDomainHost
-        ? `.${rootDomainHost}`
-        : process.env.VERCEL_URL
-          ? `.${process.env.VERCEL_URL}`
-          : undefined
-      : undefined;
-    console.log(cookieDomain);
+    const cookieStore = await cookies();
+    const cookieDomains = new Set<string | undefined>([undefined]);
+    if (rootDomainHost) {
+      cookieDomains.add(rootDomainHost);
+      cookieDomains.add(`.${rootDomainHost}`);
+    }
 
     const sessionCookie = isProd
       ? "__Secure-authjs.session-token"
       : "authjs.session-token";
 
-    (await cookies()).set(sessionCookie, "", {
-      path: "/",
-      domain: cookieDomain,
-      secure: isProd,
-      httpOnly: true,
-      sameSite: "lax",
-      maxAge: 0,
-      expires: new Date(0),
-    });
+    for (const domain of cookieDomains) {
+      cookieStore.set(sessionCookie, "", {
+        path: "/",
+        domain,
+        secure: isProd,
+        httpOnly: true,
+        sameSite: "lax",
+        maxAge: 0,
+        expires: new Date(0),
+      });
+    }
 
     // revalidatePath("/");
     return { ok: true, message: "" };
