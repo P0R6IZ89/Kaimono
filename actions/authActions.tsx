@@ -5,9 +5,9 @@ import { getCurrentLocale, redirect } from "@/i18n/navigation";
 import prisma from "@/lib/prisma";
 import { getErrorMessage } from "@/util/error-handler";
 import type { ActionResult } from "@/util/initial-action-return";
+import { rootDomainHost } from "@/util/utils";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { toast } from "sonner";
 
 export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
   const email = String(formData.get("email") ?? "");
@@ -53,10 +53,32 @@ export const getUserById = async (id: string) => {
 
 export async function signOutAction(): Promise<ActionResult> {
   try {
-    const cookieStore = await cookies();
-    cookieStore.delete("__Secure-authjs.session-token");
-    cookieStore.delete("authjs.session-token");
-    revalidatePath("/");
+    await signOut({ redirect: false });
+    const isProd = process.env.NODE_ENV === "production";
+    const cookieDomain = isProd
+      ? rootDomainHost
+        ? `.${rootDomainHost}`
+        : process.env.VERCEL_URL
+          ? `.${process.env.VERCEL_URL}`
+          : undefined
+      : undefined;
+    console.log(cookieDomain);
+
+    const sessionCookie = isProd
+      ? "__Secure-authjs.session-token"
+      : "authjs.session-token";
+
+    (await cookies()).set(sessionCookie, "", {
+      path: "/",
+      domain: cookieDomain,
+      secure: isProd,
+      httpOnly: true,
+      sameSite: "lax",
+      maxAge: 0,
+      expires: new Date(0),
+    });
+
+    // revalidatePath("/");
     return { ok: true, message: "" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };

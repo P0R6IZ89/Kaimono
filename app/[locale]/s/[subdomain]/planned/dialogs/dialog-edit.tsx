@@ -13,18 +13,28 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { initialState } from "@/util/initial-action-return";
 import { Row } from "@tanstack/react-table";
-import { Loader2 } from "lucide-react";
+import { Loader2, Upload } from "lucide-react";
+import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import { useTranslations } from "next-intl";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -53,8 +63,13 @@ export function EditPlannedDialog({
   } = row.original;
   const [state, action, isPending] = useActionState(
     updatePlanned,
-    initialState
+    initialState,
   );
+  const [uploadedInfo, setUploadedInfo] = useState<
+    string | CloudinaryUploadWidgetInfo | undefined
+  >(undefined);
+  const [uploadWidgetOpen, setUploadWidgetOpen] = useState(false);
+
   const form = useForm({
     defaultValues: {
       id,
@@ -73,13 +88,25 @@ export function EditPlannedDialog({
     if (!state) return;
     if (state.ok) {
       toast.success(state.message);
+      onOpenChange(false);
     } else if (state.message) {
       toast.error(state.message);
     }
-  }, [state]);
+  }, [onOpenChange, state]);
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+    <Dialog open={open} onOpenChange={onOpenChange} modal={false}>
+      <DialogContent
+        onInteractOutside={(e) => {
+          if (uploadWidgetOpen) e.preventDefault();
+        }}
+        onPointerDownOutside={(e) => {
+          if (uploadWidgetOpen) e.preventDefault();
+        }}
+        onFocusOutside={(e) => {
+          if (uploadWidgetOpen) e.preventDefault();
+        }}
+      >
         <Form {...form}>
           <form action={action}>
             <DialogHeader>
@@ -130,11 +157,92 @@ export function EditPlannedDialog({
                 control={form.control}
                 name="priority"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="">
                     <FormLabel>{t("priority")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("priority")} {...field} />
+                      <Select {...field} onValueChange={field.onChange}>
+                        <SelectTrigger className="">
+                          <SelectValue placeholder={t("select-priority")} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value="LOW">
+                              {t("priority-options.LOW")}
+                            </SelectItem>
+                            <SelectItem value="MEDIUM">
+                              {t("priority-options.MEDIUM")}
+                            </SelectItem>
+                            <SelectItem value="HIGH">
+                              {t("priority-options.HIGH")}
+                            </SelectItem>
+                            <SelectItem value="URGENT">
+                              {t("priority-options.URGENT")}
+                            </SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem className="">
+                    <FormControl>
+                      <CldUploadWidget
+                        options={{
+                          sources: ["local", "url", "camera"],
+                        }}
+                        uploadPreset="test-preset"
+                        onOpen={() => setUploadWidgetOpen?.(true)}
+                        onClose={() => setUploadWidgetOpen?.(false)}
+                        onSuccess={(result, { widget }) => {
+                          const info = result.info;
+                          if (!info || typeof info === "string") {
+                            widget.close();
+                            setUploadWidgetOpen?.(false);
+                            return;
+                          }
+                          field.onChange(info.secure_url);
+                          setUploadedInfo(info);
+                          widget.close();
+                          setUploadWidgetOpen?.(false);
+                        }}
+                      >
+                        {({ open }) => {
+                          return (
+                            <Button
+                              type="button"
+                              variant={"secondary"}
+                              className="justify-between"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setUploadWidgetOpen?.(true);
+                                open();
+                              }}
+                            >
+                              <p>
+                                {uploadedInfo &&
+                                typeof uploadedInfo !== "string"
+                                  ? `${t("selected")}: ${uploadedInfo.original_filename}.${uploadedInfo.format}`
+                                  : `${t("upload-image")}`}
+                              </p>
+                              <Upload />
+                            </Button>
+                          );
+                        }}
+                      </CldUploadWidget>
+                    </FormControl>
+                    <input
+                      type="hidden"
+                      name="image"
+                      value={field.value ?? ""}
+                    />
+                    <FormDescription />
                     <FormMessage />
                   </FormItem>
                 )}
