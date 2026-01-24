@@ -38,18 +38,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signOut: "/logout",
   },
 
-  cookies: {
-    sessionToken: {
-      name: isProd ? "__Secure-authjs.session-token" : "authjs.session-token",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: isProd,
-        domain: cookieDomain,
-      },
-    },
-  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: isProd ? "__Secure-authjs.session-token" : "authjs.session-token",
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: isProd,
+  //       domain: cookieDomain,
+  //     },
+  //   },
+  // },
   callbacks: {
     async jwt({ token, user, trigger }) {
       if (!token.sub) return token;
