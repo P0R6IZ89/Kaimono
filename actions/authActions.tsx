@@ -77,6 +77,7 @@ export async function signOutAction(): Promise<ActionResult> {
         expires: new Date(0),
       });
     }
+    console.log("sessionCookie", cookieStore.get(sessionCookie));
 
     // revalidatePath("/");
     return { ok: true, message: "" };
