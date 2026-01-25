@@ -54,44 +54,7 @@ export const getUserById = async (id: string) => {
 export async function signOutAction(): Promise<ActionResult> {
   try {
     await signOut({ redirect: false });
-    const isProd = process.env.NODE_ENV === "production";
-    const cookieStore = await cookies();
-    const headerStore = await headers();
-    const hostHeader = headerStore.get("host") ?? "";
-    const requestHost = hostHeader.split(":")[0];
-    const cookieDomains = new Set<string | undefined>([undefined]);
-    if (rootDomainHost) {
-      cookieDomains.add(rootDomainHost);
-      cookieDomains.add(`.${rootDomainHost}`);
-    }
-
-    if (requestHost && requestHost !== rootDomainHost) {
-      cookieDomains.add(requestHost);
-      cookieDomains.add(`.${requestHost}`);
-    }
-
-    const sessionCookies = isProd
-      ? ["__Secure-authjs.session-token", "authjs.session-token"]
-      : ["authjs.session-token", "__Secure-authjs.session-token"];
-
-    for (const name of sessionCookies) {
-      for (const domain of cookieDomains) {
-        const baseOptions = {
-          path: "/",
-          secure: isProd,
-          httpOnly: true,
-          sameSite: "lax" as const,
-          expires: 0,
-        };
-        if (domain) {
-          cookieStore.set(name, "", { ...baseOptions, domain });
-        } else {
-          cookieStore.set(name, "", baseOptions);
-        }
-      }
-    }
-
-    // revalidatePath("/");
+    revalidatePath("/");
     return { ok: true, message: "" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
