@@ -16,6 +16,7 @@ export function CreatePlannedDialogTrigger({
   className,
   buttonVariant = "default",
   children,
+  triggerRef,
 }: {
   className?: string;
   buttonVariant?:
@@ -26,40 +27,53 @@ export function CreatePlannedDialogTrigger({
     | "ghost"
     | "link";
   children?: React.ReactNode;
+  triggerRef?: React.Ref<HTMLButtonElement>;
 }) {
   const t = useTranslations("PlannedPage");
   const [open, setOpen] = useState(false);
   const [uploadWidgetOpen, setUploadWidgetOpen] = useState(false);
   return (
-    <Dialog open={open} onOpenChange={setOpen} modal={false}>
-      <DialogTrigger asChild>
-        <Button
-          variant={buttonVariant}
-          className={`col-auto ${className || ""}`}
+    <>
+      {open ? (
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 z-40 bg-black/50"
+          onClick={() => {
+            if (!uploadWidgetOpen) setOpen(false);
+          }}
+        />
+      ) : null}
+      <Dialog open={open} onOpenChange={setOpen} modal={false}>
+        <DialogTrigger asChild>
+          <Button
+            ref={triggerRef}
+            variant={buttonVariant}
+            className={`col-auto ${className || ""}`}
+          >
+            {children ? children : t("add-new-planned-item")}
+          </Button>
+        </DialogTrigger>
+        <DialogContent
+          className="sm:max-w-106.25"
+          onInteractOutside={(e) => {
+            if (uploadWidgetOpen) e.preventDefault();
+          }}
+          onPointerDownOutside={(e) => {
+            if (uploadWidgetOpen) e.preventDefault();
+          }}
+          onFocusOutside={(e) => {
+            if (uploadWidgetOpen) e.preventDefault();
+          }}
         >
-          {children ? children : t("add-new-planned-item")}
-        </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="sm:max-w-106.25"
-        onInteractOutside={(e) => {
-          if (uploadWidgetOpen) e.preventDefault();
-        }}
-        onPointerDownOutside={(e) => {
-          if (uploadWidgetOpen) e.preventDefault();
-        }}
-        onFocusOutside={(e) => {
-          if (uploadWidgetOpen) e.preventDefault();
-        }}
-      >
-        <DialogHeader>
-          <DialogTitle>{t("add-new-planned-item")}</DialogTitle>
-          <DialogDescription>
-            {t("add-new-planned-item-description")}
-          </DialogDescription>
-        </DialogHeader>
-        <CreatePlannedDialog onUploadWidgetOpenChange={setUploadWidgetOpen} />
-      </DialogContent>
-    </Dialog>
+          <DialogHeader>
+            <DialogTitle>{t("add-new-planned-item")}</DialogTitle>
+            <DialogDescription>
+              {t("add-new-planned-item-description")}
+            </DialogDescription>
+          </DialogHeader>
+          <CreatePlannedDialog onUploadWidgetOpenChange={setUploadWidgetOpen} />
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

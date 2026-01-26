@@ -475,7 +475,11 @@
     "email-sent-title": "ログインメールがあなたのメールに送信されました。",
     "email-sent-instruction": "送信されたメールを開き、\"ログイン\"ボタンをクリックしてログインを完了してください。",
     "check-spam": "(表示されない場合は迷惑メールフォルダを確認してください)",
-    "back-to-main": "メインページに戻る"
+    "back-to-main": "メインページに戻る",
+    "logout-title": "またのご利用をお待ちしております 🤗",
+    "logout-instruction": "ログアウトするにはボタンをクリックしてください。",
+    "logout-button": "ログアウト",
+    "logging-out": "ログアウト中…"
   },
   "UserManager": {
     "roles": {

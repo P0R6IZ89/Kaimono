@@ -483,7 +483,11 @@
     "email-sent-title": "O e-mail de login foi enviado para o seu e-mail.",
     "email-sent-instruction": "Abra o email enviado e clique no botão \"Entrar\" no para concluir seu login.",
     "check-spam": "(Verifique sua pasta de spam caso não a veja)",
-    "back-to-main": "Voltar à página principal"
+    "back-to-main": "Voltar à página principal",
+    "logout-title": "Até breve! 🤗",
+    "logout-instruction": "Clique no botão para fazer logout.",
+    "logout-button": "Fazer logout",
+    "logging-out": "Fazendo logout…"
   },
   "UserManager": {
     "roles": {
