@@ -479,7 +479,11 @@
     "email-sent-title": "The login email has been sent to your email.",
     "email-sent-instruction": "Open the email sent and click the \"Enter\" button to complete your login.",
     "check-spam": "(Check your spam folder if you don't see it)",
-    "back-to-main": "Back to main page"
+    "back-to-main": "Back to main page",
+    "logout-title": "Hope to see you again 🤗",
+    "logout-instruction": "Click the button to log out.",
+    "logout-button": "Logout",
+    "logging-out": "Signing out…"
   },
   "UserManager": {
     "roles": {

@@ -13,9 +13,12 @@ import { CreateEssentialDialog } from "./dialog-create";
 import { useTranslations } from "next-intl";
 
 export function CreateEssentialDialogTrigger({
+  children,
   className,
   buttonVariant = "default",
+  triggerRef,
 }: {
+  children?: React.ReactNode;
   className?: string;
   buttonVariant?:
     | "default"
@@ -24,6 +27,7 @@ export function CreateEssentialDialogTrigger({
     | "secondary"
     | "ghost"
     | "link";
+  triggerRef?: React.Ref<HTMLButtonElement>;
 }) {
   const t = useTranslations("EssentialsPage");
   const tTable = useTranslations("Table");
@@ -31,18 +35,20 @@ export function CreateEssentialDialogTrigger({
     <div className="space-y-8">
       <Dialog>
         <DialogTrigger asChild>
-          <Button
-            variant={buttonVariant}
-            className={`h-8 px-2 lg:px-3 ${className || ""}`}
-          >
-            <Plus />
-            <span>{tTable("add")}</span>
-          </Button>
+          {children ? (
+            children
+          ) : (
+            <Button
+              ref={triggerRef}
+              variant={buttonVariant}
+              className={`h-8 px-2 lg:px-3 ${className || ""}`}
+            >
+              <Plus />
+              <span>{tTable("add")}</span>
+            </Button>
+          )}
         </DialogTrigger>
-        <DialogContent
-          onInteractOutside={(e) => e.preventDefault()}
-          className="sm:max-w-[425px]"
-        >
+        <DialogContent className="sm:max-w-106.25">
           <DialogHeader>
             <DialogTitle>{t("add-new-essential-item")}</DialogTitle>
             <DialogDescription>

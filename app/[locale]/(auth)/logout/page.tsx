@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/actions/authActions";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { protocol, rootDomain } from "@/util/utils";
 
 export default function LogoutPage() {
   const [loading, setLoading] = useState(false);
   const locale = useLocale();
+  const t = useTranslations("Auth");
 
   const handleLogout = async () => {
     setLoading(true);
@@ -24,15 +25,15 @@ export default function LogoutPage() {
     <div className="flex flex-col gap-4 min-h-dvh max-w-lg m-auto justify-center items-center px-8">
       <div className="text-center">
         <h1 className="text-2xl font-semibold tracking-tight">
-          Espero que você volte 🤗
+          {t("logout-title")}
         </h1>
         <p className="text-muted-foreground">
-          Clique no botão para fazer logout.
+          {t("logout-instruction")}
         </p>
       </div>
       <div className="mt-4">
         <Button onClick={handleLogout} disabled={loading} className="min-w-sm">
-          {loading ? "Saindo…" : "Logout"}
+          {loading ? t("logging-out") : t("logout-button")}
         </Button>
       </div>
     </div>

@@ -32,6 +32,7 @@ export function ProjectCreateDialog({
   className,
   buttonVariant = "default",
   children,
+  triggerRef,
 }: {
   subdomain: string;
   className?: string;
@@ -43,6 +44,7 @@ export function ProjectCreateDialog({
     | "ghost"
     | "link";
   children?: React.ReactNode;
+  triggerRef?: React.Ref<HTMLButtonElement>;
 }) {
   const [state, action, isPending] = useActionState(
     createProjectAction,
@@ -70,8 +72,14 @@ export function ProjectCreateDialog({
   return (
     <Dialog>
       <Form {...form}>
-        <DialogTrigger asChild className={className}>
-          <Button variant={buttonVariant} type="submit" disabled={isPending}>
+        <DialogTrigger asChild>
+          <Button
+            ref={triggerRef}
+            variant={buttonVariant}
+            type="submit"
+            className={className}
+            disabled={isPending}
+          >
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
             {children ? children : t("create.title")}
           </Button>

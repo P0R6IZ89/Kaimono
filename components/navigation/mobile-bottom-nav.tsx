@@ -1,16 +1,35 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Folder, Home, Settings } from "lucide-react";
+import { useRef } from "react";
+import {
+  Folder,
+  Home,
+  Layers,
+  Plus,
+  Settings,
+  ShoppingCart,
+  Sofa,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { stripLeadingLocale } from "@/middleware";
 import { useTranslations } from "next-intl";
+import { CreateEssentialDialogTrigger } from "@/app/[locale]/s/[subdomain]/essentials/dialogs/dialog-create-trigger";
+import { CreatePlannedDialogTrigger } from "@/app/[locale]/s/[subdomain]/planned/dialogs/dialog-create-trigger";
+import { ProjectCreateDialog } from "@/app/[locale]/s/[subdomain]/projects/components/project-create-dialog";
+import { useSubdomain } from "@/context/SubdomainContext";
+import { RadialItem, RadialPieMenu } from "./quick-action-pie-menu";
+import { Button } from "../ui/button";
 
 export function MobileBottomNav() {
   const pathname = usePathname() ?? "";
   const { rest } = stripLeadingLocale(pathname);
   const t = useTranslations("MobileNav");
+  const { subdomain } = useSubdomain();
+  const essentialTriggerRef = useRef<HTMLButtonElement>(null);
+  const plannedTriggerRef = useRef<HTMLButtonElement>(null);
+  const projectTriggerRef = useRef<HTMLButtonElement>(null);
 
   const items = [
     { href: "/", label: t("home"), icon: Home },
@@ -18,26 +37,26 @@ export function MobileBottomNav() {
     { href: "/settings", label: t("settings"), icon: Settings },
   ];
 
-  // const itemsMenu: RadialItem[] = [
-  //   {
-  //     id: "essential",
-  //     label: "essential",
-  //     icon: ShoppingCart,
-  //     onSelect: () => toast("essential"),
-  //   },
-  //   {
-  //     id: "planned",
-  //     label: "planned",
-  //     icon: Sofa,
-  //     onSelect: () => toast("planned"),
-  //   },
-  //   {
-  //     id: "project",
-  //     label: "project",
-  //     icon: Layers,
-  //     onSelect: () => toast("project"),
-  //   },
-  // ];
+  const itemsMenu: RadialItem[] = [
+    {
+      id: "essential",
+      label: "essential",
+      icon: ShoppingCart,
+      onSelect: () => essentialTriggerRef.current?.click(),
+    },
+    {
+      id: "planned",
+      label: "planned",
+      icon: Sofa,
+      onSelect: () => plannedTriggerRef.current?.click(),
+    },
+    {
+      id: "project",
+      label: "project",
+      icon: Layers,
+      onSelect: () => projectTriggerRef.current?.click(),
+    },
+  ];
 
   return (
     <nav
@@ -45,6 +64,19 @@ export function MobileBottomNav() {
       suppressHydrationWarning
       className="fixed inset-x-0 bottom-0 z-50 lg:hidden bg-transparent px-4"
     >
+      <CreateEssentialDialogTrigger
+        className="hidden"
+        triggerRef={essentialTriggerRef}
+      />
+      <CreatePlannedDialogTrigger
+        className="hidden"
+        triggerRef={plannedTriggerRef}
+      />
+      <ProjectCreateDialog
+        subdomain={subdomain}
+        className="hidden"
+        triggerRef={projectTriggerRef}
+      />
       <div className="flex gap-4 items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
         <div className="flex-1 rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <ul className="grid grid-cols-3 items-center">
@@ -73,7 +105,7 @@ export function MobileBottomNav() {
             })}
           </ul>
         </div>
-        {/* <div className="flex justify-center items-center rounded-full border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
+        <div className="flex justify-center items-center rounded-full border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <RadialPieMenu
             asChild
             items={itemsMenu}
@@ -93,7 +125,7 @@ export function MobileBottomNav() {
               </Button>
             </div>
           </RadialPieMenu>
-        </div> */}
+        </div>
       </div>
     </nav>
   );
