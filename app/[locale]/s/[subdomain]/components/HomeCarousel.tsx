@@ -44,19 +44,21 @@ export default function HomeCarousel({}) {
   ];
   return (
     <Carousel className="w-full mx-auto px-2">
-      <CarouselContent className="">
+      <CarouselContent>
         {carouselItems.map((item, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
-              <Card className="p-0 bg-muted/50 ">
-                <CardContent className="flex flex-col p-0 items-center justify-center ">
+              <Card className="bg-muted/50 py-4">
+                <CardContent className="flex flex-col items-center justify-center ">
                   <CldImage
+                    crop={"auto"}
+                    className=""
                     src={item.imageUrl}
                     width={1536 / 6}
                     height={1024 / 6}
                     alt={"Project Image"}
                   />
-                  <div className="p-4 flex flex-col items-center">
+                  <div className="p-1 flex flex-col items-center">
                     <p className="flex gap-2 items-center ">
                       <Badge variant={"secondary"} className="text-md">
                         {item.icon && (
@@ -77,11 +79,11 @@ export default function HomeCarousel({}) {
       </CarouselContent>
       <CarouselPrevious
         variant={"ghost"}
-        className="absolute left-2 z-10 flex items-center justify-center w-10 h-10 cursor-pointer"
+        className="absolute left-3 z-10 flex items-center justify-center w-10 h-10 cursor-pointer"
       />
       <CarouselNext
         variant={"ghost"}
-        className="absolute right-2 z-10 flex items-center justify-center w-10 h-10 cursor-pointer"
+        className="absolute right-3 z-10 flex items-center justify-center w-10 h-10 cursor-pointer"
       />
     </Carousel>
   );

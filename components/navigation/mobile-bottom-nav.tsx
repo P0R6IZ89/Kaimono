@@ -77,7 +77,7 @@ export function MobileBottomNav() {
         className="hidden"
         triggerRef={projectTriggerRef}
       />
-      <div className="flex gap-4 items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
+      <div className="flex gap-2 items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
         <div className="flex-1 rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <ul className="grid grid-cols-3 items-center">
             {items.map((item) => {
@@ -105,7 +105,7 @@ export function MobileBottomNav() {
             })}
           </ul>
         </div>
-        <div className="flex justify-center items-center rounded-full border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
+        <div className="flex justify-center items-center rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <RadialPieMenu
             asChild
             items={itemsMenu}
@@ -114,7 +114,7 @@ export function MobileBottomNav() {
             startAngleCW={(3 * Math.PI) / 2} // 9 o’clock
             sweepAngleCW={Math.PI / 2} // to 12 o’clock
           >
-            <div className="p-5">
+            <div className="py-6 px-4">
               <Button
                 variant="ghost"
                 size="icon"
