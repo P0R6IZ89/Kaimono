@@ -43,7 +43,7 @@ export default async function Essentials({
         <HomeCarousel />
       </div>
       <div className="flex flex-col px-4">
-        <p className="py-2">Features</p>
+        <p className="py-2">{t("mainFeature")}</p>
         <div className="flex flex-col gap-0 bg-muted/50 rounded-sm">
           <QuickProjectCard subdomain={subdomain} />
           <QuickPlannedCard subdomain={subdomain} />
