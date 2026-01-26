@@ -39,9 +39,6 @@ function DialogLogout({ onOpenChange }: DialogLogoutProps) {
                 href: `${protocol}://${rootDomain}/${locale}/login`,
                 locale,
               });
-              // window.location.assign(
-              //   `${protocol}://${rootDomain}/${locale}/login`,
-              // );
             }
           }}
         >
