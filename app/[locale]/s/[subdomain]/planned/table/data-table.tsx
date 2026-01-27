@@ -52,20 +52,20 @@ export function DataTablePlanned<TData, TValue>({
   });
   return (
     <div>
-      <div className="px-4">
+      <div className="px-4 pb-4">
         <DataTableToolbar table={table} />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 pt-4 gap-6">
+      <div className="grid grid-cols-1 p-0 md:px-4 md:grid-cols-3 xl:grid-cols-3 gap-4">
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => {
             return (
               <div key={row.id}>
-                <div className="relative">
+                <div className="relative bg-muted/60 rounded-xl pb-4">
                   {row.getVisibleCells().map((cell) => (
                     <div key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </div>
                   ))}

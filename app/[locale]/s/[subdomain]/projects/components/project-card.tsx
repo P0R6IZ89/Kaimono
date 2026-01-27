@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -107,26 +108,28 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   return (
     <Card className="border border-muted shadow-sm">
       <CardHeader className="flex flex-col gap-3 ">
-        <div className="grow space-y-1">
-          <CardTitle className="flex items-center gap-2">
-            <NotepadText className="size-5" />
-            {project.name}
-          </CardTitle>
+        <div className="w-full space-y-1 ">
+          <div className="flex justify-between ">
+            <CardTitle className="flex items-center gap-2">
+              <NotepadText className="size-5" />
+              {project.name}
+            </CardTitle>
+            {totalPlannedAmount !== 0 && (
+              <div className="flex items-baseline gap-1">
+                <span className="font-semibold text-xl">
+                  {formatPrice(totalPlannedAmount)}
+                </span>
+
+                <span className="text-xs text-muted-foreground">
+                  {t("project.total-value")}
+                </span>
+              </div>
+            )}
+          </div>
           <CardDescription className="max-w-2xl">
             {project.description || t("project.no-description")}
           </CardDescription>
         </div>
-        {totalPlannedAmount !== 0 && (
-          <div className="flex items-baseline gap-1">
-            <span className="font-semibold text-xl">
-              {formatPrice(totalPlannedAmount)}
-            </span>
-
-            <span className="text-xs text-muted-foreground">
-              {t("project.total-value")}
-            </span>
-          </div>
-        )}
         <div className="flex flex-wrap gap-2">
           {project.counts.total ? (
             <Badge variant="secondary">
@@ -156,16 +159,6 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <div className="flex items-center justify-between">
-          <AssignPlannedDialog
-            projectId={project.id}
-            projectName={project.name}
-            plannedBacklog={plannedBacklog}
-            subdomain={subdomain}
-          />
-          {/* <CreatePlannedDialogTrigger /> */}
-        </div>
-        <Separator />
         {project.plannedItems.length === 0 ? (
           <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
             {t("project.empty")}
@@ -221,6 +214,15 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
         )}
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
+        <div className="flex-1 justify-between">
+          <AssignPlannedDialog
+            projectId={project.id}
+            projectName={project.name}
+            plannedBacklog={plannedBacklog}
+            subdomain={subdomain}
+          />
+          {/* <CreatePlannedDialogTrigger /> */}
+        </div>
         <ProjectEditDialog project={project} />
         <Button asChild variant="secondary" size="sm">
           <Link href="/planned">{t("project.open-planned")}</Link>

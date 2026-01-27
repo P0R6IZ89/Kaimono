@@ -239,7 +239,7 @@
     "hello2": "こんにちは！",
     "welcomeBack": "おかえりなさい！",
     "workspace": "あなたは{subdomain}ワークスペースにいます",
-    "mainFeature": "主な機能"
+    "mainFeature": "機能"
   },
   "MembersCard": {
     "title": "チームメンバー",

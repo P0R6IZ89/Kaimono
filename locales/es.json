@@ -82,7 +82,7 @@
     "hello2": "¡Hola!",
     "welcomeBack": "¡Bienvenido de nuevo!",
     "workspace": "Estás en el espacio de trabajo {subdomain}",
-    "mainFeature": "Función Principal"
+    "mainFeature": "Funciones"
   },
   "MembersCard": {
     "title": "Miembros del Equipo",
@@ -514,10 +514,5 @@
     "support-button": "Apóyame en Ko-fi",
     "aria-label": "Apóyame en Ko-fi",
     "alt-text": "Ko-fi"
-  },
-  "LogoutDialog": {
-    "title": "¿Quieres cerrar sesión?",
-    "confirm": "Cerrar sesión",
-    "cancel": "Cancelar"
   }
 }
