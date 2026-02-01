@@ -12,7 +12,47 @@ import { protocol, rootDomain } from "@/util/utils";
 
 export type Result<T = unknown> =
   | { ok: true; data?: T; message?: string }
-  | { ok: false; message: string; code?: string };
+  | {
+      ok: false;
+      // i18n-friendly error contract (preferred)
+      errorKey?: string;
+      errorParams?: Record<string, unknown>;
+      // legacy fallback (keep while migrating)
+      message: string;
+      code?: string;
+    };
+
+class ActionError extends Error {
+  errorKey: string;
+  errorParams?: Record<string, unknown>;
+
+  constructor(errorKey: string, errorParams?: Record<string, unknown>) {
+    super(errorKey);
+    this.errorKey = errorKey;
+    this.errorParams = errorParams;
+  }
+}
+
+function zodIssueToParams(
+  issue: z.ZodIssue,
+): Record<string, unknown> | undefined {
+  switch (issue.code) {
+    case "too_small":
+      return {
+        min: (issue as z.ZodTooSmallIssue).minimum,
+        inclusive: (issue as z.ZodTooSmallIssue).inclusive,
+      };
+    case "too_big":
+      return {
+        max: (issue as z.ZodTooBigIssue).maximum,
+        inclusive: (issue as z.ZodTooBigIssue).inclusive,
+      };
+    case "invalid_string":
+      return { validation: (issue as z.ZodInvalidStringIssue).validation };
+    default:
+      return undefined;
+  }
+}
 
 function normalizeSubdomain(s: string) {
   const cleaned = s
@@ -33,15 +73,12 @@ const RESERVED_SUBDOMAINS = new Set([
 ]);
 
 function assertAllowedSubdomain(sub: string) {
-  if (!sub) throw new Error("Subdomain is required.");
-  if (sub.length < 3)
-    throw new Error("Subdomain must be at least 3 characters.");
-  if (RESERVED_SUBDOMAINS.has(sub))
-    throw new Error("This subdomain is reserved.");
+  if (!sub) throw new ActionError("subdomain-required");
+  if (sub.length < 3) throw new ActionError("subdomain-min", { min: 3 });
+  if (RESERVED_SUBDOMAINS.has(sub)) throw new ActionError("subdomain-reserved");
   if (!/^[a-z0-9-]+$/.test(sub))
-    throw new Error("Subdomain may contain a–z, 0–9, and hyphens only.");
-  if (/--/.test(sub))
-    throw new Error("Subdomain cannot contain consecutive hyphens.");
+    throw new ActionError("subdomain-invalid-chars");
+  if (/--/.test(sub)) throw new ActionError("subdomain-consecutive-hyphens");
 }
 
 type SessionWithUser = Session & {
@@ -138,9 +175,12 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
 
   const parsed = appSchema.safeParse(data);
   if (!parsed.success) {
+    const first = parsed.error.errors[0];
     return {
       ok: false,
-      message: parsed.error.errors[0].message,
+      errorKey: first.message, // message now stores an i18n key
+      errorParams: zodIssueToParams(first),
+      message: first.message,
     } satisfies Result;
   }
 
@@ -152,7 +192,19 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
   try {
     assertAllowedSubdomain(normalized);
   } catch (e) {
-    return { ok: false, message: (e as Error).message } satisfies Result;
+    if (e instanceof ActionError) {
+      return {
+        ok: false,
+        errorKey: e.errorKey,
+        errorParams: e.errorParams,
+        message: e.errorKey,
+      } satisfies Result;
+    }
+    return {
+      ok: false,
+      errorKey: "unexpected",
+      message: "unexpected",
+    } satisfies Result;
   }
 
   const { name, description } = parsed.data;
@@ -178,14 +230,16 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
         if (field.includes("subdomain")) {
           return {
             ok: false,
-            message: "That subdomain is already taken. Please choose another.",
+            errorKey: "subdomain-taken",
+            message: "subdomain-taken",
             code: "SUBDOMAIN_TAKEN",
           } satisfies Result;
         }
         if (field.includes("customDomain")) {
           return {
             ok: false,
-            message: "That custom domain is already in use.",
+            errorKey: "custom-domain-taken",
+            message: "custom-domain-taken",
             code: "CUSTOM_DOMAIN_TAKEN",
           } satisfies Result;
         }
@@ -193,7 +247,8 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
     }
     return {
       ok: false,
-      message: "An unexpected error occurred. Please try again.",
+      errorKey: "unexpected",
+      message: "unexpected",
     } satisfies Result;
   }
   redirect({ href: `${protocol}://${normalized}.${rootDomain}`, locale });

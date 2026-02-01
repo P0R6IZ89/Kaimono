@@ -75,7 +75,7 @@ export default async function App({ params }: PageProps) {
               href={`${protocol}://${app.subdomain}.${rootDomain}/${locale}`}
               className="w-full h-full"
             >
-              <Card className="p-0 gap-3 justify-between border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
+              <Card className="h-full p-0 gap-3 justify-between border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
                 <Item className="">
                   <ItemMedia variant={"default"}>
                     <Folder />

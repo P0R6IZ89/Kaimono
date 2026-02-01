@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
 import { essentialsSchema, statusUpdateSchema } from "@/util/form-zod-schema";
+import { ActionResult } from "@/util/initial-action-return";
 import { Status } from "@prisma/client";
 
 export async function createEssentials(
@@ -89,7 +90,7 @@ export async function getEssentialsBySubdomain(subdomain: string) {
 export async function updateEssentials(
   _prevState: unknown,
   formData: FormData,
-) {
+): Promise<ActionResult> {
   const result = essentialsSchema.safeParse({
     title: formData.get("title"),
     price: formData.get("price"),
@@ -128,7 +129,7 @@ export async function updateEssentials(
 export async function updateStatusEssentials(
   _prevState: unknown,
   formData: FormData,
-) {
+): Promise<ActionResult> {
   const result = statusUpdateSchema.safeParse({
     id: formData.get("id"),
     status: formData.get("status"),

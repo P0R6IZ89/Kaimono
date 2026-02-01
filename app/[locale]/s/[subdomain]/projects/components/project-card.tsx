@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -14,7 +13,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { AssignPlannedDialog } from "./assign-planned-dialog";

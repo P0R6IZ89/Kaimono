@@ -23,11 +23,24 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Info, Loader2 } from "lucide-react";
 import UserAvatar from "@/components/auth/userAvatar";
 import { rootDomain } from "@/util/utils";
 import { Session } from "next-auth";
 import { useTranslations } from "next-intl";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from "@/components/ui/input-group";
+import { ButtonGroup } from "@/components/ui/button-group";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 type FormValues = { name: string; subdomain: string; description: string };
 
@@ -42,6 +55,20 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
     createAppAction,
     initialState,
   );
+
+  const getErrorText = () => {
+    if (!state || state.ok !== false) return "";
+    const key = state.errorKey ?? state.message;
+    const params = state.errorParams as
+      | Record<string, string | number | Date>
+      | undefined;
+
+    try {
+      return tErrors(key, params);
+    } catch {
+      return String(state.message ?? key ?? "");
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4 min-h-dvh max-w-xl m-auto justify-center px-4">
@@ -79,16 +106,35 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t("subdomain")}</FormLabel>
-                    <FormControl>
-                      <div className="relative flex">
-                        <Input
-                          className="w-full rounded-r-none focus:z-10"
-                          {...field}
-                        />
-                        <span className="tracking-wide bg-gray-100 px-3 border border-l-0 border-input rounded-r-md text-gray-500 min-h-[36px] flex items-center">
-                          .{rootDomain}
-                        </span>
-                      </div>
+                    <FormControl className="w-full">
+                      <ButtonGroup>
+                        <InputGroup>
+                          <InputGroupInput placeholder="your-team" {...field} />
+                          <InputGroupAddon align="inline-end">
+                            <InputGroupText>.{rootDomain}</InputGroupText>
+                          </InputGroupAddon>
+                          <InputGroupAddon align="inline-end">
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <InputGroupAddon>
+                                  <InputGroupButton
+                                    variant="secondary"
+                                    size="icon-xs"
+                                  >
+                                    <Info />
+                                  </InputGroupButton>
+                                </InputGroupAddon>
+                              </PopoverTrigger>
+                              <PopoverContent align="end">
+                                <p className="text-sm">
+                                  You should not enter any sensitive information
+                                  on this site.
+                                </p>
+                              </PopoverContent>
+                            </Popover>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </ButtonGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,7 +163,7 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>{tErrors("error")}</AlertTitle>
-                  <AlertDescription>{state.message}</AlertDescription>
+                  <AlertDescription>{getErrorText()}</AlertDescription>
                 </Alert>
               )}
 
