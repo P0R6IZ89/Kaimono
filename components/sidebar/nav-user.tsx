@@ -2,6 +2,7 @@
 
 import { ChevronsUpDown, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -33,20 +34,15 @@ interface NavUserProps {
   memberRole?: MemberRole;
 }
 
-const ROLE_LABEL: Record<MemberRole, string> = {
-  OWNER: "Proprietário",
-  ADMIN: "Administrador",
-  MEMBER: "Membro",
-};
-
 export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
   const { isMobile } = useSidebar();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const t = useTranslations("Auth");
   if (!user) {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton size="lg">Sign in</SidebarMenuButton>
+          <SidebarMenuButton size="lg">{t("sign-in")}</SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
     );
@@ -93,7 +89,7 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="text-xs">{ROLE_LABEL[memberRole]}</span>
+                  <span className="text-xs">{t(`roles.${memberRole}`)}</span>
                   {user.name ? (
                     <span className="truncate font-semibold">{user.name}</span>
                   ) : (
@@ -112,7 +108,7 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
               >
                 <div className="flex items-center gap-2">
                   <LogOut />
-                  <span>Log out</span>
+                  <span>{t("sign-out")}</span>
                 </div>
               </DropdownMenuItem>
               <DialogLogout onOpenChange={setIsDialogOpen} />
