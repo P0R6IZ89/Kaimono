@@ -127,8 +127,9 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                               </PopoverTrigger>
                               <PopoverContent align="end">
                                 <p className="text-sm">
-                                  You should not enter any sensitive information
-                                  on this site.
+                                  A subdomain is a unique web address that
+                                  separates your workspace and data from other
+                                  users
                                 </p>
                               </PopoverContent>
                             </Popover>
