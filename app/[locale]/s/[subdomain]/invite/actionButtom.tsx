@@ -46,11 +46,10 @@ const makeRevokeAction = (
   onConfirm: async () => {
     try {
       const result = await revokeInviteAction(id);
-      if (result.error) {
-        toast.error(result.error);
-      }
-      if (result.success) {
-        toast.success("👍");
+      if (!result.ok) {
+        toast.error(result.message);
+      } else if (result.message) {
+        toast.success(result.message);
       }
     } catch {
       toast.error(t("actions.generic-error"));
@@ -71,11 +70,10 @@ const makeResendAction = (
   onConfirm: async () => {
     try {
       const result = await resendInviteAction(id);
-      if (result.error) {
-        toast.error(result.error);
-      }
-      if (result.success) {
-        toast.success("👍");
+      if (!result.ok) {
+        toast.error(result.message);
+      } else if (result.message) {
+        toast.success(result.message);
       }
     } catch {
       toast.error(t("actions.generic-error"));

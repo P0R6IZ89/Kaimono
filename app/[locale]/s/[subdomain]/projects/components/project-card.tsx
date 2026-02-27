@@ -1,12 +1,11 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -21,7 +20,7 @@ import {
   ProjectWithPlanned,
 } from "@/app/[locale]/types/projects";
 import { unassignPlannedFromProjectAction } from "@/actions/projectActions";
-import { Loader2, NotepadText, X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { ProjectEditDialog } from "./project-edit-dialog";
 import {
   Item,
@@ -33,14 +32,30 @@ import {
 } from "@/components/ui/item";
 import Image from "next/image";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { initialState } from "@/util/initial-action-return";
 
 type Props = {
   project: ProjectWithPlanned;
   plannedBacklog: PlannedBacklogItem[];
   subdomain: string;
 };
-
-const initialState = { ok: false, message: "" };
 
 function UnassignButton({
   plannedId,
@@ -98,9 +113,80 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   const t = useTranslations("ProjectsPage");
   const tTable = useTranslations("Table");
   const tPlanned = useTranslations("PlannedPage");
+  const isMobile = useIsMobile();
+  const [openDetails, setOpenDetails] = useState(false);
   const totalPlannedAmount = project.plannedItems.reduce(
     (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
     0,
+  );
+
+  const detailsTrigger = (
+    <Button variant="outline" size="sm">
+      {t("project.items-title")}
+    </Button>
+  );
+
+  const detailsBody = (
+    <div className="space-y-4">
+      {project.plannedItems.length === 0 ? (
+        <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+          {t("project.empty")}
+        </p>
+      ) : (
+        <div className="space-y-3">
+          {project.plannedItems.map((item) => (
+            <Item key={item.id} variant="outline" className="space-y-3 bg-background">
+              <ItemMedia variant="image">
+                {item.image ? (
+                  <Image
+                    className="aspect-square"
+                    width={50}
+                    height={50}
+                    src={item.image}
+                    alt={item.title}
+                  />
+                ) : (
+                  <Avatar>
+                    <AvatarFallback className="bg-muted text-muted-foreground flex items-center justify-center">
+                      {item.title.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                )}
+              </ItemMedia>
+              <ItemContent className="gap-0">
+                <ItemTitle>{item.title}</ItemTitle>
+                <ItemDescription className="text-sm">
+                  {formatPrice(item.price)}{" "}
+                  <span className="text-muted-foreground">x{item.quantity}</span>
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <div className="flex flex-wrap gap-1">
+                  <Badge variant="outline" className="text-[10px]">
+                    {tTable(`status.${item.status}`)}
+                  </Badge>
+                  <Badge variant="secondary" className="text-[10px]">
+                    {tPlanned(`priority-options.${item.priority}`)}
+                  </Badge>
+                </div>
+                <UnassignButton plannedId={item.id} subdomain={subdomain} />
+              </ItemActions>
+            </Item>
+          ))}
+        </div>
+      )}
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <AssignPlannedDialog
+          projectId={project.id}
+          projectName={project.name}
+          plannedBacklog={plannedBacklog}
+          subdomain={subdomain}
+        />
+        <Button asChild variant="secondary" size="sm">
+          <Link href="/planned">{t("project.open-planned")}</Link>
+        </Button>
+      </div>
+    </div>
   );
 
   return (
@@ -108,8 +194,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
       <CardHeader className="flex flex-col gap-3 ">
         <div className="w-full space-y-1 ">
           <div className="flex justify-between ">
-            <CardTitle className="flex items-center gap-2">
-              <NotepadText className="size-5" />
+            <CardTitle className="flex items-center gap-2 text-xl font-semibold tracking-tight">
               {project.name}
             </CardTitle>
             {totalPlannedAmount !== 0 && (
@@ -124,9 +209,11 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
               </div>
             )}
           </div>
-          <CardDescription className="max-w-2xl">
-            {project.description || t("project.no-description")}
-          </CardDescription>
+          {project.description && (
+            <CardDescription className="max-w-2xl">
+              {project.description || t("project.no-description")}
+            </CardDescription>
+          )}
         </div>
         <div className="flex flex-wrap gap-2">
           {project.counts.total ? (
@@ -155,76 +242,35 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
           ) : null}
         </div>
       </CardHeader>
-
-      <CardContent className="space-y-4">
-        {project.plannedItems.length === 0 ? (
-          <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
-            {t("project.empty")}
-          </p>
+      <CardFooter className="flex items-center justify-between gap-2">
+        {isMobile ? (
+          <Drawer open={openDetails} onOpenChange={setOpenDetails}>
+            <DrawerTrigger asChild>{detailsTrigger}</DrawerTrigger>
+            <DrawerContent className="md:w-2xl mx-auto">
+              <div className="w-full mx-auto max-h-[80vh] overflow-y-auto">
+                <DrawerHeader>
+                  <DrawerTitle>{t("project.items-title")}</DrawerTitle>
+                  <DrawerDescription>
+                    {t("project.items-description")}
+                  </DrawerDescription>
+                </DrawerHeader>
+                <div className="px-4 pb-4">{detailsBody}</div>
+              </div>
+            </DrawerContent>
+          </Drawer>
         ) : (
-          <>
-            {project.plannedItems.map((item) => (
-              <Item
-                key={item.id}
-                variant="outline"
-                className="space-y-3 bg-background"
-              >
-                <ItemMedia variant={"image"}>
-                  {item.image ? (
-                    <Image
-                      className="aspect-square"
-                      width={50}
-                      height={50}
-                      src={item.image}
-                      alt={item.title}
-                    />
-                  ) : (
-                    <Avatar>
-                      <AvatarFallback className="bg-muted text-muted-foreground flex items-center justify-center">
-                        {item.title.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                  )}
-                </ItemMedia>
-                <ItemContent className="gap-0">
-                  <ItemTitle>{item.title}</ItemTitle>
-                  <ItemDescription className="text-sm">
-                    {formatPrice(item.price)}{" "}
-                    <span className="text-muted-foreground">
-                      x{item.quantity}
-                    </span>
-                  </ItemDescription>
-                </ItemContent>
-                <ItemActions>
-                  <div className="flex flex-wrap gap-1">
-                    <Badge variant="outline" className="text-[10px]">
-                      {tTable(`status.${item.status}`)}
-                    </Badge>
-                    <Badge variant="secondary" className="text-[10px]">
-                      {tPlanned(`priority-options.${item.priority}`)}
-                    </Badge>
-                  </div>
-                  <UnassignButton plannedId={item.id} subdomain={subdomain} />
-                </ItemActions>
-              </Item>
-            ))}
-          </>
+          <Dialog open={openDetails} onOpenChange={setOpenDetails}>
+            <DialogTrigger asChild>{detailsTrigger}</DialogTrigger>
+            <DialogContent className="sm:max-w-3xl max-h-[85vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>{t("project.items-title")}</DialogTitle>
+                <DialogDescription>{t("project.items-description")}</DialogDescription>
+              </DialogHeader>
+              {detailsBody}
+            </DialogContent>
+          </Dialog>
         )}
-      </CardContent>
-      <CardFooter className="flex justify-end gap-2">
-        <div className="flex-1 justify-between">
-          <AssignPlannedDialog
-            projectId={project.id}
-            projectName={project.name}
-            plannedBacklog={plannedBacklog}
-            subdomain={subdomain}
-          />
-          {/* <CreatePlannedDialogTrigger /> */}
-        </div>
         <ProjectEditDialog project={project} />
-        <Button asChild variant="secondary" size="sm">
-          <Link href="/planned">{t("project.open-planned")}</Link>
-        </Button>
       </CardFooter>
     </Card>
   );

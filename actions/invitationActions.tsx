@@ -7,10 +7,10 @@ import prisma from "@/lib/prisma";
 import { inviteSchema } from "@/util/form-zod-schema";
 import { protocol, rootDomain } from "@/util/utils";
 import { addDays } from "@/lib/addDays";
-import { ActionResult } from "next/dist/server/app-render/types";
 import { revalidatePath } from "next/cache";
 import { requireMembership, requireSession } from "./appActions";
 import { redirect as NextRedirect } from "next/navigation";
+import type { ActionResult } from "@/util/initial-action-return";
 
 export async function getInvitedUsersActions(subdomain: string) {
   await requireSession();
@@ -23,9 +23,9 @@ export async function getInvitedUsersActions(subdomain: string) {
 }
 
 export async function createInviteAction(
-  prevState: unknown,
-  formData: FormData
-) {
+  _prevState: unknown,
+  formData: FormData,
+): Promise<ActionResult> {
   const session = await requireSession();
   const appName = formData.get("appName");
   const raw = {
@@ -35,7 +35,7 @@ export async function createInviteAction(
   };
   const parse = inviteSchema.safeParse(raw);
   if (!parse.success) {
-    return { error: parse.error.errors[0].message };
+    return { ok: false, message: parse.error.errors[0].message };
   }
 
   const me = session.user.id;
@@ -43,7 +43,7 @@ export async function createInviteAction(
     where: { appId_userId: { appId: parse.data.appId, userId: me } },
   });
   if (!membership || membership.role === "MEMBER") {
-    return { error: "Você não tem permissão para convidar usuários." };
+    return { ok: false, message: "Você não tem permissão para convidar usuários." };
   }
 
   const { token, expiresAt } = makeInviteToken();
@@ -88,7 +88,7 @@ export async function createInviteAction(
     html,
   });
   revalidatePath("/invite");
-  return { success: true };
+  return { ok: true, message: "Convite enviado com sucesso!" };
 }
 
 export async function acceptInviteAction(token: string) {
@@ -144,16 +144,12 @@ export async function acceptInviteAction(token: string) {
   return { success: true, appId: invite.appId };
 }
 
-interface ResendResult {
-  success?: boolean;
-  error?: string;
-}
 export async function resendInviteAction(
-  invitationId: string
-): Promise<ResendResult> {
+  invitationId: string,
+): Promise<ActionResult> {
   const session = await auth();
   if (!session?.user?.id) {
-    return { error: "Unauthorized. Please log in." };
+    return { ok: false, message: "Unauthorized. Please log in." };
   }
 
   const me = session.user.id;
@@ -163,7 +159,7 @@ export async function resendInviteAction(
     include: { app: true },
   });
   if (!invite) {
-    return { error: "Invitation not found" };
+    return { ok: false, message: "Invitation not found" };
   }
 
   const membership = await prisma.membership.findUnique({
@@ -175,11 +171,14 @@ export async function resendInviteAction(
       membership.role !== "ADMIN" &&
       invite.inviterId !== me)
   ) {
-    return { error: "You don’t have permission to resend this invitation." };
+    return {
+      ok: false,
+      message: "You don’t have permission to resend this invitation.",
+    };
   }
 
   if (invite.status !== "PENDING" && invite.status !== "REVOKED") {
-    return { error: "Only pending or revoked invitations may be resent." };
+    return { ok: false, message: "Only pending or revoked invitations may be resent." };
   }
   const newExpiry = addDays(new Date(), 9);
   await prisma.invitation.update({
@@ -204,11 +203,11 @@ export async function resendInviteAction(
     `,
   });
   revalidatePath("/invite");
-  return { success: true };
+  return { ok: true, message: "Invitation resent successfully." };
 }
 
 export async function revokeInviteAction(
-  invitationId: string
+  invitationId: string,
 ): Promise<ActionResult> {
   const session = await requireSession();
   const me = session.user.id;
@@ -216,7 +215,7 @@ export async function revokeInviteAction(
     where: { id: invitationId },
   });
   if (!invite) {
-    return { error: "Convite não encontrado." };
+    return { ok: false, message: "Convite não encontrado." };
   }
 
   const membership = await prisma.membership.findUnique({
@@ -228,15 +227,21 @@ export async function revokeInviteAction(
       membership.role !== "ADMIN" &&
       invite.inviterId !== me)
   ) {
-    return { error: "You do not have permission to revoke this invitation." };
+    return {
+      ok: false,
+      message: "You do not have permission to revoke this invitation.",
+    };
   }
   if (invite.status !== "PENDING" && invite.status !== "EXPIRED") {
-    return { error: "Only pending or expired invitations can be revoked." };
+    return {
+      ok: false,
+      message: "Only pending or expired invitations can be revoked.",
+    };
   }
   await prisma.invitation.update({
     where: { id: invitationId },
     data: { status: "REVOKED", revokedAt: new Date() },
   });
   revalidatePath("/invite");
-  return { success: true };
+  return { ok: true, message: "Invitation revoked successfully." };
 }

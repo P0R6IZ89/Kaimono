@@ -37,10 +37,10 @@ interface InviteFormProps {
 
 function InviteForm({ app }: InviteFormProps) {
   const t = useTranslations("InvitePage");
-  const initialState = { error: "" };
+  const initialState = { ok: false, message: "" };
   const [state, action, isPending] = useActionState(
     createInviteAction,
-    initialState
+    initialState,
   );
 
   const form = useForm({
@@ -53,10 +53,10 @@ function InviteForm({ app }: InviteFormProps) {
   });
   useEffect(() => {
     if (state) {
-      if (state.success) {
-        toast.success("Convite enviado com suscesso!");
-      } else if (state.error) {
-        toast.error(state.error);
+      if (state.ok) {
+        toast.success(state.message);
+      } else if (state.message) {
+        toast.error(state.message);
       }
     }
   }, [state]);

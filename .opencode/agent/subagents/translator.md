@@ -1,6 +1,6 @@
 ---
 description: Maintains English, Portuguese, and Japanese translations based on locales/en.json
-model: opencode/gpt-5.1-codex-mini
+model: ollama/qwen2.5-coder:14b-instruct
 mode: subagent
 permission:
   edit: allow

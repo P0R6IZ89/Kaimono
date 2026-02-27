@@ -31,17 +31,11 @@ async function QuickPlannedCard({ subdomain }: { subdomain: string }) {
             <ItemTitle>{t("title")}</ItemTitle>
           </ItemContent>
           <ItemActions>
-            {count !== 0 && <Badge variant="outline">{count}</Badge>}
+            <Badge variant="outline">{count}</Badge>
           </ItemActions>
           <ChevronRight className="size-4 text-muted-foreground" />
         </Link>
       </Item>
-      {/* <CreatePlannedDialogTrigger
-        className="p-2 h-full aspect-square rounded-md"
-        buttonVariant="outline"
-      >
-        <Plus />
-      </CreatePlannedDialogTrigger> */}
     </div>
   );
 }

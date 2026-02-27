@@ -1,17 +1,22 @@
 {
   "Auth": {
+    "roles": {
+      "ADMIN": "管理者",
+      "MEMBER": "メンバー",
+      "OWNER": "オーナー"
+    },
     "back-to-main": "メインページに戻る",
-    "check-spam": "(表示されない場合は迷惑メールフォルダを確認してください)",
-    "continue-with-email": "Emailで続行",
-    "continue-with-github": "Githubで続行 🚧開発者専用⚠️",
+    "check-spam": "（メールが見当たらない場合は迷惑メールフォルダをご確認ください）",
+    "continue-with-email": "メールで続行",
+    "continue-with-github": "GitHubで続行 🚧開発者向けのみ⚠️",
     "continue-with-google": "Googleで続行",
-    "email-sent-instruction": "送信されたメールを開き、\"ログイン\"ボタンをクリックしてログインを完了してください。",
-    "email-sent-title": "ログインメールがあなたのメールに送信されました。",
-    "error": "エラー：",
+    "email-sent-instruction": "送信されたメールを開き、「Enter」ボタンをクリックしてログインを完了してください。",
+    "email-sent-title": "ログイン用メールを送信しました。",
+    "error": "エラー:",
     "logging-out": "ログアウト中…",
     "logout-button": "ログアウト",
-    "logout-instruction": "ログアウトするにはボタンをクリックしてください。",
-    "logout-title": "またのご利用をお待ちしております 🤗",
+    "logout-instruction": "ボタンを押してログアウトします。",
+    "logout-title": "またのご利用をお待ちしています 🤗",
     "or": "または"
   },
   "Dashboard": {
@@ -19,40 +24,40 @@
     "hello2": "こんにちは！",
     "mainFeature": "機能",
     "welcomeBack": "おかえりなさい！",
-    "workspace": "あなたは{subdomain}ワークスペースにいます"
+    "workspace": "あなたは {subdomain} ワークスペースにいます"
   },
   "Dialog": {
     "close": "戻る",
-    "delete-confirm-button": "はい、アイテムを削除",
-    "delete-description": "この操作は元に戻せません。これにより、アイテムが買い物リストから完全に削除されます。",
-    "delete-title": "{title}を削除してもよろしいですか？",
-    "edit-description": "ここでアイテムを編集できます。保存を忘れないでください！",
+    "delete-confirm-button": "はい、削除します",
+    "delete-description": "この操作は取り消せません。買い物リストからこのアイテムは完全に削除されます。",
+    "delete-title": "{title} を削除してもよろしいですか？",
+    "edit-description": "ここでアイテムを編集できます。保存をお忘れなく！",
     "item-name": "アイテム名",
-    "item-price": "アイテム価格",
-    "item-quantity": "アイテム数量",
-    "mark-as-pending-confirm-button": "保留としてマーク",
+    "item-price": "価格",
+    "item-quantity": "数量",
+    "mark-as-pending-confirm-button": "保留に戻す",
     "mark-as-pending-description": "このアイテムを保留に戻してもよろしいですか？",
     "mark-as-pending-title": "アイテムを保留に戻しますか？",
-    "mark-as-purchased-confirm-button": "購入済みとしてマーク",
-    "mark-as-purchased-description": "このアイテムを購入済みとしてマークしてもよろしいですか？",
-    "mark-as-purchased-title": "{title}を購入済みとしてマークしますか？",
+    "mark-as-purchased-confirm-button": "購入済みにする",
+    "mark-as-purchased-description": "このアイテムを購入済みにしてもよろしいですか？",
+    "mark-as-purchased-title": "{title} を購入済みにしますか？",
     "save-changes": "変更を保存"
   },
   "Errors": {
     "error": "エラー",
     "invalid-email": "有効なメールアドレスを入力してください。",
-    "password-min-length": "パスワードは少なくとも8文字である必要があります。",
+    "password-min-length": "パスワードは8文字以上で入力してください。",
     "passwords-no-match": "パスワードが一致しません。",
     "required-field": "この項目は必須です。"
   },
   "EssentialsPage": {
     "add-essential-button": "アイテムを追加",
-    "add-new-essential-item": "新しい買い物アイテムを追加",
+    "add-new-essential-item": "買い物リストに新しいアイテムを追加",
     "add-new-essential-item-description": "買い物リストに新しいアイテムを追加します。",
-    "description": "定期的に購入する必要があるアイテムです。",
-    "essentialsCount": "{count, plural, =0 {まだアイテムがありません。} =1 {1つのアイテム} other {#つのアイテム}}",
+    "description": "定期的に購入する買い物リストのアイテムです。",
+    "essentialsCount": "{count, plural, =0 {まだアイテムはありません。} =1 {1件} other {#件}}",
     "item-name": "アイテム名",
-    "no-essentials": "まだ買い物リストにアイテムが追加されていません。",
+    "no-essentials": "まだ買い物リストのアイテムがありません。",
     "no-result": "結果が見つかりません。",
     "pending-items": "保留中のアイテム",
     "price": "価格",
@@ -60,36 +65,36 @@
     "save": "保存",
     "see-all-essentials": "すべて表示",
     "title": "買い物リスト",
-    "total-pending": "保留中の合計"
+    "total-pending": "合計（保留）"
   },
   "Homepage": {
-    "created-by": "{creatorName} によって作成",
-    "description": "頭にあるものをすべてこのアプリに追加し、分析して、最善の決定を下しましょう！",
-    "get-started-button": "始める！",
-    "title": "究極の買い物アプリのご紹介"
+    "created-by": "{creatorName} が作成",
+    "description": "考えているものをこのアプリに追加して分析し、最適な判断をしましょう！",
+    "get-started-button": "はじめる！",
+    "title": "究極の買い物アプリをご紹介"
   },
   "InvitePage": {
     "actions": {
-      "generic-error": "何かがうまくいきませんでした",
+      "generic-error": "問題が発生しました",
       "remove": {
         "description": "このメンバーをチームから完全に削除しますか？",
         "title": "メンバーを削除"
       },
       "resend": {
-        "description": "{status, select, PENDING {メールでリマインダーを送信しますか？} other {新しい招待リンクを送信しますか？}}",
+        "description": "{status, select, PENDING {リマインドメールを送信しますか？} other {新しい招待リンクを送信しますか？}}",
         "title": "招待を再送信"
       },
       "revoke": {
-        "description": "{status, select, PENDING {この招待はまだ保留中です。取り消しますか？} EXPIRED {この招待は期限切れです。完全に取り消しますか？} other {この招待を取り消しますか？}}",
+        "description": "{status, select, PENDING {この招待は保留中です。取り消しますか？} EXPIRED {この招待は期限切れです。完全に取り消しますか？} other {この招待を取り消しますか？}}",
         "title": "招待を取り消す"
       }
     },
-    "actions-text": "アクション",
-    "description": "招待リンクやメールでチームの支出ワークスペースへのアクセスを共有しましょう。",
+    "actions-text": "操作",
+    "description": "招待リンクまたはメールを送って、チームの支出ワークスペースへのアクセスを共有します。",
     "email": "メール",
     "invite-button": "招待を送信",
-    "invitee-role": "として招待：",
-    "manage-invites": "チームへの招待をここで管理しましょう。",
+    "invitee-role": "招待する役割:",
+    "manage-invites": "ここでチーム招待を管理できます。",
     "name": "名前",
     "pending-invites": "保留中の招待",
     "roles": {
@@ -99,13 +104,13 @@
     },
     "status": "ステータス",
     "team-users": "チーム {userCount, plural, =0 {メンバー} =1 {メンバー} other {メンバー（#）}}",
-    "team-users-description": "このチームのメンバー。",
-    "title": "チームメンバーを招待して支出を合わせましょう！"
+    "team-users-description": "このチームのメンバーです。",
+    "title": "チームメンバーを招待して支出管理をそろえましょう！"
   },
   "KoFiWidget": {
     "alt-text": "Ko-fi",
     "aria-label": "Ko-fiでサポートする",
-    "support-button": "Ko-fiでサポートする"
+    "support-button": "Ko-fiで応援する"
   },
   "Login": {
     "description": "ログイン方法を選択してください。",
@@ -117,12 +122,12 @@
     "title": "ログアウトしますか？"
   },
   "MembersCard": {
-    "description": "チームの支出を確認・共有できるメンバーを管理します。",
-    "invite-members": "家族や同僚を招待して予算やプロジェクトを共同で管理しましょう。",
+    "description": "チームの支出を誰が閲覧・編集できるかを管理します。",
+    "invite-members": "家族や同僚を招待して、予算やプロジェクトを一緒に管理しましょう。",
     "manage": "管理",
-    "members-count": "{members, plural, =0 {まだメンバーがいません。} =1 {1人のメンバー} other {#人のメンバー}}",
+    "members-count": "{members, plural, =0 {まだメンバーがいません。} =1 {1人} other {#人}}",
     "title": "チームメンバー",
-    "view-all-members": "すべてのメンバーを表示"
+    "view-all-members": "すべてのメンバーを見る"
   },
   "Meta": {
     "description": "買い物リストを管理するためのアプリケーションです。",
@@ -131,39 +136,39 @@
   "MobileNav": {
     "essentials": "買い物リスト",
     "home": "ホーム",
-    "planned": "購入予定",
+    "planned": "計画",
     "projects": "プロジェクト",
     "settings": "設定"
   },
   "NewTeam": {
     "create-button": "チームを作成",
-    "description": "説明（オプション）",
-    "description-content": "チームは家計費、家族のプロジェクト、会社の予算など、目的別に支出を整理できるワークスペースです。どこにお金が流れているかを明確に可視化できます。",
-    "description-placeholder": "例：家計費と会社の支出を合わせたワークスペース。",
+    "description": "説明（任意）",
+    "description-content": "チームを使うと目的ごとに支出を整理できます。家計、家族プロジェクト、ビジネス予算など、どの用途でもお金の流れを可視化できます。",
+    "description-placeholder": "例: 家計の出費と会社の支出を管理するワークスペース",
     "enter-team-name": "チーム名を入力してください",
     "subdomain": "サブドメイン",
     "team-name": "チーム名",
-    "team-name-placeholder": "例：家族の家、マーケティング予算、休暇計画",
+    "team-name-placeholder": "例: 家族の家、マーケ予算、旅行計画",
     "title": "新しいチームを作成"
   },
   "PlannedPage": {
-    "add-new-planned-item": "購入予定追加",
-    "add-new-planned-item-description": "購入予定リストに新しいアイテムを追加します。",
-    "add-planned-button": "追加",
+    "add-new-planned-item": "計画アイテムを追加",
+    "add-new-planned-item-description": "計画リストに新しいアイテムを追加します。",
+    "add-planned-button": "アイテムを追加",
     "comments": "コメント",
     "delete-comment": "削除",
-    "description": "将来購入する予定の買い物リスト項目。既存のプロジェクトに割り当てたり、整理のために保留リストに置いたりできます。",
-    "description-comment": "説明（オプション）",
-    "description-comment-placeholder": "説明やメモを追加（オプション）",
-    "edit-description": "ここでアイテムを編集できます。保存を忘れないでください！",
+    "description": "計画中の買い物アイテムです。既存プロジェクトに送るか、整理のためにバックログに残せます。",
+    "description-comment": "説明（任意）",
+    "description-comment-placeholder": "説明やメモを追加（任意）",
+    "edit-description": "ここでアイテムを編集できます。保存をお忘れなく！",
     "item-name": "アイテム名",
     "item-name-placeholder": "例: 3Dプリンター、化粧品、衣類",
-    "link": "リンク（オプション）",
-    "link-placeholder": "商品リンクを入力（オプション）",
-    "mark-as-purchased": "購入済みとしてマーク",
-    "no-planned": "まだ購入予定アイテムが追加されていません。",
+    "link": "リンク（任意）",
+    "link-placeholder": "商品リンクを入力（任意）",
+    "mark-as-purchased": "購入済みにする",
+    "no-planned": "まだ計画アイテムがありません。",
     "no-result": "結果が見つかりません。",
-    "plannedCount": "{count, plural, =0 {まだアイテムがありません。} =1 {1つの予定} other {#つの予定}}",
+    "plannedCount": "{count, plural, =0 {まだアイテムはありません。} =1 {1件の計画} other {#件の計画}}",
     "price": "価格",
     "price-placeholder": "価格を入力",
     "priority": "優先度",
@@ -177,82 +182,82 @@
     "quantity-placeholder": "数量を入力",
     "revert-to-pending": "保留に戻す",
     "save": "保存",
-    "save-money": "お金を節約します",
+    "save-money": "節約する",
     "see-all-planned": "すべて表示",
     "select-priority": "優先度を選択",
     "selected": "選択済み",
     "statuses-options": {
       "CANCELLED": "キャンセル済み",
-      "PENDING": "保留中",
+      "PENDING": "保留",
       "PURCHASED": "購入済み"
     },
-    "title": "購入予定",
+    "title": "計画",
     "upload-image": "画像をアップロード"
   },
   "ProjectsPage": {
     "assign": {
-      "cta": "購入予定アイテムを割り当て",
-      "description": "プロジェクトのない購入予定アイテムを選択して、これにドロップしてください。",
-      "empty": "未割り当ての購入予定アイテムがありません。",
-      "no-results": "購入予定アイテムが見つかりません。",
-      "search-placeholder": "購入予定アイテムを検索...",
+      "cta": "計画アイテムを割り当て",
+      "description": "プロジェクト未割り当ての計画アイテムを選んで、このプロジェクトに追加します。",
+      "empty": "未割り当ての計画アイテムはありません。",
+      "no-results": "計画アイテムが見つかりません。",
+      "search-placeholder": "計画アイテムを検索...",
       "submit": "プロジェクトに追加",
-      "submit-selected": "\"{title}\"を追加",
-      "title": "{projectName}に購入予定アイテムを追加"
+      "submit-selected": "「{title}」を追加",
+      "title": "{projectName} に計画アイテムを追加"
     },
     "backlog": {
-      "badge": "保留リスト",
-      "description": "保留リストのアイテムをプロジェクトに割り当てて、文脈を与えましょう。",
-      "empty": "現在、未割り当ての購入予定アイテムはありません。",
-      "title": "未割り当ての購入予定アイテム"
+      "badge": "バックログ",
+      "description": "バックログのアイテムをプロジェクトに割り当てて文脈を明確にします。",
+      "empty": "現在、未割り当ての計画アイテムはありません。",
+      "title": "未割り当ての計画アイテム"
     },
-    "count": "{count, plural, =0 {まだプロジェクトがありません} =1 {1つのプロジェクト} other {#つのプロジェクト}}",
+    "count": "{count, plural, =0 {まだプロジェクトはありません} =1 {1件のプロジェクト} other {#件のプロジェクト}}",
     "create": {
-      "description": "関連する購入と優先度をグループ化しましょう。",
+      "description": "関連する購入と優先度をまとめます。",
       "title": "プロジェクトを作成"
     },
-    "description": "購入予定のアイテムをプロジェクトにグループ化し、保留リストを進め続けましょう。",
+    "description": "計画中の購入をプロジェクトごとにまとめ、バックログを前進させましょう。",
     "empty": {
-      "description": "プロジェクトを使用して、目標別に予約アイテムをグループ化しましょう。",
-      "title": "最初のプロジェクトを作成しましょう"
+      "description": "目標ごとに計画アイテムをまとめるにはプロジェクトを使います。",
+      "title": "最初のプロジェクトを作成"
     },
     "form": {
       "create": "プロジェクトを作成",
       "description": "説明",
-      "description-placeholder": "成功とはどのような見た目ですか？",
+      "description-placeholder": "成功の状態をどう定義しますか？",
       "name": "プロジェクト名",
-      "name-placeholder": "スタジオセットアップ、パントリーの更新...",
+      "name-placeholder": "スタジオ構築、パントリー整理...",
       "reset": "リセット"
     },
     "list": {
-      "backlog-count": "{count, plural, =0 {未割り当てアイテムなし} =1 {1つの未割り当てアイテム} other {#つの未割り当てアイテム}}",
-      "description": "各プロジェクトがどのように進んでいるかを確認しましょう。",
-      "title": "アクティブなプロジェクト"
+      "backlog-count": "{count, plural, =0 {未割り当てはありません} =1 {1件の未割り当て} other {#件の未割り当て}}",
+      "description": "各プロジェクトの進捗を確認できます。",
+      "title": "進行中のプロジェクト"
     },
     "project": {
       "badges": {
-        "cancelled": "{count, plural, =0 {0キャンセル済み} =1 {1キャンセル済み} other {#キャンセル済み}}",
-        "pending": "{count, plural, =0 {0保留中} =1 {1保留中} other {#保留中}}",
-        "purchased": "{count, plural, =0 {0購入済み} =1 {1購入済み} other {#購入済み}}",
-        "total": "{count, plural, =0 {0アイテム} =1 {1アイテム} other {#アイテム}}"
+        "cancelled": "{count, plural, =0 {キャンセル 0件} =1 {キャンセル 1件} other {キャンセル #件}}",
+        "pending": "{count, plural, =0 {保留 0件} =1 {保留 1件} other {保留 #件}}",
+        "purchased": "{count, plural, =0 {購入済み 0件} =1 {購入済み 1件} other {購入済み #件}}",
+        "total": "{count, plural, =0 {0件} =1 {1件} other {#件}}"
       },
-      "empty": "まだ購入予定アイテムがここにリンクされていません。",
-      "items-description": "購入予定の購入を、それらがサポートする目標に結びつけたままにしましょう。",
+      "empty": "まだここに紐づいた計画アイテムはありません。",
+      "items-description": "計画中の購入を、それが支える目標に紐づけて管理します。",
       "items-title": "このプロジェクトのアイテム",
-      "no-description": "まだ説明が追加されていません。",
-      "open-planned": "すべての予約",
+      "no-description": "まだ説明はありません。",
+      "open-planned": "すべての計画",
       "total-value": "合計"
     },
     "see-all-projects": "すべて表示",
     "summary": {
-      "backlog": "{count, plural, =0 {未割り当てのアイテムがありません} =1 {保留リストに1つのアイテム} other {保留リストに#つのアイテム}}",
-      "planned": "{count, plural, =0 {追跡中の購入予定アイテムがありません} =1 {1つの購入予定アイテム} other {#つの購入予定アイテム}}",
-      "projects": "{count, plural, =0 {まだプロジェクトがありません} =1 {1つのプロジェクト} other {#つのプロジェクト}}"
+      "backlog": "{count, plural, =0 {未割り当てアイテムはありません} =1 {バックログに1件} other {バックログに#件}}",
+      "planned": "{count, plural, =0 {追跡中の計画アイテムはありません} =1 {1件の計画アイテム} other {#件の計画アイテム}}",
+      "projects": "{count, plural, =0 {まだプロジェクトはありません} =1 {1件のプロジェクト} other {#件のプロジェクト}}"
     },
     "title": "プロジェクト",
-    "toast-assigned": "購入予定アイテムが{projectName}に割り当てられました。",
-    "toast-created": "プロジェクトが作成されました。",
-    "toast-unassigned": "アイテムがプロジェクトから削除されました。"
+    "toast-assigned": "計画アイテムを {projectName} に割り当てました。",
+    "toast-created": "プロジェクトを作成しました。",
+    "toast-unassigned": "アイテムをプロジェクトから外しました。"
   },
   "Settings": {
     "account": "アカウント",
@@ -261,7 +266,7 @@
     "inviteMembers": "メンバーを招待",
     "support": "サポート",
     "team": "チーム",
-    "tutorialDescription": "アプリをマスターするためにチュートリアルを進めましょう",
+    "tutorialDescription": "チュートリアルでアプリの使い方を学ぶ",
     "tutorialTitle": "チュートリアル"
   },
   "Sidebar": {
@@ -282,7 +287,7 @@
     "navPages": {
       "essentials": "買い物リスト",
       "home": "ホーム",
-      "planned": "購入予定",
+      "planned": "計画",
       "projects": "プロジェクト",
       "title": "ページ"
     },
@@ -297,7 +302,7 @@
     }
   },
   "Table": {
-    "actions": "アクション",
+    "actions": "操作",
     "add": "追加",
     "clear-filters": "クリア",
     "delete": "削除",
@@ -305,11 +310,11 @@
     "edit": "編集",
     "edit-item": "アイテムを編集",
     "filter-by-status": "ステータス",
-    "mark-as-pending": "保留としてマーク",
-    "mark-as-purchased": "購入済みとしてマーク",
+    "mark-as-pending": "保留にする",
+    "mark-as-purchased": "購入済みにする",
     "next": "次へ",
     "no-result": "結果が見つかりません。",
-    "of": "ページ中",
+    "of": "/",
     "page": "ページ",
     "previous": "前へ",
     "priority": {
@@ -322,185 +327,185 @@
     "search-placeholder": "アイテムを検索...",
     "status": {
       "CANCELLED": "キャンセル済み",
-      "PENDING": "保留中",
+      "PENDING": "保留",
       "PURCHASED": "購入済み"
     }
   },
   "Teams": {
     "create-team": "チームを作成",
-    "description": "家族や組織向けの協力型ワークスペース。見えづらい支出を明らかにし、プロジェクトを通じて財務管理を改善します。",
+    "description": "家族や組織向けの共同ワークスペース。見えにくい支出を可視化し、より良い資金管理のためのプロジェクトを作成できます。",
     "new-team-card": {
-      "description": "他のメンバーと協力するためのチームを作成します。",
+      "description": "他のメンバーと協力するための新しいチームを作成",
       "title": "新しいチームを作成"
     },
-    "start-adding-a-new-team": "一緒に支出追跡を始めましょう！",
+    "start-adding-a-new-team": "みんなで支出管理を始めましょう！",
     "title": "チーム"
   },
   "UpdateApp": {
-    "description": "ポルトガル語と日本語の言語サポートが追加されました。",
+    "description": "ポルトガル語と日本語に対応しました。",
     "title": "新しいアップデート！🚀"
   },
   "UserGuide": {
     "collaboration": {
       "admin": {
-        "description": "ユーザーを招待し、ほとんどの機能を管理可能。チームリードとマネージャーに最適。",
+        "description": "ユーザー招待と主要機能の管理ができます。チームリーダーや管理者に最適です。",
         "title": "管理者"
       },
       "collaborateStep": {
-        "description": "更新を即座に確認し、予約アイテムにコメントし、購入をいいね。全員が同期状態。",
-        "title": "リアルタイムで協力"
+        "description": "更新をリアルタイムで確認し、計画アイテムにコメントし、購入にいいねできます。全員が同期された状態を保てます。",
+        "title": "リアルタイムで共同作業"
       },
-      "description": "チーム、家族、またはプロジェクトパートナーとシームレスに協力。",
+      "description": "チーム、家族、プロジェクトメンバーとスムーズに協力できます。",
       "inviteStep": {
-        "description": "アプリから直接メール招待を送信。役割を割り当て、チームを買い物ミッションに参加させましょう。",
+        "description": "アプリから直接メール招待を送信。役割を割り当て、チームに参加してもらいましょう。",
         "title": "チームメンバーを招待"
       },
       "member": {
-        "description": "アイテムの追加と編集にフルアクセス。貢献者とチームメンバーに最適。",
+        "description": "アイテムの追加・編集が可能。共同作業者やチームメンバーに最適です。",
         "title": "メンバー"
       },
       "owner": {
-        "description": "完全なコントロール。アプリを管理し、ユーザーを招待し、すべての管理タスクを処理可能。",
+        "description": "すべてを管理できる完全権限。アプリ管理、ユーザー招待、管理タスク全般に対応。",
         "title": "オーナー"
       },
-      "title": "チーム協力"
+      "title": "チームコラボレーション"
     },
     "coreFeatures": {
-      "description": "Kaimonoをプロジェクトベースの購入に完璧にする強力なツールを発見。",
+      "description": "Kaimonoをプロジェクト単位の購買管理に最適化する強力な機能を紹介します。",
       "essentials": {
-        "description": "買い物リストは定期的に購入するもの - 食料品、家庭用品、またはオフィス用品など。",
+        "description": "買い物リストアイテムは、食料品・日用品・オフィス備品など、定期的に購入するものです。",
         "quickAdd": {
-          "description": "タイトル、価格、数量でアイテムを即座に追加。迅速な食料品買い物に最適。",
-          "example": "牛乳 - ¥400 - 1リットル",
+          "description": "タイトル、価格、数量ですぐ追加。素早い買い物に最適。",
+          "example": "牛乳 - ¥350 - 2本",
           "title": "クイック追加"
         },
         "statusTracking": {
-          "description": "アイテムを保留中、購入済み、キャンセル済みと区別して管理し、進捗を追跡できます。",
-          "example": "週次買い物の進捗を追跡",
+          "description": "保留・購入済み・キャンセル済みで管理し、進捗を把握できます。",
+          "example": "週ごとの買い物進捗を追跡",
           "title": "ステータス管理"
         },
-        "title": "買い物リスト - 定期的な購入アイテム"
+        "title": "買い物リスト - 定期購入アイテム"
       },
       "planned": {
-        "description": "優先度、画像、説明を含む詳細なアイテムを計画し、プロジェクトに整理可能。",
+        "description": "優先度、画像、説明を含む詳細なアイテムで事前計画し、プロジェクトにも整理できます。",
         "priorityLevels": {
-          "description": "低、中、高、または緊急の優先度を設定し、最も重要なものに集中。",
-          "example": "緊急：納期が迫る資材",
+          "description": "LOW、MEDIUM、HIGH、URGENT の優先度を設定して、重要な項目に集中できます。",
+          "example": "URGENT: プロジェクト締切の資材",
           "title": "優先度レベル"
         },
         "richDetails": {
-          "description": "完全な購入計画のために画像、製品URL、説明、数量を追加。",
-          "example": "参考写真とリンクを添付",
-          "title": "豊富な詳細"
+          "description": "画像、商品URL、説明、数量を追加して、購入計画を充実させましょう。",
+          "example": "参考画像やリンクを添付",
+          "title": "詳細情報"
         },
-        "title": "購入予定 - 今後の購入"
+        "title": "計画アイテム - 今後の購入"
       },
       "projects": {
-        "description": "ここがKaimonoの真価！プロジェクトは関連する予約アイテムをグループ化し、複雑な購入ミッションに最適。",
+        "description": "ここがKaimonoの強みです！関連する計画アイテムをまとめて、複雑な購買タスクを整理できます。",
         "kanbanBoard": {
-          "description": "ステージ間で予約アイテムをドラッグ＆ドロップして、直感的なビジュアルワークフロー管理を実現します。",
-          "example": "保留リスト → 計画中 → 購入済み",
-          "title": "かんばんボード表示"
+          "description": "計画アイテムをステージ間でドラッグ＆ドロップ。視覚的なワークフロー管理が可能です。",
+          "example": "バックログ → 計画中 → 購入済み",
+          "title": "かんばんビュー"
         },
         "projectBased": {
-          "description": "関連する購入をまとめて保持。リフォーム、イベント、またはビジネスセットアップに最適。",
-          "example": "ホームオフィスセットアップ：デスク、椅子、モニター、ランプ",
+          "description": "関連する購入をまとめて管理。リフォーム、イベント、業務環境構築に最適です。",
+          "example": "在宅オフィス構築: 机、椅子、モニター、ランプ",
           "proTip": true,
-          "title": "プロジェクトベース整理"
+          "title": "プロジェクトベースの整理"
         },
-        "title": "プロジェクト - ミッション別整理"
+        "title": "プロジェクト - 目的別に整理"
       },
-      "title": "コア機能"
+      "title": "主要機能"
     },
     "cta": {
       "createApp": "最初のアプリを作成",
-      "description": "知識は得ました。今が実践する時です。最初のアプリを作成し、プロジェクトベース購入の力を体験してください。",
+      "description": "知識は揃いました。次は実践です。最初のアプリを作成し、プロジェクト型購買管理の力を体験しましょう。",
       "title": "最初のプロジェクトを始める準備はできましたか？",
-      "viewDashboard": "ダッシュボードを表示"
+      "viewDashboard": "ダッシュボードを見る"
     },
     "gettingStarted": {
-      "description": "Kaimonoへようこそ！今までとは違う、スマートな買い物管理を始めましょう。",
+      "description": "Kaimonoへようこそ！これまでにない形で買い物を整理できるよう、セットアップを進めましょう。",
       "step1": {
-        "description": "Google、GitHub、またはメールでサインアップ。迅速で安全 - 数分でスマートな買い物ができます！",
+        "description": "Google、GitHub、またはメールで登録できます。すばやく安全に始められます。",
         "title": "アカウントを作成"
       },
       "step2": {
         "action": "最初のアプリを作成",
-        "description": "アプリを買い物の拠点と考え、「住宅リフォーム」「オフィス構築」「イベント企画」など用途ごとに作成してください。",
+        "description": "アプリは買い物管理の本部です。主要な用途ごとに作成しましょう: 「自宅リフォーム」「オフィス構築」「イベント計画」など。",
         "title": "最初のアプリを作成"
       },
       "step3": {
-        "action": "ダッシュボードへ",
-        "description": "コマンドセンターですべてを一目で確認し、クイック統計・最近のアクティビティ・アイテム追加アクションを素早く操作できます。",
-        "title": "ダッシュボードを探索"
+        "action": "ダッシュボードへ移動",
+        "description": "コマンドセンターでは、統計、最近の動き、アイテム追加アクションを一目で確認できます。",
+        "title": "ダッシュボードを確認"
       },
-      "title": "始め方"
+      "title": "はじめに"
     },
     "hero": {
-      "badge": "🛍️ Kaimonoのご紹介",
-      "description": "思い浮かんだものすべてを追加して、最適な購入判断を下しましょう。",
+      "badge": "🛍️ Kaimono のご紹介",
+      "description": "ベストな購入判断のために、思いついたものをすべて追加しましょう。",
       "features": {
         "collaboration": {
-          "description": "ご家族や仲間、同僚とリアルタイムで連携できます。",
-          "title": "チーム連携"
+          "description": "家族・友人・同僚とリアルタイムで共同作業",
+          "title": "チームコラボレーション"
         },
         "decisions": {
-          "description": "優先度と分析に基づき、確かな選択を行いましょう。",
-          "title": "賢い選択"
+          "description": "優先度ベースの計画と分析で、納得感ある意思決定を",
+          "title": "賢い意思決定"
         },
         "organization": {
-          "description": "プロジェクト単位で購入を整理し、より良い管理と追跡を実現します。",
-          "title": "プロジェクト管理"
+          "description": "プロジェクト単位で購入をまとめて管理・追跡",
+          "title": "プロジェクト整理"
         },
         "title": "なぜKaimonoを選ぶのか？",
         "visualization": {
-          "description": "美しいチャートとインサイトでお金がどこへ行くかを確認",
+          "description": "見やすいチャートとインサイトでお金の流れを把握",
           "title": "支出の可視化"
         }
       },
-      "getStarted": "今すぐ始める",
+      "getStarted": "はじめる",
       "goToDashboard": "ダッシュボードへ",
-      "startGuide": "ガイドを見る",
+      "startGuide": "ガイドを開始",
       "subtitle": "Kaimono",
       "title": "究極の買い物アプリ",
-      "transition": "ステップバイステップでご案内します。",
+      "transition": "ステップごとにご案内します。",
       "useCase": {
-        "description": "住宅リフォーム、オフィス構築、イベント企画など、整理された購入を必要とするすべてのプロジェクトに最適です。材料調達から納期管理までを一元化しましょう。",
+        "description": "自宅リフォーム、オフィス構築、イベント計画など、整理された購買管理が必要なあらゆるプロジェクトに最適です。資材から期限までを一元管理できます。",
         "title": "あらゆるプロジェクトに最適"
       },
-      "viewDashboard": "ダッシュボードを表示"
+      "viewDashboard": "ダッシュボードを見る"
     },
     "proTips": {
-      "description": "これらの専門家戦略でプロジェクトベースの購入をレベルアップ。",
+      "description": "これらの実践的な戦略で、プロジェクト型購買管理をレベルアップしましょう。",
       "priorityManagement": {
-        "description": "時間敏感なアイテムには緊急を、重要だが柔軟な購入には高を使用。",
-        "example": "緊急：土曜日のイベント用品",
+        "description": "時間優先の項目には URGENT、重要だが柔軟な項目には HIGH を使い分けましょう。",
+        "example": "URGENT: 土曜日のイベント用品",
         "proTip": true,
         "title": "優先度管理"
       },
       "projectNaming": {
-        "description": "明確で実行可能な名前を使用。より良い整理のために日付やフェーズを含める。",
+        "description": "分かりやすく実行可能な名前を使い、日付やフェーズを含めると整理しやすくなります。",
         "example": "キッチンリフォーム - フェーズ1（2024年第1四半期）",
         "proTip": true,
         "title": "プロジェクト命名戦略"
       },
       "regularReviews": {
-        "description": "予約アイテムの週次レビューは優先順位付けとタイムライン調整に役立ちます。",
-        "example": "金曜レビュー：3アイテムを購入済みに移動、2を来週へ",
+        "description": "週1回の見直しで、優先順位の調整やスケジュール更新がしやすくなります。",
+        "example": "金曜レビュー: 3件を購入済みに、2件を来週へ",
         "proTip": true,
-        "title": "定期的なレビュー"
+        "title": "定期レビュー"
       },
       "teamCommunication": {
-        "description": "予約アイテムのコメントを使用して、選択肢、代替案、決定を議論。",
-        "example": "コメント：この代替案がセール中です - どう思いますか？",
+        "description": "計画アイテムのコメント機能で、選択肢・代替案・意思決定を共有しましょう。",
+        "example": "コメント: こちらの代替品がセール中でした。どう思いますか？",
         "proTip": true,
         "title": "チームコミュニケーション"
       },
-      "title": "プロのヒントとベストプラクティス"
+      "title": "プロのコツとベストプラクティス"
     },
     "stepLabel": "ステップ {step}",
-    "subtitle": "Kaimonoでプロジェクト単位の購入を極める",
-    "title": "完全ガイド"
+    "subtitle": "Kaimonoでプロジェクト型購買管理をマスター",
+    "title": "完全ユーザーガイド"
   },
   "UserManager": {
     "roles": {
@@ -510,9 +515,9 @@
     }
   },
   "team-layout": {
-    "check-email-for-details": "詳細はメールでご確認ください。",
-    "new-invite-content": "{teamName}へ{inviteRole}として参加する招待です。",
-    "new-invite-to-invite-team-name": "{teamName}への新しい招待",
+    "check-email-for-details": "詳細はメールをご確認ください。",
+    "new-invite-content": "{inviteRole} として {teamName} への招待が届いています。",
+    "new-invite-to-invite-team-name": "{teamName} への新しい招待",
     "no-invites": "招待はありません。"
   }
 }

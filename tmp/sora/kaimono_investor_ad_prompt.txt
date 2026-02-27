@@ -1,0 +1,18 @@
+Use case: social ad
+Primary request: investor-influencer style product ad for a collaborative shopping-planning app workspace
+Scene/background: clean modern desktop interface environment with animated UI cards and soft depth blur; no real people
+Subject: app workflow showing team workspace setup, essentials list, planned purchases, and project grouping
+Action: beat 1 (0-2.5s) cluttered notes/chat style overlays dissolve into one clean team workspace with subdomain field; beat 2 (2.5-5.5s) quick sequence of adding a planned item with priority, quantity, link, and image; beat 3 (5.5-8s) project board view locks in and CTA appears
+Camera: smooth cinematic push-in then lateral slide, stabilized motion, no jitter
+Lighting/mood: premium startup pitch mood, confident, clear, high contrast but natural
+Color palette: graphite, electric blue, emerald, warm amber, white
+Style/format: polished SaaS ad, UI-forward motion graphics, legible typography
+Timing/beats: 3 beats over 8 seconds, clean transitions
+Audio: subtle modern percussion bed and confident voiceover
+Text (verbatim): "Spending chaos -> clarity", "One team. One workspace.", "Create your team workspace"
+Dialogue:
+<dialogue>
+- Speaker: "Stop tracking spending in fragments. Create your team workspace."
+</dialogue>
+Constraints: audience-safe content, no real people, no copyrighted characters, no copyrighted music, no third-party logos, keep text legible
+Avoid: visual flicker, warped UI text, extra words, fast chaotic motion

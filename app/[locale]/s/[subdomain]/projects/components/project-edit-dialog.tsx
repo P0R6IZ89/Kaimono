@@ -26,9 +26,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useSubdomain } from "@/context/SubdomainContext";
-import { initialState } from "@/util/initial-action-return";
+import { ActionResult, initialState } from "@/util/initial-action-return";
 import { Settings } from "lucide-react";
-import { ActionResult } from "next/dist/server/app-render/types";
 import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";

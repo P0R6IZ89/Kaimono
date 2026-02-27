@@ -9,18 +9,9 @@ import { z } from "zod";
 import { getCurrentLocale, redirect } from "@/i18n/navigation";
 import prisma from "@/lib/prisma";
 import { protocol, rootDomain } from "@/util/utils";
+import type { ActionResult } from "@/util/initial-action-return";
 
-export type Result<T = unknown> =
-  | { ok: true; data?: T; message?: string }
-  | {
-      ok: false;
-      // i18n-friendly error contract (preferred)
-      errorKey?: string;
-      errorParams?: Record<string, unknown>;
-      // legacy fallback (keep while migrating)
-      message: string;
-      code?: string;
-    };
+export type Result<T = unknown> = ActionResult<T>;
 
 class ActionError extends Error {
   errorKey: string;

@@ -67,7 +67,8 @@ export function ProjectCreateDialog({
     } else if (state.message) {
       toast.error(state.message);
     }
-  }, [state, t]);
+    form.reset();
+  }, [form, state, t]);
 
   return (
     <Dialog>

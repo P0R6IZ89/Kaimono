@@ -1,5 +1,10 @@
 {
   "Auth": {
+    "roles": {
+      "ADMIN": "Admin",
+      "MEMBER": "Member",
+      "OWNER": "Owner"
+    },
     "back-to-main": "Back to main page",
     "check-spam": "(Check your spam folder if you don't see it)",
     "continue-with-email": "Continue with Email",
