@@ -13,6 +13,7 @@
     "email-sent-instruction": "Open the email sent and click the \"Enter\" button to complete your login.",
     "email-sent-title": "The login email has been sent to your email.",
     "error": "Error:",
+    "sign-out": "Sign out",
     "logging-out": "Signing out…",
     "logout-button": "Logout",
     "logout-instruction": "Click the button to log out.",
