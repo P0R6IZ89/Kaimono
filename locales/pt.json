@@ -13,6 +13,7 @@
     "email-sent-instruction": "Abra o e-mail enviado e clique no botão \"Enter\" para concluir seu login.",
     "email-sent-title": "O e-mail de login foi enviado para você.",
     "error": "Erro:",
+    "sign-out": "Encerrar sessão",
     "logging-out": "Saindo...",
     "logout-button": "Sair",
     "logout-instruction": "Clique no botão para sair.",
@@ -102,7 +103,7 @@
       "MEMBER": "Membro",
       "OWNER": "Proprietário"
     },
-    "status": "Status",
+    "status": "Situação",
     "team-users": "Equipe {userCount, plural, =0 {Membros} =1 {Membro} other {Membros (#)}}",
     "team-users-description": "Membros desta equipe.",
     "title": "Convide membros para alinhar os gastos!"
@@ -131,7 +132,7 @@
   },
   "Meta": {
     "description": "Um aplicativo para gerenciar suas listas de compras.",
-    "title": "Kaimono Beta ver."
+    "title": "Kaimono versão beta"
   },
   "MobileNav": {
     "essentials": "Lista de compras",
@@ -206,7 +207,7 @@
       "title": "Adicionar item planejado a {projectName}"
     },
     "backlog": {
-      "badge": "Backlog",
+      "badge": "Fila",
       "description": "Atribua itens do backlog a um projeto para dar contexto.",
       "empty": "Não há itens planejados sem projeto no momento.",
       "title": "Itens planejados sem projeto"
@@ -246,7 +247,7 @@
       "items-title": "Itens deste projeto",
       "no-description": "Nenhuma descrição adicionada ainda.",
       "open-planned": "Todos os planejados",
-      "total-value": "total"
+      "total-value": "Total"
     },
     "see-all-projects": "Ver tudo",
     "summary": {
@@ -267,7 +268,7 @@
     "support": "Suporte",
     "team": "Equipe",
     "tutorialDescription": "Faça o tutorial para dominar o app",
-    "tutorialTitle": "Tutorial"
+    "tutorialTitle": "Guia"
   },
   "Sidebar": {
     "config": {
@@ -298,7 +299,7 @@
       "items": {
         "home": "Equipes"
       },
-      "title": "Workspaces"
+      "title": "Espaços de trabalho"
     }
   },
   "Table": {
@@ -309,7 +310,7 @@
     "delete-item": "Excluir item",
     "edit": "Editar",
     "edit-item": "Editar item",
-    "filter-by-status": "Status",
+    "filter-by-status": "Filtrar por status",
     "mark-as-pending": "Marcar como pendente",
     "mark-as-purchased": "Marcar como comprado",
     "next": "Próximo",

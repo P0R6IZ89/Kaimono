@@ -13,6 +13,7 @@
     "email-sent-instruction": "送信されたメールを開き、「Enter」ボタンをクリックしてログインを完了してください。",
     "email-sent-title": "ログイン用メールを送信しました。",
     "error": "エラー:",
+    "sign-out": "サインアウト",
     "logging-out": "ログアウト中…",
     "logout-button": "ログアウト",
     "logout-instruction": "ボタンを押してログアウトします。",

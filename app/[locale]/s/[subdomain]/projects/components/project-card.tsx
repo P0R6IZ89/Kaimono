@@ -135,7 +135,11 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
       ) : (
         <div className="space-y-3">
           {project.plannedItems.map((item) => (
-            <Item key={item.id} variant="outline" className="space-y-3 bg-background">
+            <Item
+              key={item.id}
+              variant="outline"
+              className="space-y-3 bg-background"
+            >
               <ItemMedia variant="image">
                 {item.image ? (
                   <Image
@@ -157,7 +161,9 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
                 <ItemTitle>{item.title}</ItemTitle>
                 <ItemDescription className="text-sm">
                   {formatPrice(item.price)}{" "}
-                  <span className="text-muted-foreground">x{item.quantity}</span>
+                  <span className="text-muted-foreground">
+                    x{item.quantity}
+                  </span>
                 </ItemDescription>
               </ItemContent>
               <ItemActions>
@@ -246,10 +252,12 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
         {isMobile ? (
           <Drawer open={openDetails} onOpenChange={setOpenDetails}>
             <DrawerTrigger asChild>{detailsTrigger}</DrawerTrigger>
-            <DrawerContent className="md:w-2xl mx-auto">
+            <DrawerContent className="md:w-2xl mx-auto pb-6">
               <div className="w-full mx-auto max-h-[80vh] overflow-y-auto">
                 <DrawerHeader>
-                  <DrawerTitle>{t("project.items-title")}</DrawerTitle>
+                  <DrawerTitle className="text-lg font-semibold tracking-tight">
+                    {project.name}
+                  </DrawerTitle>
                   <DrawerDescription>
                     {t("project.items-description")}
                   </DrawerDescription>
@@ -263,8 +271,10 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
             <DialogTrigger asChild>{detailsTrigger}</DialogTrigger>
             <DialogContent className="sm:max-w-3xl max-h-[85vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>{t("project.items-title")}</DialogTitle>
-                <DialogDescription>{t("project.items-description")}</DialogDescription>
+                <DialogTitle>{project.name}</DialogTitle>
+                <DialogDescription>
+                  {t("project.items-description")}
+                </DialogDescription>
               </DialogHeader>
               {detailsBody}
             </DialogContent>
