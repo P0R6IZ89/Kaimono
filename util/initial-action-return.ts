@@ -2,10 +2,10 @@ export type ActionResult<T = unknown> =
   | { ok: true; data?: T; message?: string }
   | {
       ok: false;
-      message: string;
+      message?: string;
       errorKey?: string;
       errorParams?: Record<string, unknown>;
       code?: string;
     };
 
-export const initialState: ActionResult = { ok: true };
+export const initialState: ActionResult = { ok: false };

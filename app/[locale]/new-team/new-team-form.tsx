@@ -58,7 +58,7 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
 
   const getErrorText = () => {
     if (!state || state.ok !== false) return "";
-    const key = state.errorKey ?? state.message;
+    const key = state.errorKey ?? state.message ?? "unexpected";
     const params = state.errorParams as
       | Record<string, string | number | Date>
       | undefined;

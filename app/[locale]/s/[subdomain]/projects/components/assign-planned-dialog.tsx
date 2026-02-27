@@ -27,6 +27,7 @@ import { Separator } from "@/components/ui/separator";
 import { Loader2, Plus } from "lucide-react";
 import { PlannedBacklogItem } from "@/app/[locale]/types/projects";
 import { formatPriceYen } from "@/util/formatPriceYen";
+import { initialState } from "@/util/initial-action-return";
 
 type Props = {
   projectId: string;
@@ -34,8 +35,6 @@ type Props = {
   plannedBacklog: PlannedBacklogItem[];
   subdomain: string;
 };
-
-const initialState = { ok: false, message: "" };
 
 export function AssignPlannedDialog({
   projectId,
