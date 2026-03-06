@@ -1,0 +1,94 @@
+"use client";
+
+import { ProjectWithPlanned } from "@/app/[locale]/types/projects";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item";
+import { Link } from "@/i18n/navigation";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { ProjectCardUnassignButton } from "./project-card-unassign-button";
+
+type Props = {
+  project: ProjectWithPlanned;
+  subdomain: string;
+};
+
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat(undefined, {
+    style: "currency",
+    currency: "JPY",
+    maximumFractionDigits: 0,
+  }).format(price ?? 0);
+
+export function ProjectCardDetailsContent({ project, subdomain }: Props) {
+  const t = useTranslations("ProjectsPage");
+  const tTable = useTranslations("Table");
+  const tPlanned = useTranslations("PlannedPage");
+
+  return (
+    <div className="space-y-4">
+      {project.plannedItems.length === 0 ? (
+        <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+          {t("project.empty")}
+        </p>
+      ) : (
+        <div className="space-y-3">
+          {project.plannedItems.map((item) => (
+            <Item key={item.id} variant="outline" className="space-y-3 bg-background">
+              <ItemMedia variant="image">
+                {item.image ? (
+                  <Image
+                    className="aspect-square"
+                    width={50}
+                    height={50}
+                    src={item.image}
+                    alt={item.title}
+                  />
+                ) : (
+                  <Avatar>
+                    <AvatarFallback className="bg-muted text-muted-foreground flex items-center justify-center">
+                      {item.title.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                )}
+              </ItemMedia>
+              <ItemContent className="gap-0">
+                <ItemTitle>{item.title}</ItemTitle>
+                <ItemDescription className="text-sm">
+                  {formatPrice(item.price)}{" "}
+                  <span className="text-muted-foreground">x{item.quantity}</span>
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <div className="flex flex-wrap gap-1">
+                  <Badge variant="outline" className="text-[10px]">
+                    {tTable(`status.${item.status}`)}
+                  </Badge>
+                  <Badge variant="secondary" className="text-[10px]">
+                    {tPlanned(`priority-options.${item.priority}`)}
+                  </Badge>
+                </div>
+                <ProjectCardUnassignButton plannedId={item.id} subdomain={subdomain} />
+              </ItemActions>
+            </Item>
+          ))}
+        </div>
+      )}
+
+      <div className="flex justify-end">
+        <Button asChild variant="secondary" size="sm">
+          <Link href="/planned">{t("project.open-planned")}</Link>
+        </Button>
+      </div>
+    </div>
+  );
+}

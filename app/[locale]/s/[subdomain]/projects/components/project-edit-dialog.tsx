@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { ActionResult, initialState } from "@/util/initial-action-return";
-import { Settings } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -42,7 +42,7 @@ export function ProjectEditDialog({
   const [open, setOpen] = useState(false);
   const [state, action, isPending] = useActionState<ActionResult, FormData>(
     editProjectAction,
-    initialState
+    initialState,
   );
 
   useEffect(() => {
@@ -65,14 +65,14 @@ export function ProjectEditDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <Form {...form}>
         <DialogTrigger asChild>
-          <Button variant={"secondary"} size="sm">
-            <Settings />
+          <Button variant={"secondary"} size="xs">
+            <Pencil />
           </Button>
         </DialogTrigger>
         <DialogContent>
           <form action={action}>
             <DialogHeader>
-              <DialogTitle>Edit prject: {project.name}</DialogTitle>
+              <DialogTitle>{project.name}</DialogTitle>
               <DialogDescription>
                 Edit the selected project details.
               </DialogDescription>
@@ -85,7 +85,7 @@ export function ProjectEditDialog({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel></FormLabel>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input placeholder="name" {...field} />
                     </FormControl>
@@ -98,7 +98,7 @@ export function ProjectEditDialog({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel></FormLabel>
+                    <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea {...field}></Textarea>
                     </FormControl>

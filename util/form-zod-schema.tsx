@@ -110,3 +110,27 @@ export const projectLinkSchema = z.object({
   plannedId: z.string().cuid(),
   subdomain: z.string().min(1, "Verifique seu link"),
 });
+
+export const projectPlannedCreateSchema = z.object({
+  projectId: z.string().cuid(),
+  subdomain: z.string().min(1, "Verifique seu link"),
+  title: z
+    .string()
+    .min(1, "O Nome do produto é obrigatório")
+    .max(500, "Produto deve ter no máximo 500 caracteres"),
+  price: z.preprocess(
+    (v) => (v === "" || v == null ? 0 : v),
+    z.coerce.number().nonnegative(),
+  ),
+  quantity: z.preprocess(
+    (v) => (v === "" || v == null ? 1 : v),
+    z.coerce.number().int().nonnegative(),
+  ),
+  priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"], {
+    message: "Escolha a prioridade copatível",
+  }),
+  image: z.preprocess(
+    (v) => (v === "" ? undefined : v),
+    z.string().url().optional(),
+  ),
+});

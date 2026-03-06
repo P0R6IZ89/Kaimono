@@ -2,7 +2,11 @@
 
 import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
-import { projectLinkSchema, projectSchema } from "@/util/form-zod-schema";
+import {
+  projectLinkSchema,
+  projectPlannedCreateSchema,
+  projectSchema,
+} from "@/util/form-zod-schema";
 import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "@/util/error-handler";
 import { ActionResult } from "@/util/initial-action-return";
@@ -288,4 +292,59 @@ export async function countAllProjects(subdomain: string) {
   });
 
   return count;
+}
+
+export async function createPlannedInProjectAction(
+  _prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
+  const parsed = projectPlannedCreateSchema.safeParse({
+    projectId: formData.get("projectId"),
+    subdomain: formData.get("subdomain"),
+    title: formData.get("title"),
+    price: formData.get("price"),
+    quantity: formData.get("quantity"),
+    priority: formData.get("priority"),
+    image: formData.get("image"),
+  });
+
+  if (!parsed.success) {
+    const first = parsed.error.errors[0];
+    return { ok: false, message: first.message };
+  }
+
+  const { projectId, subdomain, title, price, quantity, priority, image } =
+    parsed.data;
+  const { appId, session } = await requireMembership(subdomain);
+
+  const project = await prisma.project.findFirst({
+    where: { id: projectId, appId },
+    select: { id: true },
+  });
+
+  if (!project) {
+    return { ok: false, message: "Project not found." };
+  }
+
+  try {
+    await prisma.planned.create({
+      data: {
+        title,
+        price,
+        quantity,
+        priority,
+        status: "PENDING",
+        image,
+        appId,
+        creatorId: session.user.id,
+        projectId,
+      },
+    });
+
+    revalidatePath(`/s/${subdomain}/projects`);
+    revalidatePath(`/s/${subdomain}/planned`);
+    return { ok: true, message: "Planned item created." };
+  } catch (error: unknown) {
+    return { ok: false, message: getErrorMessage(error) };
+  }
 }

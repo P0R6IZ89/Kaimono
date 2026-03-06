@@ -13,6 +13,7 @@
     "email-sent-instruction": "Abra o e-mail enviado e clique no botão \"Enter\" para concluir seu login.",
     "email-sent-title": "O e-mail de login foi enviado para você.",
     "error": "Erro:",
+    "sign-out": "Encerrar sessão",
     "logging-out": "Saindo...",
     "logout-button": "Sair",
     "logout-instruction": "Clique no botão para sair.",
@@ -102,7 +103,7 @@
       "MEMBER": "Membro",
       "OWNER": "Proprietário"
     },
-    "status": "Status",
+    "status": "Situação",
     "team-users": "Equipe {userCount, plural, =0 {Membros} =1 {Membro} other {Membros (#)}}",
     "team-users-description": "Membros desta equipe.",
     "title": "Convide membros para alinhar os gastos!"
@@ -131,7 +132,7 @@
   },
   "Meta": {
     "description": "Um aplicativo para gerenciar suas listas de compras.",
-    "title": "Kaimono Beta ver."
+    "title": "Kaimono versão beta"
   },
   "MobileNav": {
     "essentials": "Lista de compras",
@@ -195,6 +196,18 @@
     "upload-image": "Enviar imagem"
   },
   "ProjectsPage": {
+    "add": {
+      "description": "Atribua do backlog ou crie um novo item planejado diretamente neste projeto.",
+      "new": {
+        "submit": "Criar no projeto",
+        "upload-image": "Enviar imagem"
+      },
+      "tabs": {
+        "add-new": "Novo item",
+        "assign": "Atribuir"
+      },
+      "title": "Adicionar em {projectName}"
+    },
     "assign": {
       "cta": "Atribuir item planejado",
       "description": "Escolha um item planejado sem projeto e adicione neste projeto.",
@@ -206,7 +219,7 @@
       "title": "Adicionar item planejado a {projectName}"
     },
     "backlog": {
-      "badge": "Backlog",
+      "badge": "Fila",
       "description": "Atribua itens do backlog a um projeto para dar contexto.",
       "empty": "Não há itens planejados sem projeto no momento.",
       "title": "Itens planejados sem projeto"
@@ -214,7 +227,7 @@
     "count": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}",
     "create": {
       "description": "Agrupe compras e prioridades relacionadas.",
-      "title": "Criar um projeto"
+      "title": "Novo projeto"
     },
     "description": "Agrupe compras planejadas em projetos e mantenha o backlog avançando.",
     "empty": {
@@ -235,6 +248,7 @@
       "title": "Projetos ativos"
     },
     "project": {
+      "add-cta": "+ Adicionar",
       "badges": {
         "cancelled": "{count, plural, =0 {0 cancelados} =1 {1 cancelado} other {# cancelados}}",
         "pending": "{count, plural, =0 {0 pendentes} =1 {1 pendente} other {# pendentes}}",
@@ -246,7 +260,8 @@
       "items-title": "Itens deste projeto",
       "no-description": "Nenhuma descrição adicionada ainda.",
       "open-planned": "Todos os planejados",
-      "total-value": "total"
+      "total-value": "Total",
+      "view-all": "Ver todos"
     },
     "see-all-projects": "Ver tudo",
     "summary": {
@@ -257,6 +272,7 @@
     "title": "Projetos",
     "toast-assigned": "Item planejado atribuído a {projectName}.",
     "toast-created": "Projeto criado.",
+    "toast-planned-created": "Item planejado criado no projeto.",
     "toast-unassigned": "Item removido do projeto."
   },
   "Settings": {
@@ -267,7 +283,7 @@
     "support": "Suporte",
     "team": "Equipe",
     "tutorialDescription": "Faça o tutorial para dominar o app",
-    "tutorialTitle": "Tutorial"
+    "tutorialTitle": "Guia"
   },
   "Sidebar": {
     "config": {
@@ -298,7 +314,7 @@
       "items": {
         "home": "Equipes"
       },
-      "title": "Workspaces"
+      "title": "Espaços de trabalho"
     }
   },
   "Table": {
@@ -309,7 +325,7 @@
     "delete-item": "Excluir item",
     "edit": "Editar",
     "edit-item": "Editar item",
-    "filter-by-status": "Status",
+    "filter-by-status": "Filtrar por status",
     "mark-as-pending": "Marcar como pendente",
     "mark-as-purchased": "Marcar como comprado",
     "next": "Próximo",
