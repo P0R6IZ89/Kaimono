@@ -196,6 +196,18 @@
     "upload-image": "画像をアップロード"
   },
   "ProjectsPage": {
+    "add": {
+      "description": "バックログから割り当てるか、このプロジェクトに新しい計画アイテムを直接追加します。",
+      "new": {
+        "submit": "プロジェクトに作成",
+        "upload-image": "画像をアップロード"
+      },
+      "tabs": {
+        "add-new": "新規追加",
+        "assign": "割り当て"
+      },
+      "title": "{projectName} に追加"
+    },
     "assign": {
       "cta": "計画アイテムを割り当て",
       "description": "プロジェクト未割り当ての計画アイテムを選んで、このプロジェクトに追加します。",
@@ -236,6 +248,7 @@
       "title": "進行中のプロジェクト"
     },
     "project": {
+      "add-cta": "+ 追加",
       "badges": {
         "cancelled": "{count, plural, =0 {キャンセル 0件} =1 {キャンセル 1件} other {キャンセル #件}}",
         "pending": "{count, plural, =0 {保留 0件} =1 {保留 1件} other {保留 #件}}",
@@ -247,7 +260,8 @@
       "items-title": "このプロジェクトのアイテム",
       "no-description": "まだ説明はありません。",
       "open-planned": "すべての計画",
-      "total-value": "合計"
+      "total-value": "合計",
+      "view-all": "すべて表示"
     },
     "see-all-projects": "すべて表示",
     "summary": {
@@ -258,6 +272,7 @@
     "title": "プロジェクト",
     "toast-assigned": "計画アイテムを {projectName} に割り当てました。",
     "toast-created": "プロジェクトを作成しました。",
+    "toast-planned-created": "計画アイテムをプロジェクトに作成しました。",
     "toast-unassigned": "アイテムをプロジェクトから外しました。"
   },
   "Settings": {

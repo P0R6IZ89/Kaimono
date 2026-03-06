@@ -196,6 +196,18 @@
     "upload-image": "Upload Image"
   },
   "ProjectsPage": {
+    "add": {
+      "description": "Assign from backlog or create a new planned item directly in this project.",
+      "new": {
+        "submit": "Create in project",
+        "upload-image": "Upload image"
+      },
+      "tabs": {
+        "add-new": "Add new",
+        "assign": "Assign"
+      },
+      "title": "Add to {projectName}"
+    },
     "assign": {
       "cta": "Assign planned item",
       "description": "Pick a planned item without a project and drop it into this one.",
@@ -215,7 +227,7 @@
     "count": "{count, plural, =0 {No projects yet} =1 {1 project} other {# projects}}",
     "create": {
       "description": "Group related purchases and priorities.",
-      "title": "Create a project"
+      "title": "New project"
     },
     "description": "Group planned purchases into projects and keep the backlog moving.",
     "empty": {
@@ -236,6 +248,7 @@
       "title": "Active projects"
     },
     "project": {
+      "add-cta": "Add",
       "badges": {
         "cancelled": "{count, plural, =0 {0 cancelled} =1 {1 cancelled} other {# cancelled}}",
         "pending": "{count, plural, =0 {0 pending} =1 {1 pending} other {# pending}}",
@@ -244,10 +257,11 @@
       },
       "empty": "No planned items are linked here yet.",
       "items-description": "Keep planned purchases attached to the goal they support.",
-      "items-title": "Items in this project",
+      "items-title": "Add",
       "no-description": "No description added yet.",
       "open-planned": "All planneds",
-      "total-value": "total"
+      "total-value": "total",
+      "view-all": "View all"
     },
     "see-all-projects": "See All",
     "summary": {
@@ -258,6 +272,7 @@
     "title": "Projects",
     "toast-assigned": "Planned item assigned to {projectName}.",
     "toast-created": "Project created.",
+    "toast-planned-created": "Planned item created in project.",
     "toast-unassigned": "Item removed from the project."
   },
   "Settings": {
