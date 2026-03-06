@@ -61,6 +61,7 @@ export async function getEssentialsBySubdomain(subdomain: string) {
       include: {
         creator: {
           select: {
+            id: true,
             name: true,
           },
         },
@@ -78,6 +79,7 @@ export async function getEssentialsBySubdomain(subdomain: string) {
       createdAt: item.createdAt.toISOString(),
       updatedAt: item.updatedAt.toISOString(),
       user: {
+        id: item.creator?.id ?? "",
         name: item.creator?.name ?? "",
       },
     }));

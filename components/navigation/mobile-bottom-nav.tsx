@@ -18,7 +18,6 @@ import { useTranslations } from "next-intl";
 import { CreateEssentialDialogTrigger } from "@/app/[locale]/s/[subdomain]/essentials/dialogs/dialog-create-trigger";
 import { CreatePlannedDialogTrigger } from "@/app/[locale]/s/[subdomain]/planned/dialogs/dialog-create-trigger";
 import { ProjectCreateDialog } from "@/app/[locale]/s/[subdomain]/projects/components/project-create-dialog";
-import { useSubdomain } from "@/context/SubdomainContext";
 import { RadialItem, RadialPieMenu } from "./quick-action-pie-menu";
 import { Button } from "../ui/button";
 
@@ -26,7 +25,6 @@ export function MobileBottomNav() {
   const pathname = usePathname() ?? "";
   const { rest } = stripLeadingLocale(pathname);
   const t = useTranslations("MobileNav");
-  const { subdomain } = useSubdomain();
   const essentialTriggerRef = useRef<HTMLButtonElement>(null);
   const plannedTriggerRef = useRef<HTMLButtonElement>(null);
   const projectTriggerRef = useRef<HTMLButtonElement>(null);
@@ -72,11 +70,7 @@ export function MobileBottomNav() {
         className="hidden"
         triggerRef={plannedTriggerRef}
       />
-      <ProjectCreateDialog
-        subdomain={subdomain}
-        className="hidden"
-        triggerRef={projectTriggerRef}
-      />
+      <ProjectCreateDialog className="hidden" triggerRef={projectTriggerRef} />
       <div className="flex gap-2 items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
         <div className="flex-1 rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <ul className="grid grid-cols-3 items-center">

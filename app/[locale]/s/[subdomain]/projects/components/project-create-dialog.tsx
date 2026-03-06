@@ -23,18 +23,17 @@ import { initialState } from "@/util/initial-action-return";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export function ProjectCreateDialog({
-  subdomain,
   className,
   buttonVariant = "default",
   children,
   triggerRef,
 }: {
-  subdomain: string;
   className?: string;
   buttonVariant?:
     | "default"
@@ -46,6 +45,8 @@ export function ProjectCreateDialog({
   children?: React.ReactNode;
   triggerRef?: React.Ref<HTMLButtonElement>;
 }) {
+  const { subdomain } = useParams<{ subdomain: string }>();
+
   const [state, action, isPending] = useActionState(
     createProjectAction,
     initialState,

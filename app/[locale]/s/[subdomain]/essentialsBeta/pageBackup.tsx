@@ -124,6 +124,7 @@ export default function EssentialsPage() {
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 pb-24 pt-6 sm:px-6">
+      {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-xl font-semibold tracking-tight">必需品</h1>
@@ -135,6 +136,7 @@ export default function EssentialsPage() {
         <NewEssentialDialog />
       </div>
 
+      {/* Summary */}
       <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <Card className="border-muted/60">
           <CardHeader className="pb-2">

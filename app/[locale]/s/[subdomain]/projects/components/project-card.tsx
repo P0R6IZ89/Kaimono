@@ -64,7 +64,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   );
 
   const addTrigger = (
-    <Button variant="outline" size="sm">
+    <Button variant="default" size="sm">
       <Plus className="h-4 w-4" />
       {t("project.add-cta")}
     </Button>
