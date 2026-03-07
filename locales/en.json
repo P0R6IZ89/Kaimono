@@ -227,7 +227,7 @@
     "count": "{count, plural, =0 {No projects yet} =1 {1 project} other {# projects}}",
     "create": {
       "description": "Group related purchases and priorities.",
-      "title": "New project"
+      "title": "New"
     },
     "description": "Group planned purchases into projects and keep the backlog moving.",
     "empty": {

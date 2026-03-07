@@ -11,9 +11,7 @@ import {
 import { Sparkles } from "lucide-react";
 import { ProjectCreateDialog } from "./project-create-dialog";
 
-type Props = { subdomain: string };
-
-export function ProjectCreateCardV2({ subdomain }: Props) {
+export function ProjectCreateCardV2() {
   const t = useTranslations("ProjectsPage");
 
   return (
@@ -26,7 +24,7 @@ export function ProjectCreateCardV2({ subdomain }: Props) {
         <CardDescription>{t("create.description")}</CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center">
-        <ProjectCreateDialog subdomain={subdomain} />
+        <ProjectCreateDialog />
       </CardContent>
     </Card>
   );
