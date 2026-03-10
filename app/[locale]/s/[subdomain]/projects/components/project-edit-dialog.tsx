@@ -65,7 +65,7 @@ export function ProjectEditDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <Form {...form}>
         <DialogTrigger asChild>
-          <Button variant={"secondary"} size="xs">
+          <Button variant={"ghost"} size="xs">
             <Pencil />
           </Button>
         </DialogTrigger>

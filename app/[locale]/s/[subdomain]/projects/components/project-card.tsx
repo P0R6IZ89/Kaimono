@@ -64,14 +64,14 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   );
 
   const addTrigger = (
-    <Button variant="default" size="sm">
+    <Button variant="outline" size="sm">
       <Plus className="h-4 w-4" />
       {t("project.add-cta")}
     </Button>
   );
 
   const viewAllTrigger = (
-    <Button variant="outline" size="sm">
+    <Button variant="secondary" size="sm">
       {t("project.view-all")}
     </Button>
   );

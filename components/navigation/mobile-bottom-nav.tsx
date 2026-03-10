@@ -31,8 +31,9 @@ export function MobileBottomNav() {
 
   const items = [
     { href: "/", label: t("home"), icon: Home },
-    { href: "/projects", label: t("projects"), icon: Folder },
-    { href: "/settings", label: t("settings"), icon: Settings },
+    { href: "/projects", label: t("projects"), icon: Layers },
+    { href: "/essentials", label: t("essentials"), icon: ShoppingCart },
+    // { href: "/settings", label: t("settings"), icon: Settings },
   ];
 
   const itemsMenu: RadialItem[] = [
