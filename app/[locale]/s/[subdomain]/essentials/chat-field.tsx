@@ -1,6 +1,6 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ChatBubble } from "../essentials/bubble";
+import { ChatBubble } from "../essentialsOld/bubble";
 import { $Enums } from "@prisma/client";
 import React from "react";
 
@@ -25,17 +25,24 @@ export function ChatField({
   essentials: ChatFieldProps;
   currentUserId: string;
 }) {
-  const [item] = React.useState(essentials);
+  const bottomRef = React.useRef<HTMLDivElement | null>(null);
+
+  const [items] = React.useState(essentials);
+
   const sortedEssentials = React.useMemo(() => {
-    return [...item].sort((a, b) => {
+    return [...items].sort((a, b) => {
       if (a.status === b.status) return 0;
       return a.status === "PURCHASED" ? -1 : 1;
     });
-  }, [item]);
+  }, [items]);
+
+  React.useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [sortedEssentials]);
 
   return (
-    <ScrollArea className="bg-muted/20 flex-1">
-      <div className="flex flex-col w-full h-full gap-3">
+    <ScrollArea className="min-h-0 flex-1">
+      <div className="flex flex-col gap-3 my-2">
         {sortedEssentials.map((item) => (
           <ChatBubble key={item.id} item={item} currentUserId={currentUserId} />
         ))}

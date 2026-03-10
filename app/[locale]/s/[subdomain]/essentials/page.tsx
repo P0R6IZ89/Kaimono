@@ -1,16 +1,16 @@
 import React from "react";
 import { getEssentialsBySubdomain } from "@/actions/essentialsActions";
-import { DataTable } from "./table/data-table";
-import { columns } from "./table/essentials-columns";
+import { requireSession } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
-import { CreateEssentialDialogTrigger } from "./dialogs/dialog-create-trigger";
+import { CreateEssentialDialogTrigger } from "../essentialsOld/dialogs/dialog-create-trigger";
 import {
   Item,
-  ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
+import { ChatField } from "./chat-field";
+import { AddItem } from "./add-item";
 
 interface EssentialsProps {
   params: Promise<{ subdomain: string; locale: string }>;
@@ -18,34 +18,27 @@ interface EssentialsProps {
 
 export default async function Essentials({ params }: EssentialsProps) {
   const { subdomain, locale } = await params;
+  const session = await requireSession();
   const t = await getTranslations({ locale, namespace: "EssentialsPage" });
   const essentials = await getEssentialsBySubdomain(subdomain);
 
   return (
-    <section className="p-4 space-y-8 mb-24 md:mb-0">
+    <section className="flex h-[calc(100svh-var(--header-height)-env(safe-area-inset-bottom)-96px)] min-h-0 flex-col gap-4 overflow-hidden p-4 md:h-[calc(100svh-var(--header-height)-1rem)] md:gap-6">
       <Item
         variant={"muted"}
-        className="flex flex-col items-start lg:flex-row lg:items-center"
+        className="shrink-0 flex flex-col items-start md:flex-row md:items-center"
       >
         <ItemContent>
           <ItemTitle>{t("title")}</ItemTitle>
           <ItemDescription>{t("description")}</ItemDescription>
         </ItemContent>
-        <ItemActions>
-          <CreateEssentialDialogTrigger />
-        </ItemActions>
       </Item>
 
-      <div className="flex flex-col gap-4">
-        <div>
-          {essentials ? (
-            <div className="space-y-8">
-              <DataTable columns={columns} data={essentials} />
-            </div>
-          ) : (
-            <div className="text-center">{t("no-essentials")}</div>
-          )}
-        </div>
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <ChatField essentials={essentials} currentUserId={session.user.id} />
+      </div>
+      <div className="flex shrink-0 flex-row gap-2">
+        <AddItem />
       </div>
     </section>
   );
