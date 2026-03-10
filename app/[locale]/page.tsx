@@ -47,9 +47,6 @@ export default async function App({ params }: PageProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
         <Card className="p-0 gap-3 justify-between outline-1 outline-dashed ring-0 bg-muted/50 border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
           <Item className="">
-            <ItemMedia variant={"default"}>
-              <Folder />
-            </ItemMedia>
             <ItemContent className="gap-0">
               <ItemTitle>{t("new-team-card.title")}</ItemTitle>
               <ItemDescription>
@@ -77,9 +74,6 @@ export default async function App({ params }: PageProps) {
             >
               <Card className="h-full p-0 gap-3 justify-between border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
                 <Item className="">
-                  <ItemMedia variant={"default"}>
-                    <Folder />
-                  </ItemMedia>
                   <ItemContent className="gap-0">
                     <ItemTitle>{app.name}</ItemTitle>
                     <ItemDescription className="text-xs">

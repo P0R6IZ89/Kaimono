@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { initialState } from "@/util/initial-action-return";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { Loader2 } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { useActionState, useEffect } from "react";
@@ -83,7 +83,14 @@ export function ProjectCreateDialog({
             disabled={isPending}
           >
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            {children ? children : t("create.title")}
+            {children ? (
+              children
+            ) : (
+              <p className="flex items-center gap-2">
+                <Plus />
+                {t("create.title")}
+              </p>
+            )}
           </Button>
         </DialogTrigger>
         <DialogContent>

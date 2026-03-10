@@ -54,8 +54,8 @@ export default function HomeCarousel({}) {
                     crop={"auto"}
                     className=""
                     src={item.imageUrl}
-                    width={1536 / 6}
-                    height={1024 / 6}
+                    width={1536 / 7}
+                    height={1024 / 7}
                     alt={"Project Image"}
                   />
                   <div className="p-1 flex flex-col items-center">
