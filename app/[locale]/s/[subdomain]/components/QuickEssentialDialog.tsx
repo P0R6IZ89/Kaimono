@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { CreateEssentialDialog } from "../essentials/dialogs/dialog-create";
+import { CreateEssentialDialog } from "../essentialsOld/dialogs/dialog-create";
 import { useTranslations } from "next-intl";
 
 export function QuickEssentialDialog({

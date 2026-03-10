@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { stripLeadingLocale } from "@/middleware";
 import { useTranslations } from "next-intl";
-import { CreateEssentialDialogTrigger } from "@/app/[locale]/s/[subdomain]/essentials/dialogs/dialog-create-trigger";
+import { CreateEssentialDialogTrigger } from "@/app/[locale]/s/[subdomain]/essentialsOld/dialogs/dialog-create-trigger";
 import { CreatePlannedDialogTrigger } from "@/app/[locale]/s/[subdomain]/planned/dialogs/dialog-create-trigger";
 import { ProjectCreateDialog } from "@/app/[locale]/s/[subdomain]/projects/components/project-create-dialog";
 import { RadialItem, RadialPieMenu } from "./quick-action-pie-menu";
@@ -60,7 +60,7 @@ export function MobileBottomNav() {
     <nav
       aria-label="Bottom navigation"
       suppressHydrationWarning
-      className="fixed inset-x-0 bottom-0 z-50 lg:hidden bg-transparent px-4"
+      className="fixed inset-x-0 bottom-0 z-50 md:hidden bg-transparent px-4"
     >
       <CreateEssentialDialogTrigger
         className="hidden"

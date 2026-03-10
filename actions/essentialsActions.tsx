@@ -7,11 +7,13 @@ import prisma from "@/lib/prisma";
 import { essentialsSchema, statusUpdateSchema } from "@/util/form-zod-schema";
 import { ActionResult } from "@/util/initial-action-return";
 import { Status } from "@prisma/client";
+import { getCurrentLocale } from "@/i18n/navigation";
 
 export async function createEssentials(
   _previousState: unknown,
   formData: FormData,
 ) {
+  const locale = getCurrentLocale();
   const result = essentialsSchema.safeParse({
     title: formData.get("title"),
     status: "PENDING",
@@ -44,7 +46,7 @@ export async function createEssentials(
         },
       },
     });
-    revalidatePath(`/s/${subdomain}/essentials`);
+    revalidatePath(`/${locale}/s/${subdomain}/essentialsBeta`);
     return { message: { isSuccess: true } };
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
@@ -67,7 +69,7 @@ export async function getEssentialsBySubdomain(subdomain: string) {
         },
       },
       orderBy: {
-        createdAt: "desc",
+        createdAt: "asc",
       },
     });
     const formatted = essentials.map((item) => ({
@@ -121,7 +123,7 @@ export async function updateEssentials(
     if (result.count === 0) {
       return { ok: false, message: "Item not found for this app." };
     }
-    revalidatePath(`/s/${subdomain}/essentials`);
+    revalidatePath(`/s/${subdomain}/essentialsBeta`);
     return { ok: true, message: "Ok!" };
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
@@ -152,7 +154,7 @@ export async function updateStatusEssentials(
     if (result.count === 0) {
       return { ok: false, message: "Item not found for this app." };
     }
-    revalidatePath(`/s/${subdomain}/essentials`);
+    revalidatePath(`/s/${subdomain}/essentialsBeta`);
     return {
       ok: true,
       message: "Ok!",
@@ -175,7 +177,7 @@ export async function deleteEssentials(
     if (result.count === 0) {
       return { status: "error", message: "Item not found for this app." };
     }
-    revalidatePath(`/s/${subdomain}/essentials`);
+    revalidatePath(`/s/${subdomain}/essentialsBeta`);
     return {
       status: "success",
       message: "O Essentials foi deletado com sucesso!",
