@@ -2,7 +2,6 @@ import React from "react";
 import { getEssentialsBySubdomain } from "@/actions/essentialsActions";
 import { requireSession } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
-import { CreateEssentialDialogTrigger } from "../essentialsOld/dialogs/dialog-create-trigger";
 import {
   Item,
   ItemContent,

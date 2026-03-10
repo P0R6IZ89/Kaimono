@@ -52,7 +52,7 @@ export function ChatBubble({
   const purchased = status === "PURCHASED";
   const isCancelled = status === "CANCELLED";
   const bubbleBackground = purchased
-    ? "line-through text-background/80 bg-foreground/80"
+    ? "text-background/80 bg-foreground/80"
     : "text-foreground";
   const bubbleStyle = getBubbleAlignment(item.user.id, currentUserId)
     ? `${bubbleBackground} rounded-bl-md self-end`
@@ -108,8 +108,9 @@ export function ChatBubble({
       <ContextMenu>
         <ContextMenuTrigger>
           <div className="flex flex-col">
+            <p className="text-xs text-muted-foreground">{item.user.name}</p>
             <div className="flex flex-row gap-2 items-center">
-              <p>{item.title}</p>
+              <p className={`${purchased && "line-through"}`}>{item.title}</p>
               {item.quantity > 0 && (
                 <Badge
                   variant={"outline"}
