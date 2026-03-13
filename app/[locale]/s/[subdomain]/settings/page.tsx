@@ -35,7 +35,7 @@ export default async function Settings({
   const t = await getTranslations("Settings");
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-24 md:mb-0 px-4 pt-8">
+    <div className="grid grid-cols-1 gap-4 mb-24 md:mb-0 px-4 pt-8">
       <div>
         <p className="py-2">{t("account")}</p>
         <UserManager

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { protocol, rootDomain, rootDomainHost } from "@/util/utils";
-import { Folder, Plus, UserRound, Users } from "lucide-react";
+import { Plus, UserRound, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { RelativeTime } from "./components/relativeTime";
@@ -17,6 +17,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { UserManager } from "@/components/auth/userManage";
+import { Separator } from "@/components/ui/separator";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -26,7 +27,7 @@ export default async function App({ params }: PageProps) {
   const apps = await getAllAppsAction();
   const t = await getTranslations({ locale, namespace: "Teams" });
   return (
-    <section className="flex flex-col py-16 px-8 gap-8 min-h-svh mx-auto justify-center">
+    <section className="flex flex-col py-16 px-8 gap-8 min-h-svh mx-auto max-w-3xl justify-center">
       <div className="mx-auto space-y-2">
         <Item variant={"default"} className="">
           <ItemMedia>
@@ -39,12 +40,12 @@ export default async function App({ params }: PageProps) {
             </ItemDescription>
           </ItemContent>
         </Item>
-        <div className="flex">
-          <UserManager user={session.user} />
-        </div>
+        <UserManager user={session.user} className="w-fit" variant={"muted"} />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+      <Separator />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 pt-4">
         <Card className="p-0 gap-3 justify-between outline-1 outline-dashed ring-0 bg-muted/50 border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
           <Item className="">
             <ItemContent className="gap-0">
@@ -72,7 +73,7 @@ export default async function App({ params }: PageProps) {
               href={`${protocol}://${app.subdomain}.${rootDomain}/${locale}`}
               className="w-full h-full"
             >
-              <Card className="h-full p-0 gap-3 justify-between border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
+              <Card className="h-full p-0 gap-3 shadow-md justify-between border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
                 <Item className="">
                   <ItemContent className="gap-0">
                     <ItemTitle>{app.name}</ItemTitle>
