@@ -40,7 +40,7 @@ export async function AppSidebar({
     getMembership(subdomain),
   ]);
 
-  const t = await getTranslations();
+  const t = await getTranslations({ locale, namespace: "Sidebar" });
 
   const urls = {
     home: `${protocol}://${rootDomain}/${locale}`,
