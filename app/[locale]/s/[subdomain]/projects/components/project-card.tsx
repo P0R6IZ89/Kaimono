@@ -88,7 +88,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
           }}
         />
       ) : null}
-      <Card className="shadow-md">
+      <Card className="shadow-md pb-2">
         <CardHeader className="flex flex-col gap-3">
           <div className="flex w-full justify-between gap-2">
             <CardTitle className="flex items-center gap-2 text-lg font-black tracking-tighter">
