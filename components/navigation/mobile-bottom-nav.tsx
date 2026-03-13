@@ -64,7 +64,7 @@ export function MobileBottomNav() {
         triggerRef={plannedTriggerRef}
       />
       <ProjectCreateDialog className="hidden" triggerRef={projectTriggerRef} />
-      <div className="flex gap-2 items-center w-full pb-[calc(env(safe-area-inset-bottom))] ">
+      <div className="flex gap-2 items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
         <div className="flex-1 rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <ul className="grid grid-cols-3 items-center">
             {items.map((item) => {
