@@ -30,7 +30,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Plus } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ProjectCardAddTabsContent } from "./project-card-add-tabs-content";
@@ -66,13 +66,14 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   const addTrigger = (
     <Button variant="outline" size="sm">
       <Plus className="h-4 w-4" />
-      {t("project.add-cta")}
+      {/* {t("project.add-cta")} */}
     </Button>
   );
 
   const viewAllTrigger = (
-    <Button variant="secondary" size="sm">
-      {t("project.view-all")}
+    <Button variant="ghost" size="sm" className="w-full text-muted-foreground">
+      <ChevronDown />
+      {/* {t("project.view-all")} */}
     </Button>
   );
 
@@ -87,91 +88,91 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
           }}
         />
       ) : null}
-      <Card className="border border-muted shadow-sm">
+      <Card className="shadow-md">
         <CardHeader className="flex flex-col gap-3">
           <div className="flex w-full justify-between gap-2">
-            <CardTitle className="flex items-center gap-2 text-xl font-semibold tracking-tight">
+            <CardTitle className="flex items-center gap-2 text-lg font-black tracking-tighter">
               {project.name}
-              <ProjectEditDialog project={project} />
+              {/* <ProjectEditDialog project={project} /> */}
             </CardTitle>
-
-            {isMobile ? (
-              <Drawer
-                open={openAdd}
-                dismissible={!uploadWidgetOpen}
-                onOpenChange={(nextOpen) => {
-                  if (uploadWidgetOpen && !nextOpen) return;
-                  setOpenAdd(nextOpen);
-                }}
-                modal={false}
-              >
-                <DrawerTrigger asChild>{addTrigger}</DrawerTrigger>
-                <DrawerContent className="md:w-2xl mx-auto pb-6">
-                  <div className="w-full mx-auto max-h-[80vh] overflow-y-auto">
-                    <DrawerHeader>
-                      <DrawerTitle>
-                        {t("add.title", { projectName: project.name })}
-                      </DrawerTitle>
-                      <DrawerDescription>
-                        {t("add.description")}
-                      </DrawerDescription>
-                    </DrawerHeader>
-                    <div className="px-4 pb-4">
-                      <ProjectCardAddTabsContent
-                        projectId={project.id}
-                        projectName={project.name}
-                        subdomain={subdomain}
-                        plannedBacklog={plannedBacklog}
-                        onCompleted={() => setOpenAdd(false)}
-                        onUploadWidgetOpenChange={setUploadWidgetOpen}
-                      />
-                    </div>
-                  </div>
-                </DrawerContent>
-              </Drawer>
-            ) : (
-              <Dialog open={openAdd} onOpenChange={setOpenAdd} modal={false}>
-                <DialogTrigger asChild>{addTrigger}</DialogTrigger>
-                <DialogContent
-                  className="sm:max-w-2xl max-h-[80vh] overflow-y-auto"
-                  onInteractOutside={(event) => {
-                    if (uploadWidgetOpen) event.preventDefault();
+            <div className="flex justify-center gap-1">
+              {isMobile ? (
+                <Drawer
+                  open={openAdd}
+                  dismissible={!uploadWidgetOpen}
+                  onOpenChange={(nextOpen) => {
+                    if (uploadWidgetOpen && !nextOpen) return;
+                    setOpenAdd(nextOpen);
                   }}
-                  onPointerDownOutside={(event) => {
-                    if (uploadWidgetOpen) event.preventDefault();
-                  }}
-                  onFocusOutside={(event) => {
-                    if (uploadWidgetOpen) event.preventDefault();
-                  }}
+                  modal={false}
                 >
-                  <DialogHeader>
-                    <DialogTitle>
-                      {t("add.title", { projectName: project.name })}
-                    </DialogTitle>
-                    <DialogDescription>
-                      {t("add.description")}
-                    </DialogDescription>
-                  </DialogHeader>
-                  <ProjectCardAddTabsContent
-                    projectId={project.id}
-                    projectName={project.name}
-                    subdomain={subdomain}
-                    plannedBacklog={plannedBacklog}
-                    onCompleted={() => setOpenAdd(false)}
-                    onUploadWidgetOpenChange={setUploadWidgetOpen}
-                  />
-                </DialogContent>
-              </Dialog>
-            )}
+                  <DrawerTrigger asChild>{addTrigger}</DrawerTrigger>
+                  <DrawerContent className="md:w-2xl mx-auto pb-6">
+                    <div className="w-full mx-auto max-h-[80vh] overflow-y-auto">
+                      <DrawerHeader>
+                        <DrawerTitle>
+                          {t("add.title", { projectName: project.name })}
+                        </DrawerTitle>
+                        <DrawerDescription>
+                          {t("add.description")}
+                        </DrawerDescription>
+                      </DrawerHeader>
+                      <div className="px-4 pb-4">
+                        <ProjectCardAddTabsContent
+                          projectId={project.id}
+                          projectName={project.name}
+                          subdomain={subdomain}
+                          plannedBacklog={plannedBacklog}
+                          onCompleted={() => setOpenAdd(false)}
+                          onUploadWidgetOpenChange={setUploadWidgetOpen}
+                        />
+                      </div>
+                    </div>
+                  </DrawerContent>
+                </Drawer>
+              ) : (
+                <Dialog open={openAdd} onOpenChange={setOpenAdd} modal={false}>
+                  <DialogTrigger asChild>{addTrigger}</DialogTrigger>
+                  <DialogContent
+                    className="sm:max-w-2xl max-h-[80vh] overflow-y-auto"
+                    onInteractOutside={(event) => {
+                      if (uploadWidgetOpen) event.preventDefault();
+                    }}
+                    onPointerDownOutside={(event) => {
+                      if (uploadWidgetOpen) event.preventDefault();
+                    }}
+                    onFocusOutside={(event) => {
+                      if (uploadWidgetOpen) event.preventDefault();
+                    }}
+                  >
+                    <DialogHeader>
+                      <DialogTitle>
+                        {t("add.title", { projectName: project.name })}
+                      </DialogTitle>
+                      <DialogDescription>
+                        {t("add.description")}
+                      </DialogDescription>
+                    </DialogHeader>
+                    <ProjectCardAddTabsContent
+                      projectId={project.id}
+                      projectName={project.name}
+                      subdomain={subdomain}
+                      plannedBacklog={plannedBacklog}
+                      onCompleted={() => setOpenAdd(false)}
+                      onUploadWidgetOpenChange={setUploadWidgetOpen}
+                    />
+                  </DialogContent>
+                </Dialog>
+              )}
+              <ProjectEditDialog project={project} />
+            </div>
           </div>
 
           <div className="space-y-2">
             <div className="flex flex-wrap gap-2">
-              {project.counts.total ? (
-                <Badge variant="secondary">
-                  {t("project.badges.total", { count: project.counts.total })}
-                </Badge>
-              ) : null}
+              <Badge variant="secondary">
+                {t("project.badges.total", { count: project.counts.total })}
+              </Badge>
               {project.counts.pending ? (
                 <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">
                   {t("project.badges.pending", {
@@ -203,16 +204,14 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
 
         <CardContent>
           <div className="space-y-3">
-            {totalPlannedAmount !== 0 ? (
-              <div className="flex items-baseline gap-1">
-                <span className="font-semibold text-xl">
-                  {formatPrice(totalPlannedAmount)}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {t("project.total-value")}
-                </span>
-              </div>
-            ) : null}
+            <div className="flex items-baseline gap-1">
+              <span className="font-semibold text-xl">
+                {formatPrice(totalPlannedAmount)}
+              </span>
+              <span className="text-xs text-muted-foreground">
+                {t("project.total-value")}
+              </span>
+            </div>
 
             {isMobile ? (
               <Drawer open={openDetails} onOpenChange={setOpenDetails}>

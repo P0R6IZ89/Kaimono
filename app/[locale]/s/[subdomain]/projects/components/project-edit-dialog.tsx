@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { ActionResult, initialState } from "@/util/initial-action-return";
-import { Pencil } from "lucide-react";
+import { EllipsisVertical, Pencil, SquarePen } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -65,8 +65,8 @@ export function ProjectEditDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <Form {...form}>
         <DialogTrigger asChild>
-          <Button variant={"ghost"} size="xs">
-            <Pencil />
+          <Button variant={"ghost"} size={"sm"}>
+            <EllipsisVertical className="text-muted-foreground" />
           </Button>
         </DialogTrigger>
         <DialogContent>

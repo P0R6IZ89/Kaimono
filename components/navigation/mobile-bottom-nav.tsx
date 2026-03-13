@@ -2,15 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
-import {
-  Folder,
-  Home,
-  Layers,
-  Plus,
-  Settings,
-  ShoppingCart,
-  Sofa,
-} from "lucide-react";
+import { Home, Layers, Plus, ShoppingCart, Sofa } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { stripLeadingLocale } from "@/middleware";
@@ -61,7 +53,7 @@ export function MobileBottomNav() {
     <nav
       aria-label="Bottom navigation"
       suppressHydrationWarning
-      className="fixed inset-x-0 bottom-0 z-50 md:hidden bg-transparent px-4"
+      className="fixed inset-x-0 bottom-0 z-50 md:hidden bg-transparent px-2"
     >
       <CreateEssentialDialogTrigger
         className="hidden"
@@ -92,15 +84,15 @@ export function MobileBottomNav() {
                         : "text-muted-foreground hover:text-foreground",
                     )}
                   >
-                    <Icon className="h-6 w-6" aria-hidden="true" />
-                    <span>{item.label}</span>
+                    <Icon className="size-4" aria-hidden="true" />
+                    <span className="text-xs">{item.label}</span>
                   </Link>
                 </li>
               );
             })}
           </ul>
         </div>
-        <div className="flex justify-center items-center rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
+        <div className="flex justify-center items-center rounded-full border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <RadialPieMenu
             asChild
             items={itemsMenu}
@@ -109,14 +101,14 @@ export function MobileBottomNav() {
             startAngleCW={(3 * Math.PI) / 2} // 9 o’clock
             sweepAngleCW={Math.PI / 2} // to 12 o’clock
           >
-            <div className="py-6 px-4">
+            <div className="py-4 px-4">
               <Button
                 variant="ghost"
                 size="icon"
-                className="flex flex-col items-center justify-center gap-1 text-xs rounded-2xl"
+                className="flex flex-col items-center justify-center gap-1"
               >
-                <Plus className="size-6" />
-                <span>Add</span>
+                <Plus className="size-4" />
+                <span className="text-xs">Add</span>
               </Button>
             </div>
           </RadialPieMenu>

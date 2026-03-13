@@ -1,6 +1,6 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ChatBubble } from "../essentialsOld/bubble";
+import { ChatBubble } from "./bubble";
 import { $Enums } from "@prisma/client";
 import React from "react";
 
@@ -42,7 +42,7 @@ export function ChatField({
 
   return (
     <ScrollArea className="min-h-0 flex-1">
-      <div className="flex flex-col gap-3 my-2">
+      <div className="flex flex-col gap-3 my-2 p-4">
         {sortedEssentials.map((item) => (
           <ChatBubble key={item.id} item={item} currentUserId={currentUserId} />
         ))}

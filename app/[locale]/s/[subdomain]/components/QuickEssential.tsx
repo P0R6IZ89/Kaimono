@@ -1,19 +1,10 @@
-import { getEssentialCount } from "@/actions/essentialsActions";
 import { ChevronRight, ShoppingCart } from "lucide-react";
 import React from "react";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
-import { Badge } from "@/components/ui/badge";
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemMedia,
-  ItemTitle,
-} from "@/components/ui/item";
+import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
 
-async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
-  const count = await getEssentialCount(subdomain);
+async function QuickEssentialCard() {
   const t = await getTranslations("EssentialsPage");
 
   return (
@@ -29,9 +20,9 @@ async function QuickEssentialCard({ subdomain }: { subdomain: string }) {
           <ItemContent>
             <ItemTitle>{t("title")}</ItemTitle>
           </ItemContent>
-          <ItemActions>
+          {/* <ItemActions>
             <Badge variant="outline">{count}</Badge>
-          </ItemActions>
+          </ItemActions> */}
           <ChevronRight className="size-4 text-muted-foreground" />
         </Link>
       </Item>

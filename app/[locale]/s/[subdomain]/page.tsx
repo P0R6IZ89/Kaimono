@@ -44,10 +44,10 @@ export default async function Essentials({
       </div>
       <div className="flex flex-col px-4">
         <p className="py-2">{t("mainFeature")}</p>
-        <div className="flex flex-col gap-0 bg-muted/50 rounded-sm">
-          <QuickProjectCard subdomain={subdomain} />
-          <QuickPlannedCard subdomain={subdomain} />
-          <QuickEssentialCard subdomain={subdomain} />
+        <div className="flex flex-col border gap-0 bg-muted/50 rounded-sm">
+          <QuickProjectCard />
+          <QuickPlannedCard />
+          <QuickEssentialCard />
         </div>
       </div>
     </div>
