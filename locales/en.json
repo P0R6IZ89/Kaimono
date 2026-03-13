@@ -23,7 +23,7 @@
   "Dashboard": {
     "hello": "Hello {userName}!",
     "hello2": "Hello!",
-    "mainFeature": "Features",
+    "Home": "Home",
     "welcomeBack": "Welcome back!",
     "workspace": "You are in the {subdomain} workspace"
   },

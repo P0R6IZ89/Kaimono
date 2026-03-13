@@ -14,6 +14,8 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import HomeCarousel from "./components/HomeCarousel";
+import { Greetings } from "./components/greetings";
+import { Separator } from "@/components/ui/separator";
 
 export default async function Essentials({
   params,
@@ -26,12 +28,12 @@ export default async function Essentials({
   const { user } = await requireSession();
 
   return (
-    <div className="max-w-3xl flex flex-col mb-24 md:mb-0">
+    <div className="max-w-3xl flex flex-col gap-4 mb-24 md:mb-0 p-4">
       <InviteToastHandler />
-      <Item>
+      <Item variant={"muted"}>
         <ItemContent className="gap-0">
           <ItemTitle>
-            {user?.name ? t("hello", { userName: user.name }) : t("hello2")}
+            <Greetings />
           </ItemTitle>
           <ItemDescription>{user?.email}</ItemDescription>
         </ItemContent>
@@ -39,16 +41,16 @@ export default async function Essentials({
           <UserList subdomain={subdomain} />
         </ItemActions>
       </Item>
-      <div className="flex flex-row items-center justify-between">
+      {/* <div className="flex flex-row items-center justify-between">
         <HomeCarousel />
-      </div>
-      <div className="flex flex-col px-4">
-        <p className="py-2">{t("mainFeature")}</p>
+      </div> */}
+      <div className="flex flex-col gap-1">
+        <p className="py-2">{t("Home")}</p>
         <div className="flex flex-col border gap-0 bg-muted/50 rounded-sm">
           <QuickProjectCard />
-          <QuickPlannedCard />
           <QuickEssentialCard />
         </div>
+        <QuickPlannedCard />
       </div>
     </div>
   );
