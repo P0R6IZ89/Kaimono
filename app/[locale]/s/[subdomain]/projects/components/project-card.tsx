@@ -51,7 +51,7 @@ const formatPrice = (price: number) =>
   }).format(price ?? 0);
 
 export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
-  const t = useTranslations("ProjectsPage");
+  const t = useTranslations("Projects");
   const isMobile = useIsMobile();
 
   const [openDetails, setOpenDetails] = useState(false);
@@ -210,7 +210,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
                 {formatPrice(totalPlannedAmount)}
               </span>
               <span className="text-xs text-muted-foreground">
-                {t("project.total-value")}
+                {t("project.totalValue")}
               </span>
             </div>
 
@@ -224,7 +224,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
                         {project.name}
                       </DrawerTitle>
                       <DrawerDescription>
-                        {t("project.items-description")}
+                        {t("project.itemsDescription")}
                       </DrawerDescription>
                     </DrawerHeader>
                     <div className="px-4 pb-4">
@@ -243,7 +243,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
                   <DialogHeader>
                     <DialogTitle>{project.name}</DialogTitle>
                     <DialogDescription>
-                      {t("project.items-description")}
+                      {t("project.itemsDescription")}
                     </DialogDescription>
                   </DialogHeader>
                   <ProjectCardDetailsContent

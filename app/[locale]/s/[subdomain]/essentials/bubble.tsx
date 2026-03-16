@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/context-menu";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface ChatBubbleProps {
   id: string;
@@ -41,6 +42,7 @@ export function ChatBubble({
   currentUserId: string;
 }) {
   const router = useRouter();
+  const tCommon = useTranslations("Common");
   const { subdomain } = useSubdomain();
   const [status, setStatus] = React.useState<$Enums.Status>(item.status);
   const [isSaving, startTransition] = React.useTransition();
@@ -121,13 +123,15 @@ export function ChatBubble({
               )}
             </div>
             {status === "PENDING" && (
-              <p className="text-xs text-muted-foreground">{status}</p>
+              <p className="text-xs text-muted-foreground">
+                {tCommon(`status.${status}`)}
+              </p>
             )}
           </div>
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem onSelect={onDelete} disabled={isSaving}>
-            <Trash /> Delete
+            <Trash /> {tCommon("actions.delete")}
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

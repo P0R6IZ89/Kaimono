@@ -1,15 +1,15 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import { toast } from "sonner";
 import { AlertCircle, Loader2, Upload } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -29,60 +29,101 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { createPlannedAction } from "@/actions/plannedActions";
+import { createPlannedInProjectAction } from "@/actions/projectActions";
 import { useTranslations } from "next-intl";
 import { ActionResult, initialState } from "@/util/initial-action-return";
+import { cn } from "@/lib/utils";
 
-export function CreatePlannedDialog({
-  onUploadWidgetOpenChange,
-}: {
+type PlannedCreateFormProps = {
+  mode?: "standalone" | "project";
+  subdomain: string;
+  projectId?: string;
+  onCompleted?: () => void;
   onUploadWidgetOpenChange?: (isOpen: boolean) => void;
-}) {
-  const t = useTranslations("PlannedPage");
-  const { subdomain } = useSubdomain();
+  className?: string;
+  submitButtonClassName?: string;
+  submitLabel?: string;
+};
+
+const getDefaultValues = (subdomain: string) => ({
+  title: "",
+  price: "",
+  quantity: "",
+  status: "PENDING",
+  priority: "",
+  image: "",
+  productUrl: "",
+  description: "",
+  subdomain,
+});
+
+export function PlannedCreateForm({
+  mode = "standalone",
+  subdomain,
+  projectId,
+  onCompleted,
+  onUploadWidgetOpenChange,
+  className,
+  submitButtonClassName,
+  submitLabel,
+}: PlannedCreateFormProps) {
+  const t = useTranslations("Planned");
+  const tCommon = useTranslations("Common");
+  const tErrors = useTranslations("Errors");
+  const router = useRouter();
+  const isProjectMode = mode === "project";
+
   const form = useForm({
-    defaultValues: {
-      title: "",
-      price: "",
-      quantity: "",
-      status: "PENDING",
-      priority: "",
-      image: "",
-      productUrl: "",
-      description: "",
-      subdomain: subdomain,
-    },
+    defaultValues: getDefaultValues(subdomain),
   });
 
   const [uploadedInfo, setUploadedInfo] = useState<
     string | CloudinaryUploadWidgetInfo | undefined
   >(undefined);
 
+  const handledStateRef = useRef<ActionResult | null>(null);
+  const actionHandler = isProjectMode
+    ? createPlannedInProjectAction
+    : createPlannedAction;
   const [state, action, isPending] = useActionState<ActionResult, FormData>(
-    createPlannedAction,
-    initialState
+    actionHandler,
+    initialState,
   );
 
   useEffect(() => {
-    if (!state.message) return;
+    form.reset(getDefaultValues(subdomain));
+    setUploadedInfo(undefined);
+  }, [form, subdomain]);
+
+  useEffect(() => {
+    if (!state.message || handledStateRef.current === state) return;
+    handledStateRef.current = state;
+
     if (state.ok) {
       toast.success(state.message);
-      form.reset();
+      form.reset(getDefaultValues(subdomain));
+      setUploadedInfo(undefined);
+      onCompleted?.();
+      router.refresh();
     } else {
       toast.error(state.message);
     }
-  }, [state, form]);
+  }, [form, onCompleted, router, state, subdomain]);
 
   return (
     <Form {...form}>
-      <form action={action} className="space-y-4 pt-4">
+      <form action={action} className={cn("space-y-4 pt-4", className)}>
+        {isProjectMode ? (
+          <input type="hidden" name="projectId" value={projectId ?? ""} />
+        ) : null}
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("item-name")}</FormLabel>
+              <FormLabel>{t("fields.itemName")}</FormLabel>
               <FormControl>
-                <Input {...field} placeholder={t("item-name-placeholder")} />
+                <Input {...field} placeholder={t("fields.itemNamePlaceholder")} />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -95,14 +136,14 @@ export function CreatePlannedDialog({
             name="price"
             render={({ field }) => (
               <FormItem className="flex-auto">
-                <FormLabel>{t("price")}</FormLabel>
+                <FormLabel>{t("fields.price")}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min={0}
                     step={"any"}
                     {...field}
-                    placeholder={t("price-placeholder")}
+                    placeholder={t("fields.pricePlaceholder")}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
                 </FormControl>
@@ -116,14 +157,14 @@ export function CreatePlannedDialog({
             name="quantity"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>{t("quantity")}</FormLabel>
+                <FormLabel>{t("fields.quantity")}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min={1}
                     step={1}
                     {...field}
-                    placeholder={t("quantity-placeholder")}
+                    placeholder={t("fields.quantityPlaceholder")}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
                 </FormControl>
@@ -138,26 +179,22 @@ export function CreatePlannedDialog({
           control={form.control}
           name="priority"
           render={({ field }) => (
-            <FormItem className="">
-              <FormLabel>{t("priority")}</FormLabel>
+            <FormItem>
+              <FormLabel>{t("fields.priority")}</FormLabel>
               <FormControl>
-                <Select {...field} onValueChange={field.onChange}>
-                  <SelectTrigger className="">
-                    <SelectValue placeholder={t("select-priority")} />
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t("fields.priorityPlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="LOW">
-                        {t("priority-options.LOW")}
-                      </SelectItem>
+                      <SelectItem value="LOW">{tCommon("priority.LOW")}</SelectItem>
                       <SelectItem value="MEDIUM">
-                        {t("priority-options.MEDIUM")}
+                        {tCommon("priority.MEDIUM")}
                       </SelectItem>
-                      <SelectItem value="HIGH">
-                        {t("priority-options.HIGH")}
-                      </SelectItem>
+                      <SelectItem value="HIGH">{tCommon("priority.HIGH")}</SelectItem>
                       <SelectItem value="URGENT">
-                        {t("priority-options.URGENT")}
+                        {tCommon("priority.URGENT")}
                       </SelectItem>
                     </SelectGroup>
                   </SelectContent>
@@ -172,7 +209,7 @@ export function CreatePlannedDialog({
           control={form.control}
           name="image"
           render={({ field }) => (
-            <FormItem className="">
+            <FormItem>
               <FormControl>
                 <CldUploadWidget
                   options={{
@@ -208,8 +245,8 @@ export function CreatePlannedDialog({
                       >
                         <p>
                           {uploadedInfo && typeof uploadedInfo !== "string"
-                            ? `${t("selected")}: ${uploadedInfo.original_filename}.${uploadedInfo.format}`
-                            : `${t("upload-image")}`}
+                            ? `${t("feedback.selected")}: ${uploadedInfo.original_filename}.${uploadedInfo.format}`
+                            : `${t("uploadImage")}`}
                         </p>
                         <Upload />
                       </Button>
@@ -228,13 +265,13 @@ export function CreatePlannedDialog({
           name="productUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("link")}</FormLabel>
+              <FormLabel>{t("fields.link")}</FormLabel>
               <FormControl>
                 <Input
                   className="resize-none"
                   type="url"
                   {...field}
-                  placeholder={t("link-placeholder")}
+                  placeholder={t("fields.linkPlaceholder")}
                 />
               </FormControl>
               <FormMessage />
@@ -246,12 +283,12 @@ export function CreatePlannedDialog({
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("description-comment")}</FormLabel>
+              <FormLabel>{t("fields.description")}</FormLabel>
               <FormControl>
                 <Textarea
                   className="resize-none"
                   {...field}
-                  placeholder={t("description-comment-placeholder")}
+                  placeholder={t("fields.descriptionPlaceholder")}
                 />
               </FormControl>
               <FormMessage />
@@ -262,20 +299,42 @@ export function CreatePlannedDialog({
           {!state.ok && state.message && (
             <Alert variant={"destructive"}>
               <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Erro:</AlertTitle>
+              <AlertTitle>{tErrors("error")}</AlertTitle>
               <AlertDescription>{state.message}</AlertDescription>
             </Alert>
           )}
         </div>
         <input type="hidden" name="subdomain" value={subdomain} />
         <input type="hidden" name="status" value={"PENDING"} />
-        <DialogFooter>
-          <Button type="submit" disabled={isPending}>
+        <div className="flex justify-end">
+          <Button
+            type="submit"
+            disabled={isPending}
+            className={cn(isProjectMode && "w-full", submitButtonClassName)}
+          >
             {isPending ? <Loader2 className="animate-spin" /> : null}
-            {t("save")}
+            {submitLabel ?? t("actions.save")}
           </Button>
-        </DialogFooter>
+        </div>
       </form>
     </Form>
+  );
+}
+
+export function CreatePlannedDialog({
+  onUploadWidgetOpenChange,
+  onCompleted,
+}: {
+  onUploadWidgetOpenChange?: (isOpen: boolean) => void;
+  onCompleted?: () => void;
+}) {
+  const { subdomain } = useSubdomain();
+
+  return (
+    <PlannedCreateForm
+      subdomain={subdomain}
+      onCompleted={onCompleted}
+      onUploadWidgetOpenChange={onUploadWidgetOpenChange}
+    />
   );
 }

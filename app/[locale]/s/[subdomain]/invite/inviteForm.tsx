@@ -36,7 +36,8 @@ interface InviteFormProps {
 }
 
 function InviteForm({ app }: InviteFormProps) {
-  const t = useTranslations("InvitePage");
+  const t = useTranslations("Invite");
+  const tCommon = useTranslations("Common");
   const initialState = { ok: false, message: "" };
   const [state, action, isPending] = useActionState(
     createInviteAction,
@@ -71,7 +72,7 @@ function InviteForm({ app }: InviteFormProps) {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("email")}</FormLabel>
+              <FormLabel>{t("fields.email")}</FormLabel>
               <FormControl>
                 <Input type="email" {...field} />
               </FormControl>
@@ -84,15 +85,17 @@ function InviteForm({ app }: InviteFormProps) {
           name="role"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("invitee-role")}</FormLabel>
+              <FormLabel>{t("fields.role")}</FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} defaultValue="MEMBER">
                   <SelectTrigger className="w-[180px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="MEMBER">{t("roles.MEMBER")}</SelectItem>
-                    <SelectItem value="OWNER">{t("roles.OWNER")}</SelectItem>
+                    <SelectItem value="MEMBER">
+                      {tCommon("roles.MEMBER")}
+                    </SelectItem>
+                    <SelectItem value="OWNER">{tCommon("roles.OWNER")}</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -104,7 +107,7 @@ function InviteForm({ app }: InviteFormProps) {
           {isPending ? (
             <Loader2 className="animate-spin" />
           ) : (
-            t("invite-button")
+            t("form.submit")
           )}{" "}
         </Button>
       </form>

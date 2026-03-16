@@ -29,8 +29,8 @@ export function CreateEssentialDialogTrigger({
     | "link";
   triggerRef?: React.Ref<HTMLButtonElement>;
 }) {
-  const t = useTranslations("EssentialsPage");
-  const tTable = useTranslations("Table");
+  const t = useTranslations("Essentials");
+  const tCommon = useTranslations("Common");
   return (
     <div className="space-y-8">
       <Dialog>
@@ -44,16 +44,14 @@ export function CreateEssentialDialogTrigger({
               className={`h-8 px-2 lg:px-3 ${className || ""}`}
             >
               <Plus />
-              <span>{tTable("add")}</span>
+              <span>{tCommon("actions.add")}</span>
             </Button>
           )}
         </DialogTrigger>
         <DialogContent className="sm:max-w-106.25">
           <DialogHeader>
-            <DialogTitle>{t("add-new-essential-item")}</DialogTitle>
-            <DialogDescription>
-              {t("add-new-essential-item-description")}
-            </DialogDescription>
+            <DialogTitle>{t("create.title")}</DialogTitle>
+            <DialogDescription>{t("create.description")}</DialogDescription>
           </DialogHeader>
           <CreateEssentialDialog />
         </DialogContent>

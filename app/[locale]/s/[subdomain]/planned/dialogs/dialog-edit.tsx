@@ -47,7 +47,8 @@ export function EditPlannedDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const t = useTranslations("PlannedPage");
+  const t = useTranslations("Planned");
+  const tCommon = useTranslations("Common");
   const tD = useTranslations("Dialog");
   const { subdomain } = useSubdomain();
   const {
@@ -111,7 +112,7 @@ export function EditPlannedDialog({
           <form action={action}>
             <DialogHeader>
               <DialogTitle>{title}</DialogTitle>
-              <DialogDescription>{t("edit-description")}</DialogDescription>
+              <DialogDescription>{t("editDescription")}</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <FormField
@@ -119,9 +120,9 @@ export function EditPlannedDialog({
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("item-name")}</FormLabel>
+                    <FormLabel>{t("fields.itemName")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("item-name")} {...field} />
+                      <Input placeholder={t("fields.itemName")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -132,9 +133,9 @@ export function EditPlannedDialog({
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("price")}</FormLabel>
+                    <FormLabel>{t("fields.price")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("price")} {...field} />
+                      <Input placeholder={t("fields.price")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -145,9 +146,9 @@ export function EditPlannedDialog({
                 name="quantity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("quantity")}</FormLabel>
+                    <FormLabel>{t("fields.quantity")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("quantity")} {...field} />
+                      <Input placeholder={t("fields.quantity")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -158,25 +159,27 @@ export function EditPlannedDialog({
                 name="priority"
                 render={({ field }) => (
                   <FormItem className="">
-                    <FormLabel>{t("priority")}</FormLabel>
+                    <FormLabel>{t("fields.priority")}</FormLabel>
                     <FormControl>
                       <Select {...field} onValueChange={field.onChange}>
                         <SelectTrigger className="">
-                          <SelectValue placeholder={t("select-priority")} />
+                          <SelectValue
+                            placeholder={t("fields.priorityPlaceholder")}
+                          />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
                             <SelectItem value="LOW">
-                              {t("priority-options.LOW")}
+                              {tCommon("priority.LOW")}
                             </SelectItem>
                             <SelectItem value="MEDIUM">
-                              {t("priority-options.MEDIUM")}
+                              {tCommon("priority.MEDIUM")}
                             </SelectItem>
                             <SelectItem value="HIGH">
-                              {t("priority-options.HIGH")}
+                              {tCommon("priority.HIGH")}
                             </SelectItem>
                             <SelectItem value="URGENT">
-                              {t("priority-options.URGENT")}
+                              {tCommon("priority.URGENT")}
                             </SelectItem>
                           </SelectGroup>
                         </SelectContent>
@@ -228,8 +231,8 @@ export function EditPlannedDialog({
                               <p>
                                 {uploadedInfo &&
                                 typeof uploadedInfo !== "string"
-                                  ? `${t("selected")}: ${uploadedInfo.original_filename}.${uploadedInfo.format}`
-                                  : `${t("upload-image")}`}
+                                  ? `${t("feedback.selected")}: ${uploadedInfo.original_filename}.${uploadedInfo.format}`
+                                  : `${t("uploadImage")}`}
                               </p>
                               <Upload />
                             </Button>
@@ -252,7 +255,7 @@ export function EditPlannedDialog({
                 name="productUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("link")}</FormLabel>
+                    <FormLabel>{t("fields.link")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -265,7 +268,7 @@ export function EditPlannedDialog({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("description-comment")}</FormLabel>
+                    <FormLabel>{t("fields.description")}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -288,7 +291,7 @@ export function EditPlannedDialog({
                 {isPending ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : null}
-                {t("save")}
+                {t("actions.save")}
               </Button>
             </DialogFooter>
           </form>

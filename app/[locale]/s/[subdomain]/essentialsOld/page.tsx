@@ -18,7 +18,7 @@ interface EssentialsProps {
 
 export default async function Essentials({ params }: EssentialsProps) {
   const { subdomain, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "EssentialsPage" });
+  const t = await getTranslations({ locale, namespace: "Essentials" });
   const essentials = await getEssentialsBySubdomain(subdomain);
 
   return (
@@ -43,7 +43,7 @@ export default async function Essentials({ params }: EssentialsProps) {
               <DataTable columns={columns} data={essentials} />
             </div>
           ) : (
-            <div className="text-center">{t("no-essentials")}</div>
+            <div className="text-center">{t("empty.list")}</div>
           )}
         </div>
       </div>

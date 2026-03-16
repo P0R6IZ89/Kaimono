@@ -40,7 +40,8 @@ export default function CommentListCell({
   id: string;
   comments: Partial<Pick<PlannedSchema, "comments">>["comments"];
 }) {
-  const t = useTranslations("PlannedPage");
+  const t = useTranslations("Planned");
+  const tErrors = useTranslations("Errors");
   const initialState = { ok: false, error: "" };
   dayjs.extend(relativeTime);
   const [state, action, isPending] = useActionState(
@@ -65,7 +66,7 @@ export default function CommentListCell({
     } catch {}
   };
   if (!comments) {
-    return <p className="text-sm text-muted-foreground">No comments yet.</p>;
+    return <p className="text-sm text-muted-foreground">{t("comments.empty")}</p>;
   }
   return (
     <div>
@@ -113,7 +114,7 @@ export default function CommentListCell({
                       }}
                     >
                       <Trash2 />
-                      <span>{t("delete-comment")}</span>
+                      <span>{t("comments.delete")}</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -133,7 +134,7 @@ export default function CommentListCell({
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="Add a comment..."
+                      placeholder={t("comments.inputPlaceholder")}
                       {...field}
                     />
                   </FormControl>
@@ -159,7 +160,7 @@ export default function CommentListCell({
         {state?.error && (
           <Alert variant={"destructive"}>
             <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Erro:</AlertTitle>
+            <AlertTitle>{tErrors("error")}</AlertTitle>
             <AlertDescription>{state.error}</AlertDescription>
           </Alert>
         )}

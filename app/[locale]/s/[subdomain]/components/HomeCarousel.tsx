@@ -13,9 +13,9 @@ import { CldImage } from "next-cloudinary";
 import { useTranslations } from "next-intl";
 
 export default function HomeCarousel({}) {
-  const tProjects = useTranslations("ProjectsPage");
-  const tPlanned = useTranslations("PlannedPage");
-  const tEssentials = useTranslations("EssentialsPage");
+  const tProjects = useTranslations("Projects");
+  const tPlanned = useTranslations("Planned");
+  const tEssentials = useTranslations("Essentials");
   const carouselItems = [
     {
       title: tProjects("title"),

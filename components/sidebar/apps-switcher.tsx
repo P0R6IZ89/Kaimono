@@ -34,7 +34,7 @@ interface AppSwitcherProps {
 
 export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
   const { isMobile } = useSidebar();
-  const t = useTranslations("Teams");
+  const t = useTranslations("Sidebar");
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -74,7 +74,7 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
             {apps.length > 1 ? (
               <>
                 <DropdownMenuLabel className="text-xs text-muted-foreground">
-                  Mudar para:
+                  {t("navSite.switchWorkspace")}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
               </>
@@ -106,7 +106,7 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
                   <Plus className="size-4" />
                 </div>
                 <div className="font-medium text-muted-foreground">
-                  {t("create-team")}
+                  {t("navSite.createTeam")}
                 </div>
               </Link>
             </DropdownMenuItem>

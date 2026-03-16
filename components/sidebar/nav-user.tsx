@@ -37,12 +37,14 @@ interface NavUserProps {
 export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
   const { isMobile } = useSidebar();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const t = useTranslations("Auth");
+  const tCommon = useTranslations("Common");
   if (!user) {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton size="lg">{t("sign-in")}</SidebarMenuButton>
+          <SidebarMenuButton size="lg">
+            {tCommon("actions.signIn")}
+          </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
     );
@@ -89,7 +91,9 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="text-xs">{t(`roles.${memberRole}`)}</span>
+                  <span className="text-xs">
+                    {tCommon(`roles.${memberRole}`)}
+                  </span>
                   {user.name ? (
                     <span className="truncate font-semibold">{user.name}</span>
                   ) : (
@@ -108,7 +112,7 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
               >
                 <div className="flex items-center gap-2">
                   <LogOut />
-                  <span>{t("sign-out")}</span>
+                  <span>{tCommon("actions.signOut")}</span>
                 </div>
               </DropdownMenuItem>
               <DialogLogout onOpenChange={setIsDialogOpen} />

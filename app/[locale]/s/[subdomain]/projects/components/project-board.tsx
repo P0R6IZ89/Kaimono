@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function ProjectBoard({ projects, plannedBacklog, subdomain }: Props) {
-  const t = useTranslations("ProjectsPage");
+  const t = useTranslations("Projects");
   return (
     <section className="space-y-4">
       {projects.length === 0 ? (

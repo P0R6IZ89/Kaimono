@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
 
 async function QuickEssentialCard() {
-  const t = await getTranslations("EssentialsPage");
+  const t = await getTranslations("Essentials");
 
   return (
     <div className="flex items-stretch gap-2">
@@ -20,9 +20,6 @@ async function QuickEssentialCard() {
           <ItemContent>
             <ItemTitle>{t("title")}</ItemTitle>
           </ItemContent>
-          {/* <ItemActions>
-            <Badge variant="outline">{count}</Badge>
-          </ItemActions> */}
           <ChevronRight className="size-4 text-muted-foreground" />
         </Link>
       </Item>

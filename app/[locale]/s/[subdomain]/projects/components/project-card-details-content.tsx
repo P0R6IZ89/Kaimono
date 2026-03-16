@@ -30,9 +30,8 @@ const formatPrice = (price: number) =>
   }).format(price ?? 0);
 
 export function ProjectCardDetailsContent({ project, subdomain }: Props) {
-  const t = useTranslations("ProjectsPage");
-  const tTable = useTranslations("Table");
-  const tPlanned = useTranslations("PlannedPage");
+  const t = useTranslations("Projects");
+  const tCommon = useTranslations("Common");
 
   return (
     <div className="space-y-4">
@@ -71,10 +70,10 @@ export function ProjectCardDetailsContent({ project, subdomain }: Props) {
               <ItemActions>
                 <div className="flex flex-wrap gap-1">
                   <Badge variant="outline" className="text-[10px]">
-                    {tTable(`status.${item.status}`)}
+                    {tCommon(`status.${item.status}`)}
                   </Badge>
                   <Badge variant="secondary" className="text-[10px]">
-                    {tPlanned(`priority-options.${item.priority}`)}
+                    {tCommon(`priority.${item.priority}`)}
                   </Badge>
                 </div>
                 <ProjectCardUnassignButton plannedId={item.id} subdomain={subdomain} />
@@ -86,7 +85,7 @@ export function ProjectCardDetailsContent({ project, subdomain }: Props) {
 
       <div className="flex justify-end">
         <Button asChild variant="secondary" size="sm">
-          <Link href="/planned">{t("project.open-planned")}</Link>
+          <Link href="/planned">{t("project.openPlanned")}</Link>
         </Button>
       </div>
     </div>

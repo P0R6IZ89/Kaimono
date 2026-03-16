@@ -24,7 +24,7 @@ export default async function ProjectsPage({
   params: Promise<{ subdomain: string; locale: string }>;
 }) {
   const { subdomain, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "ProjectsPage" });
+  const t = await getTranslations({ locale, namespace: "Projects" });
 
   const [projects, plannedBacklog] = await Promise.all([
     getProjectsWithPlanned(subdomain),

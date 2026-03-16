@@ -19,7 +19,7 @@ export default async function Planned({
   params: Promise<{ subdomain: string; locale: string }>;
 }) {
   const { subdomain, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "PlannedPage" });
+  const t = await getTranslations({ locale, namespace: "Planned" });
   const planned = await getPlannedBySubdomain(subdomain);
   return (
     <div className="py-4 space-y-8">

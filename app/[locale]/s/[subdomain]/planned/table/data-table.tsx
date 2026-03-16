@@ -22,7 +22,7 @@ export function DataTablePlanned<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const t = useTranslations("PlannedPage");
+  const t = useTranslations("Planned");
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([
     { id: "status", value: ["PENDING"] },
@@ -74,7 +74,7 @@ export function DataTablePlanned<TData, TValue>({
             );
           })
         ) : (
-          <div className="h-24 text-center">{t("no-result")}</div>
+          <div className="h-24 text-center">{t("empty.search")}</div>
         )}
       </div>
     </div>

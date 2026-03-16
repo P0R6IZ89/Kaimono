@@ -49,9 +49,8 @@ export function AssignPlannedDialog({
     initialState,
   );
   const router = useRouter();
-  const t = useTranslations("ProjectsPage");
-  const tTable = useTranslations("Table");
-  const tPlanned = useTranslations("PlannedPage");
+  const t = useTranslations("Projects");
+  const tCommon = useTranslations("Common");
   const handledStateRef = useRef<typeof state | null>(null);
 
   const selectedItem = useMemo(
@@ -64,7 +63,7 @@ export function AssignPlannedDialog({
     handledStateRef.current = state;
 
     if (state.ok) {
-      toast.success(t("toast-assigned", { projectName }));
+      toast.success(t("toast.assigned", { projectName }));
       setSelectedId("");
       setOpen(false);
       router.refresh();
@@ -97,9 +96,9 @@ export function AssignPlannedDialog({
         ) : (
           <div className="space-y-4 h-fit">
             <Command className="rounded-lg border shadow-none">
-              <CommandInput placeholder={t("assign.search-placeholder")} />
+              <CommandInput placeholder={t("assign.searchPlaceholder")} />
               <CommandList className="max-h-60">
-                <CommandEmpty>{t("assign.no-results")}</CommandEmpty>
+                <CommandEmpty>{t("assign.noResults")}</CommandEmpty>
                 <CommandGroup>
                   {plannedBacklog.map((item) => (
                     <CommandItem
@@ -114,11 +113,11 @@ export function AssignPlannedDialog({
                             {item.title}
                           </span>
                           <Badge variant="outline" className="text-[10px]">
-                            {tTable(`status.${item.status}`)}
+                            {tCommon(`status.${item.status}`)}
                           </Badge>
                         </div>
                         <p className="text-xs text-muted-foreground">
-                          {tPlanned(`priority-options.${item.priority}`)}
+                          {tCommon(`priority.${item.priority}`)}
                         </p>
                       </div>
                       <Separator
@@ -147,7 +146,7 @@ export function AssignPlannedDialog({
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : null}
                 {selectedItem
-                  ? t("assign.submit-selected", {
+                  ? t("assign.submitSelected", {
                       title: selectedItem.title,
                     })
                   : t("assign.submit")}

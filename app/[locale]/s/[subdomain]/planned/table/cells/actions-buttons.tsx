@@ -18,7 +18,8 @@ import { ConfirmDialog } from "@/components/dialog/confirmMenuItem";
 
 export default function ActionsButton({ row }: { row: Row<PlannedSchema> }) {
   const { id } = row.original;
-  const t = useTranslations("PlannedPage");
+  const t = useTranslations("Planned");
+  const tCommon = useTranslations("Common");
   const [state, setState] = useState<ActionResult>(initialState);
   const [isPending, startTransition] = useTransition();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -30,7 +31,7 @@ export default function ActionsButton({ row }: { row: Row<PlannedSchema> }) {
       const result = await deleteTask(id);
       const message =
         result.message ??
-        (result.ok ? t("action-success") : t("action-failed"));
+        (result.ok ? t("feedback.actionSuccess") : t("feedback.actionFailed"));
       setState({ ok: result.ok, message });
     });
   }, [id, t]);
@@ -38,9 +39,9 @@ export default function ActionsButton({ row }: { row: Row<PlannedSchema> }) {
   useEffect(() => {
     if (!state.message) return;
     if (state.ok) {
-      toast.success(state.message || t("action-success"));
+      toast.success(state.message || t("feedback.actionSuccess"));
     } else {
-      toast.error(state.message || t("action-failed"));
+      toast.error(state.message || t("feedback.actionFailed"));
     }
   }, [state, t]);
   return (
@@ -63,7 +64,7 @@ export default function ActionsButton({ row }: { row: Row<PlannedSchema> }) {
             }}
           >
             <Trash2 className="text-destructive" />
-            <span>Delete</span>
+            <span>{tCommon("actions.delete")}</span>
           </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={() => {
@@ -72,13 +73,13 @@ export default function ActionsButton({ row }: { row: Row<PlannedSchema> }) {
             }}
           >
             <Pencil />
-            <span>Edit</span>
+            <span>{tCommon("actions.edit")}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <ConfirmDialog
-        title="Delete"
-        description="Are you sure you want to delete?"
+        title={t("actions.deleteConfirmTitle")}
+        description={t("actions.deleteConfirmDescription")}
         open={confirmDialogOpen}
         onOpenChange={setConfirmDialogOpen}
         onConfirm={onConfirmDelete}

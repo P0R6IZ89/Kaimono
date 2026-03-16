@@ -33,6 +33,8 @@ type FormValues = {
 
 export function CreateEssentialDialog() {
   const { subdomain } = useSubdomain();
+  const t = useTranslations("Essentials");
+  const tErrors = useTranslations("Errors");
   const form = useForm<FormValues>({
     defaultValues: {
       title: "",
@@ -51,12 +53,10 @@ export function CreateEssentialDialog() {
 
   useEffect(() => {
     if (state.message?.isSuccess) {
-      toast.success("Item criado com sucesso!");
+      toast.success(t("actions.save"));
       form.reset();
     }
-  }, [state.message?.isSuccess, form]);
-
-  const t = useTranslations("EssentialsPage");
+  }, [form, state.message?.isSuccess, t]);
   return (
     <Form {...form}>
       <form action={action} className="space-y-4 pt-4">
@@ -65,7 +65,7 @@ export function CreateEssentialDialog() {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("item-name")}</FormLabel>
+              <FormLabel>{t("fields.itemName")}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -80,7 +80,7 @@ export function CreateEssentialDialog() {
           name="price"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>{t("price")}</FormLabel>
+              <FormLabel>{t("fields.price")}</FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -99,7 +99,7 @@ export function CreateEssentialDialog() {
           name="quantity"
           render={({ field }) => (
             <FormItem className="">
-              <FormLabel>{t("quantity")}</FormLabel>
+              <FormLabel>{t("fields.quantity")}</FormLabel>
               <FormControl>
                 <Input
                   min={1}
@@ -119,7 +119,7 @@ export function CreateEssentialDialog() {
           {state?.error && (
             <Alert variant={"destructive"}>
               <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Erro:</AlertTitle>
+              <AlertTitle>{tErrors("error")}</AlertTitle>
               <AlertDescription>{state.error}</AlertDescription>
             </Alert>
           )}
@@ -128,7 +128,7 @@ export function CreateEssentialDialog() {
         <DialogFooter>
           <Button type="submit" disabled={isPending}>
             {isPending ? <Loader2 className="animate-spin" /> : null}
-            {t("save")}
+            {t("actions.save")}
           </Button>
         </DialogFooter>
       </form>

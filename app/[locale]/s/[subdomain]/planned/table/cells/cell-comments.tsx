@@ -37,7 +37,8 @@ import { useTranslations } from "next-intl";
 dayjs.extend(relativeTime);
 
 function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
-  const t = useTranslations("PlannedPage");
+  const t = useTranslations("Planned");
+  const tErrors = useTranslations("Errors");
   const { comments, commentsCount, id } = row.original;
   const form = useForm({
     defaultValues: {
@@ -65,7 +66,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
     <div className="pt-4 px-2">
       <div className="p-3 h-fit rounded-lg bg-card space-y-2">
         <span className="flex gap-2">
-          <p className="text-sm font-semibold">{t("comments")}</p>
+          <p className="text-sm font-semibold">{t("comments.title")}</p>
           <p className="text-sm">{commentsCount}</p>
         </span>
         {comments.length === 1 ? (
@@ -97,7 +98,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                         }}
                       >
                         <Trash2 className="text-destructive" />
-                        <span>{t("delete-comment")}</span>
+                        <span>{t("comments.delete")}</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -146,7 +147,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                                     }}
                                   >
                                     <Trash2 />
-                                    <span>{t("delete-comment")}</span>
+                                    <span>{t("comments.delete")}</span>
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
@@ -187,7 +188,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                                     }}
                                   >
                                     <Trash2 />
-                                    <span>{t("delete-comment")}</span>
+                                    <span>{t("comments.delete")}</span>
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
@@ -213,7 +214,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="Add a comment..."
+                      placeholder={t("comments.inputPlaceholder")}
                       {...field}
                     />
                   </FormControl>
@@ -254,7 +255,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
         {state?.error && (
           <Alert variant={"destructive"}>
             <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Erro:</AlertTitle>
+            <AlertTitle>{tErrors("error")}</AlertTitle>
             <AlertDescription>{state.error}</AlertDescription>
           </Alert>
         )}
