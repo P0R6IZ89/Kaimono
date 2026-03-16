@@ -13,9 +13,7 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
-import HomeCarousel from "./components/HomeCarousel";
 import { Greetings } from "./components/greetings";
-import { Separator } from "@/components/ui/separator";
 
 export default async function Essentials({
   params,

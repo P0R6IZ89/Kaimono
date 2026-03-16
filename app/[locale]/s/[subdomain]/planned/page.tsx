@@ -3,7 +3,6 @@ import React from "react";
 import { DataTablePlanned } from "./table/data-table";
 import { columnsPlanned } from "./table/columns";
 import { getTranslations } from "next-intl/server";
-import { CreatePlannedDialogTrigger } from "./dialogs/dialog-create-trigger";
 import { Item, ItemContent, ItemTitle } from "@/components/ui/item";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,15 +11,29 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Info } from "lucide-react";
+import type { ColumnFiltersState } from "@tanstack/react-table";
 
 export default async function Planned({
   params,
+  searchParams,
 }: {
   params: Promise<{ subdomain: string; locale: string }>;
+  searchParams: Promise<{ title?: string; showAll?: string }>;
 }) {
   const { subdomain, locale } = await params;
+  const { title, showAll } = await searchParams;
   const t = await getTranslations({ locale, namespace: "Planned" });
   const planned = await getPlannedBySubdomain(subdomain);
+  const initialColumnFilters: ColumnFiltersState = [];
+
+  if (showAll !== "1") {
+    initialColumnFilters.push({ id: "status", value: ["PENDING"] });
+  }
+
+  if (title) {
+    initialColumnFilters.push({ id: "title", value: title });
+  }
+
   return (
     <div className="py-4 space-y-8">
       <div className="px-4">
@@ -48,12 +61,16 @@ export default async function Planned({
                   </PopoverContent>
                 </Popover>
               </div>
-              <CreatePlannedDialogTrigger />
+              {/* <CreatePlannedDialogTrigger /> */}
             </ItemTitle>
           </ItemContent>
         </Item>
       </div>
-      <DataTablePlanned columns={columnsPlanned} data={planned} />
+      <DataTablePlanned
+        columns={columnsPlanned}
+        data={planned}
+        initialColumnFilters={initialColumnFilters}
+      />
     </div>
   );
 }
