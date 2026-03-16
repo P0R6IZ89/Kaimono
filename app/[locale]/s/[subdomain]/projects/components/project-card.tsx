@@ -86,7 +86,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
 
   return (
     <>
-      {openAdd ? (
+      {openAdd || openDetails ? (
         <div
           aria-hidden="true"
           className="fixed inset-0 z-40 bg-black/50"
