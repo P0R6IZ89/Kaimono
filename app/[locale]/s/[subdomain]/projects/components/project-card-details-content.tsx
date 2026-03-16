@@ -50,7 +50,11 @@ export function ProjectCardDetailsContent({ project, subdomain }: Props) {
       ) : (
         <div className="space-y-3">
           {project.plannedItems.map((item) => (
-            <Item key={item.id} variant="outline" className="space-y-3 bg-background">
+            <Item
+              key={item.id}
+              variant="outline"
+              className="space-y-3 bg-background z-10"
+            >
               <Link
                 href={getPlannedHref(item.title)}
                 aria-label={`${t("project.openPlanned")}: ${item.title}`}
