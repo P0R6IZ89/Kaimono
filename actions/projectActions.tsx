@@ -311,6 +311,7 @@ export async function createPlannedInProjectAction(
   });
 
   if (!parsed.success) {
+    console.log(parsed.error);
     const first = parsed.error.errors[0];
     return { ok: false, message: first.message };
   }

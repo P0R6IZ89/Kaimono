@@ -63,17 +63,24 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
     0,
   );
 
+  const totalPendingAmount = project.plannedItems.reduce(
+    (sum, item) =>
+      sum +
+      (item.status === "PENDING"
+        ? (item.price ?? 0) * (item.quantity ?? 1)
+        : 0),
+    0,
+  );
+
   const addTrigger = (
-    <Button variant="secondary" size="sm">
+    <Button variant="default" size="sm">
       <Plus className="h-4 w-4" />
-      {/* {t("project.add-cta")} */}
     </Button>
   );
 
   const viewAllTrigger = (
     <Button variant="ghost" size="sm" className="w-full text-muted-foreground">
       <ChevronDown />
-      {/* {t("project.view-all")} */}
     </Button>
   );
 
@@ -91,7 +98,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
       <Card className="shadow-md pb-2">
         <CardHeader className="flex flex-col gap-3">
           <div className="flex w-full justify-between gap-2">
-            <CardTitle className="flex items-center gap-2 text-lg font-black tracking-tighter">
+            <CardTitle className="flex items-center gap-2 text-lg font-black tracking-tighter capitalize">
               {project.name}
               {/* <ProjectEditDialog project={project} /> */}
             </CardTitle>
@@ -205,13 +212,23 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
 
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-baseline gap-1">
-              <span className="font-semibold text-xl">
-                {formatPrice(totalPlannedAmount)}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                {t("project.totalValue")}
-              </span>
+            <div className="flex flex-row justify-between items-baseline">
+              <div className="flex items-baseline gap-1">
+                <span className="font-semibold text-2xl">
+                  {formatPrice(totalPendingAmount)}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {t("project.totalPendingValue")}
+                </span>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-xs text-muted-foreground">
+                  {formatPrice(totalPlannedAmount)}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {t("project.totalValue")}
+                </span>
+              </div>
             </div>
 
             {isMobile ? (

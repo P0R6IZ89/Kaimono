@@ -35,7 +35,7 @@ export function DataTableToolbar<TData>({
         label: tCommon(`status.${s.value}`),
         icon: s.icon,
       })),
-    [tCommon]
+    [tCommon],
   );
 
   return (
@@ -65,7 +65,10 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
-        <CreatePlannedDialogTrigger className="shrink-0" />
+        <CreatePlannedDialogTrigger
+          className="shrink-0"
+          buttonVariant="outline"
+        />
       </div>
       <div>
         <Input

@@ -123,7 +123,10 @@ export function PlannedCreateForm({
             <FormItem>
               <FormLabel>{t("fields.itemName")}</FormLabel>
               <FormControl>
-                <Input {...field} placeholder={t("fields.itemNamePlaceholder")} />
+                <Input
+                  {...field}
+                  placeholder={t("fields.itemNamePlaceholder")}
+                />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -182,17 +185,27 @@ export function PlannedCreateForm({
             <FormItem>
               <FormLabel>{t("fields.priority")}</FormLabel>
               <FormControl>
-                <Select value={field.value} onValueChange={field.onChange}>
+                <Select
+                  {...field}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                >
                   <SelectTrigger>
-                    <SelectValue placeholder={t("fields.priorityPlaceholder")} />
+                    <SelectValue
+                      placeholder={t("fields.priorityPlaceholder")}
+                    />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="LOW">{tCommon("priority.LOW")}</SelectItem>
+                      <SelectItem value="LOW">
+                        {tCommon("priority.LOW")}
+                      </SelectItem>
                       <SelectItem value="MEDIUM">
                         {tCommon("priority.MEDIUM")}
                       </SelectItem>
-                      <SelectItem value="HIGH">{tCommon("priority.HIGH")}</SelectItem>
+                      <SelectItem value="HIGH">
+                        {tCommon("priority.HIGH")}
+                      </SelectItem>
                       <SelectItem value="URGENT">
                         {tCommon("priority.URGENT")}
                       </SelectItem>
