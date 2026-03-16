@@ -50,15 +50,16 @@ export function ProjectCardDetailsContent({ project, subdomain }: Props) {
       ) : (
         <div className="space-y-3">
           {project.plannedItems.map((item) => (
-            <Item
+            <Link
               key={item.id}
-              variant="outline"
-              className="space-y-3 bg-background z-10"
+              href={getPlannedHref(item.title)}
+              aria-label={`${t("project.openPlanned")}: ${item.title}`}
+              className="-m-2 flex min-w-0 flex-1 items-center gap-3.5 rounded-md p-2 outline-none transition-colors hover:bg-muted/70 focus-visible:ring-ring/50 focus-visible:ring-[3px]"
             >
-              <Link
-                href={getPlannedHref(item.title)}
-                aria-label={`${t("project.openPlanned")}: ${item.title}`}
-                className="-m-2 flex min-w-0 flex-1 items-center gap-3.5 rounded-md p-2 outline-none transition-colors hover:bg-muted/70 focus-visible:ring-ring/50 focus-visible:ring-[3px]"
+              <Item
+                key={item.id}
+                variant="outline"
+                className="space-y-3 bg-background z-10"
               >
                 <ItemMedia variant="image">
                   {item.image ? (
@@ -86,22 +87,22 @@ export function ProjectCardDetailsContent({ project, subdomain }: Props) {
                     </span>
                   </ItemDescription>
                 </ItemContent>
-              </Link>
-              <ItemActions>
-                <div className="flex flex-wrap gap-1">
-                  <Badge variant="outline" className="text-[10px]">
-                    {tCommon(`status.${item.status}`)}
-                  </Badge>
-                  <Badge variant="secondary" className="text-[10px]">
-                    {tCommon(`priority.${item.priority}`)}
-                  </Badge>
-                </div>
-                <ProjectCardUnassignButton
-                  plannedId={item.id}
-                  subdomain={subdomain}
-                />
-              </ItemActions>
-            </Item>
+                <ItemActions>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge variant="outline" className="text-[10px]">
+                      {tCommon(`status.${item.status}`)}
+                    </Badge>
+                    <Badge variant="secondary" className="text-[10px]">
+                      {tCommon(`priority.${item.priority}`)}
+                    </Badge>
+                  </div>
+                  <ProjectCardUnassignButton
+                    plannedId={item.id}
+                    subdomain={subdomain}
+                  />
+                </ItemActions>
+              </Item>
+            </Link>
           ))}
         </div>
       )}
