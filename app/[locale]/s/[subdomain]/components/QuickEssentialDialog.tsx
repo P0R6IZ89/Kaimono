@@ -27,7 +27,7 @@ export function QuickEssentialDialog({
     | "link";
   children?: React.ReactNode;
 }) {
-  const t = useTranslations("EssentialsPage");
+  const t = useTranslations("Essentials");
 
   return (
     <Dialog>
@@ -36,15 +36,13 @@ export function QuickEssentialDialog({
           variant={buttonVariant}
           className={`col-auto ${className || ""}`}
         >
-          {children ? children : t("add-new-essential-item")}
+          {children ? children : t("create.title")}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
-          <DialogTitle>{t("add-new-essential-item")}</DialogTitle>
-          <DialogDescription>
-            {t("add-new-essential-item-description")}
-          </DialogDescription>
+          <DialogTitle>{t("create.title")}</DialogTitle>
+          <DialogDescription>{t("create.description")}</DialogDescription>
         </DialogHeader>
         <CreateEssentialDialog />
       </DialogContent>

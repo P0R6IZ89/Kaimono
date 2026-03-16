@@ -8,7 +8,7 @@ async function MemberCount({ subdomain }: { subdomain: string }) {
   const members = users.length;
   return (
     <div className="flex gap-1 items-end">
-      <p>{t("members-count", { members: members })}</p>
+      <p>{t("memberCount", { members })}</p>
       {/* <p>{members}</p> {members > 1 ? "usuários" : "usuário"} */}
     </div>
   );

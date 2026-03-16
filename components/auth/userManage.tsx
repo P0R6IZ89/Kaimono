@@ -37,11 +37,11 @@ export function UserManager({
   variant,
   className,
 }: NavUserProps) {
-  const t = useTranslations("UserManager");
+  const tCommon = useTranslations("Common");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const roleLabel = memberRole ? t(`roles.${memberRole}`) : undefined;
+  const roleLabel = memberRole ? tCommon(`roles.${memberRole}`) : undefined;
   if (!user) {
-    return <Button size="lg">Sign in</Button>;
+    return <Button size="lg">{tCommon("actions.signIn")}</Button>;
   }
   return (
     <DropdownMenu>
@@ -103,7 +103,7 @@ export function UserManager({
           >
             <div className="flex items-center gap-2">
               <LogOut />
-              <span>Log out</span>
+              <span>{tCommon("actions.signOut")}</span>
             </div>
           </DropdownMenuItem>
           <DialogLogout onOpenChange={setIsDialogOpen} />

@@ -51,7 +51,7 @@ export function ProjectCreateDialog({
     createProjectAction,
     initialState,
   );
-  const t = useTranslations("ProjectsPage");
+  const t = useTranslations("Projects");
 
   const form = useForm({
     defaultValues: {
@@ -64,7 +64,7 @@ export function ProjectCreateDialog({
   useEffect(() => {
     if (!state) return;
     if (state.ok) {
-      toast.success(t("toast-created"));
+      toast.success(t("toast.created"));
     } else if (state.message) {
       toast.error(state.message);
     }
@@ -108,7 +108,7 @@ export function ProjectCreateDialog({
                     <FormLabel>{t("form.name")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("form.name-placeholder")}
+                        placeholder={t("form.namePlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -124,7 +124,7 @@ export function ProjectCreateDialog({
                     <FormLabel>{t("form.description")}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder={t("form.description-placeholder")}
+                        placeholder={t("form.descriptionPlaceholder")}
                         {...field}
                       />
                     </FormControl>

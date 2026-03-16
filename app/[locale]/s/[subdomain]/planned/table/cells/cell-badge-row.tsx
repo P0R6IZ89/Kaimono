@@ -11,16 +11,16 @@ import LinkDropdownCell from "./link-dropdown";
 
 function BadgeRowCell({ row }: { row: Row<PlannedSchema> }) {
   const { status, priority, project, productUrl } = row.original;
-  const t = useTranslations("PlannedPage");
+  const tCommon = useTranslations("Common");
 
   const tPriorities = React.useMemo(
     () =>
       priorities.map((p) => ({
         value: p.value,
-        label: t(`priority-options.${p.value}`),
+        label: tCommon(`priority.${p.value}`),
         icon: p.icon,
       })),
-    [t]
+    [tCommon]
   );
   const match = tPriorities.find((p) => p.value === priority);
   const Icon = match?.icon as LucideIcon | undefined;
@@ -28,10 +28,10 @@ function BadgeRowCell({ row }: { row: Row<PlannedSchema> }) {
   const tStatuses = React.useMemo(() => {
     return statuses.map((s) => ({
       value: s.value,
-      label: t(`statuses-options.${s.value}`),
+      label: tCommon(`status.${s.value}`),
       icon: s.icon,
     }));
-  }, [t]);
+  }, [tCommon]);
   const statusMatch = tStatuses.find((s) => s.value === status);
   const StatusIcon = statusMatch?.icon as LucideIcon | undefined;
 

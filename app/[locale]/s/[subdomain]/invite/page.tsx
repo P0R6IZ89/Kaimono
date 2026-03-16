@@ -28,7 +28,7 @@ export default async function Invite({
   params: Promise<{ subdomain: string; locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "InvitePage" });
+  const t = await getTranslations({ locale, namespace: "Invite" });
   const { subdomain } = await params;
   const app = await getCurrentAppAction(subdomain);
   const invitedUsers = await getInvitedUsersActions(subdomain);
@@ -49,16 +49,16 @@ export default async function Invite({
       </Card>
       <Card className="">
         <CardHeader>
-          <CardTitle>{t("pending-invites")}</CardTitle>
-          <CardDescription>{t("manage-invites")}</CardDescription>
+          <CardTitle>{t("pendingInvites.title")}</CardTitle>
+          <CardDescription>{t("pendingInvites.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t("email")}</TableHead>
-                <TableHead>{t("status")}</TableHead>
-                <TableHead>{t("actions-text")}</TableHead>
+                <TableHead>{t("fields.email")}</TableHead>
+                <TableHead>{t("fields.status")}</TableHead>
+                <TableHead>{t("actions.label")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -81,17 +81,17 @@ export default async function Invite({
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>{t("team-users", { userCount })}</CardTitle>
-          <CardDescription>{t("team-users-description")}</CardDescription>
+          <CardTitle>{t("teamMembers.title", { userCount })}</CardTitle>
+          <CardDescription>{t("teamMembers.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead />
-                <TableHead className="max-w-25">{t("name")}</TableHead>
-                <TableHead>{t("email")}</TableHead>
-                <TableHead className="w-7.5">{t("actions-text")}</TableHead>
+                <TableHead className="max-w-25">{t("fields.name")}</TableHead>
+                <TableHead>{t("fields.email")}</TableHead>
+                <TableHead className="w-7.5">{t("actions.label")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

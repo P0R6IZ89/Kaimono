@@ -75,7 +75,7 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
       <Card>
         <CardHeader>
           <CardTitle>{t("title")}</CardTitle>
-          <CardDescription>{t("description-content")}</CardDescription>
+          <CardDescription>{t("descriptionContent")}</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -87,10 +87,10 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                 rules={{ required: tErrors("required-field") }}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("team-name")}</FormLabel>
+                    <FormLabel>{t("teamName")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("team-name-placeholder")}
+                        placeholder={t("teamNamePlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -127,9 +127,7 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                               </PopoverTrigger>
                               <PopoverContent align="end">
                                 <p className="text-sm">
-                                  A subdomain is a unique web address that
-                                  separates your workspace and data from other
-                                  users
+                                  {t("subdomainHelp")}
                                 </p>
                               </PopoverContent>
                             </Popover>
@@ -151,7 +149,7 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                     <FormControl>
                       <Textarea
                         className="resize-none"
-                        placeholder={t("description-placeholder")}
+                        placeholder={t("descriptionPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -177,7 +175,7 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                 {isPending ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : null}
-                {t("create-button")}
+                {t("createButton")}
               </Button>
             </form>
           </Form>

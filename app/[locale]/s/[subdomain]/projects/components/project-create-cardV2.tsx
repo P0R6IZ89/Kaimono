@@ -12,7 +12,7 @@ import { Sparkles } from "lucide-react";
 import { ProjectCreateDialog } from "./project-create-dialog";
 
 export function ProjectCreateCardV2() {
-  const t = useTranslations("ProjectsPage");
+  const t = useTranslations("Projects");
 
   return (
     <Card className="flex flex-col gap-4 justify-center ">

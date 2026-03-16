@@ -11,11 +11,12 @@ import {
 } from "../ui/dropdown-menu";
 import { User } from "next-auth";
 import { signOutAction } from "@/actions/authActions";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { protocol, rootDomain } from "@/util/utils";
 
 export default function UserAvatar({ user }: { user: User | undefined }) {
   const locale = useLocale();
+  const tCommon = useTranslations("Common");
 
   return (
     <DropdownMenu>
@@ -55,7 +56,7 @@ export default function UserAvatar({ user }: { user: User | undefined }) {
           }}
         >
           <p className="flex flex-row items-center gap-2">
-            <LogOut /> Log out
+            <LogOut /> {tCommon("actions.signOut")}
           </p>
         </DropdownMenuItem>
       </DropdownMenuContent>

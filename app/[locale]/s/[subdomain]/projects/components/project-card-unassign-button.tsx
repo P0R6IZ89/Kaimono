@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function ProjectCardUnassignButton({ plannedId, subdomain }: Props) {
-  const t = useTranslations("ProjectsPage");
+  const t = useTranslations("Projects");
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     unassignPlannedFromProjectAction,
@@ -26,7 +26,7 @@ export function ProjectCardUnassignButton({ plannedId, subdomain }: Props) {
     if (!state) return;
 
     if (state.ok) {
-      toast.success(t("toast-unassigned"));
+      toast.success(t("toast.unassigned"));
       router.refresh();
     } else if (state.message) {
       toast.error(state.message);

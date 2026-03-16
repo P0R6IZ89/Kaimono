@@ -1,24 +1,58 @@
 {
   "Auth": {
+    "backToMain": "Voltar para a página principal",
+    "checkSpam": "(Verifique a pasta de spam se não encontrar)",
+    "continueWith": {
+      "email": "Continuar com e-mail",
+      "github": "Continuar com GitHub 🚧Somente para dev⚠️",
+      "google": "Continuar com Google"
+    },
+    "emailSent": {
+      "instruction": "Abra o e-mail enviado e clique no botão \"Enter\" para concluir seu login.",
+      "title": "O e-mail de login foi enviado para você."
+    },
+    "error": "Erro:",
+    "loggingOut": "Saindo...",
+    "logout": {
+      "button": "Sair",
+      "instruction": "Clique no botão para sair.",
+      "title": "Esperamos você novamente 🤗"
+    },
+    "or": "ou"
+  },
+  "Common": {
+    "actions": {
+      "add": "Adicionar",
+      "clear": "Limpar",
+      "delete": "Excluir",
+      "edit": "Editar",
+      "next": "Próximo",
+      "previous": "Anterior",
+      "reset": "Redefinir",
+      "save": "Salvar",
+      "signIn": "Entrar",
+      "signOut": "Encerrar sessão",
+      "viewAll": "Ver tudo"
+    },
+    "labels": {
+      "actions": "Ações"
+    },
+    "priority": {
+      "HIGH": "Alta",
+      "LOW": "Baixa",
+      "MEDIUM": "Média",
+      "URGENT": "Urgente"
+    },
     "roles": {
       "ADMIN": "Administrador",
       "MEMBER": "Membro",
       "OWNER": "Proprietário"
     },
-    "back-to-main": "Voltar para a página principal",
-    "check-spam": "(Verifique a pasta de spam se não encontrar)",
-    "continue-with-email": "Continuar com e-mail",
-    "continue-with-github": "Continuar com GitHub 🚧Somente para dev⚠️",
-    "continue-with-google": "Continuar com Google",
-    "email-sent-instruction": "Abra o e-mail enviado e clique no botão \"Enter\" para concluir seu login.",
-    "email-sent-title": "O e-mail de login foi enviado para você.",
-    "error": "Erro:",
-    "sign-out": "Encerrar sessão",
-    "logging-out": "Saindo...",
-    "logout-button": "Sair",
-    "logout-instruction": "Clique no botão para sair.",
-    "logout-title": "Esperamos você novamente 🤗",
-    "or": "ou"
+    "status": {
+      "CANCELLED": "Cancelado",
+      "PENDING": "Pendente",
+      "PURCHASED": "Comprado"
+    }
   },
   "Dashboard": {
     "hello": "Olá, {userName}!",
@@ -51,22 +85,32 @@
     "passwords-no-match": "As senhas não coincidem.",
     "required-field": "Este campo é obrigatório."
   },
-  "EssentialsPage": {
-    "add-essential-button": "Adicionar item",
-    "add-new-essential-item": "Adicionar novo item à lista",
-    "add-new-essential-item-description": "Adicione um novo item à sua lista de compras.",
+  "Essentials": {
+    "actions": {
+      "addItem": "Adicionar item",
+      "save": "Salvar",
+      "viewAll": "Ver tudo"
+    },
+    "count": "{count, plural, =0 {Nenhum item ainda.} =1 {1 item} other {# itens}}",
+    "create": {
+      "description": "Adicione um novo item à sua lista de compras.",
+      "title": "Adicionar novo item à lista"
+    },
     "description": "Seus itens de compra recorrentes. São os itens que você precisa comprar regularmente.",
-    "essentialsCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 item} other {# itens}}",
-    "item-name": "Nome do item",
-    "no-essentials": "Nenhum item na lista ainda.",
-    "no-result": "Nenhum resultado encontrado.",
-    "pending-items": "Itens pendentes",
-    "price": "Preço",
-    "quantity": "Quantidade",
-    "save": "Salvar",
-    "see-all-essentials": "Ver tudo",
-    "title": "Lista de compras",
-    "total-pending": "Total pendente"
+    "empty": {
+      "list": "Nenhum item na lista ainda.",
+      "search": "Nenhum resultado encontrado."
+    },
+    "fields": {
+      "itemName": "Nome do item",
+      "price": "Preço",
+      "quantity": "Quantidade"
+    },
+    "stats": {
+      "pendingItems": "Itens pendentes",
+      "totalPending": "Total pendente"
+    },
+    "title": "Lista de compras"
   },
   "Homepage": {
     "created-by": "Criado por {creatorName}",
@@ -74,9 +118,10 @@
     "get-started-button": "Começar!",
     "title": "Conheça o app definitivo de compras"
   },
-  "InvitePage": {
+  "Invite": {
     "actions": {
-      "generic-error": "Algo deu errado",
+      "genericError": "Algo deu errado",
+      "label": "Ações",
       "remove": {
         "description": "Remover este membro da equipe permanentemente?",
         "title": "Remover membro"
@@ -90,22 +135,24 @@
         "title": "Revogar convite"
       }
     },
-    "actions-text": "Ações",
     "description": "Compartilhe acesso ao workspace de gastos da sua equipe enviando um link de convite ou e-mail.",
-    "email": "E-mail",
-    "invite-button": "Enviar convite",
-    "invitee-role": "Convidar como:",
-    "manage-invites": "Gerencie os convites da sua equipe aqui.",
-    "name": "Nome",
-    "pending-invites": "Convites pendentes",
-    "roles": {
-      "ADMIN": "Administrador",
-      "MEMBER": "Membro",
-      "OWNER": "Proprietário"
+    "fields": {
+      "email": "E-mail",
+      "name": "Nome",
+      "role": "Convidar como:",
+      "status": "Situação"
     },
-    "status": "Situação",
-    "team-users": "Equipe {userCount, plural, =0 {Membros} =1 {Membro} other {Membros (#)}}",
-    "team-users-description": "Membros desta equipe.",
+    "form": {
+      "submit": "Enviar convite"
+    },
+    "pendingInvites": {
+      "description": "Gerencie os convites da sua equipe aqui.",
+      "title": "Convites pendentes"
+    },
+    "teamMembers": {
+      "description": "Membros desta equipe.",
+      "title": "Equipe {userCount, plural, =0 {Membros} =1 {Membro} other {Membros (#)}}"
+    },
     "title": "Convide membros para alinhar os gastos!"
   },
   "KoFiWidget": {
@@ -124,11 +171,11 @@
   },
   "MembersCard": {
     "description": "Gerencie quem pode ver e contribuir com os gastos da sua equipe.",
-    "invite-members": "Convide família ou colegas para colaborar em orçamentos e projetos.",
+    "inviteMembers": "Convide família ou colegas para colaborar em orçamentos e projetos.",
     "manage": "Gerenciar",
-    "members-count": "{members, plural, =0 {Ainda sem membros.} =1 {1 membro} other {# membros}}",
+    "memberCount": "{members, plural, =0 {Ainda sem membros.} =1 {1 membro} other {# membros}}",
     "title": "Membros da equipe",
-    "view-all-members": "Ver todos os membros"
+    "viewAllMembers": "Ver todos os membros"
   },
   "Meta": {
     "description": "Um aplicativo para gerenciar suas listas de compras.",
@@ -142,68 +189,76 @@
     "settings": "Configurações"
   },
   "NewTeam": {
-    "create-button": "Criar equipe",
+    "createButton": "Criar equipe",
     "description": "Descrição (opcional)",
-    "description-content": "As equipes ajudam você a organizar gastos por objetivo — seja despesas domésticas, projetos em família ou orçamentos de negócios. Cada equipe dá visibilidade de para onde o dinheiro vai.",
-    "description-placeholder": "ex.: Workspace para acompanhar despesas da casa e gastos da empresa.",
-    "enter-team-name": "Digite o nome da sua equipe",
+    "descriptionContent": "As equipes ajudam você a organizar gastos por objetivo — seja despesas domésticas, projetos em família ou orçamentos de negócios. Cada equipe dá visibilidade de para onde o dinheiro vai.",
+    "descriptionPlaceholder": "ex.: Workspace para acompanhar despesas da casa e gastos da empresa.",
+    "enterTeamName": "Digite o nome da sua equipe",
     "subdomain": "Subdomínio",
-    "team-name": "Nome da equipe",
-    "team-name-placeholder": "ex.: Casa da Família, Orçamento de Marketing, Planejamento de Viagem",
+    "subdomainHelp": "Um subdomínio é um endereço da web exclusivo que separa seu espaço de trabalho e seus dados dos outros usuários.",
+    "teamName": "Nome da equipe",
+    "teamNamePlaceholder": "ex.: Casa da Família, Orçamento de Marketing, Planejamento de Viagem",
     "title": "Criar nova equipe"
   },
-  "PlannedPage": {
-    "add-new-planned-item": "Adicionar planejado",
-    "add-new-planned-item-description": "Adicione um novo item à sua lista de planejados.",
-    "add-planned-button": "Adicionar item",
-    "comments": "Comentários",
-    "delete-comment": "Excluir",
+  "Planned": {
+    "actions": {
+      "addItem": "Adicionar item",
+      "deleteConfirmDescription": "Tem certeza de que deseja excluir este item planejado?",
+      "deleteConfirmTitle": "Excluir item planejado",
+      "markAsPurchased": "Marcar como comprado",
+      "revertToPending": "Voltar para pendente",
+      "save": "Salvar",
+      "viewAll": "Ver tudo"
+    },
+    "comments": {
+      "delete": "Excluir",
+      "empty": "Ainda não há comentários.",
+      "inputPlaceholder": "Adicionar um comentário...",
+      "title": "Comentários"
+    },
+    "count": "{count, plural, =0 {Nenhum item ainda.} =1 {1 planejado} other {# planejados}}",
+    "create": {
+      "description": "Adicione um novo item à sua lista de planejados.",
+      "title": "Adicionar planejado"
+    },
     "description": "Seus itens de compra planejados. Você pode enviar para um projeto existente ou manter no backlog para melhor organização.",
-    "description-comment": "Descrição (opcional)",
-    "description-comment-placeholder": "Adicione descrição ou notas (opcional)",
-    "edit-description": "Você pode editar o item aqui, não se esqueça de salvar!",
-    "item-name": "Nome do item",
-    "item-name-placeholder": "ex.: impressora 3D, item de cosmético ou roupa",
-    "link": "Link (opcional)",
-    "link-placeholder": "Digite o link do produto (opcional)",
-    "mark-as-purchased": "Marcar como comprado",
-    "no-planned": "Nenhum item planejado ainda.",
-    "no-result": "Nenhum resultado encontrado.",
-    "plannedCount": "{count, plural, =0 {Nenhum item ainda.} =1 {1 planejado} other {# planejados}}",
-    "price": "Preço",
-    "price-placeholder": "Digite o preço",
-    "priority": "Prioridade",
-    "priority-options": {
-      "HIGH": "Alta",
-      "LOW": "Baixa",
-      "MEDIUM": "Média",
-      "URGENT": "Urgente"
+    "editDescription": "Você pode editar o item aqui, não se esqueça de salvar!",
+    "empty": {
+      "list": "Nenhum item planejado ainda.",
+      "search": "Nenhum resultado encontrado."
     },
-    "quantity": "Quantidade",
-    "quantity-placeholder": "Digite a quantidade",
-    "revert-to-pending": "Voltar para pendente",
-    "save": "Salvar",
-    "save-money": "Vou economizar dinheiro",
-    "see-all-planned": "Ver tudo",
-    "select-priority": "Selecionar prioridade",
-    "selected": "Selecionado",
-    "statuses-options": {
-      "CANCELLED": "Cancelado",
-      "PENDING": "Pendente",
-      "PURCHASED": "Comprado"
+    "feedback": {
+      "actionFailed": "Algo deu errado.",
+      "actionSuccess": "Ação concluída.",
+      "selected": "Selecionado"
     },
+    "fields": {
+      "description": "Descrição (opcional)",
+      "descriptionPlaceholder": "Adicione descrição ou notas (opcional)",
+      "itemName": "Nome do item",
+      "itemNamePlaceholder": "ex.: impressora 3D, item de cosmético ou roupa",
+      "link": "Link (opcional)",
+      "linkPlaceholder": "Digite o link do produto (opcional)",
+      "price": "Preço",
+      "pricePlaceholder": "Digite o preço",
+      "priority": "Prioridade",
+      "priorityPlaceholder": "Selecionar prioridade",
+      "quantity": "Quantidade",
+      "quantityPlaceholder": "Digite a quantidade"
+    },
+    "saveMoney": "Vou economizar dinheiro",
     "title": "Planejados",
-    "upload-image": "Enviar imagem"
+    "uploadImage": "Enviar imagem"
   },
-  "ProjectsPage": {
+  "Projects": {
     "add": {
       "description": "Atribua do backlog ou crie um novo item planejado diretamente neste projeto.",
       "new": {
         "submit": "Criar no projeto",
-        "upload-image": "Enviar imagem"
+        "uploadImage": "Enviar imagem"
       },
       "tabs": {
-        "add-new": "Novo item",
+        "addNew": "Novo item",
         "assign": "Atribuir"
       },
       "title": "Adicionar em {projectName}"
@@ -212,10 +267,10 @@
       "cta": "Atribuir item planejado",
       "description": "Escolha um item planejado sem projeto e adicione neste projeto.",
       "empty": "Você não tem itens planejados sem projeto.",
-      "no-results": "Nenhum item planejado encontrado.",
-      "search-placeholder": "Buscar itens planejados...",
+      "noResults": "Nenhum item planejado encontrado.",
+      "searchPlaceholder": "Buscar itens planejados...",
       "submit": "Adicionar ao projeto",
-      "submit-selected": "Adicionar \"{title}\"",
+      "submitSelected": "Adicionar \"{title}\"",
       "title": "Adicionar item planejado a {projectName}"
     },
     "backlog": {
@@ -230,6 +285,10 @@
       "title": "Adicionar"
     },
     "description": "Agrupe compras planejadas em projetos e mantenha o backlog avançando.",
+    "edit": {
+      "delete": "Excluir projeto",
+      "description": "Edite os detalhes do projeto selecionado."
+    },
     "empty": {
       "description": "Use um projeto para agrupar itens planejados por objetivo.",
       "title": "Crie seu primeiro projeto"
@@ -237,18 +296,18 @@
     "form": {
       "create": "Criar projeto",
       "description": "Descrição",
-      "description-placeholder": "Como é o sucesso para este projeto?",
+      "descriptionPlaceholder": "Como é o sucesso para este projeto?",
       "name": "Nome do projeto",
-      "name-placeholder": "Montagem de estúdio, renovação da despensa...",
+      "namePlaceholder": "Montagem de estúdio, renovação da despensa...",
       "reset": "Redefinir"
     },
     "list": {
-      "backlog-count": "{count, plural, =0 {Nenhum item livre} =1 {1 item livre} other {# itens livres}}",
+      "backlogCount": "{count, plural, =0 {Nenhum item livre} =1 {1 item livre} other {# itens livres}}",
       "description": "Veja como cada projeto está evoluindo.",
       "title": "Projetos ativos"
     },
     "project": {
-      "add-cta": "+ Adicionar",
+      "addCta": "+ Adicionar",
       "badges": {
         "cancelled": "{count, plural, =0 {0 cancelados} =1 {1 cancelado} other {# cancelados}}",
         "pending": "{count, plural, =0 {0 pendentes} =1 {1 pendente} other {# pendentes}}",
@@ -256,24 +315,26 @@
         "total": "{count, plural, =0 {0 itens} =1 {1 item} other {# itens}}"
       },
       "empty": "Ainda não há itens planejados vinculados aqui.",
-      "items-description": "Mantenha compras planejadas associadas ao objetivo que elas apoiam.",
-      "items-title": "Itens deste projeto",
-      "no-description": "Nenhuma descrição adicionada ainda.",
-      "open-planned": "Todos os planejados",
-      "total-value": "Total",
-      "view-all": "Ver todos"
+      "itemsDescription": "Mantenha compras planejadas associadas ao objetivo que elas apoiam.",
+      "itemsTitle": "Itens deste projeto",
+      "noDescription": "Nenhuma descrição adicionada ainda.",
+      "openPlanned": "Todos os planejados",
+      "totalValue": "Total",
+      "viewAll": "Ver todos"
     },
-    "see-all-projects": "Ver tudo",
     "summary": {
       "backlog": "{count, plural, =0 {Nenhum item sem projeto} =1 {1 item no backlog} other {# itens no backlog}}",
       "planned": "{count, plural, =0 {Nenhum item planejado rastreado} =1 {1 item planejado} other {# itens planejados}}",
       "projects": "{count, plural, =0 {Nenhum projeto ainda} =1 {1 projeto} other {# projetos}}"
     },
     "title": "Projetos",
-    "toast-assigned": "Item planejado atribuído a {projectName}.",
-    "toast-created": "Projeto criado.",
-    "toast-planned-created": "Item planejado criado no projeto.",
-    "toast-unassigned": "Item removido do projeto."
+    "toast": {
+      "assigned": "Item planejado atribuído a {projectName}.",
+      "created": "Projeto criado.",
+      "plannedCreated": "Item planejado criado no projeto.",
+      "unassigned": "Item removido do projeto.",
+      "updated": "Projeto atualizado."
+    }
   },
   "Settings": {
     "account": "Conta",
@@ -314,38 +375,29 @@
       "items": {
         "home": "Equipes"
       },
-      "title": "Espaços de trabalho"
+      "title": "Espaços de trabalho",
+      "createTeam": "Criar equipe",
+      "switchWorkspace": "Mudar para"
     }
   },
   "Table": {
     "actions": "Ações",
     "add": "Adicionar",
-    "clear-filters": "Limpar",
+    "clearFilters": "Limpar",
     "delete": "Excluir",
-    "delete-item": "Excluir item",
+    "deleteItem": "Excluir item",
     "edit": "Editar",
-    "edit-item": "Editar item",
-    "filter-by-status": "Filtrar por status",
-    "mark-as-pending": "Marcar como pendente",
-    "mark-as-purchased": "Marcar como comprado",
+    "editItem": "Editar item",
+    "filterByStatus": "Filtrar por status",
+    "markAsPending": "Marcar como pendente",
+    "markAsPurchased": "Marcar como comprado",
     "next": "Próximo",
-    "no-result": "Nenhum resultado encontrado.",
+    "noResult": "Nenhum resultado encontrado.",
     "of": "de",
     "page": "Página",
     "previous": "Anterior",
-    "priority": {
-      "HIGH": "Alta",
-      "LOW": "Baixa",
-      "MEDIUM": "Média",
-      "URGENT": "Urgente"
-    },
     "rows": "linhas",
-    "search-placeholder": "Buscar itens...",
-    "status": {
-      "CANCELLED": "Cancelado",
-      "PENDING": "Pendente",
-      "PURCHASED": "Comprado"
-    }
+    "searchPlaceholder": "Buscar itens..."
   },
   "Teams": {
     "create-team": "Criar equipe",
@@ -522,13 +574,6 @@
     "stepLabel": "Passo {step}",
     "subtitle": "Domine compras por projeto com Kaimono",
     "title": "Guia completo do usuário"
-  },
-  "UserManager": {
-    "roles": {
-      "ADMIN": "Administrador",
-      "MEMBER": "Membro",
-      "OWNER": "Proprietário"
-    }
   },
   "team-layout": {
     "check-email-for-details": "Verifique seu e-mail para mais detalhes.",

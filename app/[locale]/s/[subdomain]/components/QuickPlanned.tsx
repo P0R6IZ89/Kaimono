@@ -5,14 +5,14 @@ import { Link } from "@/i18n/navigation";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
 
 async function QuickPlannedCard() {
-  const t = await getTranslations("PlannedPage");
+  const t = await getTranslations("Planned");
 
   return (
     <div className="flex items-stretch gap-2">
       <Item asChild>
         <Link href={"/planned"} prefetch={true}>
           <ItemMedia
-            className="text-background dark:text-foreground rounded-md p-1.5 bg-blue-600"
+            className="border text-foreground rounded-md p-1.5 "
             variant={"icon"}
           >
             <Sofa />
@@ -20,9 +20,7 @@ async function QuickPlannedCard() {
           <ItemContent>
             <ItemTitle>{t("title")}</ItemTitle>
           </ItemContent>
-          {/* <ItemActions>
-            <Badge variant="outline">{count}</Badge>
-          </ItemActions> */}
+
           <ChevronRight className="size-4 text-muted-foreground" />
         </Link>
       </Item>

@@ -306,6 +306,8 @@ export async function createPlannedInProjectAction(
     quantity: formData.get("quantity"),
     priority: formData.get("priority"),
     image: formData.get("image"),
+    productUrl: formData.get("productUrl"),
+    description: formData.get("description"),
   });
 
   if (!parsed.success) {
@@ -313,8 +315,17 @@ export async function createPlannedInProjectAction(
     return { ok: false, message: first.message };
   }
 
-  const { projectId, subdomain, title, price, quantity, priority, image } =
-    parsed.data;
+  const {
+    projectId,
+    subdomain,
+    title,
+    price,
+    quantity,
+    priority,
+    image,
+    productUrl,
+    description,
+  } = parsed.data;
   const { appId, session } = await requireMembership(subdomain);
 
   const project = await prisma.project.findFirst({
@@ -335,6 +346,8 @@ export async function createPlannedInProjectAction(
         priority,
         status: "PENDING",
         image,
+        productUrl,
+        description,
         appId,
         creatorId: session.user.id,
         projectId,

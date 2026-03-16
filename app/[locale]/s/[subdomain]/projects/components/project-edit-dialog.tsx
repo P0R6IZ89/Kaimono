@@ -27,7 +27,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { ActionResult, initialState } from "@/util/initial-action-return";
-import { EllipsisVertical, Pencil, SquarePen } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -37,6 +38,8 @@ export function ProjectEditDialog({
 }: {
   project: ProjectWithPlanned;
 }) {
+  const t = useTranslations("Projects");
+  const tCommon = useTranslations("Common");
   const { subdomain } = useSubdomain();
   const { id, name, description } = project;
   const [open, setOpen] = useState(false);
@@ -48,12 +51,12 @@ export function ProjectEditDialog({
   useEffect(() => {
     if (!state) return;
     if (state.ok) {
-      toast.success("Project updated.");
+      toast.success(t("toast.updated"));
       setOpen(false);
     } else if (state.message) {
       toast.error(state.message);
     }
-  }, [state]);
+  }, [state, t]);
   const form = useForm({
     defaultValues: {
       id,
@@ -73,9 +76,7 @@ export function ProjectEditDialog({
           <form action={action}>
             <DialogHeader>
               <DialogTitle>{project.name}</DialogTitle>
-              <DialogDescription>
-                Edit the selected project details.
-              </DialogDescription>
+              <DialogDescription>{t("edit.description")}</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <Input type="hidden" defaultValue={id} name="id" />
@@ -85,9 +86,9 @@ export function ProjectEditDialog({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t("form.name")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="name" {...field} />
+                      <Input placeholder={t("form.namePlaceholder")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -98,7 +99,7 @@ export function ProjectEditDialog({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>{t("form.description")}</FormLabel>
                     <FormControl>
                       <Textarea {...field}></Textarea>
                     </FormControl>
@@ -116,10 +117,10 @@ export function ProjectEditDialog({
                   await deleteProjectAction(subdomain, id);
                 }}
               >
-                Delete project
+                {t("edit.delete")}
               </Button>
               <Button type="submit" disabled={isPending}>
-                Save changes
+                {tCommon("actions.save")}
               </Button>
             </DialogFooter>
           </form>

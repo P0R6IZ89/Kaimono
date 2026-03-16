@@ -133,4 +133,12 @@ export const projectPlannedCreateSchema = z.object({
     (v) => (v === "" ? undefined : v),
     z.string().url().optional(),
   ),
+  productUrl: z.preprocess(
+    (v) => (v === "" ? undefined : v),
+    z.string().url().optional(),
+  ),
+  description: z.preprocess(
+    (v) => (v === "" ? undefined : v),
+    z.string().optional(),
+  ),
 });

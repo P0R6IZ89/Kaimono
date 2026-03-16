@@ -1,24 +1,58 @@
 {
   "Auth": {
+    "backToMain": "Back to main page",
+    "checkSpam": "(Check your spam folder if you don't see it)",
+    "continueWith": {
+      "email": "Continue with Email",
+      "github": "Continue with Github 🚧Only for dev⚠️",
+      "google": "Continue with Google"
+    },
+    "emailSent": {
+      "instruction": "Open the email sent and click the \"Enter\" button to complete your login.",
+      "title": "The login email has been sent to your email."
+    },
+    "error": "Error:",
+    "loggingOut": "Signing out…",
+    "logout": {
+      "button": "Logout",
+      "instruction": "Click the button to log out.",
+      "title": "Hope to see you again 🤗"
+    },
+    "or": "or"
+  },
+  "Common": {
+    "actions": {
+      "add": "Add",
+      "clear": "Clear",
+      "delete": "Delete",
+      "edit": "Edit",
+      "next": "Next",
+      "previous": "Previous",
+      "reset": "Reset",
+      "save": "Save",
+      "signIn": "Sign in",
+      "signOut": "Sign out",
+      "viewAll": "See All"
+    },
+    "labels": {
+      "actions": "Actions"
+    },
+    "priority": {
+      "HIGH": "High",
+      "LOW": "Low",
+      "MEDIUM": "Medium",
+      "URGENT": "Urgent"
+    },
     "roles": {
       "ADMIN": "Admin",
       "MEMBER": "Member",
       "OWNER": "Owner"
     },
-    "back-to-main": "Back to main page",
-    "check-spam": "(Check your spam folder if you don't see it)",
-    "continue-with-email": "Continue with Email",
-    "continue-with-github": "Continue with Github 🚧Only for dev⚠️",
-    "continue-with-google": "Continue with Google",
-    "email-sent-instruction": "Open the email sent and click the \"Enter\" button to complete your login.",
-    "email-sent-title": "The login email has been sent to your email.",
-    "error": "Error:",
-    "sign-out": "Sign out",
-    "logging-out": "Signing out…",
-    "logout-button": "Logout",
-    "logout-instruction": "Click the button to log out.",
-    "logout-title": "Hope to see you again 🤗",
-    "or": "or"
+    "status": {
+      "CANCELLED": "Cancelled",
+      "PENDING": "Pending",
+      "PURCHASED": "Purchased"
+    }
   },
   "Dashboard": {
     "hello": "Hello {userName}!",
@@ -51,22 +85,32 @@
     "passwords-no-match": "Passwords do not match.",
     "required-field": "This field is required."
   },
-  "EssentialsPage": {
-    "add-essential-button": "Add Item",
-    "add-new-essential-item": "Add new shopping list item",
-    "add-new-essential-item-description": "Add a new item to your shopping list.",
+  "Essentials": {
+    "actions": {
+      "addItem": "Add Item",
+      "save": "Save",
+      "viewAll": "See All"
+    },
+    "count": "{count, plural, =0 {No items yet.} =1 {1 item} other {# items}}",
+    "create": {
+      "description": "Add a new item to your shopping list.",
+      "title": "Add new shopping list item"
+    },
     "description": "Your regular shopping list items. These are the items you need to purchase regularly.",
-    "essentialsCount": "{count, plural, =0 {No items yet.} =1 {1 item} other {# items}}",
-    "item-name": "Item Name",
-    "no-essentials": "No shopping list items added yet.",
-    "no-result": "No results found.",
-    "pending-items": "Pending Items",
-    "price": "Price",
-    "quantity": "Quantity",
-    "save": "Save",
-    "see-all-essentials": "See All",
-    "title": "Shopping list",
-    "total-pending": "Total Pending"
+    "empty": {
+      "list": "No shopping list items added yet.",
+      "search": "No results found."
+    },
+    "fields": {
+      "itemName": "Item Name",
+      "price": "Price",
+      "quantity": "Quantity"
+    },
+    "stats": {
+      "pendingItems": "Pending Items",
+      "totalPending": "Total Pending"
+    },
+    "title": "Shopping list"
   },
   "Homepage": {
     "created-by": "Created by {creatorName}",
@@ -74,9 +118,10 @@
     "get-started-button": "Get Started!",
     "title": "Introducing the ultimate shopping app"
   },
-  "InvitePage": {
+  "Invite": {
     "actions": {
-      "generic-error": "Something went wrong",
+      "genericError": "Something went wrong",
+      "label": "Actions",
       "remove": {
         "description": "Remove this member from the team permanently?",
         "title": "Remove Member"
@@ -90,22 +135,24 @@
         "title": "Revoke Invite"
       }
     },
-    "actions-text": "Actions",
     "description": "Share access to your team's spending workspace by sending an invitation link or email.",
-    "email": "Email",
-    "invite-button": "Send Invite",
-    "invitee-role": "Invite as:",
-    "manage-invites": "Manage your team invites here.",
-    "name": "Name",
-    "pending-invites": "Pending Invites",
-    "roles": {
-      "ADMIN": "Admin",
-      "MEMBER": "Member",
-      "OWNER": "Owner"
+    "fields": {
+      "email": "Email",
+      "name": "Name",
+      "role": "Invite as:",
+      "status": "Status"
     },
-    "status": "Status",
-    "team-users": "Team {userCount, plural, =0 {Members} =1 {Member} other {Members (#)}}",
-    "team-users-description": "Members of this team.",
+    "form": {
+      "submit": "Send Invite"
+    },
+    "pendingInvites": {
+      "description": "Manage your team invites here.",
+      "title": "Pending Invites"
+    },
+    "teamMembers": {
+      "description": "Members of this team.",
+      "title": "Team {userCount, plural, =0 {Members} =1 {Member} other {Members (#)}}"
+    },
     "title": "Invite team members to align spending!"
   },
   "KoFiWidget": {
@@ -124,11 +171,11 @@
   },
   "MembersCard": {
     "description": "Manage who can view and contribute to your team's spending.",
-    "invite-members": "Invite family or colleagues to collaborate on budgets and projects.",
+    "inviteMembers": "Invite family or colleagues to collaborate on budgets and projects.",
     "manage": "Manage",
-    "members-count": "{members, plural, =0 {No members yet.} =1 {1 member} other {# members}}",
+    "memberCount": "{members, plural, =0 {No members yet.} =1 {1 member} other {# members}}",
     "title": "Team Members",
-    "view-all-members": "View all members"
+    "viewAllMembers": "View all members"
   },
   "Meta": {
     "description": "An application to manage your shopping lists.",
@@ -142,68 +189,76 @@
     "settings": "Settings"
   },
   "NewTeam": {
-    "create-button": "Create Team",
+    "createButton": "Create Team",
     "description": "Description (optional)",
-    "description-content": "Teams help you organize spending by purpose — whether it's household expenses, family projects, or business budgets. Each team gives visibility into where money goes.",
-    "description-placeholder": "e.g. Workspace for tracking household expenses and company spending.",
-    "enter-team-name": "Enter the name of your team",
+    "descriptionContent": "Teams help you organize spending by purpose — whether it's household expenses, family projects, or business budgets. Each team gives visibility into where money goes.",
+    "descriptionPlaceholder": "e.g. Workspace for tracking household expenses and company spending.",
+    "enterTeamName": "Enter the name of your team",
     "subdomain": "Subdomain",
-    "team-name": "Team Name",
-    "team-name-placeholder": "e.g. Family Home, Marketing Budget, Vacation Planning",
+    "subdomainHelp": "A subdomain is a unique web address that separates your workspace and data from other users.",
+    "teamName": "Team Name",
+    "teamNamePlaceholder": "e.g. Family Home, Marketing Budget, Vacation Planning",
     "title": "Create New Team"
   },
-  "PlannedPage": {
-    "add-new-planned-item": "Add planned",
-    "add-new-planned-item-description": "Add a new item to your planned list.",
-    "add-planned-button": "Add Item",
-    "comments": "Comments",
-    "delete-comment": "Delete",
+  "Planned": {
+    "actions": {
+      "addItem": "Add Item",
+      "deleteConfirmDescription": "Are you sure you want to delete this planned item?",
+      "deleteConfirmTitle": "Delete planned item",
+      "markAsPurchased": "Mark as Purchased",
+      "revertToPending": "Revert to Pending",
+      "save": "Save",
+      "viewAll": "See All"
+    },
+    "comments": {
+      "delete": "Delete",
+      "empty": "No comments yet.",
+      "inputPlaceholder": "Add a comment...",
+      "title": "Comments"
+    },
+    "count": "{count, plural, =0 {No items yet.} =1 {1 planned} other {# planneds}}",
+    "create": {
+      "description": "Add a new item to your planned list.",
+      "title": "Add planned"
+    },
     "description": "Your planned shopping list items.  You can send to an existing project or keep in backlog for better organization.",
-    "description-comment": "Description (optional)",
-    "description-comment-placeholder": "Add description or notes (optional)",
-    "edit-description": "You can edit the item here, don't forget to save!",
-    "item-name": "Item Name",
-    "item-name-placeholder": "e.g., 3D printer, cosmetic or cloth item",
-    "link": "Link (optional)",
-    "link-placeholder": "Enter product link (optional)",
-    "mark-as-purchased": "Mark as Purchased",
-    "no-planned": "No planned items added yet.",
-    "no-result": "No results found.",
-    "plannedCount": "{count, plural, =0 {No items yet.} =1 {1 planned} other {# planneds}}",
-    "price": "Price",
-    "price-placeholder": "Enter price",
-    "priority": "Priority",
-    "priority-options": {
-      "HIGH": "High",
-      "LOW": "Low",
-      "MEDIUM": "Medium",
-      "URGENT": "Urgent"
+    "editDescription": "You can edit the item here, don't forget to save!",
+    "empty": {
+      "list": "No planned items added yet.",
+      "search": "No results found."
     },
-    "quantity": "Quantity",
-    "quantity-placeholder": "Enter quantity",
-    "revert-to-pending": "Revert to Pending",
-    "save": "Save",
-    "save-money": "I will save Money",
-    "see-all-planned": "See All",
-    "select-priority": "Select Priority",
-    "selected": "Selected",
-    "statuses-options": {
-      "CANCELLED": "Cancelled",
-      "PENDING": "Pending",
-      "PURCHASED": "Purchased"
+    "feedback": {
+      "actionFailed": "Something went wrong.",
+      "actionSuccess": "Action completed.",
+      "selected": "Selected"
     },
-    "title": "Planned",
-    "upload-image": "Upload Image"
+    "fields": {
+      "description": "Description (optional)",
+      "descriptionPlaceholder": "Add description or notes (optional)",
+      "itemName": "Item Name",
+      "itemNamePlaceholder": "e.g., 3D printer, cosmetic or cloth item",
+      "link": "Link (optional)",
+      "linkPlaceholder": "Enter product link (optional)",
+      "price": "Price",
+      "pricePlaceholder": "Enter price",
+      "priority": "Priority",
+      "priorityPlaceholder": "Select Priority",
+      "quantity": "Quantity",
+      "quantityPlaceholder": "Enter quantity"
+    },
+    "saveMoney": "I will save Money",
+    "title": "View all project items",
+    "uploadImage": "Upload Image"
   },
-  "ProjectsPage": {
+  "Projects": {
     "add": {
       "description": "Assign from backlog or create a new planned item directly in this project.",
       "new": {
         "submit": "Create in project",
-        "upload-image": "Upload image"
+        "uploadImage": "Upload image"
       },
       "tabs": {
-        "add-new": "Add new",
+        "addNew": "Add new",
         "assign": "Assign"
       },
       "title": "Add to {projectName}"
@@ -212,10 +267,10 @@
       "cta": "Assign planned item",
       "description": "Pick a planned item without a project and drop it into this one.",
       "empty": "You have no unassigned planned items.",
-      "no-results": "No planned items found.",
-      "search-placeholder": "Search planned items...",
+      "noResults": "No planned items found.",
+      "searchPlaceholder": "Search planned items...",
       "submit": "Add to project",
-      "submit-selected": "Add \"{title}\"",
+      "submitSelected": "Add \"{title}\"",
       "title": "Add planned item to {projectName}"
     },
     "backlog": {
@@ -230,6 +285,10 @@
       "title": "New"
     },
     "description": "Group planned purchases into projects and keep the backlog moving.",
+    "edit": {
+      "delete": "Delete project",
+      "description": "Edit the selected project details."
+    },
     "empty": {
       "description": "Use a project to group planned items by goal.",
       "title": "Create your first project"
@@ -237,18 +296,18 @@
     "form": {
       "create": "Create project",
       "description": "Description",
-      "description-placeholder": "What does success look like?",
+      "descriptionPlaceholder": "What does success look like?",
       "name": "Project name",
-      "name-placeholder": "Studio setup, Pantry refresh...",
+      "namePlaceholder": "Studio setup, Pantry refresh...",
       "reset": "Reset"
     },
     "list": {
-      "backlog-count": "{count, plural, =0 {No free items} =1 {1 free item} other {# free items}}",
+      "backlogCount": "{count, plural, =0 {No free items} =1 {1 free item} other {# free items}}",
       "description": "See how each project is progressing.",
       "title": "Active projects"
     },
     "project": {
-      "add-cta": "Add",
+      "addCta": "Add",
       "badges": {
         "cancelled": "{count, plural, =0 {0 cancelled} =1 {1 cancelled} other {# cancelled}}",
         "pending": "{count, plural, =0 {0 pending} =1 {1 pending} other {# pending}}",
@@ -256,24 +315,26 @@
         "total": "{count, plural, =0 {0 items} =1 {1 item} other {# items}}"
       },
       "empty": "No planned items are linked here yet.",
-      "items-description": "Keep planned purchases attached to the goal they support.",
-      "items-title": "Add",
-      "no-description": "No description added yet.",
-      "open-planned": "All planneds",
-      "total-value": "total",
-      "view-all": "View all"
+      "itemsDescription": "Keep planned purchases attached to the goal they support.",
+      "itemsTitle": "Add",
+      "noDescription": "No description added yet.",
+      "openPlanned": "All planneds",
+      "totalValue": "total",
+      "viewAll": "View all"
     },
-    "see-all-projects": "See All",
     "summary": {
       "backlog": "{count, plural, =0 {No unassigned items} =1 {1 item in backlog} other {# items in backlog}}",
       "planned": "{count, plural, =0 {No planned items tracked} =1 {1 planned item} other {# planned items}}",
       "projects": "{count, plural, =0 {No projects yet} =1 {1 project} other {# projects}}"
     },
     "title": "Projects",
-    "toast-assigned": "Planned item assigned to {projectName}.",
-    "toast-created": "Project created.",
-    "toast-planned-created": "Planned item created in project.",
-    "toast-unassigned": "Item removed from the project."
+    "toast": {
+      "assigned": "Planned item assigned to {projectName}.",
+      "created": "Project created.",
+      "plannedCreated": "Planned item created in project.",
+      "unassigned": "Item removed from the project.",
+      "updated": "Project updated."
+    }
   },
   "Settings": {
     "account": "Account",
@@ -314,38 +375,29 @@
       "items": {
         "home": "Teams"
       },
-      "title": "Workspaces"
+      "title": "Workspaces",
+      "createTeam": "Create team",
+      "switchWorkspace": "Switch to"
     }
   },
   "Table": {
     "actions": "Actions",
     "add": "Add",
-    "clear-filters": "Clear",
+    "clearFilters": "Clear",
     "delete": "Delete",
-    "delete-item": "Delete Item",
+    "deleteItem": "Delete Item",
     "edit": "Edit",
-    "edit-item": "Edit Item",
-    "filter-by-status": "Status",
-    "mark-as-pending": "Mark as Pending",
-    "mark-as-purchased": "Mark as Purchased",
+    "editItem": "Edit Item",
+    "filterByStatus": "Status",
+    "markAsPending": "Mark as Pending",
+    "markAsPurchased": "Mark as Purchased",
     "next": "Next",
-    "no-result": "No results found.",
+    "noResult": "No results found.",
     "of": "of",
     "page": "Page",
     "previous": "Previous",
-    "priority": {
-      "HIGH": "High",
-      "LOW": "Low",
-      "MEDIUM": "Medium",
-      "URGENT": "Urgent"
-    },
     "rows": "rows",
-    "search-placeholder": "Search items...",
-    "status": {
-      "CANCELLED": "Cancelled",
-      "PENDING": "Pending",
-      "PURCHASED": "Purchased"
-    }
+    "searchPlaceholder": "Search items..."
   },
   "Teams": {
     "create-team": "Create team",
@@ -522,13 +574,6 @@
     "stepLabel": "Step {step}",
     "subtitle": "Master project-based purchasing with Kaimono",
     "title": "Complete User Guide"
-  },
-  "UserManager": {
-    "roles": {
-      "ADMIN": "Admin",
-      "MEMBER": "Member",
-      "OWNER": "Owner"
-    }
   },
   "team-layout": {
     "check-email-for-details": "Check your email for details.",

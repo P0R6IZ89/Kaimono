@@ -13,7 +13,7 @@ import CommentsDrawer from "./comment-drawer";
 import ActionsButton from "./actions-buttons";
 
 function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
-  const t = useTranslations("PlannedPage");
+  const t = useTranslations("Planned");
 
   const { status, id, comments, commentsCount } = row.original;
   const [state, setState] = useState<ActionResult>(initialState);
@@ -21,9 +21,9 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
   useEffect(() => {
     if (!state.message) return;
     if (state.ok) {
-      toast.success(state.message || t("action-success"));
+      toast.success(state.message || t("feedback.actionSuccess"));
     } else {
-      toast.error(state.message || t("action-failed"));
+      toast.error(state.message || t("feedback.actionFailed"));
     }
   }, [state, t]);
 
@@ -40,7 +40,9 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
                 const result = await completeTask(id);
                 const message =
                   result.message ??
-                  (result.ok ? t("action-success") : t("action-failed"));
+                  (result.ok
+                    ? t("feedback.actionSuccess")
+                    : t("feedback.actionFailed"));
                 setState({
                   ok: result.ok,
                   message,
@@ -49,7 +51,7 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
             }}
           >
             <Check className="text-green-700" />
-            <span>{t("mark-as-purchased")}</span>
+            <span>{t("actions.markAsPurchased")}</span>
           </Button>
         </>
       ) : (
@@ -62,13 +64,15 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
               const result = await revertTask(id);
               const message =
                 result.message ??
-                (result.ok ? t("action-success") : t("action-failed"));
+                (result.ok
+                  ? t("feedback.actionSuccess")
+                  : t("feedback.actionFailed"));
               setState({ ok: result.ok, message });
             });
           }}
         >
           <Undo className="text-muted-foreground" />
-          <span>{t("revert-to-pending")}</span>
+          <span>{t("actions.revertToPending")}</span>
         </Button>
       )}
       <CommentsDrawer

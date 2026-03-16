@@ -25,15 +25,15 @@ export default function LogoutPage() {
     <div className="flex flex-col gap-4 min-h-dvh max-w-lg m-auto justify-center items-center px-8">
       <div className="text-center">
         <h1 className="text-2xl font-semibold tracking-tight">
-          {t("logout-title")}
+          {t("logout.title")}
         </h1>
         <p className="text-muted-foreground">
-          {t("logout-instruction")}
+          {t("logout.instruction")}
         </p>
       </div>
       <div className="mt-4">
         <Button onClick={handleLogout} disabled={loading} className="min-w-sm">
-          {loading ? t("logging-out") : t("logout-button")}
+          {loading ? t("loggingOut") : t("logout.button")}
         </Button>
       </div>
     </div>

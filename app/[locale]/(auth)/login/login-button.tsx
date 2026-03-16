@@ -55,7 +55,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
       >
         <div className="flex flex-row gap-2 items-center">
           <GithubIcon className="text-background size-4" />
-          <p>{t("continue-with-github")}</p>
+          <p>{t("continueWith.github")}</p>
         </div>
       </Button>
 
@@ -66,7 +66,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
       >
         <div className="flex flex-row gap-2 items-center">
           <Google className="text-foreground size-4" />
-          <p>{t("continue-with-google")}</p>
+          <p>{t("continueWith.google")}</p>
         </div>
       </Button>
       <div className="flex flex-row gap-2 items-center ">
@@ -89,7 +89,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
           disabled={isPending}
         >
           {isPending ? <Loader2 className="animate-spin" /> : null}
-          {t("continue-with-email")}
+          {t("continueWith.email")}
         </Button>
       </form>
       {state?.error && (

@@ -1,16 +1,9 @@
 "use client";
 import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { CreatePlannedDialog } from "./dialog-create";
 import { useTranslations } from "next-intl";
+import { ResponsiveDialogDrawer } from "@/components/dialog/responsive-dialog-drawer";
 
 export function CreatePlannedDialogTrigger({
   className,
@@ -29,51 +22,32 @@ export function CreatePlannedDialogTrigger({
   children?: React.ReactNode;
   triggerRef?: React.Ref<HTMLButtonElement>;
 }) {
-  const t = useTranslations("PlannedPage");
+  const t = useTranslations("Planned");
   const [open, setOpen] = useState(false);
   const [uploadWidgetOpen, setUploadWidgetOpen] = useState(false);
+
   return (
-    <>
-      {open ? (
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 z-40 bg-black/50"
-          onClick={() => {
-            if (!uploadWidgetOpen) setOpen(false);
-          }}
-        />
-      ) : null}
-      <Dialog open={open} onOpenChange={setOpen} modal={false}>
-        <DialogTrigger asChild>
-          <Button
-            ref={triggerRef}
-            variant={buttonVariant}
-            className={`col-auto ${className || ""}`}
-          >
-            {children ? children : t("add-new-planned-item")}
-          </Button>
-        </DialogTrigger>
-        <DialogContent
-          className="sm:max-w-106.25"
-          onInteractOutside={(e) => {
-            if (uploadWidgetOpen) e.preventDefault();
-          }}
-          onPointerDownOutside={(e) => {
-            if (uploadWidgetOpen) e.preventDefault();
-          }}
-          onFocusOutside={(e) => {
-            if (uploadWidgetOpen) e.preventDefault();
-          }}
+    <ResponsiveDialogDrawer
+      open={open}
+      onOpenChange={setOpen}
+      title={t("create.title")}
+      description={t("create.description")}
+      preventClose={uploadWidgetOpen}
+      contentClassName="sm:max-w-106.25"
+      trigger={
+        <Button
+          ref={triggerRef}
+          variant={buttonVariant}
+          className={`col-auto ${className || ""}`}
         >
-          <DialogHeader>
-            <DialogTitle>{t("add-new-planned-item")}</DialogTitle>
-            <DialogDescription>
-              {t("add-new-planned-item-description")}
-            </DialogDescription>
-          </DialogHeader>
-          <CreatePlannedDialog onUploadWidgetOpenChange={setUploadWidgetOpen} />
-        </DialogContent>
-      </Dialog>
-    </>
+          {children ? children : t("create.title")}
+        </Button>
+      }
+    >
+      <CreatePlannedDialog
+        onCompleted={() => setOpen(false)}
+        onUploadWidgetOpenChange={setUploadWidgetOpen}
+      />
+    </ResponsiveDialogDrawer>
   );
 }

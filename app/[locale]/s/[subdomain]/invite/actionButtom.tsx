@@ -52,7 +52,7 @@ const makeRevokeAction = (
         toast.success(result.message);
       }
     } catch {
-      toast.error(t("actions.generic-error"));
+      toast.error(t("actions.genericError"));
     }
   },
 });
@@ -76,7 +76,7 @@ const makeResendAction = (
         toast.success(result.message);
       }
     } catch {
-      toast.error(t("actions.generic-error"));
+      toast.error(t("actions.genericError"));
     }
   },
 });
@@ -101,7 +101,7 @@ const makeRemoveUserAction = (
         toast.success(result.message);
       }
     } catch {
-      toast.error(t("actions.generic-error"));
+      toast.error(t("actions.genericError"));
     }
   },
 });
@@ -134,7 +134,7 @@ export default function ActionsButton({
   invitationId: string;
   subdomain: string;
 }) {
-  const t = useTranslations("InvitePage");
+  const t = useTranslations("Invite");
 
   const rawActions = useMemo(
     () => ACTIONS_BY_STATUS(t, status, invitationId, subdomain),
@@ -171,7 +171,7 @@ export default function ActionsButton({
         <Ellipsis size={16} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>{t("actions-text")}</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("actions.label")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {actions.map((cfg) => (
           <ConfirmMenuItem

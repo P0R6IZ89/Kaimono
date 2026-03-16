@@ -1,30 +1,16 @@
 import React from "react";
 import { getEssentialsBySubdomain } from "@/actions/essentialsActions";
 import { requireSession } from "@/actions/appActions";
-import { getTranslations } from "next-intl/server";
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemTitle,
-} from "@/components/ui/item";
 import { ChatField } from "./chat-field";
 import { AddItem } from "./add-item";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { ChevronDown } from "lucide-react";
 
 interface EssentialsProps {
   params: Promise<{ subdomain: string; locale: string }>;
 }
 
 export default async function Essentials({ params }: EssentialsProps) {
-  const { subdomain, locale } = await params;
+  const { subdomain } = await params;
   const session = await requireSession();
-  const t = await getTranslations({ locale, namespace: "EssentialsPage" });
   const essentials = await getEssentialsBySubdomain(subdomain);
 
   return (
