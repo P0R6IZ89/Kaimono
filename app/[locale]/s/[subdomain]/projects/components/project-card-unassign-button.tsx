@@ -34,7 +34,7 @@ export function ProjectCardUnassignButton({ plannedId, subdomain }: Props) {
   }, [router, state, t]);
 
   return (
-    <form action={formAction}>
+    <form action={formAction} className="z-30">
       <input type="hidden" name="plannedId" value={plannedId} />
       <input type="hidden" name="subdomain" value={subdomain} />
       <Button
