@@ -100,7 +100,6 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
           <div className="flex w-full justify-between gap-2">
             <CardTitle className="flex items-center gap-2 text-lg font-black tracking-tighter capitalize">
               {project.name}
-              {/* <ProjectEditDialog project={project} /> */}
             </CardTitle>
             <div className="flex justify-center gap-1">
               <ProjectEditDialog project={project} />
@@ -232,7 +231,11 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
             </div>
 
             {isMobile ? (
-              <Drawer open={openDetails} onOpenChange={setOpenDetails}>
+              <Drawer
+                open={openDetails}
+                onOpenChange={setOpenDetails}
+                modal={false}
+              >
                 <DrawerTrigger asChild>{viewAllTrigger}</DrawerTrigger>
                 <DrawerContent className="md:w-2xl mx-auto pb-6">
                   <div className="w-full mx-auto max-h-[80vh] overflow-y-auto">
@@ -254,7 +257,11 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
                 </DrawerContent>
               </Drawer>
             ) : (
-              <Dialog open={openDetails} onOpenChange={setOpenDetails}>
+              <Dialog
+                open={openDetails}
+                onOpenChange={setOpenDetails}
+                modal={false}
+              >
                 <DialogTrigger asChild>{viewAllTrigger}</DialogTrigger>
                 <DialogContent className="sm:max-w-3xl max-h-[85vh] overflow-y-auto">
                   <DialogHeader>
