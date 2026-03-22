@@ -41,6 +41,8 @@ model User {
   email           String           @unique @db.Citext
   name            String?
   image           String?
+  isBetaTester    Boolean          @default(false)
+  isProUser       Boolean          @default(false)
   emailVerified   DateTime?
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt

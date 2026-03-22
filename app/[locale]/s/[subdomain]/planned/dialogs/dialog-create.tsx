@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { type UseFormReturn, useForm } from "react-hook-form";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import { toast } from "sonner";
 import { AlertCircle, Loader2, Upload } from "lucide-react";
@@ -43,9 +43,24 @@ type PlannedCreateFormProps = {
   className?: string;
   submitButtonClassName?: string;
   submitLabel?: string;
+  form?: UseFormReturn<PlannedCreateFormValues>;
 };
 
-const getDefaultValues = (subdomain: string) => ({
+export type PlannedCreateFormValues = {
+  title: string;
+  price: string;
+  quantity: string;
+  status: "PENDING";
+  priority: "" | "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+  image: string;
+  productUrl: string;
+  description: string;
+  subdomain: string;
+};
+
+export const getDefaultValues = (
+  subdomain: string,
+): PlannedCreateFormValues => ({
   title: "",
   price: "",
   quantity: "",
@@ -66,6 +81,7 @@ export function PlannedCreateForm({
   className,
   submitButtonClassName,
   submitLabel,
+  form: externalForm,
 }: PlannedCreateFormProps) {
   const t = useTranslations("Planned");
   const tCommon = useTranslations("Common");
@@ -73,9 +89,10 @@ export function PlannedCreateForm({
   const router = useRouter();
   const isProjectMode = mode === "project";
 
-  const form = useForm({
+  const internalForm = useForm<PlannedCreateFormValues>({
     defaultValues: getDefaultValues(subdomain),
   });
+  const form = externalForm ?? internalForm;
 
   const [uploadedInfo, setUploadedInfo] = useState<
     string | CloudinaryUploadWidgetInfo | undefined
@@ -93,7 +110,7 @@ export function PlannedCreateForm({
   useEffect(() => {
     form.reset(getDefaultValues(subdomain));
     setUploadedInfo(undefined);
-  }, [form, subdomain]);
+  }, [form, externalForm, subdomain]);
 
   useEffect(() => {
     if (!state.message || handledStateRef.current === state) return;

@@ -2,7 +2,11 @@
 
 import { attachPlannedToProjectAction } from "@/actions/projectActions";
 import { PlannedBacklogItem } from "@/app/[locale]/types/projects";
-import { PlannedCreateForm } from "@/app/[locale]/s/[subdomain]/planned/dialogs/dialog-create";
+import {
+  getDefaultValues,
+  PlannedCreateForm,
+  type PlannedCreateFormValues,
+} from "@/app/[locale]/s/[subdomain]/planned/dialogs/dialog-create";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +25,9 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { AutoCreateForm } from "../../planned/dialogs/dialog-auto-create";
 
 type Props = {
   projectId: string;
@@ -43,6 +49,9 @@ export function ProjectCardAddTabsContent({
   const t = useTranslations("Projects");
   const tCommon = useTranslations("Common");
   const router = useRouter();
+  const plannedForm = useForm<PlannedCreateFormValues>({
+    defaultValues: getDefaultValues(subdomain),
+  });
 
   const [addTab, setAddTab] = useState<"assign" | "add-new">("add-new");
   const [selectedId, setSelectedId] = useState("");
@@ -73,6 +82,10 @@ export function ProjectCardAddTabsContent({
       toast.error(assignState.message);
     }
   }, [assignState, onCompleted, projectName, router, t]);
+
+  useEffect(() => {
+    plannedForm.reset(getDefaultValues(subdomain));
+  }, [plannedForm, subdomain]);
 
   return (
     <Tabs
@@ -153,8 +166,38 @@ export function ProjectCardAddTabsContent({
         )}
       </TabsContent>
 
-      <TabsContent value="add-new" className="mt-4">
+      <TabsContent value="add-new" className="mt-4 space-y-2">
+        <AutoCreateForm
+          onExtracted={({ url, product }) => {
+            plannedForm.setValue("productUrl", url, {
+              shouldDirty: true,
+              shouldTouch: true,
+            });
+
+            if (product.name) {
+              plannedForm.setValue("title", product.name, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
+            }
+
+            if (product.description) {
+              plannedForm.setValue("description", product.description, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
+            }
+
+            if (product.price) {
+              plannedForm.setValue("price", product.price, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
+            }
+          }}
+        />
         <PlannedCreateForm
+          form={plannedForm}
           mode="project"
           projectId={projectId}
           subdomain={subdomain}

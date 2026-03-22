@@ -1,6 +1,39 @@
 import { auth } from "@/auth";
 import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
+import generatedPrisma from "@/lib/generated-prisma";
+
+export type CurrentUserCapabilities = {
+  id: string;
+  isBetaTester: boolean;
+  isProUser: boolean;
+  canUseAiProductExtraction: boolean;
+};
+
+export async function getCurrentUserCapabilities(): Promise<CurrentUserCapabilities | null> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return null;
+  }
+
+  const user = await generatedPrisma.user.findUnique({
+    where: { id: session.user.id },
+    select: {
+      id: true,
+      isBetaTester: true,
+      isProUser: true,
+    },
+  });
+
+  if (!user) {
+    return null;
+  }
+
+  return {
+    ...user,
+    canUseAiProductExtraction: user.isBetaTester && user.isProUser,
+  };
+}
 
 export async function getAllUserOfApp(subdomain: string) {
   const session = await auth();

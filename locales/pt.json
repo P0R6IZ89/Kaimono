@@ -210,6 +210,21 @@
       "save": "Salvar",
       "viewAll": "Ver tudo"
     },
+    "ai": {
+      "blockedUrl": "Esta URL de produto não é permitida.",
+      "description": "Cole a URL do produto para preencher o formulário com os dados extraídos.",
+      "extract": "Extrair",
+      "extractComplete": "Os detalhes do produto foram adicionados ao formulário.",
+      "extractFailed": "Não foi possível extrair os detalhes do produto.",
+      "invalidUrl": "Digite uma URL de produto válida.",
+      "label": "Preencher com IA",
+      "loginRequired": "Faça login para usar a extração com IA.",
+      "loading": "Extraindo...",
+      "partialExtract": "Alguns detalhes foram encontrados. Revise o formulário antes de salvar.",
+      "placeholder": "https://example.com/produto",
+      "rateLimited": "Você atingiu o limite por hora da extração com IA. Aguarde um pouco e tente novamente.",
+      "proBetaOnly": "Este recurso está disponível apenas para usuários Pro beta."
+    },
     "comments": {
       "delete": "Excluir",
       "empty": "Ainda não há comentários.",

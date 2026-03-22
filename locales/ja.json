@@ -210,6 +210,21 @@
       "save": "保存",
       "viewAll": "すべて表示"
     },
+    "ai": {
+      "blockedUrl": "この商品 URL は使用できません。",
+      "description": "商品 URL を貼り付けると、抽出した情報でフォームを入力します。",
+      "extract": "抽出",
+      "extractComplete": "商品情報をフォームに反映しました。",
+      "extractFailed": "商品情報を抽出できませんでした。",
+      "invalidUrl": "有効な商品 URL を入力してください。",
+      "label": "AIで入力",
+      "loginRequired": "AI 抽出を使うにはログインが必要です。",
+      "loading": "抽出中...",
+      "partialExtract": "一部の情報のみ取得できました。保存前にフォームを確認してください。",
+      "placeholder": "https://example.com/product",
+      "rateLimited": "1時間あたりの AI 抽出上限に達しました。しばらく待ってから再試行してください。",
+      "proBetaOnly": "この機能は Pro ベータユーザーのみ利用できます。"
+    },
     "comments": {
       "delete": "削除",
       "empty": "まだコメントはありません。",
