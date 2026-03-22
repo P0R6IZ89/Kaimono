@@ -210,6 +210,21 @@
       "save": "Save",
       "viewAll": "See All"
     },
+    "ai": {
+      "blockedUrl": "This product URL is not allowed.",
+      "description": "Paste a product URL to fill the form with extracted details.",
+      "extract": "Extract",
+      "extractComplete": "Product details added to the form.",
+      "extractFailed": "Failed to extract product details.",
+      "invalidUrl": "Enter a valid product URL.",
+      "label": "Fill with AI",
+      "loginRequired": "Log in to use AI extraction.",
+      "loading": "Extracting...",
+      "partialExtract": "Some details were found. Review the form before saving.",
+      "placeholder": "https://example.com/product",
+      "rateLimited": "You reached the hourly AI extraction limit. Please wait and try again.",
+      "proBetaOnly": "This feature is available only to Pro beta users."
+    },
     "comments": {
       "delete": "Delete",
       "empty": "No comments yet.",

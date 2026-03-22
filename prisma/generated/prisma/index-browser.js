@@ -126,6 +126,8 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   name: 'name',
   image: 'image',
+  isBetaTester: 'isBetaTester',
+  isProUser: 'isProUser',
   emailVerified: 'emailVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -241,7 +243,8 @@ exports.Prisma.PlannedScalarFieldEnum = {
   updatedAt: 'updatedAt',
   appId: 'appId',
   creatorId: 'creatorId',
-  projectId: 'projectId'
+  projectId: 'projectId',
+  projectAppId: 'projectAppId'
 };
 
 exports.Prisma.PlannedCommentScalarFieldEnum = {
