@@ -276,7 +276,6 @@ export function EditPlannedDialog({
                   </FormItem>
                 )}
               />
-              <Input type="hidden" name="image" defaultValue={image || ""} />
               <Input type="hidden" name="id" defaultValue={id} />
               <Input type="hidden" name="subdomain" defaultValue={subdomain} />
               <Input type="hidden" name="status" defaultValue={status} />

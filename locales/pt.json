@@ -416,13 +416,13 @@
   },
   "Teams": {
     "create-team": "Criar equipe",
-    "description": "Workspaces colaborativos para famílias e organizações. Torne visíveis gastos difusos e crie projetos para uma melhor gestão financeira.",
+    "description": "Workspaces colaborativos para famílias e organizações. ",
     "new-team-card": {
       "description": "Crie uma nova equipe para colaborar com outras pessoas",
       "title": "Criar uma nova equipe"
     },
     "start-adding-a-new-team": "Comece a acompanhar seus gastos em conjunto!",
-    "title": "Equipes"
+    "title": " Escolha um Time"
   },
   "UpdateApp": {
     "description": "Adicionado suporte para português e japonês.",

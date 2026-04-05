@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PLANNED_IMAGE_DEFAULT } from "@/util/planned-defaults";
 
 export const essentialsSchema = z.object({
   title: z
@@ -48,7 +49,10 @@ export const plannedSchema = z.object({
     z.string().optional(),
   ),
   subdomain: z.string().min(1, "Verifique seu link"),
-  image: z.string(),
+  image: z.preprocess(
+    (v) => (v === "" || v == null ? PLANNED_IMAGE_DEFAULT : v),
+    z.string().url(),
+  ),
 });
 
 const SUBDOMAIN_REGEX = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
@@ -130,8 +134,8 @@ export const projectPlannedCreateSchema = z.object({
     message: "Escolha a prioridade copatível",
   }),
   image: z.preprocess(
-    (v) => (v === "" ? undefined : v),
-    z.string().url().optional(),
+    (v) => (v === "" || v == null ? PLANNED_IMAGE_DEFAULT : v),
+    z.string().url(),
   ),
   productUrl: z.preprocess(
     (v) => (v === "" ? undefined : v),

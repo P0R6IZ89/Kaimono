@@ -94,7 +94,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [isExtracting, setIsExtracting] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const getErrorMessage = (data: ExtractProductErrorResponse) => {
     switch (data.code) {

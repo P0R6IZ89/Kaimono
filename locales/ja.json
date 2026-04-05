@@ -416,13 +416,13 @@
   },
   "Teams": {
     "create-team": "チームを作成",
-    "description": "家族や組織向けの共同ワークスペース。見えにくい支出を可視化し、より良い資金管理のためのプロジェクトを作成できます。",
+    "description": "家族や組織向けの共同ワークスペース。",
     "new-team-card": {
       "description": "他のメンバーと協力するための新しいチームを作成",
       "title": "新しいチームを作成"
     },
     "start-adding-a-new-team": "みんなで支出管理を始めましょう！",
-    "title": "チーム"
+    "title": "チームを選択"
   },
   "UpdateApp": {
     "description": "ポルトガル語と日本語に対応しました。",

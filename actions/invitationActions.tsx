@@ -11,10 +11,41 @@ import { revalidatePath } from "next/cache";
 import { requireMembership, requireSession } from "./appActions";
 import { redirect as NextRedirect } from "next/navigation";
 import type { ActionResult } from "@/util/initial-action-return";
+import type { Role } from "@prisma/client";
+
+function canManageInvites(role: Role) {
+  return role === "OWNER" || role === "ADMIN";
+}
+
+async function requireInviteManagerBySubdomain(subdomain: string) {
+  const membership = await requireMembership(subdomain);
+
+  if (!canManageInvites(membership.role)) {
+    throw new Error("You do not have permission to manage invitations.");
+  }
+
+  return membership;
+}
+
+async function getInviteManagerMembership(appId: string, userId: string) {
+  const membership = await prisma.membership.findUnique({
+    where: { appId_userId: { appId, userId } },
+    select: { role: true },
+  });
+
+  if (!membership || !canManageInvites(membership.role)) {
+    return null;
+  }
+
+  return membership;
+}
+
+function normalizeEmail(email: string | null | undefined) {
+  return email?.trim().toLowerCase() ?? "";
+}
 
 export async function getInvitedUsersActions(subdomain: string) {
-  await requireSession();
-  const { appId } = await requireMembership(subdomain);
+  const { appId } = await requireInviteManagerBySubdomain(subdomain);
   const invitedUsers = await prisma.invitation.findMany({
     where: { appId },
     orderBy: { createdAt: "desc" },
@@ -39,10 +70,7 @@ export async function createInviteAction(
   }
 
   const me = session.user.id;
-  const membership = await prisma.membership.findUnique({
-    where: { appId_userId: { appId: parse.data.appId, userId: me } },
-  });
-  if (!membership || membership.role === "MEMBER") {
+  if (!(await getInviteManagerMembership(parse.data.appId, me))) {
     return { ok: false, message: "Você não tem permissão para convidar usuários." };
   }
 
@@ -115,6 +143,12 @@ export async function acceptInviteAction(token: string) {
     return { error: "Convite inválido ou expirado." };
   }
 
+  if (normalizeEmail(session.user.email) !== normalizeEmail(invite.email)) {
+    return {
+      error: "Este convite pertence a outro e-mail. Entre com o e-mail convidado para continuar.",
+    };
+  }
+
   await prisma.$transaction([
     prisma.membership.upsert({
       where: {
@@ -162,15 +196,7 @@ export async function resendInviteAction(
     return { ok: false, message: "Invitation not found" };
   }
 
-  const membership = await prisma.membership.findUnique({
-    where: { appId_userId: { appId: invite.appId, userId: me } },
-  });
-  if (
-    !membership ||
-    (membership.role !== "OWNER" &&
-      membership.role !== "ADMIN" &&
-      invite.inviterId !== me)
-  ) {
+  if (!(await getInviteManagerMembership(invite.appId, me))) {
     return {
       ok: false,
       message: "You don’t have permission to resend this invitation.",
@@ -218,15 +244,7 @@ export async function revokeInviteAction(
     return { ok: false, message: "Convite não encontrado." };
   }
 
-  const membership = await prisma.membership.findUnique({
-    where: { appId_userId: { appId: invite.appId, userId: me } },
-  });
-  if (
-    !membership ||
-    (membership.role !== "OWNER" &&
-      membership.role !== "ADMIN" &&
-      invite.inviterId !== me)
-  ) {
+  if (!(await getInviteManagerMembership(invite.appId, me))) {
     return {
       ok: false,
       message: "You do not have permission to revoke this invitation.",

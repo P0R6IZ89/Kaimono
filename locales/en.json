@@ -182,7 +182,7 @@
     "title": "Kaimono Beta ver."
   },
   "MobileNav": {
-    "essentials": "Essentials",
+    "essentials": "Shopping List",
     "home": "Home",
     "planned": "Planned",
     "projects": "Projects",
@@ -417,13 +417,13 @@
   },
   "Teams": {
     "create-team": "Create team",
-    "description": "Collaborative workspaces for families and organizations. Make blurred spending visible and create projects for better financial management.",
+    "description": "Collaborative workspaces for families and organizations.",
     "new-team-card": {
       "description": "Create a new team to collaborate with others",
       "title": "Create a new team"
     },
     "start-adding-a-new-team": "Start tracking your spending together!",
-    "title": "Teams"
+    "title": "Select a Team"
   },
   "UpdateApp": {
     "description": "Added Portuguese and Japanese language support.",

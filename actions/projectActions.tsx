@@ -1,6 +1,7 @@
 "use server";
 
 import { requireMembership, requireSession } from "./appActions";
+import type { ProjectWithFirstPlannedImage } from "@/app/[locale]/types/projects";
 import prisma from "@/lib/prisma";
 import {
   projectLinkSchema,
@@ -10,6 +11,9 @@ import {
 import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "@/util/error-handler";
 import { ActionResult } from "@/util/initial-action-return";
+
+const PLANNED_PLACEHOLDER_IMAGE =
+  "https://res.cloudinary.com/dsttcre2h/image/upload/v1751870559/placeholder_dtzhrr.png";
 
 export async function createProjectAction(
   _prevState: ActionResult,
@@ -65,7 +69,7 @@ export async function attachPlannedToProjectAction(
   const [project, planned] = await Promise.all([
     prisma.project.findFirst({
       where: { id: parsed.data.projectId, appId },
-      select: { id: true },
+      select: { id: true, appId: true },
     }),
     prisma.planned.findFirst({
       where: { id: parsed.data.plannedId, appId },
@@ -79,7 +83,10 @@ export async function attachPlannedToProjectAction(
   try {
     await prisma.planned.update({
       where: { id: parsed.data.plannedId },
-      data: { projectId: parsed.data.projectId },
+      data: {
+        projectId: parsed.data.projectId,
+        projectAppId: project.appId,
+      },
     });
     revalidatePath(`/s/${parsed.data.subdomain}/projects`);
     revalidatePath(`/s/${parsed.data.subdomain}/planned`);
@@ -115,7 +122,7 @@ export async function unassignPlannedFromProjectAction(
   try {
     await prisma.planned.update({
       where: { id: parsed.data.plannedId },
-      data: { projectId: null },
+      data: { projectId: null, projectAppId: null },
     });
     revalidatePath(`/s/${parsed.data.subdomain}/projects`);
     revalidatePath(`/s/${parsed.data.subdomain}/planned`);
@@ -179,6 +186,44 @@ export async function getProjectsWithPlanned(subdomain: string) {
       counts,
     };
   });
+}
+
+export async function getProjectWithFirstPlanned(
+  subdomain: string,
+): Promise<ProjectWithFirstPlannedImage[]> {
+  const { appId } = await requireMembership(subdomain);
+
+  const projects = await prisma.project.findMany({
+    where: { appId },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      createdAt: true,
+      updatedAt: true,
+      plannedItems: {
+        orderBy: { createdAt: "asc" },
+        where: {
+          image: {
+            notIn: ["", PLANNED_PLACEHOLDER_IMAGE],
+          },
+        },
+        take: 1,
+        select: {
+          image: true,
+        },
+      },
+    },
+  });
+
+  return projects.map((project) => ({
+    id: project.id,
+    name: project.name,
+    description: project.description,
+    createdAt: project.createdAt,
+    updatedAt: project.updatedAt,
+    image: project.plannedItems[0]?.image ?? null,
+  }));
 }
 
 export async function getUnassignedPlanned(subdomain: string) {
@@ -269,7 +314,7 @@ export async function deleteProjectAction(
     await prisma.$transaction([
       prisma.planned.updateMany({
         where: { projectId: projectId },
-        data: { projectId: null },
+        data: { projectId: null, projectAppId: null },
       }),
       prisma.project.delete({
         where: { id: projectId },
@@ -331,7 +376,7 @@ export async function createPlannedInProjectAction(
 
   const project = await prisma.project.findFirst({
     where: { id: projectId, appId },
-    select: { id: true },
+    select: { id: true, appId: true },
   });
 
   if (!project) {
@@ -352,6 +397,7 @@ export async function createPlannedInProjectAction(
         appId,
         creatorId: session.user.id,
         projectId,
+        projectAppId: project.appId,
       },
     });
 
