@@ -13,6 +13,7 @@ import { getTranslations } from "next-intl/server";
 import React from "react";
 import { Notification } from "./components/notification";
 import { SettingIcon } from "./components/settingIcon";
+import { UsersInfo } from "./components/UsersInfo";
 
 export default async function AppLayout({
   params,
@@ -22,7 +23,7 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   const { subdomain, locale } = await params;
-  await requireSession();
+  const session = await requireSession();
   const app = await getCurrentAppAction(subdomain);
   return (
     <SubdomainContextProvider>
@@ -42,10 +43,11 @@ export default async function AppLayout({
               <Separator orientation="vertical" />
               <h1 className="ml-2 text-base ">{app.name}</h1>
             </div>
+            <UsersInfo />
             <Notification />
             <SettingIcon />
           </header>
-          <MobileBottomNav />
+          <MobileBottomNav user={session.user} />
           <div className="pb-[calc(env(safe-area-inset-bottom)+96px)] md:pb-0">
             {children}
           </div>

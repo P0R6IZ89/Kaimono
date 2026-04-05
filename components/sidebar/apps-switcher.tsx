@@ -50,7 +50,7 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
                     <AvatarImage src={currentApp.image} alt={currentApp.name} />
                   ) : (
                     <AvatarFallback className="bg-muted border-0 text-foreground rounded-full">
-                      {currentApp.name[0].toUpperCase()}
+                      {currentApp.name[0]?.toUpperCase()}
                     </AvatarFallback>
                   )}
                 </Avatar>
@@ -93,7 +93,7 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
                           </AvatarFallback>
                         </Avatar>
                       </div>
-                      <p className="capitalize">{app.subdomain}</p>
+                      <p className="capitalize">{app.name}</p>
                     </Link>
                   </DropdownMenuItem>
                 ) : null}

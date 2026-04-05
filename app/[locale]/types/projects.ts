@@ -23,3 +23,12 @@ export type ProjectWithPlanned = {
   };
   plannedItems: PlannedBacklogItem[];
 };
+
+export type ProjectWithFirstPlannedImage = {
+  id: string;
+  name: string;
+  description?: string | null;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+  image: string | null;
+};

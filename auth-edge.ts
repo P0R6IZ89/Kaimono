@@ -4,12 +4,15 @@ import { rootDomainHost } from "@/util/utils";
 
 const isProd = process.env.NODE_ENV === "production";
 
-const cookieDomain = isProd
-  ? rootDomainHost
-    ? `.${rootDomainHost}`
-    : process.env.VERCEL_URL
-      ? `.${process.env.VERCEL_URL}`
-      : undefined
+const resolvedCookieDomain = (
+  rootDomainHost || process.env.VERCEL_URL?.split(":")[0]
+)?.replace(/^\./, "");
+const shouldShareCookieAcrossSubdomains =
+  !!resolvedCookieDomain &&
+  resolvedCookieDomain !== "localhost" &&
+  resolvedCookieDomain !== "127.0.0.1";
+const cookieDomain = shouldShareCookieAcrossSubdomains
+  ? resolvedCookieDomain
   : undefined;
 
 export const { auth } = NextAuth({
