@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { HomeTopBarImage } from "./HomeTopBarImage";
 
@@ -11,15 +8,17 @@ type HomeTopBarItem = {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>> | null;
 }[];
 
-export function HomeTopBar({ projects }: { projects: HomeTopBarItem }) {
-  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
-
-  useEffect(() => {
-    setActiveProjectId(projects[0]?.id ?? null);
-  }, [projects]);
-
+export function HomeTopBar({
+  projects,
+  activeProjectId,
+  setActiveProjectId,
+}: {
+  projects: HomeTopBarItem;
+  activeProjectId: string | null;
+  setActiveProjectId: (id: string) => void;
+}) {
   return (
-    <div className="flex flex-row gap-2">
+    <div className="flex flex-row gap-2 overflow-x-auto">
       {projects.map((project) => (
         <button
           key={project.id}

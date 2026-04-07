@@ -1,16 +1,19 @@
 import React from "react";
-// import { getTranslations } from "next-intl/server";
-import { HomeTopBar } from "./components/HomeTopBar";
-import { getProjectWithFirstPlanned } from "@/actions/projectActions";
+import {
+  getInitialsProjectsAndPlanned,
+  getProjectWithFirstPlanned,
+} from "@/actions/projectActions";
+import { HomeContent } from "./components/HomeContent";
 
 export default async function Essentials({
   params,
 }: {
   params: Promise<{ subdomain: string; locale: string }>;
 }) {
-  const { subdomain, locale } = await params;
+  const { subdomain } = await params;
   // const t = await getTranslations({ locale, namespace: "Dashboard" });
   const projects = await getProjectWithFirstPlanned(subdomain);
+  const allProject = await getInitialsProjectsAndPlanned(subdomain);
 
   const Home = [
     {
@@ -23,8 +26,8 @@ export default async function Essentials({
   const navItems = [...Home, ...projects];
 
   return (
-    <div className="max-w-3xl flex flex-col overflow-x-auto mb-24 md:mb-0 p-4">
-      <HomeTopBar projects={navItems} />
+    <div className="flex flex-col mb-24 md:mb-0 p-4">
+      <HomeContent projects={navItems} allProjects={allProject} />
     </div>
   );
 }
