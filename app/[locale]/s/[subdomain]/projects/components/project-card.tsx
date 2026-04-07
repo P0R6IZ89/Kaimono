@@ -13,28 +13,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { formatPriceYen } from "@/util/formatPriceYen";
 import { ChevronDown, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { ProjectCardAddTabsContent } from "./project-card-add-tabs-content";
+import { type ComponentProps, type ReactNode, useState } from "react";
+import { ProjectCardAddContent } from "./project-card-add-content";
 import { ProjectCardDetailsContent } from "./project-card-details-content";
+import { ProjectCardPanel } from "./project-card-panel";
 import { ProjectEditDialog } from "./project-edit-dialog";
 
 type Props = {
@@ -43,42 +28,185 @@ type Props = {
   subdomain: string;
 };
 
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat(undefined, {
-    style: "currency",
-    currency: "JPY",
-    maximumFractionDigits: 0,
-  }).format(price ?? 0);
+type BadgeVariant = ComponentProps<typeof Badge>["variant"];
+type ProjectTranslations = ReturnType<typeof useTranslations>;
+type ProjectStatusBadge = {
+  key: string;
+  label: string;
+  variant?: BadgeVariant;
+  className?: string;
+};
+
+function getProjectAmounts(plannedItems: PlannedBacklogItem[]) {
+  return plannedItems.reduce(
+    (amounts, item) => {
+      const itemTotal = (item.price ?? 0) * (item.quantity ?? 1);
+
+      amounts.totalPlannedAmount += itemTotal;
+
+      if (item.status === "PENDING") {
+        amounts.totalPendingAmount += itemTotal;
+      }
+
+      return amounts;
+    },
+    {
+      totalPlannedAmount: 0,
+      totalPendingAmount: 0,
+    },
+  );
+}
+
+function getProjectStatusBadges(
+  project: ProjectWithPlanned,
+  t: ProjectTranslations,
+): ProjectStatusBadge[] {
+  const badges: ProjectStatusBadge[] = [
+    {
+      key: "total",
+      label: t("project.badges.total", { count: project.counts.total }),
+      variant: "secondary",
+    },
+    {
+      key: "pending",
+      label: t("project.badges.pending", { count: project.counts.pending }),
+      className: "bg-amber-100 text-amber-800 hover:bg-amber-100",
+    },
+    {
+      key: "purchased",
+      label: t("project.badges.purchased", {
+        count: project.counts.purchased,
+      }),
+      className: "bg-emerald-100 text-emerald-800 hover:bg-emerald-100",
+    },
+    {
+      key: "cancelled",
+      label: t("project.badges.cancelled", {
+        count: project.counts.cancelled,
+      }),
+      className: "bg-rose-100 text-rose-800 hover:bg-rose-100",
+    },
+  ];
+
+  return badges.filter((badge) => {
+    if (badge.key === "total") return true;
+    return project.counts[badge.key as keyof typeof project.counts] > 0;
+  });
+}
+
+function ProjectCardBackdrop({
+  show,
+  onClick,
+}: {
+  show: boolean;
+  onClick: () => void;
+}) {
+  if (!show) return null;
+
+  return (
+    <div
+      aria-hidden="true"
+      className="fixed inset-0 z-40 bg-black/50"
+      onClick={onClick}
+    />
+  );
+}
+
+function ProjectCardHeader({
+  project,
+  statusBadges,
+  actions,
+}: {
+  project: ProjectWithPlanned;
+  statusBadges: ProjectStatusBadge[];
+  actions: ReactNode;
+}) {
+  return (
+    <CardHeader className="flex flex-col gap-3">
+      <div className="flex w-full justify-between gap-2">
+        <CardTitle className="flex items-center gap-2 text-lg font-black tracking-tighter capitalize">
+          {project.name}
+        </CardTitle>
+        <div className="flex justify-center gap-1">{actions}</div>
+      </div>
+
+      <div className="space-y-2">
+        <div className="flex flex-wrap gap-2">
+          {statusBadges.map((badge) => (
+            <Badge
+              key={badge.key}
+              variant={badge.variant}
+              className={badge.className}
+            >
+              {badge.label}
+            </Badge>
+          ))}
+        </div>
+
+        {project.description ? (
+          <CardDescription>{project.description}</CardDescription>
+        ) : null}
+      </div>
+    </CardHeader>
+  );
+}
+
+function ProjectCardSummary({
+  totalPendingAmount,
+  totalPlannedAmount,
+  detailsTrigger,
+  t,
+}: {
+  totalPendingAmount: number;
+  totalPlannedAmount: number;
+  detailsTrigger: ReactNode;
+  t: ProjectTranslations;
+}) {
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-row justify-between items-baseline">
+        <div className="flex items-baseline gap-1">
+          <span className="text-2xl font-semibold">
+            {formatPriceYen(totalPendingAmount)}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {t("project.totalPendingValue")}
+          </span>
+        </div>
+        <div className="flex items-baseline gap-1">
+          <span className="text-xs text-muted-foreground">
+            {formatPriceYen(totalPlannedAmount)}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {t("project.totalValue")}
+          </span>
+        </div>
+      </div>
+
+      {detailsTrigger}
+    </div>
+  );
+}
 
 export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   const t = useTranslations("Projects");
-  const isMobile = useIsMobile();
 
-  const [openDetails, setOpenDetails] = useState(false);
-  const [openAdd, setOpenAdd] = useState(false);
-  const [uploadWidgetOpen, setUploadWidgetOpen] = useState(false);
+  const [isDetailsPanelOpen, setIsDetailsPanelOpen] = useState(false);
+  const [isAddPanelOpen, setIsAddPanelOpen] = useState(false);
+  const [isUploadWidgetOpen, setIsUploadWidgetOpen] = useState(false);
 
-  const totalPlannedAmount = project.plannedItems.reduce(
-    (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
-    0,
+  const { totalPendingAmount, totalPlannedAmount } = getProjectAmounts(
+    project.plannedItems,
   );
+  const statusBadges = getProjectStatusBadges(project, t);
 
-  const totalPendingAmount = project.plannedItems.reduce(
-    (sum, item) =>
-      sum +
-      (item.status === "PENDING"
-        ? (item.price ?? 0) * (item.quantity ?? 1)
-        : 0),
-    0,
-  );
-
-  const addTrigger = (
+  const addItemTrigger = (
     <Button variant="default" size="sm">
       <Plus className="h-4 w-4" />
     </Button>
   );
 
-  const viewAllTrigger = (
+  const detailsTrigger = (
     <Button variant="ghost" size="sm" className="w-full text-muted-foreground">
       <ChevronDown />
     </Button>
@@ -86,198 +214,61 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
 
   return (
     <>
-      {openAdd || openDetails ? (
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 z-40 bg-black/50"
-          onClick={() => {
-            if (!uploadWidgetOpen) setOpenAdd(false);
-          }}
-        />
-      ) : null}
+      <ProjectCardBackdrop
+        show={isAddPanelOpen || isDetailsPanelOpen}
+        onClick={() => {
+          if (!isUploadWidgetOpen) setIsAddPanelOpen(false);
+        }}
+      />
       <Card className="shadow-md pb-2">
-        <CardHeader className="flex flex-col gap-3">
-          <div className="flex w-full justify-between gap-2">
-            <CardTitle className="flex items-center gap-2 text-lg font-black tracking-tighter capitalize">
-              {project.name}
-            </CardTitle>
-            <div className="flex justify-center gap-1">
+        <ProjectCardHeader
+          project={project}
+          statusBadges={statusBadges}
+          actions={
+            <>
               <ProjectEditDialog project={project} />
-
-              {isMobile ? (
-                <Drawer
-                  open={openAdd}
-                  dismissible={!uploadWidgetOpen}
-                  onOpenChange={(nextOpen) => {
-                    if (uploadWidgetOpen && !nextOpen) return;
-                    setOpenAdd(nextOpen);
-                  }}
-                  modal={false}
-                >
-                  <DrawerTrigger asChild>{addTrigger}</DrawerTrigger>
-                  <DrawerContent className="md:w-2xl mx-auto pb-6">
-                    <div className="w-full mx-auto max-h-[80vh] overflow-y-auto">
-                      <DrawerHeader>
-                        <DrawerTitle>
-                          {t("add.title", { projectName: project.name })}
-                        </DrawerTitle>
-                        <DrawerDescription>
-                          {t("add.description")}
-                        </DrawerDescription>
-                      </DrawerHeader>
-                      <div className="px-4 pb-4">
-                        <ProjectCardAddTabsContent
-                          projectId={project.id}
-                          projectName={project.name}
-                          subdomain={subdomain}
-                          plannedBacklog={plannedBacklog}
-                          onCompleted={() => setOpenAdd(false)}
-                          onUploadWidgetOpenChange={setUploadWidgetOpen}
-                        />
-                      </div>
-                    </div>
-                  </DrawerContent>
-                </Drawer>
-              ) : (
-                <Dialog open={openAdd} onOpenChange={setOpenAdd} modal={false}>
-                  <DialogTrigger asChild>{addTrigger}</DialogTrigger>
-                  <DialogContent
-                    className="sm:max-w-2xl max-h-[80vh] overflow-y-auto"
-                    onInteractOutside={(event) => {
-                      if (uploadWidgetOpen) event.preventDefault();
-                    }}
-                    onPointerDownOutside={(event) => {
-                      if (uploadWidgetOpen) event.preventDefault();
-                    }}
-                    onFocusOutside={(event) => {
-                      if (uploadWidgetOpen) event.preventDefault();
-                    }}
-                  >
-                    <DialogHeader>
-                      <DialogTitle>
-                        {t("add.title", { projectName: project.name })}
-                      </DialogTitle>
-                      <DialogDescription>
-                        {t("add.description")}
-                      </DialogDescription>
-                    </DialogHeader>
-                    <ProjectCardAddTabsContent
-                      projectId={project.id}
-                      projectName={project.name}
-                      subdomain={subdomain}
-                      plannedBacklog={plannedBacklog}
-                      onCompleted={() => setOpenAdd(false)}
-                      onUploadWidgetOpenChange={setUploadWidgetOpen}
-                    />
-                  </DialogContent>
-                </Dialog>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary">
-                {t("project.badges.total", { count: project.counts.total })}
-              </Badge>
-              {project.counts.pending ? (
-                <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">
-                  {t("project.badges.pending", {
-                    count: project.counts.pending,
-                  })}
-                </Badge>
-              ) : null}
-              {project.counts.purchased ? (
-                <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100">
-                  {t("project.badges.purchased", {
-                    count: project.counts.purchased,
-                  })}
-                </Badge>
-              ) : null}
-              {project.counts.cancelled ? (
-                <Badge className="bg-rose-100 text-rose-800 hover:bg-rose-100">
-                  {t("project.badges.cancelled", {
-                    count: project.counts.cancelled,
-                  })}
-                </Badge>
-              ) : null}
-            </div>
-
-            {project.description ? (
-              <CardDescription>{project.description}</CardDescription>
-            ) : null}
-          </div>
-        </CardHeader>
+              <ProjectCardPanel
+                open={isAddPanelOpen}
+                onOpenChange={setIsAddPanelOpen}
+                trigger={addItemTrigger}
+                title={t("add.title", { projectName: project.name })}
+                description={t("add.description")}
+                contentClassName="sm:max-w-2xl max-h-[80vh] overflow-y-auto"
+                preventClose={isUploadWidgetOpen}
+              >
+                <ProjectCardAddContent
+                  projectId={project.id}
+                  subdomain={subdomain}
+                  onCompleted={() => setIsAddPanelOpen(false)}
+                  onUploadWidgetOpenChange={setIsUploadWidgetOpen}
+                />
+              </ProjectCardPanel>
+            </>
+          }
+        />
 
         <CardContent>
-          <div className="space-y-3">
-            <div className="flex flex-row justify-between items-baseline">
-              <div className="flex items-baseline gap-1">
-                <span className="font-semibold text-2xl">
-                  {formatPrice(totalPendingAmount)}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {t("project.totalPendingValue")}
-                </span>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-xs text-muted-foreground">
-                  {formatPrice(totalPlannedAmount)}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {t("project.totalValue")}
-                </span>
-              </div>
-            </div>
-
-            {isMobile ? (
-              <Drawer
-                open={openDetails}
-                onOpenChange={setOpenDetails}
-                modal={false}
+          <ProjectCardSummary
+            totalPendingAmount={totalPendingAmount}
+            totalPlannedAmount={totalPlannedAmount}
+            t={t}
+            detailsTrigger={
+              <ProjectCardPanel
+                open={isDetailsPanelOpen}
+                onOpenChange={setIsDetailsPanelOpen}
+                trigger={detailsTrigger}
+                title={project.name}
+                description={t("project.itemsDescription")}
+                contentClassName="sm:max-w-3xl max-h-[85vh] overflow-y-auto"
               >
-                <DrawerTrigger asChild>{viewAllTrigger}</DrawerTrigger>
-                <DrawerContent className="md:w-2xl mx-auto pb-6">
-                  <div className="w-full mx-auto max-h-[80vh] overflow-y-auto">
-                    <DrawerHeader>
-                      <DrawerTitle className="text-lg font-semibold tracking-tight">
-                        {project.name}
-                      </DrawerTitle>
-                      <DrawerDescription>
-                        {t("project.itemsDescription")}
-                      </DrawerDescription>
-                    </DrawerHeader>
-                    <div className="px-4 pb-4">
-                      <ProjectCardDetailsContent
-                        project={project}
-                        subdomain={subdomain}
-                      />
-                    </div>
-                  </div>
-                </DrawerContent>
-              </Drawer>
-            ) : (
-              <Dialog
-                open={openDetails}
-                onOpenChange={setOpenDetails}
-                modal={false}
-              >
-                <DialogTrigger asChild>{viewAllTrigger}</DialogTrigger>
-                <DialogContent className="sm:max-w-3xl max-h-[85vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>{project.name}</DialogTitle>
-                    <DialogDescription>
-                      {t("project.itemsDescription")}
-                    </DialogDescription>
-                  </DialogHeader>
-                  <ProjectCardDetailsContent
-                    project={project}
-                    subdomain={subdomain}
-                  />
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
+                <ProjectCardDetailsContent
+                  project={project}
+                  plannedBacklog={plannedBacklog}
+                  subdomain={subdomain}
+                />
+              </ProjectCardPanel>
+            }
+          />
         </CardContent>
       </Card>
     </>

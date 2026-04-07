@@ -1,0 +1,78 @@
+"use client";
+
+import {
+  getDefaultValues,
+  PlannedCreateForm,
+  type PlannedCreateFormValues,
+} from "@/app/[locale]/s/[subdomain]/planned/dialogs/dialog-create";
+import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { AutoCreateForm } from "../../planned/dialogs/dialog-auto-create";
+
+type Props = {
+  projectId: string;
+  subdomain: string;
+  onCompleted: () => void;
+  onUploadWidgetOpenChange: (isOpen: boolean) => void;
+};
+
+export function ProjectCardAddContent({
+  projectId,
+  subdomain,
+  onCompleted,
+  onUploadWidgetOpenChange,
+}: Props) {
+  const t = useTranslations("Projects");
+  const plannedForm = useForm<PlannedCreateFormValues>({
+    defaultValues: getDefaultValues(subdomain),
+  });
+
+  useEffect(() => {
+    plannedForm.reset(getDefaultValues(subdomain));
+  }, [plannedForm, subdomain]);
+
+  return (
+    <div className="mt-4 space-y-2">
+      <AutoCreateForm
+        onExtracted={({ url, product }) => {
+          plannedForm.setValue("productUrl", url, {
+            shouldDirty: true,
+            shouldTouch: true,
+          });
+
+          if (product.name) {
+            plannedForm.setValue("title", product.name, {
+              shouldDirty: true,
+              shouldTouch: true,
+            });
+          }
+
+          if (product.description) {
+            plannedForm.setValue("description", product.description, {
+              shouldDirty: true,
+              shouldTouch: true,
+            });
+          }
+
+          if (product.price) {
+            plannedForm.setValue("price", product.price, {
+              shouldDirty: true,
+              shouldTouch: true,
+            });
+          }
+        }}
+      />
+      <PlannedCreateForm
+        form={plannedForm}
+        mode="project"
+        projectId={projectId}
+        subdomain={subdomain}
+        onCompleted={onCompleted}
+        onUploadWidgetOpenChange={onUploadWidgetOpenChange}
+        submitLabel={t("add.new.submit")}
+        submitButtonClassName="w-full"
+      />
+    </div>
+  );
+}

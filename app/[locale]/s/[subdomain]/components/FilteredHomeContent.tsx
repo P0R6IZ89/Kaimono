@@ -30,7 +30,7 @@ export function FilteredHomeContent({
         {activeProject.plannedItems.map((item) => (
           <Card
             key={item.id}
-            className="mb-4 gap-0 break-inside-avoid overflow-hidden rounded-xl p-0 shadow"
+            className="mb-4 gap-0 w-full break-inside-avoid overflow-hidden rounded-xl p-0 shadow"
           >
             <div className="relative">
               {item.image && (
