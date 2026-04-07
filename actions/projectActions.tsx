@@ -187,6 +187,64 @@ export async function getProjectsWithPlanned(subdomain: string) {
     };
   });
 }
+export async function getInitialsProjectsAndPlanned(subdomain: string) {
+  const { appId } = await requireMembership(subdomain);
+
+  const projects = await prisma.project.findMany({
+    where: { appId },
+    include: {
+      plannedItems: {
+        take: 10,
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          title: true,
+          productUrl: true,
+          status: true,
+          priority: true,
+          price: true,
+          quantity: true,
+          createdAt: true,
+          image: true,
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return projects.map((project) => {
+    const counts = project.plannedItems.reduce(
+      (acc, item) => {
+        acc.total += 1;
+        if (item.status === "PENDING") acc.pending += 1;
+        if (item.status === "PURCHASED") acc.purchased += 1;
+        if (item.status === "CANCELLED") acc.cancelled += 1;
+        return acc;
+      },
+      { total: 0, pending: 0, purchased: 0, cancelled: 0 },
+    );
+
+    return {
+      id: project.id,
+      name: project.name,
+      description: project.description,
+      createdAt: project.createdAt,
+      updatedAt: project.updatedAt,
+      plannedItems: project.plannedItems.map((item) => ({
+        id: item.id,
+        title: item.title,
+        productUrl: item.productUrl,
+        status: item.status,
+        priority: item.priority,
+        price: item.price ? item.price.toNumber() : 0,
+        quantity: item.quantity ? item.quantity : 0,
+        createdAt: item.createdAt,
+        image: item.image,
+      })),
+      counts,
+    };
+  });
+}
 
 export async function getProjectWithFirstPlanned(
   subdomain: string,
@@ -198,19 +256,17 @@ export async function getProjectWithFirstPlanned(
     select: {
       id: true,
       name: true,
-      description: true,
-      createdAt: true,
-      updatedAt: true,
       plannedItems: {
-        orderBy: { createdAt: "asc" },
+        orderBy: { createdAt: "desc" },
         where: {
           image: {
             notIn: ["", PLANNED_PLACEHOLDER_IMAGE],
           },
         },
-        take: 1,
+        take: 10,
         select: {
           image: true,
+          title: true,
         },
       },
     },
@@ -219,9 +275,6 @@ export async function getProjectWithFirstPlanned(
   return projects.map((project) => ({
     id: project.id,
     name: project.name,
-    description: project.description,
-    createdAt: project.createdAt,
-    updatedAt: project.updatedAt,
     image: project.plannedItems[0]?.image ?? null,
   }));
 }

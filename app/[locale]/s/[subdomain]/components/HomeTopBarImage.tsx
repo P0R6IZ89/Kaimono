@@ -17,7 +17,7 @@ export function HomeTopBarImage({
       className={cn(
         "relative size-20 overflow-clip rounded-md border bg-muted/40 transition-all",
         selected
-          ? "border-primary/50 bg-card shadow-sm ring-2 ring-primary/20"
+          ? "border-primary/50 border-2 bg-card shadow-sm ring-2 ring-primary/20"
           : "border-border text-muted-foreground",
       )}
     >
