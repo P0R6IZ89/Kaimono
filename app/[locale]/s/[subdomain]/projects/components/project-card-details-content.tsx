@@ -1,6 +1,9 @@
 "use client";
 
-import { ProjectWithPlanned } from "@/app/[locale]/types/projects";
+import {
+  PlannedBacklogItem,
+  ProjectWithPlanned,
+} from "@/app/[locale]/types/projects";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,25 +16,30 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Link } from "@/i18n/navigation";
+import { formatPriceYen } from "@/util/formatPriceYen";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { AssignPlannedDialog } from "./assign-planned-dialog";
 import { ProjectCardUnassignButton } from "./project-card-unassign-button";
 
 type Props = {
   project: ProjectWithPlanned;
+  plannedBacklog: PlannedBacklogItem[];
   subdomain: string;
 };
 
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat(undefined, {
-    style: "currency",
-    currency: "JPY",
-    maximumFractionDigits: 0,
-  }).format(price ?? 0);
-
-export function ProjectCardDetailsContent({ project, subdomain }: Props) {
+export function ProjectCardDetailsContent({
+  project,
+  plannedBacklog,
+  subdomain,
+}: Props) {
   const t = useTranslations("Projects");
   const tCommon = useTranslations("Common");
+  const plannedStatusOrder = {
+    PENDING: 0,
+    PURCHASED: 1,
+    CANCELLED: 2,
+  } as const;
 
   const getPlannedHref = (title: string) => ({
     pathname: "/planned" as const,
@@ -41,15 +49,39 @@ export function ProjectCardDetailsContent({ project, subdomain }: Props) {
     },
   });
 
+  const sortedPlannedItems = [...project.plannedItems].sort((left, right) => {
+    const statusOrderDifference =
+      plannedStatusOrder[left.status] - plannedStatusOrder[right.status];
+
+    if (statusOrderDifference !== 0) {
+      return statusOrderDifference;
+    }
+
+    return (
+      new Date(right.createdAt ?? 0).getTime() -
+      new Date(left.createdAt ?? 0).getTime()
+    );
+  });
+
   return (
     <div className="space-y-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="space-y-1"></div>
+        <AssignPlannedDialog
+          projectId={project.id}
+          projectName={project.name}
+          plannedBacklog={plannedBacklog}
+          subdomain={subdomain}
+        />
+      </div>
+
       {project.plannedItems.length === 0 ? (
         <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
           {t("project.empty")}
         </p>
       ) : (
         <div className="space-y-3">
-          {project.plannedItems.map((item) => (
+          {sortedPlannedItems.map((item) => (
             <Item
               key={item.id}
               variant="outline"
@@ -81,17 +113,23 @@ export function ProjectCardDetailsContent({ project, subdomain }: Props) {
                 <ItemContent className="gap-0">
                   <ItemTitle>{item.title}</ItemTitle>
                   <ItemDescription className="text-sm">
-                    {formatPrice(item.price)}{" "}
+                    {formatPriceYen(item.price)}{" "}
                     <span className="text-muted-foreground">
                       x{item.quantity}
                     </span>
                   </ItemDescription>
                 </ItemContent>
-                <div className="flex flex-wrap gap-1">
-                  <Badge variant="outline" className="text-[10px]">
+                <div className="flex flex-wrap gap-2">
+                  <Badge
+                    variant="outline"
+                    className={`text-[10px]${item.status === "PENDING" ? " bg-amber-100 text-amber-800" : item.status === "PURCHASED" ? " bg-green-100 text-green-800" : ""}`}
+                  >
                     {tCommon(`status.${item.status}`)}
                   </Badge>
-                  <Badge variant="secondary" className="text-[10px]">
+                  <Badge
+                    variant="secondary"
+                    className={`text-[10px] ${item.priority === "HIGH" || item.priority === "URGENT" ? "bg-red-100 text-red-800" : ""}`}
+                  >
                     {tCommon(`priority.${item.priority}`)}
                   </Badge>
                 </div>
