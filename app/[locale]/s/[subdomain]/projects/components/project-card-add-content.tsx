@@ -34,35 +34,37 @@ export function ProjectCardAddContent({
 
   return (
     <div className="mt-4 space-y-2">
-      <AutoCreateForm
-        onExtracted={({ url, product }) => {
-          plannedForm.setValue("productUrl", url, {
-            shouldDirty: true,
-            shouldTouch: true,
-          });
-
-          if (product.name) {
-            plannedForm.setValue("title", product.name, {
+      <div className="bg-card border-s-blue-400 border-e-yellow-400 rounded-md p-2 lg:p-3 border">
+        <AutoCreateForm
+          onExtracted={({ url, product }) => {
+            plannedForm.setValue("productUrl", url, {
               shouldDirty: true,
               shouldTouch: true,
             });
-          }
 
-          if (product.description) {
-            plannedForm.setValue("description", product.description, {
-              shouldDirty: true,
-              shouldTouch: true,
-            });
-          }
+            if (product.name) {
+              plannedForm.setValue("title", product.name, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
+            }
 
-          if (product.price) {
-            plannedForm.setValue("price", product.price, {
-              shouldDirty: true,
-              shouldTouch: true,
-            });
-          }
-        }}
-      />
+            if (product.description) {
+              plannedForm.setValue("description", product.description, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
+            }
+
+            if (product.price) {
+              plannedForm.setValue("price", product.price, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
+            }
+          }}
+        />
+      </div>
       <PlannedCreateForm
         form={plannedForm}
         mode="project"

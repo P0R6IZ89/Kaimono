@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
-import { rootDomainHost } from "@/util/utils";
+import { rootDomainHost } from "./lib/variables";
 
 const isProd = process.env.NODE_ENV === "production";
 

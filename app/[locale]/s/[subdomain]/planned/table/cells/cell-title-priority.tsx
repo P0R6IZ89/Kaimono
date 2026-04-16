@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
-import { formatPriceYen } from "@/util/formatPriceYen";
+import { formatPriceYen } from "@/lib/formatPriceYen";
 
 function TitleCell({ row }: { row: Row<PlannedSchema> }) {
   const { title, price, quantity } = row.original;

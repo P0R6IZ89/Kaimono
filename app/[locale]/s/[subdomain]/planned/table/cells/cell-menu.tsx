@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { completeTask, deleteTask, revertTask } from "@/actions/plannedActions";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
-import { ActionResult } from "@/util/initial-action-return";
+import { ActionResult } from "@/lib/initial-action-return";
 
 function MenuCell(row: Row<PlannedSchema>) {
   const { status, id } = row.original;
@@ -20,7 +20,7 @@ function MenuCell(row: Row<PlannedSchema>) {
 
   const wrapAction = (
     action: (id: string) => Promise<ActionResult>,
-    successText: string
+    successText: string,
   ) => {
     startTransition(async () => {
       try {

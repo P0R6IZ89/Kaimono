@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { redirect, useRouter } from "next/navigation";
 import { AuthError } from "next-auth";
 import React, { useActionState } from "react";
-import { GithubIcon, Google } from "@/util/oauth-icon";
+import { GithubIcon, Google } from "@/lib/oauth-icon";
 import { Input } from "@/components/ui/input";
 import { magicLinkSignIn } from "@/actions/authActions";
 import { AlertCircle, Loader2 } from "lucide-react";
@@ -24,7 +24,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
   const initialState = { error: "" };
   const [state, action, isPending] = useActionState(
     magicLinkSignIn,
-    initialState
+    initialState,
   );
 
   const handleSignIn =

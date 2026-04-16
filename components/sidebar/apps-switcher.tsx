@@ -18,9 +18,9 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import React from "react";
-import { protocol, rootDomain } from "@/util/utils";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { protocol, rootDomain } from "@/lib/variables";
 
 export interface App {
   name: string;

@@ -12,7 +12,6 @@ import { NavSecondary } from "./nav-secondary";
 import { AppSwitcher } from "./apps-switcher";
 import { NavUser } from "./nav-user";
 import { SkeletonAvatar } from "../skeleton/avatar";
-import { protocol, rootDomain } from "@/util/utils";
 import {
   getAllAppsAction,
   getCurrentAppAction,
@@ -22,6 +21,7 @@ import {
 import { getTranslations } from "next-intl/server";
 import { buildSidebarData, MemberRole } from "./buildSidebarData";
 import { KoFiPlainButton } from "../kofi/KoFiWidget";
+import { protocol, rootDomain } from "@/lib/variables";
 
 export type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   subdomain: string;
@@ -50,7 +50,7 @@ export async function AppSidebar({
   const data = buildSidebarData(
     t,
     urls,
-    (memberRole as MemberRole) ?? "MEMBER"
+    (memberRole as MemberRole) ?? "MEMBER",
   );
 
   return (

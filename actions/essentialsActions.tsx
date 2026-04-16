@@ -1,11 +1,11 @@
 "use server";
 
-import { getErrorMessage } from "@/util/error-handler";
+import { getErrorMessage } from "@/lib/error-handler";
 import { revalidatePath } from "next/cache";
 import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
-import { essentialsSchema, statusUpdateSchema } from "@/util/form-zod-schema";
-import { ActionResult } from "@/util/initial-action-return";
+import { essentialsSchema, statusUpdateSchema } from "@/lib/form-zod-schema";
+import { ActionResult } from "@/lib/initial-action-return";
 import { Status } from "@prisma/client";
 import { getCurrentLocale } from "@/i18n/navigation";
 

@@ -16,7 +16,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Link } from "@/i18n/navigation";
-import { formatPriceYen } from "@/util/formatPriceYen";
+import { formatPriceYen } from "@/lib/formatPriceYen";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AssignPlannedDialog } from "./assign-planned-dialog";

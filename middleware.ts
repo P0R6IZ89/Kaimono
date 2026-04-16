@@ -4,7 +4,7 @@ import { routing } from "./i18n/routing";
 
 import { auth } from "@/auth-edge";
 import { Locale } from "next-intl";
-import { publicPaths, rootDomainHost } from "@/util/utils";
+import { publicPaths, rootDomainHost } from "./lib/variables";
 
 const KILL_SWITCH = process.env.KILL_SWITCH;
 const LOCALE_HEADER = "X-NEXT-INTL-LOCALE";

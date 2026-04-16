@@ -17,10 +17,10 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Link } from "@/i18n/navigation";
-import { protocol, rootDomain } from "@/util/utils";
 import { ChevronRight, GraduationCap, UserPlus2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import ThemeToggler from "./theme";
+import { protocol, rootDomain } from "@/lib/variables";
 
 export default async function Settings({
   params,

@@ -1,5 +1,5 @@
 import React from "react";
-import { formatPriceYen } from "@/util/formatPriceYen";
+import { formatPriceYen } from "@/lib/formatPriceYen";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
 

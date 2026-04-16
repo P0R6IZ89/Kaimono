@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/actions/authActions";
 import { useLocale, useTranslations } from "next-intl";
-import { protocol, rootDomain } from "@/util/utils";
+import { protocol, rootDomain } from "@/lib/variables";
 
 export default function LogoutPage() {
   const [loading, setLoading] = useState(false);
@@ -27,9 +27,7 @@ export default function LogoutPage() {
         <h1 className="text-2xl font-semibold tracking-tight">
           {t("logout.title")}
         </h1>
-        <p className="text-muted-foreground">
-          {t("logout.instruction")}
-        </p>
+        <p className="text-muted-foreground">{t("logout.instruction")}</p>
       </div>
       <div className="mt-4">
         <Button onClick={handleLogout} disabled={loading} className="min-w-sm">

@@ -1,1 +1,1 @@
-export const privateRoutes = ["/dashboard/essentials-v2"];
+// export const privateRoutes = ["/dashboard/essentials-v2"];

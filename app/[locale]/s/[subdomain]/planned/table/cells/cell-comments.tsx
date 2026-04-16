@@ -2,7 +2,6 @@
 
 import React, { useActionState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { capitalizeFirstLetter } from "@/util/utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {
@@ -49,7 +48,7 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
   const initialState = { ok: false, error: "" };
   const [state, action, isPending] = useActionState(
     createCommentAction,
-    initialState
+    initialState,
   );
   useEffect(() => {
     if (!isPending && state?.ok) {
@@ -77,9 +76,11 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                 alt={comments[0].authorName ?? comments[0].authorEmail ?? ""}
               />
               <AvatarFallback>
-                {comments[0].authorName
-                  ? capitalizeFirstLetter(comments[0].authorName)
-                  : capitalizeFirstLetter(comments[0].authorEmail ?? "")}
+                <p className="capitalize">
+                  {comments[0].authorName
+                    ? comments[0].authorName
+                    : (comments[0].authorEmail ?? "")}
+                </p>
               </AvatarFallback>
             </Avatar>
             <div className="w-full">
@@ -126,9 +127,13 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                             alt={authorName ?? authorEmail ?? ""}
                           />
                           <AvatarFallback>
-                            {authorName
-                              ? capitalizeFirstLetter(authorName)
-                              : capitalizeFirstLetter(authorEmail ?? "")}
+                            <p className="capitalize">
+                              {authorName
+                                ? authorName[0]
+                                : authorEmail
+                                  ? authorEmail[0]
+                                  : ""}
+                            </p>
                           </AvatarFallback>
                         </Avatar>
                         <div className="w-full">
@@ -167,9 +172,13 @@ function CommentsCell({ row }: { row: Row<PlannedSchema> }) {
                             alt={authorName ?? authorEmail ?? ""}
                           />
                           <AvatarFallback>
-                            {authorName
-                              ? capitalizeFirstLetter(authorName)
-                              : capitalizeFirstLetter(authorEmail ?? "")}
+                            <p className="capitalize">
+                              {authorName
+                                ? authorName[0]
+                                : authorEmail
+                                  ? authorEmail[0]
+                                  : ""}
+                            </p>
                           </AvatarFallback>
                         </Avatar>
                         <div className="w-full">

@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { updateEssentials } from "@/actions/essentialsActions";
 import { useForm } from "react-hook-form";
-import { initialState } from "@/util/initial-action-return";
+import { initialState } from "@/lib/initial-action-return";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
@@ -33,7 +33,7 @@ function EditDialog({ row, open, setOpen }: CustomDialogProps) {
   const { subdomain } = useSubdomain();
   const [state, action, isPending] = useActionState(
     updateEssentials,
-    initialState
+    initialState,
   );
   const form = useForm({
     defaultValues: {

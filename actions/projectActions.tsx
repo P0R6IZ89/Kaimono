@@ -7,10 +7,10 @@ import {
   projectLinkSchema,
   projectPlannedCreateSchema,
   projectSchema,
-} from "@/util/form-zod-schema";
+} from "@/lib/form-zod-schema";
 import { revalidatePath } from "next/cache";
-import { getErrorMessage } from "@/util/error-handler";
-import { ActionResult } from "@/util/initial-action-return";
+import { getErrorMessage } from "@/lib/error-handler";
+import { ActionResult } from "@/lib/initial-action-return";
 
 const PLANNED_PLACEHOLDER_IMAGE =
   "https://res.cloudinary.com/dsttcre2h/image/upload/v1751870559/placeholder_dtzhrr.png";
@@ -195,7 +195,7 @@ export async function getInitialsProjectsAndPlanned(subdomain: string) {
     include: {
       plannedItems: {
         take: 10,
-        orderBy: { createdAt: "desc" },
+        orderBy: { createdAt: "asc" },
         select: {
           id: true,
           title: true,
@@ -253,6 +253,7 @@ export async function getProjectWithFirstPlanned(
 
   const projects = await prisma.project.findMany({
     where: { appId },
+    orderBy: { createdAt: "desc" },
     select: {
       id: true,
       name: true,
@@ -263,7 +264,7 @@ export async function getProjectWithFirstPlanned(
             notIn: ["", PLANNED_PLACEHOLDER_IMAGE],
           },
         },
-        take: 10,
+        take: 1,
         select: {
           image: true,
           title: true,
@@ -456,6 +457,7 @@ export async function createPlannedInProjectAction(
 
     revalidatePath(`/s/${subdomain}/projects`);
     revalidatePath(`/s/${subdomain}/planned`);
+    revalidatePath(`/s/${subdomain}`);
     return { ok: true, message: "Planned item created." };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };

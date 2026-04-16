@@ -10,6 +10,11 @@ export function CreatePlannedDialogTrigger({
   buttonVariant = "default",
   children,
   triggerRef,
+  mode = "standalone",
+  projectId,
+  trigger,
+  contentClassName,
+  showAutoCreate = true,
 }: {
   className?: string;
   buttonVariant?:
@@ -21,6 +26,11 @@ export function CreatePlannedDialogTrigger({
     | "link";
   children?: React.ReactNode;
   triggerRef?: React.Ref<HTMLButtonElement>;
+  mode?: "standalone" | "project";
+  projectId?: string;
+  trigger?: React.ReactNode;
+  contentClassName?: string;
+  showAutoCreate?: boolean;
 }) {
   const t = useTranslations("Planned");
   const [open, setOpen] = useState(false);
@@ -33,18 +43,23 @@ export function CreatePlannedDialogTrigger({
       title={t("create.title")}
       description={t("create.description")}
       preventClose={uploadWidgetOpen}
-      contentClassName="sm:max-w-106.25"
+      contentClassName={contentClassName ?? "sm:max-w-106.25"}
       trigger={
-        <Button
-          ref={triggerRef}
-          variant={buttonVariant}
-          className={`col-auto ${className || ""}`}
-        >
-          {children ? children : t("create.title")}
-        </Button>
+        trigger ?? (
+          <Button
+            ref={triggerRef}
+            variant={buttonVariant}
+            className={`col-auto ${className || ""}`}
+          >
+            {children ? children : t("create.title")}
+          </Button>
+        )
       }
     >
       <CreatePlannedDialog
+        mode={mode}
+        projectId={projectId}
+        showAutoCreate={showAutoCreate}
         onCompleted={() => setOpen(false)}
         onUploadWidgetOpenChange={setUploadWidgetOpen}
       />

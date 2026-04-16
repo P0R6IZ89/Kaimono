@@ -12,7 +12,7 @@ import {
 import { User } from "next-auth";
 import { signOutAction } from "@/actions/authActions";
 import { useLocale, useTranslations } from "next-intl";
-import { protocol, rootDomain } from "@/util/utils";
+import { protocol, rootDomain } from "@/lib/variables";
 
 export default function UserAvatar({ user }: { user: User | undefined }) {
   const locale = useLocale();

@@ -3,7 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "./auth.config";
 import Resend from "next-auth/providers/resend";
 import prisma from "./lib/prisma";
-import { rootDomainHost } from "@/util/utils";
+import { rootDomainHost } from "./lib/variables";
 
 const isEdge = process.env.NEXT_RUNTIME === "edge";
 export const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;

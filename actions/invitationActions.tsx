@@ -4,14 +4,14 @@ import { Resend } from "resend";
 import { auth } from "@/auth";
 import { makeInviteToken } from "@/lib/make-invite-token";
 import prisma from "@/lib/prisma";
-import { inviteSchema } from "@/util/form-zod-schema";
-import { protocol, rootDomain } from "@/util/utils";
+import { inviteSchema } from "@/lib/form-zod-schema";
 import { addDays } from "@/lib/addDays";
 import { revalidatePath } from "next/cache";
 import { requireMembership, requireSession } from "./appActions";
 import { redirect as NextRedirect } from "next/navigation";
-import type { ActionResult } from "@/util/initial-action-return";
+import type { ActionResult } from "@/lib/initial-action-return";
 import type { Role } from "@prisma/client";
+import { protocol, rootDomain } from "@/lib/variables";
 
 function canManageInvites(role: Role) {
   return role === "OWNER" || role === "ADMIN";
@@ -71,7 +71,10 @@ export async function createInviteAction(
 
   const me = session.user.id;
   if (!(await getInviteManagerMembership(parse.data.appId, me))) {
-    return { ok: false, message: "Você não tem permissão para convidar usuários." };
+    return {
+      ok: false,
+      message: "Você não tem permissão para convidar usuários.",
+    };
   }
 
   const { token, expiresAt } = makeInviteToken();
@@ -145,7 +148,8 @@ export async function acceptInviteAction(token: string) {
 
   if (normalizeEmail(session.user.email) !== normalizeEmail(invite.email)) {
     return {
-      error: "Este convite pertence a outro e-mail. Entre com o e-mail convidado para continuar.",
+      error:
+        "Este convite pertence a outro e-mail. Entre com o e-mail convidado para continuar.",
     };
   }
 
@@ -204,7 +208,10 @@ export async function resendInviteAction(
   }
 
   if (invite.status !== "PENDING" && invite.status !== "REVOKED") {
-    return { ok: false, message: "Only pending or revoked invitations may be resent." };
+    return {
+      ok: false,
+      message: "Only pending or revoked invitations may be resent.",
+    };
   }
   const newExpiry = addDays(new Date(), 9);
   await prisma.invitation.update({
@@ -215,7 +222,7 @@ export async function resendInviteAction(
   const resend = new Resend(process.env.AUTH_RESEND_KEY!);
   const acceptUrl = new URL(
     `/invite/accept?token=${invite.token}`,
-    `${protocol}://${rootDomain}`
+    `${protocol}://${rootDomain}`,
   ).toString();
 
   await resend.emails.send({

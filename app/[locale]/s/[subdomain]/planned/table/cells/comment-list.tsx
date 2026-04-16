@@ -24,7 +24,6 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import { capitalizeFirstLetter } from "@/util/utils";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -46,7 +45,7 @@ export default function CommentListCell({
   dayjs.extend(relativeTime);
   const [state, action, isPending] = useActionState(
     createCommentAction,
-    initialState
+    initialState,
   );
 
   const form = useForm({
@@ -66,7 +65,9 @@ export default function CommentListCell({
     } catch {}
   };
   if (!comments) {
-    return <p className="text-sm text-muted-foreground">{t("comments.empty")}</p>;
+    return (
+      <p className="text-sm text-muted-foreground">{t("comments.empty")}</p>
+    );
   }
   return (
     <div>
@@ -84,8 +85,10 @@ export default function CommentListCell({
                 ) : (
                   <AvatarFallback>
                     {authorName
-                      ? capitalizeFirstLetter(authorName)
-                      : capitalizeFirstLetter(authorEmail ?? "")}
+                      ? authorName.charAt(0).toUpperCase()
+                      : authorEmail
+                        ? authorEmail.charAt(0).toUpperCase()
+                        : ""}
                   </AvatarFallback>
                 )}
               </Avatar>

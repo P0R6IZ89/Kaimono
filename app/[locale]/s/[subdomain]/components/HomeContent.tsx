@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { HomeTopBar } from "./HomeTopBar";
-import { $Enums } from "@prisma/client";
+import type { $Enums } from "@prisma/client";
 import { FilteredHomeContent } from "./FilteredHomeContent";
 
 type projectType = {
@@ -21,7 +21,7 @@ export type allProjectType = {
   plannedItems: {
     id: string;
     title: string;
-    productUrl: string | null;
+    productUrl?: string | null;
     status: $Enums.Status;
     priority: $Enums.Priority;
     price: number;
@@ -35,14 +35,14 @@ export type allProjectType = {
     purchased: number;
     cancelled: number;
   };
-}[];
+};
 
 export function HomeContent({
   projects,
   allProjects,
 }: {
   projects: projectType;
-  allProjects: allProjectType;
+  allProjects: allProjectType[];
 }) {
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
 
@@ -61,7 +61,6 @@ export function HomeContent({
         activeProjectId={activeProjectId}
         allProjects={allProjects}
       />
-      <p>See More</p>
     </div>
   );
 }

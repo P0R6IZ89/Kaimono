@@ -26,8 +26,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Loader2, Plus } from "lucide-react";
 import { PlannedBacklogItem } from "@/app/[locale]/types/projects";
-import { formatPriceYen } from "@/util/formatPriceYen";
-import { initialState } from "@/util/initial-action-return";
+import { formatPriceYen } from "@/lib/formatPriceYen";
+import { initialState } from "@/lib/initial-action-return";
 
 type Props = {
   projectId: string;
@@ -84,7 +84,7 @@ export function AssignPlannedDialog({
           {t("assign.cta")}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-xl">
+      <DialogContent className="max-h-[70vh] w-[calc(100vw-2rem)] max-w-2xl overflow-hidden">
         <DialogHeader>
           <DialogTitle>{t("assign.title", { projectName })}</DialogTitle>
           <DialogDescription>{t("assign.description")}</DialogDescription>
@@ -94,37 +94,43 @@ export function AssignPlannedDialog({
             {t("assign.empty")}
           </p>
         ) : (
-          <div className="space-y-4 h-fit">
-            <Command className="rounded-lg border shadow-none">
+          <div className="min-w-0 space-y-4 overflow-hidden">
+            <Command className="min-w-0 rounded-lg border shadow-none">
               <CommandInput placeholder={t("assign.searchPlaceholder")} />
-              <CommandList className="max-h-60">
+              <CommandList className="max-h-60 min-w-0">
                 <CommandEmpty>{t("assign.noResults")}</CommandEmpty>
                 <CommandGroup>
                   {plannedBacklog.map((item) => (
                     <CommandItem
                       key={item.id}
                       value={item.title}
-                      className="flex items-center gap-3"
+                      className="min-w-0 flex-wrap items-start gap-2 sm:flex-nowrap sm:items-center sm:gap-3"
                       onSelect={() => setSelectedId(item.id)}
                     >
-                      <div className="flex min-w-0 flex-1 flex-col">
-                        <div className="flex items-center gap-2">
-                          <span className="truncate font-medium">
+                      <div className="flex min-w-0 flex-[1_1_14rem] flex-col">
+                        <div className="flex min-w-0 flex-wrap items-center gap-2">
+                          <span className="min-w-0 flex-1 basis-32 truncate font-medium">
                             {item.title}
                           </span>
-                          <Badge variant="outline" className="text-[10px]">
+                          <Badge
+                            variant="outline"
+                            className="max-w-full text-[10px]"
+                          >
                             {tCommon(`status.${item.status}`)}
                           </Badge>
                         </div>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="truncate text-xs text-muted-foreground">
                           {tCommon(`priority.${item.priority}`)}
                         </p>
                       </div>
                       <Separator
                         orientation="vertical"
-                        className="h-8 bg-border"
+                        className="hidden h-8 bg-border sm:block"
                       />
-                      <Badge variant="secondary">
+                      <Badge
+                        variant="secondary"
+                        className="max-w-full truncate"
+                      >
                         {formatPriceYen(item.price * item.quantity)}
                       </Badge>
                     </CommandItem>
@@ -145,11 +151,13 @@ export function AssignPlannedDialog({
                 {isPending ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : null}
-                {selectedItem
-                  ? t("assign.submitSelected", {
-                      title: selectedItem.title,
-                    })
-                  : t("assign.submit")}
+                <span className="min-w-0 truncate">
+                  {selectedItem
+                    ? t("assign.submitSelected", {
+                        title: selectedItem.title,
+                      })
+                    : t("assign.submit")}
+                </span>
               </Button>
             </form>
           </div>

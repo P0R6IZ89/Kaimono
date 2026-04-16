@@ -31,8 +31,9 @@ import {
 import { createPlannedAction } from "@/actions/plannedActions";
 import { createPlannedInProjectAction } from "@/actions/projectActions";
 import { useTranslations } from "next-intl";
-import { ActionResult, initialState } from "@/util/initial-action-return";
+import { ActionResult, initialState } from "@/lib/initial-action-return";
 import { cn } from "@/lib/utils";
+import { AutoCreateForm } from "./dialog-auto-create";
 
 type PlannedCreateFormProps = {
   mode?: "standalone" | "project";
@@ -354,17 +355,64 @@ export function PlannedCreateForm({
 export function CreatePlannedDialog({
   onUploadWidgetOpenChange,
   onCompleted,
+  mode = "standalone",
+  projectId,
+  showAutoCreate = true,
 }: {
   onUploadWidgetOpenChange?: (isOpen: boolean) => void;
   onCompleted?: () => void;
+  mode?: "standalone" | "project";
+  projectId?: string;
+  showAutoCreate?: boolean;
 }) {
   const { subdomain } = useSubdomain();
+  const plannedForm = useForm<PlannedCreateFormValues>({
+    defaultValues: getDefaultValues(subdomain),
+  });
 
   return (
-    <PlannedCreateForm
-      subdomain={subdomain}
-      onCompleted={onCompleted}
-      onUploadWidgetOpenChange={onUploadWidgetOpenChange}
-    />
+    <div className="space-y-2">
+      {showAutoCreate ? (
+        <div className="bg-card border-s-blue-400 border-e-yellow-400 rounded-md border p-2 lg:p-3">
+          <AutoCreateForm
+            onExtracted={({ url, product }) => {
+              plannedForm.setValue("productUrl", url, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
+
+              if (product.name) {
+                plannedForm.setValue("title", product.name, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                });
+              }
+
+              if (product.description) {
+                plannedForm.setValue("description", product.description, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                });
+              }
+
+              if (product.price) {
+                plannedForm.setValue("price", product.price, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                });
+              }
+            }}
+          />
+        </div>
+      ) : null}
+      <PlannedCreateForm
+        form={plannedForm}
+        mode={mode}
+        projectId={projectId}
+        subdomain={subdomain}
+        onCompleted={onCompleted}
+        onUploadWidgetOpenChange={onUploadWidgetOpenChange}
+      />
+    </div>
   );
 }

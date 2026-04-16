@@ -10,9 +10,9 @@ import {
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { signOutAction } from "@/actions/authActions";
-import { protocol, rootDomain } from "@/util/utils";
 import { toast } from "sonner";
 import { redirect } from "@/i18n/navigation";
+import { protocol, rootDomain } from "@/lib/variables";
 
 interface DialogLogoutProps {
   open?: boolean;
