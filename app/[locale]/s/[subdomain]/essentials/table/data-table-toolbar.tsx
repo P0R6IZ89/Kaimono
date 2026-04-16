@@ -1,9 +1,8 @@
 "use client";
 
 import { Table } from "@tanstack/react-table";
-import { X } from "lucide-react";
+import { CircleCheckBig, CircleMinus, Clock, X } from "lucide-react";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { statuses } from "@/data/data";
 
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,22 @@ import { useTranslations } from "next-intl";
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
+
+const statuses = [
+  {
+    value: "PENDING",
+    icon: Clock,
+  },
+
+  {
+    value: "PURCHASED",
+    icon: CircleCheckBig,
+  },
+  {
+    value: "CANCELLED",
+    icon: CircleMinus,
+  },
+];
 
 export function DataTableToolbar<TData>({
   table,
@@ -33,7 +48,7 @@ export function DataTableToolbar<TData>({
         label: t(`status.${s.value}`),
         icon: s.icon,
       })),
-    [t]
+    [t],
   );
 
   return (

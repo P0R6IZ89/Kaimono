@@ -2,7 +2,7 @@
 
 import { unassignPlannedFromProjectAction } from "@/actions/projectActions";
 import { Button } from "@/components/ui/button";
-import { initialState } from "@/util/initial-action-return";
+import { initialState } from "@/lib/initial-action-return";
 import { Loader2, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";

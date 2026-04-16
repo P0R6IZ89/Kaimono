@@ -12,15 +12,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { updateStatusEssentials } from "@/actions/essentialsActions";
 import { toast } from "sonner";
-import { initialState } from "@/util/initial-action-return";
+import { initialState } from "@/lib/initial-action-return";
 import { useTranslations } from "next-intl";
 import { useSubdomain } from "@/context/SubdomainContext";
 
-function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
-  const { subdomain } = useSubdomain();
+function PendingDialog({ row, open, setOpen }: CustomDialogProps) {
   const t = useTranslations("Dialog");
-  const { id, title } = row.original;
-
+  const { subdomain } = useSubdomain();
+  const { id } = row.original;
   const [state, action, isPending] = useActionState(
     updateStatusEssentials,
     initialState,
@@ -40,9 +39,9 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{t("mark-as-purchased-title", { title })}</DialogTitle>
+          <DialogTitle>{t("mark-as-pending-title")}</DialogTitle>
           <DialogDescription>
-            {t("mark-as-purchased-description")}
+            {t("mark-as-pending-description")}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -51,10 +50,11 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
           </DialogClose>
           <form action={action}>
             <input type="hidden" name="subdomain" defaultValue={subdomain} />
-            <input type="hidden" name="id" defaultValue={id} />
-            <input type="hidden" name="status" defaultValue="PURCHASED" />
+
+            <input defaultValue={id} type="hidden" name="id" />
+            <input defaultValue="PENDING" type="hidden" name="status" />
             <Button type="submit" disabled={isPending}>
-              {t("mark-as-purchased-confirm-button")}
+              {t("mark-as-pending-confirm-button")}
             </Button>
           </form>
         </DialogFooter>
@@ -63,4 +63,4 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   );
 }
 
-export default CompleteDialog;
+export default PendingDialog;

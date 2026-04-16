@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
 import { useTranslations } from "next-intl";
-import { ActionResult, initialState } from "@/util/initial-action-return";
+import { ActionResult, initialState } from "@/lib/initial-action-return";
 import CommentsDrawer from "./comment-drawer";
 import ActionsButton from "./actions-buttons";
 

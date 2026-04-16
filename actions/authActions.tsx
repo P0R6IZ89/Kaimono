@@ -3,11 +3,9 @@
 import { signIn, signOut } from "@/auth";
 import { getCurrentLocale, redirect } from "@/i18n/navigation";
 import prisma from "@/lib/prisma";
-import { getErrorMessage } from "@/util/error-handler";
-import type { ActionResult } from "@/util/initial-action-return";
-import { rootDomainHost } from "@/util/utils";
+import { getErrorMessage } from "@/lib/error-handler";
+import type { ActionResult } from "@/lib/initial-action-return";
 import { revalidatePath } from "next/cache";
-import { cookies, headers } from "next/headers";
 
 export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
   const email = String(formData.get("email") ?? "");

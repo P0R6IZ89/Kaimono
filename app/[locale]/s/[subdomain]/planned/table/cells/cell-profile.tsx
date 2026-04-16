@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { capitalizeFirstLetter } from "@/util/utils";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
 
@@ -19,9 +18,9 @@ function ProfileCell({ row }: { row: Row<PlannedSchema> }) {
         <Avatar>
           {userImage ? <AvatarImage src={userImage} /> : null}
           <AvatarFallback>
-            {username
-              ? capitalizeFirstLetter(username)
-              : capitalizeFirstLetter(userEmail ?? "")}
+            <p className="capitalize">
+              {username ? username[0] : userEmail[0]}
+            </p>
           </AvatarFallback>
         </Avatar>
         <div>

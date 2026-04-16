@@ -29,7 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSubdomain } from "@/context/SubdomainContext";
-import { initialState } from "@/util/initial-action-return";
+import { initialState } from "@/lib/initial-action-return";
 import { Row } from "@tanstack/react-table";
 import { Loader2, Upload } from "lucide-react";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";

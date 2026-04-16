@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { initialState } from "@/util/initial-action-return";
+import { initialState } from "@/lib/initial-action-return";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Loader2, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";

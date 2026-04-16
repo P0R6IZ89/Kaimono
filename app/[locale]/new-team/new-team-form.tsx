@@ -3,7 +3,7 @@
 import React, { useActionState } from "react";
 import { useForm } from "react-hook-form";
 import { createAppAction } from "@/actions/appActions";
-import { initialState } from "@/util/initial-action-return";
+import { initialState } from "@/lib/initial-action-return";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +25,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { AlertCircle, Info, Loader2 } from "lucide-react";
 import UserAvatar from "@/components/auth/userAvatar";
-import { rootDomain } from "@/util/utils";
 import { Session } from "next-auth";
 import { useTranslations } from "next-intl";
 import {
@@ -41,6 +40,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { rootDomain } from "@/lib/variables";
 
 type FormValues = { name: string; subdomain: string; description: string };
 
@@ -126,9 +126,7 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                                 </InputGroupAddon>
                               </PopoverTrigger>
                               <PopoverContent align="end">
-                                <p className="text-sm">
-                                  {t("subdomainHelp")}
-                                </p>
+                                <p className="text-sm">{t("subdomainHelp")}</p>
                               </PopoverContent>
                             </Popover>
                           </InputGroupAddon>

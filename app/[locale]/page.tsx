@@ -3,7 +3,6 @@ import DeleteDropdown from "@/components/client/deleteDropdown";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { protocol, rootDomain, rootDomainHost } from "@/util/utils";
 import { Plus, UserRound, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/item";
 import { UserManager } from "@/components/auth/userManage";
 import { Separator } from "@/components/ui/separator";
+import { protocol, rootDomain, rootDomainHost } from "@/lib/variables";
 
 type PageProps = { params: Promise<{ locale: string }> };
 

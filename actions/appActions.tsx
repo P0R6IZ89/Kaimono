@@ -2,14 +2,14 @@
 
 import { auth } from "@/auth";
 import type { Session } from "next-auth";
-import { appSchema } from "@/util/form-zod-schema";
+import { appSchema } from "@/lib/form-zod-schema";
 import { Prisma, Role } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getCurrentLocale, redirect } from "@/i18n/navigation";
 import prisma from "@/lib/prisma";
-import { protocol, rootDomain } from "@/util/utils";
-import type { ActionResult } from "@/util/initial-action-return";
+import type { ActionResult } from "@/lib/initial-action-return";
+import { protocol, rootDomain } from "@/lib/variables";
 
 export type Result<T = unknown> = ActionResult<T>;
 

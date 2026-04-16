@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PLANNED_IMAGE_DEFAULT } from "@/util/planned-defaults";
+import { PLANNED_IMAGE_DEFAULT } from "@/lib/planned-defaults";
 
 export const essentialsSchema = z.object({
   title: z

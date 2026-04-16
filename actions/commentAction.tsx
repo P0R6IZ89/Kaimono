@@ -1,14 +1,14 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { getErrorMessage } from "@/util/error-handler";
-import { plannedCommentSchema } from "@/util/form-zod-schema";
+import { getErrorMessage } from "@/lib/error-handler";
+import { plannedCommentSchema } from "@/lib/form-zod-schema";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "./appActions";
 
 async function ensurePlannedAccess(
   plannedId: string,
-  userId: string
+  userId: string,
 ): Promise<{ subdomain: string | null; authorId: string | null }> {
   const planned = await prisma.planned.findUnique({
     where: { id: plannedId },
@@ -40,7 +40,7 @@ async function ensurePlannedAccess(
 
 export async function createCommentAction(
   prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   const session = await requireSession();
   const content = formData.get("content")?.toString() as string;
@@ -105,7 +105,7 @@ export async function deleteComment(id: string) {
 
   if (!isAuthor && !isPrivileged) {
     throw new Error(
-      "Only the comment author or an app admin can delete comments."
+      "Only the comment author or an app admin can delete comments.",
     );
   }
 

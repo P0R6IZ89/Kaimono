@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatPriceYen } from "@/util/formatPriceYen";
+import { formatPriceYen } from "@/lib/formatPriceYen";
 import { ChevronDown, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { type ComponentProps, type ReactNode, useState } from "react";
@@ -124,7 +124,7 @@ function ProjectCardHeader({
   return (
     <CardHeader className="flex flex-col gap-3">
       <div className="flex w-full justify-between gap-2">
-        <CardTitle className="flex items-center gap-2 text-lg font-black tracking-tighter capitalize">
+        <CardTitle className="flex items-center gap-2 capitalize">
           {project.name}
         </CardTitle>
         <div className="flex justify-center gap-1">{actions}</div>
@@ -201,7 +201,7 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
   const statusBadges = getProjectStatusBadges(project, t);
 
   const addItemTrigger = (
-    <Button variant="default" size="sm">
+    <Button variant="secondary" size="sm" className="rounded-full">
       <Plus className="h-4 w-4" />
     </Button>
   );

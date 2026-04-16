@@ -26,7 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useSubdomain } from "@/context/SubdomainContext";
-import { ActionResult, initialState } from "@/util/initial-action-return";
+import { ActionResult, initialState } from "@/lib/initial-action-return";
 import { EllipsisVertical } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
@@ -88,7 +88,10 @@ export function ProjectEditDialog({
                   <FormItem>
                     <FormLabel>{t("form.name")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("form.namePlaceholder")} {...field} />
+                      <Input
+                        placeholder={t("form.namePlaceholder")}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,7 +115,7 @@ export function ProjectEditDialog({
               <Button
                 variant={"destructive"}
                 className="mr-auto"
-                type="submit"
+                type="button"
                 formAction={async () => {
                   await deleteProjectAction(subdomain, id);
                 }}

@@ -1,5 +1,5 @@
 import "./globals.css";
-import { ThemeProvider } from "@/util/theme-provider";
+import { ThemeProvider } from "@/lib/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";

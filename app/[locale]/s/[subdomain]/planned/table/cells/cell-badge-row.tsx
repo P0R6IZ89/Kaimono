@@ -4,10 +4,54 @@ import React from "react";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
 import { Badge } from "@/components/ui/badge";
-import { Folder, LucideIcon } from "lucide-react";
-import { priorities, statuses } from "@/data/data";
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowUp,
+  CircleCheckBig,
+  CircleMinus,
+  Clock,
+  Folder,
+  LucideIcon,
+  TriangleAlert,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import LinkDropdownCell from "./link-dropdown";
+
+const statuses = [
+  {
+    value: "PENDING",
+    icon: Clock,
+  },
+
+  {
+    value: "PURCHASED",
+    icon: CircleCheckBig,
+  },
+  {
+    value: "CANCELLED",
+    icon: CircleMinus,
+  },
+];
+
+const priorities = [
+  {
+    value: "LOW",
+    icon: ArrowDown,
+  },
+  {
+    value: "MEDIUM",
+    icon: ArrowRight,
+  },
+  {
+    value: "HIGH",
+    icon: ArrowUp,
+  },
+  {
+    value: "URGENT",
+    icon: TriangleAlert,
+  },
+];
 
 function BadgeRowCell({ row }: { row: Row<PlannedSchema> }) {
   const { status, priority, project, productUrl } = row.original;
@@ -20,7 +64,7 @@ function BadgeRowCell({ row }: { row: Row<PlannedSchema> }) {
         label: tCommon(`priority.${p.value}`),
         icon: p.icon,
       })),
-    [tCommon]
+    [tCommon],
   );
   const match = tPriorities.find((p) => p.value === priority);
   const Icon = match?.icon as LucideIcon | undefined;

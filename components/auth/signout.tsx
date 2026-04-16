@@ -1,5 +1,5 @@
 import { signOutAction } from "@/actions/authActions";
-import { initialState } from "@/util/initial-action-return";
+import { initialState } from "@/lib/initial-action-return";
 import { useActionState } from "react";
 
 export function SignOut() {

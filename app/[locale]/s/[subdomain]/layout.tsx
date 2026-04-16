@@ -1,5 +1,4 @@
 import { getCurrentAppAction, requireSession } from "@/actions/appActions";
-import { getMyInvitationsAction } from "@/actions/membershipActions";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { Separator } from "@/components/ui/separator";
@@ -9,7 +8,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import SubdomainContextProvider from "@/context/SubdomainContext";
-import { getTranslations } from "next-intl/server";
 import React from "react";
 import { Notification } from "./components/notification";
 import { SettingIcon } from "./components/settingIcon";

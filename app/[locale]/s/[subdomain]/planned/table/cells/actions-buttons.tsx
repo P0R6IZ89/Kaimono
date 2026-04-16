@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ActionResult, initialState } from "@/util/initial-action-return";
+import { ActionResult, initialState } from "@/lib/initial-action-return";
 import { Row } from "@tanstack/react-table";
 import { Ellipsis, Pencil, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
