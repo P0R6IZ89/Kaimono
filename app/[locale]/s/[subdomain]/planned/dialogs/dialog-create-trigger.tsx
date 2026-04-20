@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CreatePlannedDialog } from "./dialog-create";
+import {
+  CreatePlannedDialog,
+  type PlannedImageSelection,
+} from "./dialog-create";
 import { useTranslations } from "next-intl";
 import { ResponsiveDialogDrawer } from "@/components/dialog/responsive-dialog-drawer";
 
@@ -35,13 +38,25 @@ export function CreatePlannedDialogTrigger({
   const t = useTranslations("Planned");
   const [open, setOpen] = useState(false);
   const [uploadWidgetOpen, setUploadWidgetOpen] = useState(false);
+  const [imageSelection, setImageSelection] = useState<
+    PlannedImageSelection | undefined
+  >(undefined);
+
+  const handleOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+
+    if (!isOpen) {
+      setUploadWidgetOpen(false);
+      setImageSelection(undefined);
+    }
+  };
 
   return (
     <ResponsiveDialogDrawer
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={handleOpenChange}
       title={t("create.title")}
-      description={t("create.description")}
+      // description={t("create.description")}
       preventClose={uploadWidgetOpen}
       contentClassName={contentClassName ?? "sm:max-w-106.25"}
       trigger={
@@ -60,7 +75,13 @@ export function CreatePlannedDialogTrigger({
         mode={mode}
         projectId={projectId}
         showAutoCreate={showAutoCreate}
-        onCompleted={() => setOpen(false)}
+        imageSelection={imageSelection}
+        onImageSelectionChange={setImageSelection}
+        onCompleted={() => {
+          setUploadWidgetOpen(false);
+          setImageSelection(undefined);
+          setOpen(false);
+        }}
         onUploadWidgetOpenChange={setUploadWidgetOpen}
       />
     </ResponsiveDialogDrawer>

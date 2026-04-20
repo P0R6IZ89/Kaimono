@@ -27,6 +27,7 @@ type ExtractedProduct = {
   price: string | null;
   description: string | null;
   currency: string | null;
+  image: string | null;
 };
 
 type ExtractProductResponse = {

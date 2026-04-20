@@ -83,7 +83,10 @@
     "invalid-email": "Please enter a valid email address.",
     "password-min-length": "Password must be at least 8 characters long.",
     "passwords-no-match": "Passwords do not match.",
-    "required-field": "This field is required."
+    "required-field": "This field is required.",
+    "fields": {
+      "image": "Image"
+    }
   },
   "Essentials": {
     "actions": {
@@ -212,7 +215,7 @@
     },
     "ai": {
       "blockedUrl": "This product URL is not allowed.",
-      "description": "Paste a product URL to fill the form with extracted details.",
+      "description": "Paste a product URL to autofill the form.",
       "extract": "Extract",
       "extractComplete": "Product details added to the form.",
       "extractFailed": "Failed to extract product details.",
@@ -234,7 +237,7 @@
     "count": "{count, plural, =0 {No items yet.} =1 {1 planned} other {# planneds}}",
     "create": {
       "description": "Add a new item to your planned list.",
-      "title": "New"
+      "title": "Create a new item"
     },
     "description": "Your planned shopping list items.  You can send to an existing project or keep in backlog for better organization.",
     "editDescription": "You can edit the item here, don't forget to save!",
@@ -249,11 +252,11 @@
     },
     "fields": {
       "description": "Description (optional)",
-      "descriptionPlaceholder": "Add description or notes (optional)",
+      "descriptionPlaceholder": "Add description or notes",
       "itemName": "Item Name",
       "itemNamePlaceholder": "e.g., 3D printer, cosmetic or cloth item",
-      "link": "Link (optional)",
-      "linkPlaceholder": "Enter product link (optional)",
+      "link": "Link",
+      "linkPlaceholder": "www.example.com/product",
       "price": "Price",
       "pricePlaceholder": "Enter price",
       "priority": "Priority",

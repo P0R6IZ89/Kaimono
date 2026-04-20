@@ -41,11 +41,19 @@ type PlannedCreateFormProps = {
   projectId?: string;
   onCompleted?: () => void;
   onUploadWidgetOpenChange?: (isOpen: boolean) => void;
+  imageSelection?: PlannedImageSelection;
+  onImageSelectionChange?: (
+    selection: PlannedImageSelection | undefined,
+  ) => void;
   className?: string;
   submitButtonClassName?: string;
   submitLabel?: string;
   form?: UseFormReturn<PlannedCreateFormValues>;
 };
+
+export type PlannedImageSelection =
+  | { source: "ai"; url: string }
+  | { source: "upload"; info: CloudinaryUploadWidgetInfo };
 
 export type PlannedCreateFormValues = {
   title: string;
@@ -79,6 +87,8 @@ export function PlannedCreateForm({
   projectId,
   onCompleted,
   onUploadWidgetOpenChange,
+  imageSelection,
+  onImageSelectionChange,
   className,
   submitButtonClassName,
   submitLabel,
@@ -95,9 +105,13 @@ export function PlannedCreateForm({
   });
   const form = externalForm ?? internalForm;
 
-  const [uploadedInfo, setUploadedInfo] = useState<
-    string | CloudinaryUploadWidgetInfo | undefined
+  const [internalImageSelection, setInternalImageSelection] = useState<
+    PlannedImageSelection | undefined
   >(undefined);
+  const selectedImage = onImageSelectionChange
+    ? imageSelection
+    : internalImageSelection;
+  const setSelectedImage = onImageSelectionChange ?? setInternalImageSelection;
 
   const handledStateRef = useRef<ActionResult | null>(null);
   const actionHandler = isProjectMode
@@ -110,8 +124,8 @@ export function PlannedCreateForm({
 
   useEffect(() => {
     form.reset(getDefaultValues(subdomain));
-    setUploadedInfo(undefined);
-  }, [form, externalForm, subdomain]);
+    setSelectedImage(undefined);
+  }, [form, externalForm, onImageSelectionChange, setSelectedImage, subdomain]);
 
   useEffect(() => {
     if (!state.message || handledStateRef.current === state) return;
@@ -120,20 +134,45 @@ export function PlannedCreateForm({
     if (state.ok) {
       toast.success(state.message);
       form.reset(getDefaultValues(subdomain));
-      setUploadedInfo(undefined);
+      setSelectedImage(undefined);
       onCompleted?.();
       router.refresh();
     } else {
       toast.error(state.message);
     }
-  }, [form, onCompleted, router, state, subdomain]);
+  }, [form, onCompleted, router, setSelectedImage, state, subdomain]);
+
+  const uploadButtonLabel =
+    selectedImage?.source === "upload"
+      ? `${t("feedback.selected")}: ${selectedImage.info.original_filename}.${selectedImage.info.format}`
+      : selectedImage?.source === "ai"
+        ? `${t("feedback.selected")}: Extracted Image`
+        : t("uploadImage");
 
   return (
     <Form {...form}>
-      <form action={action} className={cn("space-y-4 pt-4", className)}>
+      <form action={action} className={cn("space-y-2 pt-4", className)}>
         {isProjectMode ? (
           <input type="hidden" name="projectId" value={projectId ?? ""} />
         ) : null}
+        <FormField
+          control={form.control}
+          name="productUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("fields.link")}</FormLabel>
+              <FormControl>
+                <Input
+                  className="resize-none"
+                  type="url"
+                  {...field}
+                  placeholder={t("fields.linkPlaceholder")}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="title"
@@ -143,7 +182,7 @@ export function PlannedCreateForm({
               <FormControl>
                 <Input
                   {...field}
-                  placeholder={t("fields.itemNamePlaceholder")}
+                  // placeholder={t("fields.itemNamePlaceholder")}
                 />
               </FormControl>
               <FormDescription />
@@ -164,7 +203,7 @@ export function PlannedCreateForm({
                     min={0}
                     step={"any"}
                     {...field}
-                    placeholder={t("fields.pricePlaceholder")}
+                    // placeholder={t("fields.pricePlaceholder")}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
                 </FormControl>
@@ -185,7 +224,7 @@ export function PlannedCreateForm({
                     min={1}
                     step={1}
                     {...field}
-                    placeholder={t("fields.quantityPlaceholder")}
+                    // placeholder={t("fields.quantityPlaceholder")}
                     onChange={(e) => field.onChange(e.target.value)}
                   />
                 </FormControl>
@@ -208,9 +247,9 @@ export function PlannedCreateForm({
                   value={field.value}
                   onValueChange={field.onChange}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="w-48">
                     <SelectValue
-                      placeholder={t("fields.priorityPlaceholder")}
+                    // placeholder={t("fields.priorityPlaceholder")}
                     />
                   </SelectTrigger>
                   <SelectContent>
@@ -241,6 +280,7 @@ export function PlannedCreateForm({
           name="image"
           render={({ field }) => (
             <FormItem>
+              <FormLabel>{t("fields.image")}</FormLabel>
               <FormControl>
                 <CldUploadWidget
                   options={{
@@ -257,7 +297,7 @@ export function PlannedCreateForm({
                       return;
                     }
                     field.onChange(info.secure_url);
-                    setUploadedInfo(info);
+                    setSelectedImage({ source: "upload", info });
                     widget.close();
                     onUploadWidgetOpenChange?.(false);
                   }}
@@ -274,11 +314,7 @@ export function PlannedCreateForm({
                           open();
                         }}
                       >
-                        <p>
-                          {uploadedInfo && typeof uploadedInfo !== "string"
-                            ? `${t("feedback.selected")}: ${uploadedInfo.original_filename}.${uploadedInfo.format}`
-                            : `${t("uploadImage")}`}
-                        </p>
+                        <p>{uploadButtonLabel}</p>
                         <Upload />
                       </Button>
                     );
@@ -291,24 +327,7 @@ export function PlannedCreateForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="productUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("fields.link")}</FormLabel>
-              <FormControl>
-                <Input
-                  className="resize-none"
-                  type="url"
-                  {...field}
-                  placeholder={t("fields.linkPlaceholder")}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
         <FormField
           control={form.control}
           name="description"
@@ -355,12 +374,18 @@ export function PlannedCreateForm({
 export function CreatePlannedDialog({
   onUploadWidgetOpenChange,
   onCompleted,
+  imageSelection,
+  onImageSelectionChange,
   mode = "standalone",
   projectId,
   showAutoCreate = true,
 }: {
   onUploadWidgetOpenChange?: (isOpen: boolean) => void;
   onCompleted?: () => void;
+  imageSelection?: PlannedImageSelection;
+  onImageSelectionChange?: (
+    selection: PlannedImageSelection | undefined,
+  ) => void;
   mode?: "standalone" | "project";
   projectId?: string;
   showAutoCreate?: boolean;
@@ -371,9 +396,9 @@ export function CreatePlannedDialog({
   });
 
   return (
-    <div className="space-y-2">
+    <div>
       {showAutoCreate ? (
-        <div className="bg-card border-s-blue-400 border-e-yellow-400 rounded-md border p-2 lg:p-3">
+        <div className="bg-card rounded-md border p-2 lg:p-3">
           <AutoCreateForm
             onExtracted={({ url, product }) => {
               plannedForm.setValue("productUrl", url, {
@@ -401,6 +426,17 @@ export function CreatePlannedDialog({
                   shouldTouch: true,
                 });
               }
+
+              if (product.image) {
+                plannedForm.setValue("image", product.image, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                });
+                onImageSelectionChange?.({
+                  source: "ai",
+                  url: product.image,
+                });
+              }
             }}
           />
         </div>
@@ -410,6 +446,8 @@ export function CreatePlannedDialog({
         mode={mode}
         projectId={projectId}
         subdomain={subdomain}
+        imageSelection={imageSelection}
+        onImageSelectionChange={onImageSelectionChange}
         onCompleted={onCompleted}
         onUploadWidgetOpenChange={onUploadWidgetOpenChange}
       />

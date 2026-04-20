@@ -83,17 +83,17 @@ function PlannedMasonryCard({ item }: { item: HomePlannedItem }) {
         )}
       </div>
       <CardHeader className="gap-2 p-3">
-        <div className="flex flex-wrap gap-1.5">
+        {/* <div className="flex flex-wrap gap-1.5">
           <Badge variant="secondary">{item.status}</Badge>
           <Badge variant="outline">{item.priority}</Badge>
-        </div>
+        </div> */}
         <CardTitle className="line-clamp-2 text-base">{item.title}</CardTitle>
-        <div className="flex items-center justify-between gap-3 text-sm text-muted-foreground">
+        {/* <div className="flex items-center justify-between gap-3 text-sm text-muted-foreground">
           <span className="font-medium tabular-nums text-foreground">
             {formatPriceYen(item.price * item.quantity)}
           </span>
           <span className="shrink-0 tabular-nums">Qty {item.quantity}</span>
-        </div>
+        </div> */}
       </CardHeader>
     </Card>
   );
