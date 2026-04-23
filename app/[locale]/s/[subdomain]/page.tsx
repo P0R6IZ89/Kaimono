@@ -4,6 +4,7 @@ import {
   getProjectWithFirstPlanned,
 } from "@/actions/projectActions";
 import { HomeContent } from "./components/HomeContent";
+import { getRecentEssentialItems } from "@/actions/essentialsActions";
 
 export default async function Essentials({
   params,
@@ -12,8 +13,11 @@ export default async function Essentials({
 }) {
   const { subdomain } = await params;
   // const t = await getTranslations({ locale, namespace: "Dashboard" });
-  const projects = await getProjectWithFirstPlanned(subdomain);
-  const allProject = await getInitialsProjectsAndPlanned(subdomain);
+  const [recentShoppingItems, projects, allProject] = await Promise.all([
+    getRecentEssentialItems(subdomain),
+    getProjectWithFirstPlanned(subdomain),
+    getInitialsProjectsAndPlanned(subdomain),
+  ]);
 
   const Home = [
     {
@@ -27,7 +31,11 @@ export default async function Essentials({
 
   return (
     <div className="flex flex-col mb-24 md:mb-0 p-4">
-      <HomeContent projects={navItems} allProjects={allProject} />
+      <HomeContent
+        projects={navItems}
+        allProjects={allProject}
+        recentShoppingItems={recentShoppingItems}
+      />
     </div>
   );
 }

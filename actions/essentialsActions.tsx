@@ -8,6 +8,7 @@ import { essentialsSchema, statusUpdateSchema } from "@/lib/form-zod-schema";
 import { ActionResult } from "@/lib/initial-action-return";
 import { Status } from "@prisma/client";
 import { getCurrentLocale } from "@/i18n/navigation";
+import { stat } from "fs";
 
 export async function createEssentials(
   _previousState: unknown,
@@ -241,4 +242,27 @@ export async function setEssentialStatusAction({
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }
+}
+
+export async function getRecentEssentialItems(subdomain: string) {
+  const { appId } = await requireMembership(subdomain);
+  const essentials = await prisma.essential.findMany({
+    where: {
+      appId: appId,
+      status: "PENDING",
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+    take: 5,
+  });
+  return essentials.map((item) => ({
+    id: item.id,
+    status: item.status,
+    title: item.title,
+    price: item.price.toNumber(),
+    quantity: item.quantity,
+    createdAt: item.createdAt.toISOString(),
+    updatedAt: item.updatedAt.toISOString(),
+  }));
 }
