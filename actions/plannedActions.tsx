@@ -317,3 +317,45 @@ export async function deleteTask(id: string): Promise<ActionResult> {
     return { ok: false, message: "Falha ao deletar o item" };
   }
 }
+
+export async function getOldestPlannedItems(subdomain: string) {
+  const appId = await requireMembership(subdomain);
+  const threeMonthsAgo = new Date();
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+  const plannedItems = await prisma.planned.findMany({
+    where: {
+      appId: appId.appId,
+      status: "PENDING",
+      createdAt: { lte: threeMonthsAgo },
+    },
+    orderBy: { createdAt: "asc" },
+    select: {
+      id: true,
+      title: true,
+      image: true,
+      productUrl: true,
+      createdAt: true,
+    },
+  });
+  return plannedItems;
+}
+
+export async function getRecentlyAdded(subdomain: string) {
+  const appId = await requireMembership(subdomain);
+  const recentItems = await prisma.planned.findMany({
+    where: {
+      appId: appId.appId,
+      status: "PENDING",
+    },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      title: true,
+      image: true,
+      productUrl: true,
+      createdAt: true,
+    },
+    take: 10,
+  });
+  return recentItems;
+}

@@ -194,7 +194,6 @@ export async function getInitialsProjectsAndPlanned(subdomain: string) {
     where: { appId },
     include: {
       plannedItems: {
-        take: 10,
         orderBy: { createdAt: "asc" },
         select: {
           id: true,

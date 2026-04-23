@@ -18,7 +18,7 @@ export function HomeTopBar({
   setActiveProjectId: (id: string) => void;
 }) {
   return (
-    <div className="flex flex-row gap-2 overflow-x-auto">
+    <div className="flex min-w-0 max-w-full flex-row gap-2 overflow-x-auto">
       {projects.map((project) => (
         <button
           key={project.id}
