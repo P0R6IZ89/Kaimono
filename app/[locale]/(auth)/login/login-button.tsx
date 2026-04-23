@@ -6,9 +6,8 @@ import { redirect, useRouter } from "next/navigation";
 import { AuthError } from "next-auth";
 import React, { useActionState } from "react";
 import { GithubIcon, Google } from "@/lib/oauth-icon";
-import { Input } from "@/components/ui/input";
 import { magicLinkSignIn } from "@/actions/authActions";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useTranslations } from "next-intl";
 
@@ -49,18 +48,18 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
   return (
     <div className="flex flex-col gap-4">
       <Button
-        variant="default"
+        variant="secondary"
         onClick={handleSignIn("github")}
         className="flex items-center justify-center gap-2"
       >
         <div className="flex flex-row gap-2 items-center">
-          <GithubIcon className="text-background size-4" />
+          <GithubIcon className="text-foreground size-4" />
           <p>{t("continueWith.github")}</p>
         </div>
       </Button>
 
       <Button
-        variant="default"
+        variant="secondary"
         onClick={handleSignIn("google")}
         className="flex items-center justify-center gap-2"
       >
@@ -69,11 +68,33 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
           <p>{t("continueWith.google")}</p>
         </div>
       </Button>
-      <div className="flex flex-row gap-2 items-center ">
+      <div className="flex flex-row justify-between">
+        <Button
+          variant="ghost"
+          type="button"
+          onClick={() => router.push("/home")}
+        >
+          <ChevronLeft /> Home
+        </Button>
+        <Button variant="ghost">
+          Sign In with Email
+          <ChevronRight />
+        </Button>
+      </div>
+      {/* <div className="flex flex-row gap-2 items-center ">
         <span className="border-t flex-1 border-muted-foreground" />
         <p className="text-muted-foreground text-sm">{t("or")}</p>
         <span className="border-t flex-1 border-muted-foreground" />
       </div>
+      <Button
+        variant="outline"
+        className="flex w-full items-center justify-center"
+        disabled={isPending}
+      >
+        {isPending ? <Loader2 className="animate-spin" /> : null}
+        {t("continueWith.email")}
+      </Button> */}
+      {/*
       <form action={action} className="space-y-4">
         <div className="flex flex-col gap-2">
           <Input
@@ -84,14 +105,7 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
           />
         </div>
 
-        <Button
-          className="flex w-full items-center justify-center"
-          disabled={isPending}
-        >
-          {isPending ? <Loader2 className="animate-spin" /> : null}
-          {t("continueWith.email")}
-        </Button>
-      </form>
+      </form> */}
       {state?.error && (
         <Alert variant={"destructive"}>
           <AlertCircle className="h-4 w-4" />

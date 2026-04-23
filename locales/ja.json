@@ -4,7 +4,7 @@
     "checkSpam": "（メールが見当たらない場合は迷惑メールフォルダをご確認ください）",
     "continueWith": {
       "email": "メールで続行",
-      "github": "GitHubで続行 🚧開発者向けのみ⚠️",
+      "github": "GitHubで続行",
       "google": "Googleで続行"
     },
     "emailSent": {
