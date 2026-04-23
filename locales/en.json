@@ -4,7 +4,7 @@
     "checkSpam": "(Check your spam folder if you don't see it)",
     "continueWith": {
       "email": "Continue with Email",
-      "github": "Continue with Github 🚧Only for dev⚠️",
+      "github": "Continue with Github",
       "google": "Continue with Google"
     },
     "emailSent": {
