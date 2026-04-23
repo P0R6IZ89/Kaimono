@@ -47,14 +47,34 @@ export type recentShoppingItemsType = {
   updatedAt: string;
 }[];
 
+export type oldestPlannedItemsType = {
+  id: string;
+  title: string;
+  productUrl?: string | null | undefined;
+  createdAt: Date;
+  image: string;
+}[];
+
+export type recentlyAddedType = {
+  id: string;
+  title: string;
+  productUrl?: string | null | undefined;
+  createdAt: Date;
+  image: string;
+}[];
+
 export function HomeContent({
   projects,
   allProjects,
   recentShoppingItems,
+  oldestPlannedItems,
+  recentlyAdded,
 }: {
   projects: projectType;
   allProjects: allProjectType[];
   recentShoppingItems: recentShoppingItemsType;
+  oldestPlannedItems: oldestPlannedItemsType;
+  recentlyAdded: recentlyAddedType;
 }) {
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
 
@@ -62,7 +82,7 @@ export function HomeContent({
     setActiveProjectId(projects[0]?.id ?? null);
   }, [projects]);
   return (
-    <div>
+    <div className="min-w-0">
       <HomeTopBar
         projects={projects}
         activeProjectId={activeProjectId}
@@ -73,6 +93,8 @@ export function HomeContent({
         activeProjectId={activeProjectId}
         allProjects={allProjects}
         recentShoppingItems={recentShoppingItems}
+        oldestPlannedItems={oldestPlannedItems}
+        recentlyAdded={recentlyAdded}
       />
     </div>
   );

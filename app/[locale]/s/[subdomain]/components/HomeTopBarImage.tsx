@@ -24,7 +24,6 @@ export function HomeTopBarImage({
       {imageSrc ? (
         <CldImage
           className={cn("bg-card", !selected && "opacity-80")}
-          removeBackground
           fill
           src={imageSrc}
           alt={alt}

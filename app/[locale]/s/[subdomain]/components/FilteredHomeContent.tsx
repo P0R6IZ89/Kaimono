@@ -1,6 +1,11 @@
 "use client";
 
-import type { allProjectType, recentShoppingItemsType } from "./HomeContent";
+import type {
+  allProjectType,
+  oldestPlannedItemsType,
+  recentlyAddedType,
+  recentShoppingItemsType,
+} from "./HomeContent";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   CircleCheckBig,
@@ -33,6 +38,7 @@ import {
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { CldImage } from "next-cloudinary";
+import { Link } from "@/i18n/navigation";
 
 type HomePlannedItem = allProjectType["plannedItems"][number];
 type HomeProject = allProjectType;
@@ -52,16 +58,27 @@ function getDefaultPagination(): PaginationState {
 
 function PlannedMasonryCard({ item }: { item: HomePlannedItem }) {
   const imageSrc = item.image || PLANNED_PLACEHOLDER_IMAGE;
+  const plannedHref = {
+    pathname: "/planned" as const,
+    query: { title: item.title, showAll: "1" },
+  };
+
   return (
     <Card className="gap-0 w-full break-inside-avoid overflow-hidden rounded-xl p-0 shadow hover:ring-2 hover:ring-primary/50 hover:brightness-125 transition-all">
       <div className="relative">
-        <CldImage
-          width={600}
-          height={600}
-          src={imageSrc}
-          alt={item.title}
-          className="h-auto w-full object-cover"
-        />
+        <Link
+          href={plannedHref}
+          className="block"
+          aria-label={`Open ${item.title}`}
+        >
+          <CldImage
+            width={600}
+            height={600}
+            src={imageSrc}
+            alt={item.title}
+            className="h-auto w-full object-cover"
+          />
+        </Link>
         {item.productUrl && (
           <Button
             asChild
@@ -72,7 +89,7 @@ function PlannedMasonryCard({ item }: { item: HomePlannedItem }) {
               href={item.productUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open ${item.title}`}
+              aria-label={`Open product link for ${item.title}`}
             >
               <LinkIcon />
             </a>
@@ -80,7 +97,14 @@ function PlannedMasonryCard({ item }: { item: HomePlannedItem }) {
         )}
       </div>
       <CardHeader className="gap-2 p-3">
-        <CardTitle className="line-clamp-2 text-base">{item.title}</CardTitle>
+        <CardTitle className="line-clamp-2 text-base">
+          <Link
+            href={plannedHref}
+            className="outline-none hover:underline focus-visible:ring-ring/50 focus-visible:ring-[3px]"
+          >
+            {item.title}
+          </Link>
+        </CardTitle>
       </CardHeader>
     </Card>
   );
@@ -206,17 +230,27 @@ export function FilteredHomeContent({
   activeProjectId,
   allProjects,
   recentShoppingItems,
+  oldestPlannedItems,
+  recentlyAdded,
 }: {
   activeProjectId: string | null;
   allProjects: allProjectType[];
   recentShoppingItems: recentShoppingItemsType;
+  oldestPlannedItems: oldestPlannedItemsType;
+  recentlyAdded: recentlyAddedType;
 }) {
   const activeProject = allProjects.find(
     (project) => project.id === activeProjectId,
   );
 
   if (!activeProject) {
-    return <Home recentShoppingItems={recentShoppingItems} />;
+    return (
+      <Home
+        recentShoppingItems={recentShoppingItems}
+        oldestPlannedItems={oldestPlannedItems}
+        recentlyAdded={recentlyAdded}
+      />
+    );
   }
 
   return (

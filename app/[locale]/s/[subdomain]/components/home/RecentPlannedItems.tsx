@@ -1,11 +1,51 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardContent } from "@/components/ui/card";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Link } from "@/i18n/navigation";
+import { CldImage } from "next-cloudinary";
+import { recentlyAddedType } from "../HomeContent";
 
-export function RecentPlannedItems() {
+const PLANNED_PLACEHOLDER_IMAGE =
+  "https://res.cloudinary.com/dsttcre2h/image/upload/v1751870559/placeholder_dtzhrr.png";
+
+export function RecentPlannedItems({ items }: { items: recentlyAddedType }) {
+  if (items.length === 0) {
+    return null;
+  }
+
   return (
-    <section>
-      <p className="mb-2 text-sm">Recent planned items</p>
-      <ScrollArea className="h-32 w-fit flex flex-row gap-2">
-        <div></div>
+    <section className="">
+      <p className="mb-4 text-sm">Recently added</p>
+      <ScrollArea className="w-full max-w-full min-w-0 overflow-hidden">
+        <div className="flex gap-3 pb-3">
+          {items.map((item) => (
+            <Card
+              key={item.id}
+              className="w-36 shrink-0 overflow-hidden p-0 shadow-sm"
+            >
+              <Link
+                href={{
+                  pathname: "/planned",
+                  query: { title: item.title, showAll: "1" },
+                }}
+                aria-label={`Open ${item.title}`}
+              >
+                <CldImage
+                  width={320}
+                  height={320}
+                  src={item.image || PLANNED_PLACEHOLDER_IMAGE}
+                  alt={item.title}
+                  className="aspect-square w-full object-cover"
+                />
+                <CardContent className="p-2">
+                  <p className="line-clamp-2 text-sm font-medium">
+                    {item.title}
+                  </p>
+                </CardContent>
+              </Link>
+            </Card>
+          ))}
+        </div>
+        <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </section>
   );
