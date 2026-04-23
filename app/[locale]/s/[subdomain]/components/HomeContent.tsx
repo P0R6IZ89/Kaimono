@@ -37,17 +37,29 @@ export type allProjectType = {
   };
 };
 
+export type recentShoppingItemsType = {
+  id: string;
+  status: $Enums.Status;
+  title: string;
+  price: number;
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+}[];
+
 export function HomeContent({
   projects,
   allProjects,
+  recentShoppingItems,
 }: {
   projects: projectType;
   allProjects: allProjectType[];
+  recentShoppingItems: recentShoppingItemsType;
 }) {
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
 
   useEffect(() => {
-    setActiveProjectId(projects[1]?.id ?? null);
+    setActiveProjectId(projects[0]?.id ?? null);
   }, [projects]);
   return (
     <div>
@@ -60,6 +72,7 @@ export function HomeContent({
       <FilteredHomeContent
         activeProjectId={activeProjectId}
         allProjects={allProjects}
+        recentShoppingItems={recentShoppingItems}
       />
     </div>
   );

@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUserCapabilities } from "@/actions/userActions";
 import { checkAiExtractRateLimit } from "@/lib/rate-limit";
 import { validatePublicHttpUrl } from "@/lib/url-safety";
+import { cloudinary } from "@/lib/cloudinary";
 
 export const runtime = "nodejs";
 
@@ -14,14 +15,19 @@ const client = new OpenAI({
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_REDIRECTS = 5;
 const MAX_HTML_BYTES = 2_000_000;
+const MAX_IMAGE_BYTES = 5_000_000;
 const ALLOWED_CONTENT_TYPES = ["text/html", "application/xhtml+xml"];
+const PRODUCT_IMAGE_FOLDER = "product-extractions";
 
 type ProductData = {
   name: string | null;
   price: string | null;
   description: string | null;
   currency: string | null;
+  image: string | null;
 };
+
+type ProductTextData = Omit<ProductData, "image">;
 
 type ExtractSuccessResponse = {
   source: string;
@@ -83,13 +89,60 @@ function cleanText(value?: string | null) {
   return value.replace(/\s+/g, " ").trim();
 }
 
-function tryParseJsonLd($: cheerio.CheerioAPI): ProductData {
+function resolveImageUrl(value: string | null | undefined, baseUrl: string) {
+  const cleaned = cleanText(value);
+  if (!cleaned) return null;
+
+  try {
+    const url = new URL(cleaned, baseUrl);
+    if (!["http:", "https:"].includes(url.protocol)) {
+      return null;
+    }
+
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
+
+function extractJsonLdImageValue(value: unknown): string | null {
+  if (!value) return null;
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const image = extractJsonLdImageValue(item);
+      if (image) return image;
+    }
+    return null;
+  }
+
+  if (typeof value === "object") {
+    const image = value as {
+      url?: unknown;
+      contentUrl?: unknown;
+      "@id"?: unknown;
+    };
+
+    if (typeof image.url === "string") return image.url;
+    if (typeof image.contentUrl === "string") return image.contentUrl;
+    if (typeof image["@id"] === "string") return image["@id"];
+  }
+
+  return null;
+}
+
+function tryParseJsonLd($: cheerio.CheerioAPI, baseUrl: string): ProductData {
   const script = $(`script[type="application/ld+json"]`);
   const result: ProductData = {
     name: null,
     price: null,
     description: null,
     currency: null,
+    image: null,
   };
 
   script.each((_, el) => {
@@ -124,6 +177,9 @@ function tryParseJsonLd($: cheerio.CheerioAPI): ProductData {
           result.currency =
             cleanText(offers?.priceCurrency ?? node?.priceCurrency) ??
             result.currency;
+          result.image =
+            resolveImageUrl(extractJsonLdImageValue(node.image), baseUrl) ??
+            result.image;
         }
       }
     } catch {
@@ -134,9 +190,9 @@ function tryParseJsonLd($: cheerio.CheerioAPI): ProductData {
   return result;
 }
 
-function extractWithCheerio(html: string): ProductData {
+function extractWithCheerio(html: string, baseUrl: string): ProductData {
   const $ = cheerio.load(html);
-  const jsonLd = tryParseJsonLd($);
+  const jsonLd = tryParseJsonLd($, baseUrl);
 
   const name =
     jsonLd.name ??
@@ -156,18 +212,29 @@ function extractWithCheerio(html: string): ProductData {
     cleanText($("[itemprop='price']").text()) ??
     cleanText($(".price, .product-price, .sale-price").first().text());
 
+  const itempropImage =
+    $("[itemprop='image']").first().attr("content") ??
+    $("[itemprop='image']").first().attr("src");
+  const image =
+    jsonLd.image ??
+    resolveImageUrl($("meta[property='og:image']").attr("content"), baseUrl) ??
+    resolveImageUrl($("meta[name='twitter:image']").attr("content"), baseUrl) ??
+    resolveImageUrl(itempropImage, baseUrl) ??
+    resolveImageUrl($("link[rel='image_src']").attr("href"), baseUrl);
+
   return {
     name,
     price,
     description,
     currency: jsonLd.currency,
+    image,
   };
 }
 
 async function extractWithLLM(
   url: string,
   content: string,
-): Promise<ProductData> {
+): Promise<ProductTextData> {
   const response = await client.responses.create({
     model: "gpt-4.1-nano",
     input: [
@@ -210,7 +277,7 @@ async function extractWithLLM(
     },
   });
 
-  return JSON.parse(response.output_text) as ProductData;
+  return JSON.parse(response.output_text) as ProductTextData;
 }
 
 async function readTextWithLimit(response: Response, maxBytes: number) {
@@ -249,6 +316,47 @@ async function readTextWithLimit(response: Response, maxBytes: number) {
   }
 
   return text + decoder.decode();
+}
+
+async function readBufferWithLimit(response: Response, maxBytes: number) {
+  const contentLength = response.headers.get("content-length");
+  if (contentLength && Number(contentLength) > maxBytes) {
+    throw new Error("Image is too large.");
+  }
+
+  if (!response.body) {
+    const buffer = Buffer.from(await response.arrayBuffer());
+    if (buffer.byteLength > maxBytes) {
+      throw new Error("Image is too large.");
+    }
+    return buffer;
+  }
+
+  const reader = response.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+
+    if (done) {
+      break;
+    }
+
+    if (!value) {
+      continue;
+    }
+
+    totalBytes += value.byteLength;
+    if (totalBytes > maxBytes) {
+      await reader.cancel();
+      throw new Error("Image is too large.");
+    }
+
+    chunks.push(value);
+  }
+
+  return Buffer.concat(chunks);
 }
 
 async function fetchHtmlFromUrl(inputUrl: string) {
@@ -354,7 +462,10 @@ async function fetchHtmlFromUrl(inputUrl: string) {
         url: validation.url.toString(),
         bytes: html.length,
       });
-      return html;
+      return {
+        html,
+        finalUrl: validation.url.toString(),
+      };
     } catch (error) {
       if (error instanceof RouteError) {
         console.error("[extract-product] Route error during fetch", {
@@ -397,6 +508,94 @@ async function fetchHtmlFromUrl(inputUrl: string) {
     "EXTRACTION_FAILED",
     "Too many redirects while fetching the product page.",
   );
+}
+
+async function fetchImageFromUrl(inputUrl: string) {
+  let currentUrl = inputUrl;
+
+  for (let attempt = 0; attempt <= MAX_REDIRECTS; attempt += 1) {
+    const validation = await validatePublicHttpUrl(currentUrl);
+    if (!validation.ok) {
+      throw new Error(validation.message);
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(validation.url, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 ProductExtractorBot/1.0",
+          Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        },
+        redirect: "manual",
+        signal: controller.signal,
+      });
+
+      if (
+        response.status >= 300 &&
+        response.status < 400 &&
+        response.headers.has("location")
+      ) {
+        const location = response.headers.get("location");
+        if (!location) {
+          throw new Error("Image redirect is missing a location header.");
+        }
+
+        currentUrl = new URL(location, validation.url).toString();
+        continue;
+      }
+
+      if (!response.ok) {
+        throw new Error(`Image request failed with status ${response.status}.`);
+      }
+
+      const contentType = response.headers.get("content-type")?.toLowerCase();
+      if (!contentType?.startsWith("image/")) {
+        throw new Error("Image URL did not return an image content type.");
+      }
+
+      return {
+        buffer: await readBufferWithLimit(response, MAX_IMAGE_BYTES),
+        contentType: contentType.split(";")[0],
+      };
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  throw new Error("Too many redirects while fetching the product image.");
+}
+
+async function importProductImage(imageUrl: string | null) {
+  if (!imageUrl) return null;
+
+  try {
+    const validation = await validatePublicHttpUrl(imageUrl);
+    if (!validation.ok) {
+      console.error("[extract-product] Product image URL validation failed", {
+        url: imageUrl,
+        code: validation.code,
+        message: validation.message,
+      });
+      return null;
+    }
+
+    const image = await fetchImageFromUrl(validation.url.toString());
+    const dataUri = `data:${image.contentType};base64,${image.buffer.toString("base64")}`;
+    const upload = await cloudinary.uploader.upload(dataUri, {
+      folder: PRODUCT_IMAGE_FOLDER,
+      resource_type: "image",
+    });
+
+    return upload.secure_url ?? null;
+  } catch (error) {
+    console.error("[extract-product] Product image import failed", {
+      url: imageUrl,
+      error,
+    });
+    return null;
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -490,18 +689,26 @@ export async function POST(req: NextRequest) {
       return createErrorResponse(400, validation.code, validation.message);
     }
 
-    const html = await fetchHtmlFromUrl(validation.url.toString());
-    const basic = extractWithCheerio(html);
+    const { html, finalUrl } = await fetchHtmlFromUrl(validation.url.toString());
+    const basic = extractWithCheerio(html, finalUrl);
+    const productImage = await importProductImage(basic.image);
+    const basicWithImage: ProductData = {
+      ...basic,
+      image: productImage,
+    };
 
-    const hasEnough = !!basic.name && !!basic.price && !!basic.description;
+    const hasEnough =
+      !!basicWithImage.name &&
+      !!basicWithImage.price &&
+      !!basicWithImage.description;
     if (hasEnough) {
       console.log("[extract-product] Extracted with cheerio", {
-        url: validation.url.toString(),
+        url: finalUrl,
       });
       return NextResponse.json<ExtractSuccessResponse>(
         {
           source: "cheerio",
-          product: basic,
+          product: basicWithImage,
         },
         {
           headers: rateLimitHeaders,
@@ -512,22 +719,23 @@ export async function POST(req: NextRequest) {
     const $ = cheerio.load(html);
     const visibleText = $("body").text().replace(/\s+/g, " ").trim();
     console.log("[extract-product] Falling back to LLM extraction", {
-      url: validation.url.toString(),
+      url: finalUrl,
       visibleTextLength: visibleText.length,
     });
-    const llmResult = await extractWithLLM(validation.url.toString(), visibleText);
+    const llmResult = await extractWithLLM(finalUrl, visibleText);
 
     console.log("[extract-product] Extracted with LLM fallback", {
-      url: validation.url.toString(),
+      url: finalUrl,
     });
     return NextResponse.json<ExtractSuccessResponse>(
       {
         source: "llm-fallback",
         product: {
-          name: llmResult.name ?? basic.name,
-          price: llmResult.price ?? basic.price,
-          description: llmResult.description ?? basic.description,
-          currency: llmResult.currency ?? basic.currency,
+          name: llmResult.name ?? basicWithImage.name,
+          price: llmResult.price ?? basicWithImage.price,
+          description: llmResult.description ?? basicWithImage.description,
+          currency: llmResult.currency ?? basicWithImage.currency,
+          image: basicWithImage.image,
         },
       },
       {

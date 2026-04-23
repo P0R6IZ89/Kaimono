@@ -1,7 +1,6 @@
 "use client";
 
-import type { allProjectType } from "./HomeContent";
-import Image from "next/image";
+import type { allProjectType, recentShoppingItemsType } from "./HomeContent";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   CircleCheckBig,
@@ -12,11 +11,9 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { Recommendation } from "./Recommendation";
-import { formatPriceYen } from "@/lib/formatPriceYen";
+import { Home } from "./home/Recommendation";
 import { DataTableFacetedFilter } from "../planned/table/data-table-faceted-filter";
 import { CreatePlannedDialogTrigger } from "../planned/dialogs/dialog-create-trigger";
 import {
@@ -35,6 +32,7 @@ import {
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { CldImage } from "next-cloudinary";
 
 type HomePlannedItem = allProjectType["plannedItems"][number];
 type HomeProject = allProjectType;
@@ -54,11 +52,10 @@ function getDefaultPagination(): PaginationState {
 
 function PlannedMasonryCard({ item }: { item: HomePlannedItem }) {
   const imageSrc = item.image || PLANNED_PLACEHOLDER_IMAGE;
-
   return (
-    <Card className="mb-4 gap-0 w-full break-inside-avoid overflow-hidden rounded-xl p-0 shadow">
+    <Card className="gap-0 w-full break-inside-avoid overflow-hidden rounded-xl p-0 shadow hover:ring-2 hover:ring-primary/50 hover:brightness-125 transition-all">
       <div className="relative">
-        <Image
+        <CldImage
           width={600}
           height={600}
           src={imageSrc}
@@ -83,17 +80,7 @@ function PlannedMasonryCard({ item }: { item: HomePlannedItem }) {
         )}
       </div>
       <CardHeader className="gap-2 p-3">
-        <div className="flex flex-wrap gap-1.5">
-          <Badge variant="secondary">{item.status}</Badge>
-          <Badge variant="outline">{item.priority}</Badge>
-        </div>
         <CardTitle className="line-clamp-2 text-base">{item.title}</CardTitle>
-        <div className="flex items-center justify-between gap-3 text-sm text-muted-foreground">
-          <span className="font-medium tabular-nums text-foreground">
-            {formatPriceYen(item.price * item.quantity)}
-          </span>
-          <span className="shrink-0 tabular-nums">Qty {item.quantity}</span>
-        </div>
       </CardHeader>
     </Card>
   );
@@ -218,16 +205,18 @@ function HomePlannedToolbar({
 export function FilteredHomeContent({
   activeProjectId,
   allProjects,
+  recentShoppingItems,
 }: {
   activeProjectId: string | null;
   allProjects: allProjectType[];
+  recentShoppingItems: recentShoppingItemsType;
 }) {
   const activeProject = allProjects.find(
     (project) => project.id === activeProjectId,
   );
 
   if (!activeProject) {
-    return <Recommendation />;
+    return <Home recentShoppingItems={recentShoppingItems} />;
   }
 
   return (

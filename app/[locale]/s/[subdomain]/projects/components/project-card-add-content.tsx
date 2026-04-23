@@ -3,10 +3,11 @@
 import {
   getDefaultValues,
   PlannedCreateForm,
+  type PlannedImageSelection,
   type PlannedCreateFormValues,
 } from "@/app/[locale]/s/[subdomain]/planned/dialogs/dialog-create";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AutoCreateForm } from "../../planned/dialogs/dialog-auto-create";
 
@@ -24,12 +25,16 @@ export function ProjectCardAddContent({
   onUploadWidgetOpenChange,
 }: Props) {
   const t = useTranslations("Projects");
+  const [imageSelection, setImageSelection] = useState<
+    PlannedImageSelection | undefined
+  >(undefined);
   const plannedForm = useForm<PlannedCreateFormValues>({
     defaultValues: getDefaultValues(subdomain),
   });
 
   useEffect(() => {
     plannedForm.reset(getDefaultValues(subdomain));
+    setImageSelection(undefined);
   }, [plannedForm, subdomain]);
 
   return (
@@ -62,6 +67,17 @@ export function ProjectCardAddContent({
                 shouldTouch: true,
               });
             }
+
+            if (product.image) {
+              plannedForm.setValue("image", product.image, {
+                shouldDirty: true,
+                shouldTouch: true,
+              });
+              setImageSelection({
+                source: "ai",
+                url: product.image,
+              });
+            }
           }}
         />
       </div>
@@ -70,6 +86,8 @@ export function ProjectCardAddContent({
         mode="project"
         projectId={projectId}
         subdomain={subdomain}
+        imageSelection={imageSelection}
+        onImageSelectionChange={setImageSelection}
         onCompleted={onCompleted}
         onUploadWidgetOpenChange={onUploadWidgetOpenChange}
         submitLabel={t("add.new.submit")}
