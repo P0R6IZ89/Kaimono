@@ -56,7 +56,7 @@ export function CreateEssentialDialog() {
       toast.success(t("actions.save"));
       form.reset();
     }
-  }, [form, state.message?.isSuccess, t]);
+  }, [form, state, t]);
   return (
     <Form {...form}>
       <form action={action} className="space-y-4 pt-4">

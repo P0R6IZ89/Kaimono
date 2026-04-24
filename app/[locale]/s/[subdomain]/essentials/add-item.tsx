@@ -48,7 +48,7 @@ export function AddItem() {
     } else if (state.error) {
       console.log(state.error);
     }
-  }, [state.message?.isSuccess, state.error, form]);
+  }, [state, form]);
 
   return (
     <Form {...form}>

@@ -26,18 +26,21 @@ export function ChatField({
   currentUserId: string;
 }) {
   const bottomRef = React.useRef<HTMLDivElement | null>(null);
-
-  const [items] = React.useState(essentials);
+  const hasScrolledInitiallyRef = React.useRef(false);
 
   const sortedEssentials = React.useMemo(() => {
-    return [...items].sort((a, b) => {
+    return [...essentials].sort((a, b) => {
       if (a.status === b.status) return 0;
       return a.status === "PURCHASED" ? -1 : 1;
     });
-  }, [items]);
+  }, [essentials]);
 
-  React.useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  React.useLayoutEffect(() => {
+    bottomRef.current?.scrollIntoView({
+      behavior: hasScrolledInitiallyRef.current ? "smooth" : "auto",
+      block: "end",
+    });
+    hasScrolledInitiallyRef.current = true;
   }, [sortedEssentials]);
 
   return (
@@ -46,6 +49,7 @@ export function ChatField({
         {sortedEssentials.map((item) => (
           <ChatBubble key={item.id} item={item} currentUserId={currentUserId} />
         ))}
+        <div ref={bottomRef} aria-hidden="true" />
       </div>
     </ScrollArea>
   );

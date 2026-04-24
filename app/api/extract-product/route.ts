@@ -363,18 +363,8 @@ async function fetchHtmlFromUrl(inputUrl: string) {
   let currentUrl = inputUrl;
 
   for (let attempt = 0; attempt <= MAX_REDIRECTS; attempt += 1) {
-    console.log("[extract-product] Fetch attempt", {
-      attempt: attempt + 1,
-      url: currentUrl,
-    });
-
     const validation = await validatePublicHttpUrl(currentUrl);
     if (!validation.ok) {
-      console.error("[extract-product] URL validation failed during fetch", {
-        url: currentUrl,
-        code: validation.code,
-        message: validation.message,
-      });
       throw new RouteError(400, validation.code, validation.message);
     }
 
@@ -398,10 +388,6 @@ async function fetchHtmlFromUrl(inputUrl: string) {
       ) {
         const location = response.headers.get("location");
         if (!location) {
-          console.error("[extract-product] Redirect missing location header", {
-            url: validation.url,
-            status: response.status,
-          });
           throw new RouteError(
             400,
             "EXTRACTION_FAILED",
@@ -410,19 +396,10 @@ async function fetchHtmlFromUrl(inputUrl: string) {
         }
 
         currentUrl = new URL(location, validation.url).toString();
-        console.log("[extract-product] Following redirect", {
-          from: validation.url.toString(),
-          to: currentUrl,
-          status: response.status,
-        });
         continue;
       }
 
       if (!response.ok) {
-        console.error("[extract-product] Fetch returned non-ok response", {
-          url: validation.url.toString(),
-          status: response.status,
-        });
         throw new RouteError(
           400,
           "EXTRACTION_FAILED",
@@ -435,10 +412,6 @@ async function fetchHtmlFromUrl(inputUrl: string) {
         contentType &&
         !ALLOWED_CONTENT_TYPES.some((type) => contentType.includes(type))
       ) {
-        console.error("[extract-product] Unsupported content type", {
-          url: validation.url.toString(),
-          contentType,
-        });
         throw new RouteError(
           400,
           "EXTRACTION_FAILED",
@@ -448,40 +421,22 @@ async function fetchHtmlFromUrl(inputUrl: string) {
 
       const html = await readTextWithLimit(response, MAX_HTML_BYTES);
       if (!html.trim()) {
-        console.error("[extract-product] Empty HTML response body", {
-          url: validation.url.toString(),
-        });
         throw new RouteError(
           400,
           "EXTRACTION_FAILED",
           "Could not read that product page.",
         );
       }
-
-      console.log("[extract-product] HTML fetched successfully", {
-        url: validation.url.toString(),
-        bytes: html.length,
-      });
       return {
         html,
         finalUrl: validation.url.toString(),
       };
     } catch (error) {
       if (error instanceof RouteError) {
-        console.error("[extract-product] Route error during fetch", {
-          url: currentUrl,
-          status: error.status,
-          code: error.code,
-          message: error.message,
-        });
         throw error;
       }
 
       if (error instanceof Error && error.name === "AbortError") {
-        console.error("[extract-product] Fetch timed out", {
-          url: currentUrl,
-          timeoutMs: FETCH_TIMEOUT_MS,
-        });
         throw new RouteError(
           400,
           "EXTRACTION_FAILED",
@@ -489,10 +444,6 @@ async function fetchHtmlFromUrl(inputUrl: string) {
         );
       }
 
-      console.error("[extract-product] Unexpected fetch failure", {
-        url: currentUrl,
-        error,
-      });
       throw new RouteError(
         500,
         "EXTRACTION_FAILED",
@@ -573,11 +524,6 @@ async function importProductImage(imageUrl: string | null) {
   try {
     const validation = await validatePublicHttpUrl(imageUrl);
     if (!validation.ok) {
-      console.error("[extract-product] Product image URL validation failed", {
-        url: imageUrl,
-        code: validation.code,
-        message: validation.message,
-      });
       return null;
     }
 
@@ -589,11 +535,7 @@ async function importProductImage(imageUrl: string | null) {
     });
 
     return upload.secure_url ?? null;
-  } catch (error) {
-    console.error("[extract-product] Product image import failed", {
-      url: imageUrl,
-      error,
-    });
+  } catch {
     return null;
   }
 }
@@ -602,7 +544,6 @@ export async function POST(req: NextRequest) {
   try {
     const capabilities = await getCurrentUserCapabilities();
     if (!capabilities) {
-      console.error("[extract-product] Unauthorized extraction attempt");
       return createErrorResponse(
         401,
         "UNAUTHORIZED",
@@ -611,9 +552,6 @@ export async function POST(req: NextRequest) {
     }
 
     if (!capabilities.canUseAiProductExtraction) {
-      console.error("[extract-product] Extraction not allowed for user", {
-        userId: capabilities.id,
-      });
       return createErrorResponse(
         403,
         "AI_EXTRACTION_NOT_ALLOWED",
@@ -636,10 +574,6 @@ export async function POST(req: NextRequest) {
         Math.ceil((rateLimitResult.reset - Date.now()) / 1000),
       );
 
-      console.error("[extract-product] Rate limit exceeded", {
-        userId: capabilities.id,
-        retryAfterSeconds,
-      });
       return createErrorResponse(
         429,
         "RATE_LIMITED",
@@ -657,35 +591,17 @@ export async function POST(req: NextRequest) {
     let body: { url?: unknown };
     try {
       body = (await req.json()) as { url?: unknown };
-    } catch (error) {
-      console.error("[extract-product] Failed to parse request body", {
-        userId: capabilities.id,
-        error,
-      });
+    } catch {
       return createErrorResponse(400, "INVALID_URL", "Enter a valid product URL.");
     }
 
     if (typeof body.url !== "string" || !body.url.trim()) {
-      console.error("[extract-product] Missing or invalid URL in request body", {
-        userId: capabilities.id,
-        url: body.url,
-      });
       return createErrorResponse(400, "INVALID_URL", "Enter a valid product URL.");
     }
 
     const url = body.url.trim();
-    console.log("[extract-product] Starting extraction request", {
-      userId: capabilities.id,
-      url,
-    });
     const validation = await validatePublicHttpUrl(url);
     if (!validation.ok) {
-      console.error("[extract-product] URL validation failed", {
-        userId: capabilities.id,
-        url,
-        code: validation.code,
-        message: validation.message,
-      });
       return createErrorResponse(400, validation.code, validation.message);
     }
 
@@ -702,9 +618,6 @@ export async function POST(req: NextRequest) {
       !!basicWithImage.price &&
       !!basicWithImage.description;
     if (hasEnough) {
-      console.log("[extract-product] Extracted with cheerio", {
-        url: finalUrl,
-      });
       return NextResponse.json<ExtractSuccessResponse>(
         {
           source: "cheerio",
@@ -718,15 +631,8 @@ export async function POST(req: NextRequest) {
 
     const $ = cheerio.load(html);
     const visibleText = $("body").text().replace(/\s+/g, " ").trim();
-    console.log("[extract-product] Falling back to LLM extraction", {
-      url: finalUrl,
-      visibleTextLength: visibleText.length,
-    });
     const llmResult = await extractWithLLM(finalUrl, visibleText);
 
-    console.log("[extract-product] Extracted with LLM fallback", {
-      url: finalUrl,
-    });
     return NextResponse.json<ExtractSuccessResponse>(
       {
         source: "llm-fallback",
@@ -744,17 +650,9 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     if (error instanceof RouteError) {
-      console.error("[extract-product] Route handler failed with known error", {
-        status: error.status,
-        code: error.code,
-        message: error.message,
-      });
       return createErrorResponse(error.status, error.code, error.message);
     }
 
-    console.error("[extract-product] Route handler failed with unexpected error", {
-      error,
-    });
     return createErrorResponse(
       500,
       "EXTRACTION_FAILED",

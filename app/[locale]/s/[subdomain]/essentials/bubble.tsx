@@ -79,7 +79,9 @@ export function ChatBubble({
         const result = await updateStatusEssentials(null, formData);
         if (!result.ok) {
           setStatus(previousStatus);
+          return;
         }
+        router.refresh();
       } catch {
         setStatus(previousStatus);
       }
