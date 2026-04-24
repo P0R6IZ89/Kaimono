@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ChevronDown, Wand2 } from "lucide-react";
+import { ChevronDown, Wand2, X } from "lucide-react";
 import {
   Field,
   FieldDescription,
@@ -96,6 +96,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
   const [status, setStatus] = useState<string | null>(null);
   const [isExtracting, setIsExtracting] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
+  const hasUrl = url.trim().length > 0;
 
   const getErrorMessage = (data: ExtractProductErrorResponse) => {
     switch (data.code) {
@@ -199,18 +200,41 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
               aria-invalid={!!error}
               disabled={isExtracting}
             />
-            <InputGroupAddon>
+            <InputGroupAddon align="inline-end">
               <InputGroupButton
-                variant={"secondary"}
+                variant={hasUrl ? "default" : "secondary"}
+                size="icon-xs"
                 onClick={() => void handleExtract()}
                 disabled={isExtracting}
+                className={
+                  hasUrl
+                    ? "shadow-sm transition-[color,box-shadow,background-color] text-primary-foreground"
+                    : "text-muted-foreground transition-[color,box-shadow,background-color]"
+                }
+                aria-label="Extract product"
               >
                 {isExtracting ? (
-                  <Wand2 className="accent-primary-foreground animate-spin" />
+                  <Wand2 className="animate-spin" />
                 ) : (
-                  <Wand2 className="accent-primary-foreground" />
+                  <Wand2 className={hasUrl ? "opacity-100" : "opacity-75"} />
                 )}
               </InputGroupButton>
+              {hasUrl ? (
+                <InputGroupButton
+                  variant="ghost"
+                  size="icon-xs"
+                  onClick={() => {
+                    setUrl("");
+                    setError(null);
+                    setStatus(null);
+                  }}
+                  disabled={isExtracting}
+                  aria-label="Clear URL"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <X />
+                </InputGroupButton>
+              ) : null}
             </InputGroupAddon>
           </InputGroup>
           <FieldDescription className="pt-2">

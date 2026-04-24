@@ -8,13 +8,12 @@ import { essentialsSchema, statusUpdateSchema } from "@/lib/form-zod-schema";
 import { ActionResult } from "@/lib/initial-action-return";
 import { Status } from "@prisma/client";
 import { getCurrentLocale } from "@/i18n/navigation";
-import { stat } from "fs";
 
 export async function createEssentials(
   _previousState: unknown,
   formData: FormData,
 ) {
-  const locale = getCurrentLocale();
+  const locale = await getCurrentLocale();
   const result = essentialsSchema.safeParse({
     title: formData.get("title"),
     status: "PENDING",
@@ -96,6 +95,7 @@ export async function updateEssentials(
   _prevState: unknown,
   formData: FormData,
 ): Promise<ActionResult> {
+  const locale = await getCurrentLocale();
   const result = essentialsSchema.safeParse({
     title: formData.get("title"),
     price: formData.get("price"),
@@ -124,7 +124,7 @@ export async function updateEssentials(
     if (result.count === 0) {
       return { ok: false, message: "Item not found for this app." };
     }
-    revalidatePath(`/s/${subdomain}/essentialsBeta`);
+    revalidatePath(`/${locale}/s/${subdomain}/essentials`);
     return { ok: true, message: "Ok!" };
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
@@ -146,6 +146,7 @@ export async function updateStatusEssentials(
     return { ok: false, message: first.message };
   }
   const { id, status, subdomain } = result.data;
+  const locale = await getCurrentLocale();
   const membership = await requireMembership(subdomain);
   try {
     const result = await prisma.essential.updateMany({
@@ -155,7 +156,7 @@ export async function updateStatusEssentials(
     if (result.count === 0) {
       return { ok: false, message: "Item not found for this app." };
     }
-    revalidatePath(`/s/${subdomain}/essentialsBeta`);
+    revalidatePath(`/${locale}/s/${subdomain}/essentials`);
     return {
       ok: true,
       message: "Ok!",
@@ -170,6 +171,7 @@ export async function deleteEssentials(
   id: string,
   subdomain: string,
 ): Promise<{ status: "success" | "error"; message: string }> {
+  const locale = await getCurrentLocale();
   const membership = await requireMembership(subdomain);
   try {
     const result = await prisma.essential.deleteMany({
@@ -178,7 +180,7 @@ export async function deleteEssentials(
     if (result.count === 0) {
       return { status: "error", message: "Item not found for this app." };
     }
-    revalidatePath(`/s/${subdomain}/essentialsBeta`);
+    revalidatePath(`/${locale}/s/${subdomain}/essentials`);
     return {
       status: "success",
       message: "O Essentials foi deletado com sucesso!",
