@@ -8,6 +8,7 @@ export const rootDomainHost = rootDomain.split(":")[0];
 
 export const publicPaths = [
   "/login",
+  "/login/magic-link",
   "/home",
   "/logout",
   "/welcome",

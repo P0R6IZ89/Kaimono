@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { acceptInviteAction } from "@/actions/invitationActions";
 import ClientFeedback from "./clientFeedback";
@@ -12,14 +13,23 @@ export default async function AcceptInvitePage({
   searchParams,
 }: AcceptPageProps) {
   const { token } = await searchParams;
+  const session = await auth();
+  const currentUser = session?.user?.email
+    ? {
+        name: session.user.name,
+        email: session.user.email,
+        image: session.user.image,
+      }
+    : undefined;
+
   if (!token) {
-    return <ClientFeedback error="missingToken" />;
+    return <ClientFeedback error="missingToken" user={currentUser} />;
   }
 
   const result = await acceptInviteAction(token);
 
   if (result.error) {
-    return <ClientFeedback error={result.error} />;
+    return <ClientFeedback error={result.error} user={currentUser} />;
   }
 
   const app = await prisma.app.findUnique({
@@ -27,7 +37,7 @@ export default async function AcceptInvitePage({
     select: { subdomain: true },
   });
   if (!app?.subdomain) {
-    return <ClientFeedback error="appNotFound" />;
+    return <ClientFeedback error="appNotFound" user={currentUser} />;
   }
 
   const params = new URLSearchParams();

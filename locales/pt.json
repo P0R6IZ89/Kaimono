@@ -2,6 +2,7 @@
   "Auth": {
     "backToMain": "Voltar para a página principal",
     "checkSpam": "(Verifique a pasta de spam se não encontrar)",
+    "email": "E-mail",
     "continueWith": {
       "email": "Continuar com e-mail",
       "github": "Continuar com GitHub",
@@ -747,7 +748,7 @@
     "loginRequired": "Faça login.",
     "invitationNotFound": "Convite não encontrado.",
     "inviteResendDenied": "Você não tem permissão para reenviar este convite.",
-    "inviteResendInvalidStatus": "Somente convites pendentes ou revogados podem ser reenviados.",
+    "inviteResendInvalidStatus": "Somente convites pendentes, expirados ou revogados podem ser reenviados.",
     "inviteResent": "Convite reenviado com sucesso.",
     "inviteRevokeDenied": "Você não tem permissão para revogar este convite.",
     "inviteRevokeInvalidStatus": "Somente convites pendentes ou expirados podem ser revogados.",

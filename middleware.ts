@@ -89,15 +89,16 @@ export default auth(async function middleware(req) {
 
   const user = req.auth?.user;
   const isPublic = publicPaths.includes(rest);
+  const isLoginPath = rest === "/login" || rest === "/login/magic-link";
 
-  if (!user && rest !== "/login" && !isPublic) {
+  if (!user && !isLoginPath && !isPublic) {
     const url = req.nextUrl.clone();
     url.pathname = `/${locale}/login`;
     url.search = search;
     return NextResponse.redirect(url);
   }
 
-  if (user && rest === "/login") {
+  if (user && isLoginPath) {
     const url = req.nextUrl.clone();
     url.pathname = `/${locale}/`;
     url.search = search;

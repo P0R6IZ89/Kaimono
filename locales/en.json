@@ -2,6 +2,7 @@
   "Auth": {
     "backToMain": "Back to main page",
     "checkSpam": "(Check your spam folder if you don't see it)",
+    "email": "Email",
     "continueWith": {
       "email": "Continue with Email",
       "github": "Continue with Github",
@@ -747,7 +748,7 @@
     "loginRequired": "Please log in.",
     "invitationNotFound": "Invitation not found.",
     "inviteResendDenied": "You do not have permission to resend this invitation.",
-    "inviteResendInvalidStatus": "Only pending or revoked invitations may be resent.",
+    "inviteResendInvalidStatus": "Only pending, expired, or revoked invitations may be resent.",
     "inviteResent": "Invitation resent successfully.",
     "inviteRevokeDenied": "You do not have permission to revoke this invitation.",
     "inviteRevokeInvalidStatus": "Only pending or expired invitations can be revoked.",

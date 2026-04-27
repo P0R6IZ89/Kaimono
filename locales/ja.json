@@ -2,6 +2,7 @@
   "Auth": {
     "backToMain": "メインページに戻る",
     "checkSpam": "（メールが見当たらない場合は迷惑メールフォルダをご確認ください）",
+    "email": "メール",
     "continueWith": {
       "email": "メールで続行",
       "github": "GitHubで続行",
@@ -747,7 +748,7 @@
     "loginRequired": "ログインしてください。",
     "invitationNotFound": "招待が見つかりません。",
     "inviteResendDenied": "この招待を再送信する権限がありません。",
-    "inviteResendInvalidStatus": "再送信できるのは保留中または取り消し済みの招待のみです。",
+    "inviteResendInvalidStatus": "再送信できるのは保留中、期限切れ、または取り消し済みの招待のみです。",
     "inviteResent": "招待を再送信しました。",
     "inviteRevokeDenied": "この招待を取り消す権限がありません。",
     "inviteRevokeInvalidStatus": "取り消しできるのは保留中または期限切れの招待のみです。",

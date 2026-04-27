@@ -9,12 +9,14 @@ import { revalidatePath } from "next/cache";
 
 export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
   const email = String(formData.get("email") ?? "");
+  const callbackUrl = String(formData.get("callbackUrl") ?? "");
   if (!email || typeof email !== "string") {
     return { error: "emailInvalid" };
   }
   const result = await signIn("resend", {
     email,
     redirect: false,
+    redirectTo: callbackUrl || undefined,
   });
   if (result?.error) {
     return { error: "serverError" };
