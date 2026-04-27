@@ -193,24 +193,15 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
         </CollapsibleTrigger>
         <CollapsibleContent>
           <InputGroup>
-            <InputGroupInput
-              id="input-group-url"
-              type="url"
-              value={url}
-              placeholder={t("ai.placeholder")}
-              onChange={(event) => setUrl(event.target.value)}
-              aria-invalid={!!error}
-              disabled={isExtracting}
-            />
-            <InputGroupAddon align="inline-end">
+            <InputGroupAddon>
               <InputGroupButton
-                variant={hasUrl ? "default" : "secondary"}
+                variant={hasUrl ? "outline" : "secondary"}
                 size="icon-xs"
                 onClick={() => void handleExtract()}
                 disabled={isExtracting}
                 className={
                   hasUrl
-                    ? "shadow-sm transition-[color,box-shadow,background-color] text-primary-foreground"
+                    ? "shadow-sm transition-[color,box-shadow,background-color] text-foreground"
                     : "text-muted-foreground transition-[color,box-shadow,background-color]"
                 }
                 aria-label={t("ai.extract")}
@@ -221,6 +212,17 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
                   <Wand2 className={hasUrl ? "opacity-100" : "opacity-75"} />
                 )}
               </InputGroupButton>
+            </InputGroupAddon>
+            <InputGroupInput
+              id="input-group-url"
+              type="url"
+              value={url}
+              placeholder={t("ai.placeholder")}
+              onChange={(event) => setUrl(event.target.value)}
+              aria-invalid={!!error}
+              disabled={isExtracting}
+            />
+            <InputGroupAddon align="inline-end">
               {hasUrl ? (
                 <InputGroupButton
                   variant="ghost"

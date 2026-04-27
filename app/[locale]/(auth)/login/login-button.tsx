@@ -42,6 +42,16 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
     <div className="flex flex-col gap-4">
       <Button
         variant="secondary"
+        onClick={handleSignIn("google")}
+        className="flex items-center justify-center gap-2"
+      >
+        <div className="flex flex-row gap-2 items-center">
+          <Google className="text-foreground size-4" />
+          <p>{t("continueWith.google")}</p>
+        </div>
+      </Button>
+      <Button
+        variant="secondary"
         onClick={handleSignIn("github")}
         className="flex items-center justify-center gap-2"
       >
@@ -51,16 +61,6 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
         </div>
       </Button>
 
-      <Button
-        variant="secondary"
-        onClick={handleSignIn("google")}
-        className="flex items-center justify-center gap-2"
-      >
-        <div className="flex flex-row gap-2 items-center">
-          <Google className="text-foreground size-4" />
-          <p>{t("continueWith.google")}</p>
-        </div>
-      </Button>
       <div className="flex flex-row justify-between">
         <Button
           variant="ghost"
