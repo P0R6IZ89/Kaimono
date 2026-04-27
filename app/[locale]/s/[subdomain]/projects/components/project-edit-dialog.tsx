@@ -32,6 +32,7 @@ import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { translateMessage } from "@/lib/translate-message";
 
 export function ProjectEditDialog({
   project,
@@ -39,6 +40,7 @@ export function ProjectEditDialog({
   project: ProjectWithPlanned;
 }) {
   const t = useTranslations("Projects");
+  const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
   const { subdomain } = useSubdomain();
   const { id, name, description } = project;
@@ -54,9 +56,9 @@ export function ProjectEditDialog({
       toast.success(t("toast.updated"));
       setOpen(false);
     } else if (state.message) {
-      toast.error(state.message);
+      toast.error(translateMessage(tActions, state.message));
     }
-  }, [state, t]);
+  }, [state, t, tActions]);
   const form = useForm({
     defaultValues: {
       id,

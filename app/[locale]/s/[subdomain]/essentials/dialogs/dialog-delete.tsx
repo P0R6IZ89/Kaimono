@@ -14,9 +14,11 @@ import { deleteEssentials } from "@/actions/essentialsActions";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { translateMessage } from "@/lib/translate-message";
 
 function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
   const t = useTranslations("Dialog");
+  const tActions = useTranslations("ActionMessages");
   const { id, title } = row.original;
   const { subdomain } = useSubdomain();
 
@@ -32,12 +34,12 @@ function DeleteDialog({ row, open, setOpen }: CustomDialogProps) {
   useEffect(() => {
     if (state) {
       if (state.status === "success") {
-        toast.success(`Sucesso! ${state.message}`);
+        toast.success(translateMessage(tActions, state.message));
       } else if (state.status === "error") {
-        toast.error(`Erro! ${state.message}`);
+        toast.error(translateMessage(tActions, state.message));
       }
     }
-  }, [state]);
+  }, [state, tActions]);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>

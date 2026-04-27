@@ -35,7 +35,7 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
   const essentialTriggerRef = useRef<HTMLButtonElement>(null);
   const plannedTriggerRef = useRef<HTMLButtonElement>(null);
   const projectTriggerRef = useRef<HTMLButtonElement>(null);
-  const profileAlt = user.name ?? user.email ?? "Profile";
+  const profileAlt = user.name ?? user.email ?? t("profile");
 
   const items: NavItem[] = [
     { href: "/", label: t("home"), icon: Home },
@@ -51,7 +51,7 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
 
   return (
     <nav
-      aria-label="Bottom navigation"
+      aria-label={t("ariaLabel")}
       suppressHydrationWarning
       className="fixed inset-x-0 bottom-0 z-50 md:hidden bg-transparent px-2"
     >
@@ -64,7 +64,7 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
         triggerRef={plannedTriggerRef}
       />
       <ProjectCreateDialog className="hidden" triggerRef={projectTriggerRef} />
-      <div className="flex gap-2 items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
+      <div className="flex items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
         <div className="flex-1 rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
           <ul className="grid grid-cols-4 items-center">
             {items.map((item) => {
@@ -72,7 +72,7 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
                 rest === item.href || rest.startsWith(item.href + "/");
               const Icon = item.icon ?? User;
               return (
-                <li key={item.href} className="p-2 flex-1">
+                <li key={item.href} className="py-2 flex-1">
                   <Link
                     prefetch={true}
                     href={item.href}
@@ -80,7 +80,7 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
                     className={cn(
                       "flex flex-col items-center justify-center gap-1 py-3 text-xs rounded-2xl transition-colors",
                       active
-                        ? "text-background dark:text-foreground font-semibold bg-primary"
+                        ? "text-background dark:text-foreground bg-primary"
                         : "text-muted-foreground hover:text-foreground",
                     )}
                   >
@@ -97,7 +97,7 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
                     ) : (
                       <Icon className="size-4" aria-hidden="true" />
                     )}
-                    <span className="text-xs">{item.label}</span>
+                    <span className="text-xs text-center">{item.label}</span>
                   </Link>
                 </li>
               );

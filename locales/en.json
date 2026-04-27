@@ -18,7 +18,9 @@
       "instruction": "Click the button to log out.",
       "title": "Hope to see you again 🤗"
     },
-    "or": "or"
+    "or": "or",
+    "home": "Home",
+    "signInWithEmail": "Sign in with Email"
   },
   "Common": {
     "actions": {
@@ -32,7 +34,8 @@
       "save": "Save",
       "signIn": "Sign in",
       "signOut": "Sign out",
-      "viewAll": "See All"
+      "viewAll": "See All",
+      "cancel": "Cancel"
     },
     "labels": {
       "actions": "Actions"
@@ -59,7 +62,8 @@
     "hello2": "Hello!",
     "Home": "Home",
     "welcomeBack": "Welcome back!",
-    "workspace": "You are in the {subdomain} workspace"
+    "workspace": "You are in the {subdomain} workspace",
+    "mainFeature": "Features"
   },
   "Dialog": {
     "close": "Return",
@@ -107,11 +111,18 @@
     "fields": {
       "itemName": "Item Name",
       "price": "Price",
-      "quantity": "Quantity"
+      "quantity": "Quantity",
+      "itemNamePlaceholder": "Add item"
     },
     "stats": {
       "pendingItems": "Pending Items",
-      "totalPending": "Total Pending"
+      "totalPending": "Total Pending",
+      "pendingProducts": "pending products",
+      "completedCount": "{completed} of {total} complete",
+      "doneTitle": "Congratulations! 😍🎉",
+      "doneDescription": "You have no pending purchases!",
+      "totalValue": "Total value",
+      "pendingProductsSum": "Sum of pending products."
     },
     "title": "Shopping list"
   },
@@ -189,7 +200,9 @@
     "home": "Home",
     "planned": "Planned",
     "projects": "Projects",
-    "settings": "Settings"
+    "settings": "Settings",
+    "ariaLabel": "Bottom navigation",
+    "profile": "Profile"
   },
   "NewTeam": {
     "createButton": "Create Team",
@@ -211,7 +224,9 @@
       "markAsPurchased": "Mark as Purchased",
       "revertToPending": "Revert to Pending",
       "save": "Save",
-      "viewAll": "See All"
+      "viewAll": "See All",
+      "markAsPurchasedDescription": "Do you want to mark this item as purchased?",
+      "revertToPendingDescription": "Do you want to revert this item to pending?"
     },
     "ai": {
       "blockedUrl": "This product URL is not allowed.",
@@ -226,7 +241,10 @@
       "partialExtract": "Some details were found. Review the form before saving.",
       "placeholder": "https://example.com/product",
       "rateLimited": "You reached the hourly AI extraction limit. Please wait and try again.",
-      "proBetaOnly": "This feature is available only to Pro beta users."
+      "proBetaOnly": "This feature is available only to Pro beta users.",
+      "clearUrl": "Clear URL",
+      "extractedImage": "Extracted image",
+      "beta": "Beta"
     },
     "comments": {
       "delete": "Delete",
@@ -262,7 +280,8 @@
       "priority": "Priority",
       "priorityPlaceholder": "Select Priority",
       "quantity": "Quantity",
-      "quantityPlaceholder": "Enter quantity"
+      "quantityPlaceholder": "Enter quantity",
+      "image": "Image"
     },
     "saveMoney": "I will save Money",
     "title": "All Project Items",
@@ -363,7 +382,9 @@
     "support": "Support",
     "team": "Team",
     "tutorialDescription": "Go through the tutorial to master the app",
-    "tutorialTitle": "Tutorial"
+    "tutorialTitle": "Tutorial",
+    "appearance": "Appearance",
+    "developedBy": "Developed by {name}"
   },
   "Sidebar": {
     "config": {
@@ -397,7 +418,9 @@
       "title": "Workspaces",
       "createTeam": "Create team",
       "switchWorkspace": "Switch to"
-    }
+    },
+    "platform": "Platform",
+    "toggle": "Toggle"
   },
   "Table": {
     "actions": "Actions",
@@ -416,7 +439,9 @@
     "page": "Page",
     "previous": "Previous",
     "rows": "rows",
-    "searchPlaceholder": "Search items..."
+    "searchPlaceholder": "Search items...",
+    "view": "View",
+    "toggleColumns": "Toggle columns"
   },
   "Teams": {
     "create-team": "Create team",
@@ -426,7 +451,8 @@
       "title": "Create a new team"
     },
     "start-adding-a-new-team": "Start tracking your spending together!",
-    "title": "Select a Team"
+    "title": "Select a Team",
+    "add-team": "Add team"
   },
   "UpdateApp": {
     "description": "Added Portuguese and Japanese language support.",
@@ -599,5 +625,154 @@
     "new-invite-content": "You're invited to join {teamName} with the role of {inviteRole}.",
     "new-invite-to-invite-team-name": "New invite to {teamName}",
     "no-invites": "No invites."
+  },
+  "RadialMenu": {
+    "open": "Open Pie Menu",
+    "overlay": "Radial menu overlay"
+  },
+  "Users": {
+    "empty": "No users found."
+  },
+  "UserDialog": {
+    "title": "Edit profile",
+    "description": "Make changes to your profile here. Click save when you're done.",
+    "submit": "Invite"
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "description": "Send us a message and we'll get back to you as soon as possible.",
+    "fields": {
+      "fullName": "Full name",
+      "email": "Email",
+      "subject": "Title",
+      "message": "Description"
+    },
+    "placeholders": {
+      "fullName": "John Doe",
+      "subject": "Question about the app",
+      "message": "Write your message here..."
+    },
+    "submit": "Send message"
+  },
+  "DashboardHome": {
+    "recentlyAdded": "Recently added",
+    "recentShoppingItems": "Recent shopping items",
+    "noShoppingItems": "There are no shopping items yet.",
+    "timeToTakeAction": "Time to take action",
+    "openItem": "Open {title}"
+  },
+  "ExpenseBar": {
+    "title": "Monthly Expenses",
+    "description": "Edit categories and enter your <strong>total monthly expense/budget</strong>. The bar and tags update instantly.",
+    "spentSummary": "{spent} of {total} spent",
+    "overBy": "Over by {amount}",
+    "remaining": "Remaining",
+    "totalLabel": "Total monthly expense / budget",
+    "currency": "Currency",
+    "category": "Category",
+    "amount": "Amount",
+    "tags": "Tags (comma-separated)",
+    "color": "Color",
+    "addCategory": "+ Add category",
+    "tagsPlaceholder": "e.g., food, family",
+    "remove": "Remove",
+    "removeCategory": "Remove {name}",
+    "tip": "Tip: Feed <total></total> and <segments></segments> from your DB/API and render only <component></component> on your dashboard.",
+    "aria": {
+      "usage": "Monthly expense usage",
+      "valueText": "{spent} of {total} spent"
+    },
+    "defaults": {
+      "rent": "Rent",
+      "groceries": "Groceries",
+      "transport": "Transport",
+      "utilities": "Utilities",
+      "subscriptions": "Subscriptions",
+      "eatingOut": "Eating Out",
+      "newCategory": "New Category"
+    }
+  },
+  "InviteAccept": {
+    "title": "Invitation status",
+    "genericError": "Something went wrong while processing the invite.",
+    "missingToken": "Missing invitation token.",
+    "appNotFound": "Invited app not found.",
+    "inviteInvalidOrExpired": "Invitation is invalid or expired.",
+    "inviteWrongEmail": "This invitation belongs to another email. Sign in with the invited email to continue."
+  },
+  "InviteEmail": {
+    "title": "Invitation",
+    "subject": "You were invited to join {appName}",
+    "reminderSubject": "Reminder: Invitation to join {appName}",
+    "greeting": "Hello,",
+    "acceptPrompt": "Click",
+    "acceptLink": "here to accept your invitation",
+    "reminderBody": "This is a reminder that you were invited to join {appName}.",
+    "expires": "(expires {date})."
+  },
+  "ActionMessages": {
+    "actionCompleted": "Action completed.",
+    "somethingWentWrong": "Something went wrong.",
+    "unexpectedWithError": "Something went wrong: {error}",
+    "teamNotFound": "Team does not exist.",
+    "itemNotFoundForApp": "Item not found for this app.",
+    "essentialDeleted": "Shopping list item deleted successfully.",
+    "plannedCreated": "Item created successfully.",
+    "plannedCreateFailed": "Failed to create item.",
+    "plannedUpdated": "Item updated successfully.",
+    "plannedUpdateFailed": "Failed to update item.",
+    "plannedDeleted": "Item deleted successfully.",
+    "plannedDeleteFailed": "Failed to delete item.",
+    "projectCreated": "Project created.",
+    "projectNotFound": "Project not found.",
+    "plannedNotFound": "Planned item not found.",
+    "plannedAssignedToProject": "Planned item assigned to project.",
+    "plannedRemovedFromProject": "Item removed from project.",
+    "projectUpdated": "Project updated.",
+    "projectDeleted": "Project deleted.",
+    "notAppMember": "You are not a member of this app.",
+    "ownerOnlyDeleteApp": "Only Owners can delete the app.",
+    "appDeleted": "App deleted.",
+    "appAlreadyDeleted": "App not found (already deleted).",
+    "appDeleteFailed": "Failed to delete app.",
+    "userNotMember": "User is not a member.",
+    "insufficientPermission": "Insufficient permission.",
+    "adminCannotRemoveAdmin": "Admins cannot remove other Admins.",
+    "leftApp": "You left the app.",
+    "userRemoved": "User removed.",
+    "cannotRemoveLastOwner": "Cannot remove the last Owner. Promote another user first.",
+    "memberRemoveFailed": "Failed to remove member.",
+    "inviteManageDenied": "You do not have permission to manage invitations.",
+    "inviteSent": "Invitation sent successfully.",
+    "loginRequired": "Please log in.",
+    "invitationNotFound": "Invitation not found.",
+    "inviteResendDenied": "You do not have permission to resend this invitation.",
+    "inviteResendInvalidStatus": "Only pending or revoked invitations may be resent.",
+    "inviteResent": "Invitation resent successfully.",
+    "inviteRevokeDenied": "You do not have permission to revoke this invitation.",
+    "inviteRevokeInvalidStatus": "Only pending or expired invitations can be revoked.",
+    "inviteRevoked": "Invitation revoked successfully.",
+    "confirmDeleteApp": "Do you really want to delete the app?"
+  },
+  "FormErrors": {
+    "productNameRequired": "Product name is required.",
+    "productNameMax50": "Product must be 50 characters or fewer.",
+    "productNameMax500": "Product must be 500 characters or fewer.",
+    "priceNumber": "Price must be a number.",
+    "priceNonNegative": "Price cannot be negative.",
+    "statusInvalid": "Status is invalid.",
+    "quantityInteger": "Quantity must be an integer.",
+    "subdomainRequired": "Check your link.",
+    "priorityInvalid": "Choose a valid priority.",
+    "commentRequired": "Write your comment.",
+    "emailInvalid": "Please enter a valid email address.",
+    "serverError": "Server error. Please try again.",
+    "subdomainInvalidFormat": "Subdomain format is invalid.",
+    "projectNameRequired": "Project name is required.",
+    "projectNameMax120": "Use 120 characters or fewer.",
+    "descriptionMax500": "Use 500 characters or fewer.",
+    "min2": "Please enter at least 2 characters.",
+    "titleRequired": "Please enter a title.",
+    "min10": "Please enter at least 10 characters."
   }
 }

@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useSubdomain } from "@/context/SubdomainContext";
 import { ArrowUp, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -26,6 +27,7 @@ type FormValues = {
 
 export function AddItem() {
   const { subdomain } = useSubdomain();
+  const t = useTranslations("Essentials");
   const form = useForm<FormValues>({
     defaultValues: {
       title: "",
@@ -59,7 +61,7 @@ export function AddItem() {
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormControl>
-                <Input placeholder="Add item" {...field} />
+                <Input placeholder={t("fields.itemNamePlaceholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -82,7 +84,7 @@ export function AddItem() {
           <Button
             type="submit"
             disabled={isPending}
-            aria-label="Send"
+            aria-label={t("actions.addItem")}
             size="icon"
             variant="default"
           >

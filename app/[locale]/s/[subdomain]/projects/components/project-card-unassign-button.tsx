@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
+import { translateMessage } from "@/lib/translate-message";
 
 type Props = {
   plannedId: string;
@@ -16,6 +17,7 @@ type Props = {
 
 export function ProjectCardUnassignButton({ plannedId, subdomain }: Props) {
   const t = useTranslations("Projects");
+  const tActions = useTranslations("ActionMessages");
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     unassignPlannedFromProjectAction,
@@ -29,9 +31,9 @@ export function ProjectCardUnassignButton({ plannedId, subdomain }: Props) {
       toast.success(t("toast.unassigned"));
       router.refresh();
     } else if (state.message) {
-      toast.error(state.message);
+      toast.error(translateMessage(tActions, state.message));
     }
-  }, [router, state, t]);
+  }, [router, state, t, tActions]);
 
   return (
     <form action={formAction} className="z-30">

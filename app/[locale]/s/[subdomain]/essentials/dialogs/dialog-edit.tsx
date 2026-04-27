@@ -26,9 +26,11 @@ import { useForm } from "react-hook-form";
 import { initialState } from "@/lib/initial-action-return";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { translateMessage } from "@/lib/translate-message";
 
 function EditDialog({ row, open, setOpen }: CustomDialogProps) {
   const t = useTranslations("Dialog");
+  const tActions = useTranslations("ActionMessages");
   const { title, price, quantity, id, status } = row.original;
   const { subdomain } = useSubdomain();
   const [state, action, isPending] = useActionState(
@@ -67,12 +69,12 @@ function EditDialog({ row, open, setOpen }: CustomDialogProps) {
   useEffect(() => {
     if (!state) return;
     if (state.ok) {
-      toast.success(state.message);
+      toast.success(translateMessage(tActions, state.message));
       setOpen(false);
     } else if (state.message) {
-      toast.error(state.message);
+      toast.error(translateMessage(tActions, state.message));
     }
-  }, [state, setOpen]);
+  }, [state, setOpen, tActions]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

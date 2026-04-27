@@ -33,6 +33,7 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const t = useTranslations("Table");
+  const tCommon = useTranslations("Common");
   const isFiltered = table.getState().columnFilters.length > 0;
 
   type FacetOption = {
@@ -45,10 +46,10 @@ export function DataTableToolbar<TData>({
     () =>
       statuses.map((s) => ({
         value: s.value,
-        label: t(`status.${s.value}`),
+        label: tCommon(`status.${s.value}`),
         icon: s.icon,
       })),
-    [t],
+    [tCommon],
   );
 
   return (
@@ -57,7 +58,7 @@ export function DataTableToolbar<TData>({
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title={t("filter-by-status")}
+            title={t("filterByStatus")}
             options={statusOptions}
           />
         )}
@@ -68,14 +69,14 @@ export function DataTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            {t("clear-filters")}
+            {t("clearFilters")}
             <X />
           </Button>
         )}
       </div>
       <Input
         className="max-w-lg md:order-first"
-        placeholder={t("search-placeholder")}
+        placeholder={t("searchPlaceholder")}
         value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
         onChange={(event) =>
           table.getColumn("title")?.setFilterValue(event.target.value)

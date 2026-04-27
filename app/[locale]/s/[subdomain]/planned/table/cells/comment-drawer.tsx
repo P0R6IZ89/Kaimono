@@ -10,6 +10,7 @@ import {
 import { MessageCircle } from "lucide-react";
 import React from "react";
 import CommentListCell from "./comment-list";
+import { useTranslations } from "next-intl";
 
 export default function CommentsDrawer({
   id,
@@ -20,6 +21,7 @@ export default function CommentsDrawer({
   comments: Partial<Pick<PlannedSchema, "comments">>["comments"];
   commentsCount: Partial<Pick<PlannedSchema, "commentsCount">>["commentsCount"];
 }) {
+  const t = useTranslations("Planned");
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -35,7 +37,7 @@ export default function CommentsDrawer({
       <DrawerContent className="md:w-2xl mx-auto">
         <div className="w-full mx-auto">
           <DrawerHeader>
-            <DrawerTitle>Comments</DrawerTitle>
+            <DrawerTitle>{t("comments.title")}</DrawerTitle>
           </DrawerHeader>
           <CommentListCell id={id} comments={comments} />
         </div>

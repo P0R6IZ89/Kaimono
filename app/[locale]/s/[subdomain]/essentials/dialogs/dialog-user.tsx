@@ -9,14 +9,17 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 function UserDialog() {
+  const t = useTranslations("UserDialog");
+  const tCommon = useTranslations("Common");
   return (
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Edit profile</DialogTitle>
+        <DialogTitle>{t("title")}</DialogTitle>
         <DialogDescription>
-          Make changes to your profile here. Click save when you&apos;re done.
+          {t("description")}
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-4">
@@ -24,9 +27,9 @@ function UserDialog() {
       </div>
       <DialogFooter>
         <DialogClose asChild>
-          <Button variant="outline">Cancel</Button>
+          <Button variant="outline">{tCommon("actions.cancel")}</Button>
         </DialogClose>
-        <Button type="submit">Convidar</Button>
+        <Button type="submit">{t("submit")}</Button>
       </DialogFooter>
     </DialogContent>
   );

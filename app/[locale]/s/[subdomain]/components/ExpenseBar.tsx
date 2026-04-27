@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 export type ExpenseSegment = {
   id: string;
@@ -40,6 +41,8 @@ export function ExpenseBar({
   showRemaining?: boolean;
   className?: string;
 }) {
+  const t = useTranslations("ExpenseBar");
+  const locale = useLocale();
   const spent = useMemo(
     () =>
       segments.reduce(
@@ -79,7 +82,7 @@ export function ExpenseBar({
   return (
     <div
       className={`col-span-2 w-full ${className}`}
-      aria-label="Monthly expense usage"
+      aria-label={t("aria.usage")}
     >
       <div
         className="flex h-6 w-full overflow-hidden rounded-2xl ring-1 ring-zinc-300/70 bg-gradient-to-b from-white to-zinc-50 dark:from-zinc-800 dark:to-zinc-900 dark:ring-zinc-700"
@@ -87,7 +90,10 @@ export function ExpenseBar({
         aria-valuemin={0}
         aria-valuemax={total}
         aria-valuenow={Math.min(spent, total)}
-        aria-valuetext={`${formatCurrency(spent, currency)} of ${formatCurrency(total, currency)} spent`}
+        aria-valuetext={t("aria.valueText", {
+          spent: formatCurrency(spent, currency, locale),
+          total: formatCurrency(total, currency, locale),
+        })}
       >
         {normalized.map((b, i) => (
           <div
@@ -98,7 +104,7 @@ export function ExpenseBar({
               (!showRemainingBlock && i === lastIdx ? " rounded-r-2xl" : "")
             }
             style={{ width: `${b.pct}%`, backgroundColor: b.color }}
-            title={`${b.name}: ${formatCurrency(b.amount, currency)}`}
+            title={`${b.name}: ${formatCurrency(b.amount, currency, locale)}`}
           />
         ))}
         {showRemainingBlock && (
@@ -107,7 +113,11 @@ export function ExpenseBar({
               normalized.length === 0 ? "rounded-2xl" : "rounded-r-2xl"
             }`}
             style={{ width: `${remPct}%` }}
-            title={`Remaining: ${formatCurrency(remaining, currency)}`}
+            title={`${t("remaining")}: ${formatCurrency(
+              remaining,
+              currency,
+              locale,
+            )}`}
           />
         )}
       </div>
@@ -117,47 +127,49 @@ export function ExpenseBar({
 
 // Editor + Legend for an expense app
 export default function ExpenseBarEditor() {
+  const t = useTranslations("ExpenseBar");
+  const locale = useLocale();
   const [currency, setCurrency] = useState<string>("JPY");
   const [total, setTotal] = useState<number>(200000); // total monthly expense/budget (e.g., ¥200,000)
   const [segments, setSegments] = useState<ExpenseSegment[]>([
     {
       id: crypto.randomUUID(),
-      name: "Rent",
+      name: t("defaults.rent"),
       amount: 90000,
       color: "#ef4444",
       tags: ["fixed"],
     },
     {
       id: crypto.randomUUID(),
-      name: "Groceries",
+      name: t("defaults.groceries"),
       amount: 30000,
       color: "#22c55e",
       tags: ["food", "home"],
     },
     {
       id: crypto.randomUUID(),
-      name: "Transport",
+      name: t("defaults.transport"),
       amount: 8000,
       color: "#3b82f6",
       tags: ["train", "bus"],
     },
     {
       id: crypto.randomUUID(),
-      name: "Utilities",
+      name: t("defaults.utilities"),
       amount: 15000,
       color: "#eab308",
       tags: ["electric", "water"],
     },
     {
       id: crypto.randomUUID(),
-      name: "Subscriptions",
+      name: t("defaults.subscriptions"),
       amount: 4000,
       color: "#a855f7",
       tags: ["apps"],
     },
     {
       id: crypto.randomUUID(),
-      name: "Eating Out",
+      name: t("defaults.eatingOut"),
       amount: 12000,
       color: "#f97316",
       tags: ["food", "friends"],
@@ -186,7 +198,7 @@ export default function ExpenseBarEditor() {
       ...prev,
       {
         id: crypto.randomUUID(),
-        name: "New Category",
+        name: t("defaults.newCategory"),
         amount: 0,
         color: randomColor(),
         tags: [],
@@ -197,24 +209,26 @@ export default function ExpenseBarEditor() {
   return (
     <div className="col-span-2 mx-auto max-w-3xl p-6">
       <h1 className="text-2xl font-semibold tracking-tight mb-2">
-        Monthly Expenses
+        {t("title")}
       </h1>
       <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-        Edit categories and enter your{" "}
-        <strong>total monthly expense/budget</strong>. The bar and tags update
-        instantly.
+        {t.rich("description", {
+          strong: (chunks) => <strong>{chunks}</strong>,
+        })}
       </p>
 
       <div className="rounded-2xl border border-zinc-200/70 dark:border-zinc-700/60 p-4 bg-white/80 dark:bg-zinc-900/50 backdrop-blur">
         {/* Header numbers */}
         <div className="flex items-end justify-between mb-3">
           <div className="text-lg font-medium">
-            {formatCurrency(Math.min(spent, total), currency)} of{" "}
-            {formatCurrency(total, currency)} spent
+            {t("spentSummary", {
+              spent: formatCurrency(Math.min(spent, total), currency, locale),
+              total: formatCurrency(total, currency, locale),
+            })}
           </div>
           {over > 0 && (
             <div className="text-sm text-red-600 dark:text-red-400">
-              Over by {formatCurrency(over, currency)}
+              {t("overBy", { amount: formatCurrency(over, currency, locale) })}
             </div>
           )}
         </div>
@@ -238,7 +252,7 @@ export default function ExpenseBarEditor() {
                 />
                 <span className="truncate font-medium">{s.name}</span>
                 <span className="ml-auto tabular-nums text-zinc-600 dark:text-zinc-400">
-                  {formatCurrency(s.amount, currency)}
+                  {formatCurrency(s.amount, currency, locale)}
                 </span>
               </div>
               {s.tags && s.tags.length > 0 && (
@@ -260,9 +274,9 @@ export default function ExpenseBarEditor() {
               className="inline-block h-3 w-3 rounded-full bg-zinc-300 dark:bg-zinc-600 ring-1 ring-black/10"
               aria-hidden
             />
-            <span>Remaining</span>
+            <span>{t("remaining")}</span>
             <span className="ml-auto tabular-nums text-zinc-600 dark:text-zinc-400">
-              {formatCurrency(remaining, currency)}
+              {formatCurrency(remaining, currency, locale)}
             </span>
           </div>
         </div>
@@ -271,7 +285,7 @@ export default function ExpenseBarEditor() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
           <label className="flex flex-col text-sm">
             <span className="text-zinc-600 dark:text-zinc-400 mb-1">
-              Total monthly expense / budget
+              {t("totalLabel")}
             </span>
             <input
               type="number"
@@ -285,7 +299,7 @@ export default function ExpenseBarEditor() {
 
           <label className="flex flex-col text-sm">
             <span className="text-zinc-600 dark:text-zinc-400 mb-1">
-              Currency
+              {t("currency")}
             </span>
             <select
               value={currency}
@@ -304,18 +318,18 @@ export default function ExpenseBarEditor() {
           <table className="w-full text-sm">
             <thead className="bg-zinc-50/80 dark:bg-zinc-800/60">
               <tr>
-                <th className="text-left p-3 font-medium">Category</th>
-                <th className="text-left p-3 font-medium">Amount</th>
+                <th className="text-left p-3 font-medium">{t("category")}</th>
+                <th className="text-left p-3 font-medium">{t("amount")}</th>
                 <th className="text-left p-3 font-medium">
-                  Tags (comma‑separated)
+                  {t("tags")}
                 </th>
-                <th className="text-left p-3 font-medium">Color</th>
+                <th className="text-left p-3 font-medium">{t("color")}</th>
                 <th className="p-3 text-right">
                   <button
                     onClick={addSegment}
                     className="rounded-md border border-zinc-300/70 px-2.5 py-1.5 text-xs font-medium hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800"
                   >
-                    + Add category
+                    {t("addCategory")}
                   </button>
                 </th>
               </tr>
@@ -360,7 +374,7 @@ export default function ExpenseBarEditor() {
                             .filter(Boolean),
                         })
                       }
-                      placeholder="e.g., food, family"
+                      placeholder={t("tagsPlaceholder")}
                       className="h-9 w-full rounded-md border border-zinc-300/70 bg-white/70 px-3 outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-zinc-900 dark:border-zinc-700"
                     />
                   </td>
@@ -387,9 +401,9 @@ export default function ExpenseBarEditor() {
                     <button
                       onClick={() => removeSegment(s.id)}
                       className="rounded-md border border-zinc-300/70 px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 dark:border-zinc-700 dark:hover:bg-red-950/30"
-                      aria-label={`Remove ${s.name}`}
+                      aria-label={t("removeCategory", { name: s.name })}
                     >
-                      Remove
+                      {t("remove")}
                     </button>
                   </td>
                 </tr>
@@ -400,8 +414,11 @@ export default function ExpenseBarEditor() {
       </div>
 
       <p className="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
-        Tip: Feed <code>total</code> and <code>segments</code> from your DB/API
-        and render only <code>{`<ExpenseBar/>`}</code> on your dashboard.
+        {t.rich("tip", {
+          total: () => <code>total</code>,
+          segments: () => <code>segments</code>,
+          component: () => <code>{`<ExpenseBar/>`}</code>,
+        })}
       </p>
     </div>
   );

@@ -18,7 +18,9 @@
       "instruction": "ボタンを押してログアウトします。",
       "title": "またのご利用をお待ちしています 🤗"
     },
-    "or": "または"
+    "or": "または",
+    "home": "ホーム",
+    "signInWithEmail": "メールでサインイン"
   },
   "Common": {
     "actions": {
@@ -32,7 +34,8 @@
       "save": "保存",
       "signIn": "サインイン",
       "signOut": "サインアウト",
-      "viewAll": "すべて表示"
+      "viewAll": "すべて表示",
+      "cancel": "キャンセル"
     },
     "labels": {
       "actions": "操作"
@@ -59,7 +62,8 @@
     "hello2": "こんにちは！",
     "mainFeature": "機能",
     "welcomeBack": "おかえりなさい！",
-    "workspace": "あなたは {subdomain} ワークスペースにいます"
+    "workspace": "あなたは {subdomain} ワークスペースにいます",
+    "Home": "ホーム"
   },
   "Dialog": {
     "close": "戻る",
@@ -83,7 +87,10 @@
     "invalid-email": "有効なメールアドレスを入力してください。",
     "password-min-length": "パスワードは8文字以上で入力してください。",
     "passwords-no-match": "パスワードが一致しません。",
-    "required-field": "この項目は必須です。"
+    "required-field": "この項目は必須です。",
+    "fields": {
+      "image": "画像"
+    }
   },
   "Essentials": {
     "actions": {
@@ -104,11 +111,18 @@
     "fields": {
       "itemName": "アイテム名",
       "price": "価格",
-      "quantity": "数量"
+      "quantity": "数量",
+      "itemNamePlaceholder": "アイテムを追加"
     },
     "stats": {
       "pendingItems": "保留中のアイテム",
-      "totalPending": "合計（保留）"
+      "totalPending": "合計（保留）",
+      "pendingProducts": "保留中の商品",
+      "completedCount": "{total}件中{completed}件完了",
+      "doneTitle": "おめでとうございます！😍🎉",
+      "doneDescription": "保留中の買い物はありません！",
+      "totalValue": "合計金額",
+      "pendingProductsSum": "保留中商品の合計です。"
     },
     "title": "買い物リスト"
   },
@@ -186,7 +200,9 @@
     "home": "ホーム",
     "planned": "計画",
     "projects": "プロジェクト",
-    "settings": "設定"
+    "settings": "設定",
+    "ariaLabel": "下部ナビゲーション",
+    "profile": "プロフィール"
   },
   "NewTeam": {
     "createButton": "チームを作成",
@@ -208,7 +224,9 @@
       "markAsPurchased": "購入済みにする",
       "revertToPending": "保留に戻す",
       "save": "保存",
-      "viewAll": "すべて表示"
+      "viewAll": "すべて表示",
+      "markAsPurchasedDescription": "このアイテムを購入済みにしますか？",
+      "revertToPendingDescription": "このアイテムを保留に戻しますか？"
     },
     "ai": {
       "blockedUrl": "この商品 URL は使用できません。",
@@ -223,7 +241,10 @@
       "partialExtract": "一部の情報のみ取得できました。保存前にフォームを確認してください。",
       "placeholder": "https://example.com/product",
       "rateLimited": "1時間あたりの AI 抽出上限に達しました。しばらく待ってから再試行してください。",
-      "proBetaOnly": "この機能は Pro ベータユーザーのみ利用できます。"
+      "proBetaOnly": "この機能は Pro ベータユーザーのみ利用できます。",
+      "clearUrl": "URLをクリア",
+      "extractedImage": "抽出した画像",
+      "beta": "ベータ"
     },
     "comments": {
       "delete": "削除",
@@ -259,7 +280,8 @@
       "priority": "優先度",
       "priorityPlaceholder": "優先度を選択",
       "quantity": "数量",
-      "quantityPlaceholder": "数量を入力"
+      "quantityPlaceholder": "数量を入力",
+      "image": "画像"
     },
     "saveMoney": "節約する",
     "title": "計画",
@@ -335,7 +357,8 @@
       "noDescription": "まだ説明はありません。",
       "openPlanned": "すべての計画",
       "totalValue": "合計",
-      "viewAll": "すべて表示"
+      "viewAll": "すべて表示",
+      "totalPendingValue": "残り"
     },
     "summary": {
       "backlog": "{count, plural, =0 {未割り当てアイテムはありません} =1 {バックログに1件} other {バックログに#件}}",
@@ -359,7 +382,9 @@
     "support": "サポート",
     "team": "チーム",
     "tutorialDescription": "チュートリアルでアプリの使い方を学ぶ",
-    "tutorialTitle": "チュートリアル"
+    "tutorialTitle": "チュートリアル",
+    "appearance": "外観",
+    "developedBy": "{name} が開発"
   },
   "Sidebar": {
     "config": {
@@ -393,7 +418,9 @@
       "title": "ワークスペース",
       "createTeam": "チームを作成",
       "switchWorkspace": "切り替え"
-    }
+    },
+    "platform": "プラットフォーム",
+    "toggle": "切り替え"
   },
   "Table": {
     "actions": "操作",
@@ -412,7 +439,9 @@
     "page": "ページ",
     "previous": "前へ",
     "rows": "行",
-    "searchPlaceholder": "アイテムを検索..."
+    "searchPlaceholder": "アイテムを検索...",
+    "view": "表示",
+    "toggleColumns": "列を切り替え"
   },
   "Teams": {
     "create-team": "チームを作成",
@@ -422,7 +451,8 @@
       "title": "新しいチームを作成"
     },
     "start-adding-a-new-team": "みんなで支出管理を始めましょう！",
-    "title": "チームを選択"
+    "title": "チームを選択",
+    "add-team": "チームを追加"
   },
   "UpdateApp": {
     "description": "ポルトガル語と日本語に対応しました。",
@@ -595,5 +625,154 @@
     "new-invite-content": "{inviteRole} として {teamName} への招待が届いています。",
     "new-invite-to-invite-team-name": "{teamName} への新しい招待",
     "no-invites": "招待はありません。"
+  },
+  "RadialMenu": {
+    "open": "円形メニューを開く",
+    "overlay": "円形メニューのオーバーレイ"
+  },
+  "Users": {
+    "empty": "ユーザーが見つかりません。"
+  },
+  "UserDialog": {
+    "title": "プロフィールを編集",
+    "description": "プロフィールを変更できます。完了したら保存してください。",
+    "submit": "招待"
+  },
+  "Contact": {
+    "title": "お問い合わせ",
+    "description": "メッセージを送信してください。できるだけ早く返信します。",
+    "fields": {
+      "fullName": "氏名",
+      "email": "メール",
+      "subject": "件名",
+      "message": "説明"
+    },
+    "placeholders": {
+      "fullName": "山田 太郎",
+      "subject": "アプリについての質問",
+      "message": "メッセージを入力してください..."
+    },
+    "submit": "送信"
+  },
+  "DashboardHome": {
+    "recentlyAdded": "最近追加",
+    "recentShoppingItems": "最近の買い物アイテム",
+    "noShoppingItems": "買い物アイテムはまだありません。",
+    "timeToTakeAction": "対応が必要",
+    "openItem": "{title} を開く"
+  },
+  "ExpenseBar": {
+    "title": "月間支出",
+    "description": "カテゴリを編集し、<strong>月間支出/予算の合計</strong>を入力します。バーとタグはすぐに更新されます。",
+    "spentSummary": "{total} 中 {spent} 使用",
+    "overBy": "{amount} 超過",
+    "remaining": "残り",
+    "totalLabel": "月間支出 / 予算の合計",
+    "currency": "通貨",
+    "category": "カテゴリ",
+    "amount": "金額",
+    "tags": "タグ（カンマ区切り）",
+    "color": "色",
+    "addCategory": "+ カテゴリを追加",
+    "tagsPlaceholder": "例: 食費, 家族",
+    "remove": "削除",
+    "removeCategory": "{name} を削除",
+    "tip": "ヒント: DB/API から <total></total> と <segments></segments> を渡し、ダッシュボードでは <component></component> だけを表示します。",
+    "aria": {
+      "usage": "月間支出の使用状況",
+      "valueText": "{total} 中 {spent} 使用"
+    },
+    "defaults": {
+      "rent": "家賃",
+      "groceries": "食料品",
+      "transport": "交通",
+      "utilities": "光熱費",
+      "subscriptions": "サブスク",
+      "eatingOut": "外食",
+      "newCategory": "新しいカテゴリ"
+    }
+  },
+  "InviteAccept": {
+    "title": "招待の状態",
+    "genericError": "招待の処理中に問題が発生しました。",
+    "missingToken": "招待トークンがありません。",
+    "appNotFound": "招待先のアプリが見つかりません。",
+    "inviteInvalidOrExpired": "招待が無効または期限切れです。",
+    "inviteWrongEmail": "この招待は別のメールアドレス宛てです。招待されたメールでサインインしてください。"
+  },
+  "InviteEmail": {
+    "title": "招待",
+    "subject": "{appName} への招待が届いています",
+    "reminderSubject": "{appName} への招待リマインダー",
+    "greeting": "こんにちは。",
+    "acceptPrompt": "招待を承認するには",
+    "acceptLink": "こちらをクリック",
+    "reminderBody": "{appName} への招待リマインダーです。",
+    "expires": "（有効期限: {date}）"
+  },
+  "ActionMessages": {
+    "actionCompleted": "操作が完了しました。",
+    "somethingWentWrong": "問題が発生しました。",
+    "unexpectedWithError": "問題が発生しました: {error}",
+    "teamNotFound": "チームが存在しません。",
+    "itemNotFoundForApp": "このアプリのアイテムが見つかりません。",
+    "essentialDeleted": "買い物リストアイテムを削除しました。",
+    "plannedCreated": "アイテムを作成しました。",
+    "plannedCreateFailed": "アイテムを作成できませんでした。",
+    "plannedUpdated": "アイテムを更新しました。",
+    "plannedUpdateFailed": "アイテムを更新できませんでした。",
+    "plannedDeleted": "アイテムを削除しました。",
+    "plannedDeleteFailed": "アイテムを削除できませんでした。",
+    "projectCreated": "プロジェクトを作成しました。",
+    "projectNotFound": "プロジェクトが見つかりません。",
+    "plannedNotFound": "計画アイテムが見つかりません。",
+    "plannedAssignedToProject": "計画アイテムをプロジェクトに割り当てました。",
+    "plannedRemovedFromProject": "アイテムをプロジェクトから外しました。",
+    "projectUpdated": "プロジェクトを更新しました。",
+    "projectDeleted": "プロジェクトを削除しました。",
+    "notAppMember": "このアプリのメンバーではありません。",
+    "ownerOnlyDeleteApp": "アプリを削除できるのはオーナーのみです。",
+    "appDeleted": "アプリを削除しました。",
+    "appAlreadyDeleted": "アプリは見つかりません（すでに削除済み）。",
+    "appDeleteFailed": "アプリを削除できませんでした。",
+    "userNotMember": "ユーザーはメンバーではありません。",
+    "insufficientPermission": "権限が不足しています。",
+    "adminCannotRemoveAdmin": "管理者は他の管理者を削除できません。",
+    "leftApp": "アプリから退出しました。",
+    "userRemoved": "ユーザーを削除しました。",
+    "cannotRemoveLastOwner": "最後のオーナーは削除できません。先に別のユーザーをオーナーにしてください。",
+    "memberRemoveFailed": "メンバーを削除できませんでした。",
+    "inviteManageDenied": "招待を管理する権限がありません。",
+    "inviteSent": "招待を送信しました。",
+    "loginRequired": "ログインしてください。",
+    "invitationNotFound": "招待が見つかりません。",
+    "inviteResendDenied": "この招待を再送信する権限がありません。",
+    "inviteResendInvalidStatus": "再送信できるのは保留中または取り消し済みの招待のみです。",
+    "inviteResent": "招待を再送信しました。",
+    "inviteRevokeDenied": "この招待を取り消す権限がありません。",
+    "inviteRevokeInvalidStatus": "取り消しできるのは保留中または期限切れの招待のみです。",
+    "inviteRevoked": "招待を取り消しました。",
+    "confirmDeleteApp": "本当にアプリを削除しますか？"
+  },
+  "FormErrors": {
+    "productNameRequired": "商品名は必須です。",
+    "productNameMax50": "商品名は50文字以内で入力してください。",
+    "productNameMax500": "商品名は500文字以内で入力してください。",
+    "priceNumber": "価格は数値で入力してください。",
+    "priceNonNegative": "価格は0以上で入力してください。",
+    "statusInvalid": "ステータスが無効です。",
+    "quantityInteger": "数量は整数で入力してください。",
+    "subdomainRequired": "リンクを確認してください。",
+    "priorityInvalid": "有効な優先度を選択してください。",
+    "commentRequired": "コメントを入力してください。",
+    "emailInvalid": "有効なメールアドレスを入力してください。",
+    "serverError": "サーバーエラーです。もう一度お試しください。",
+    "subdomainInvalidFormat": "サブドメインの形式が無効です。",
+    "projectNameRequired": "プロジェクト名は必須です。",
+    "projectNameMax120": "120文字以内で入力してください。",
+    "descriptionMax500": "500文字以内で入力してください。",
+    "min2": "2文字以上で入力してください。",
+    "titleRequired": "件名を入力してください。",
+    "min10": "10文字以上で入力してください。"
   }
 }

@@ -15,10 +15,12 @@ import { toast } from "sonner";
 import { initialState } from "@/lib/initial-action-return";
 import { useTranslations } from "next-intl";
 import { useSubdomain } from "@/context/SubdomainContext";
+import { translateMessage } from "@/lib/translate-message";
 
 function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   const { subdomain } = useSubdomain();
   const t = useTranslations("Dialog");
+  const tActions = useTranslations("ActionMessages");
   const { id, title } = row.original;
 
   const [state, action, isPending] = useActionState(
@@ -29,12 +31,12 @@ function CompleteDialog({ row, open, setOpen }: CustomDialogProps) {
   useEffect(() => {
     if (!state) return;
     if (state.ok) {
-      toast.success(state.message);
+      toast.success(translateMessage(tActions, state.message));
       setOpen(false);
     } else if (state.message) {
-      toast.error(state.message);
+      toast.error(translateMessage(tActions, state.message));
     }
-  }, [state, setOpen]);
+  }, [state, setOpen, tActions]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

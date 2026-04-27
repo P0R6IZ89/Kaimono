@@ -9,22 +9,28 @@ import { Ellipsis, Trash2 } from "lucide-react";
 import { deleteApp } from "@/actions/appActions";
 import { toast } from "sonner";
 import { ConfirmMenuItem } from "../dialog/confirmMenuItem";
+import { useTranslations } from "next-intl";
+import { translateMessage } from "@/lib/translate-message";
 
 function DeleteDropdown({ id }: { id: string }) {
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("Common");
+  const tActions = useTranslations("ActionMessages");
 
   const handleDelete = (id: string) => {
     startTransition(async () => {
       try {
         const result = await deleteApp(id);
         if (result.ok) {
-          toast.success(result.message);
+          toast.success(translateMessage(tActions, result.message));
         }
         if (!result.ok) {
-          toast.error(result.message);
+          toast.error(translateMessage(tActions, result.message));
         }
       } catch (error) {
-        toast.error(`Algo deu errado: ${error}`);
+        toast.error(
+          tActions("unexpectedWithError", { error: String(error) }),
+        );
       }
     });
   };
@@ -35,8 +41,8 @@ function DeleteDropdown({ id }: { id: string }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <ConfirmMenuItem
-          title="Deletar"
-          description="Deseja realmente deletar o app?"
+          title={t("actions.delete")}
+          description={tActions("confirmDeleteApp")}
           icon={<Trash2 />}
           isPending={isPending}
           onConfirm={() => handleDelete(id)}

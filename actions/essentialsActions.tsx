@@ -30,7 +30,7 @@ export async function createEssentials(
   try {
     const app = await requireMembership(subdomain);
     if (!app.appId) {
-      return { error: "Team does not exist" };
+      return { error: "teamNotFound" };
     }
     await prisma.essential.create({
       data: {
@@ -122,10 +122,10 @@ export async function updateEssentials(
       },
     });
     if (result.count === 0) {
-      return { ok: false, message: "Item not found for this app." };
+      return { ok: false, message: "itemNotFoundForApp" };
     }
     revalidatePath(`/${locale}/s/${subdomain}/essentials`);
-    return { ok: true, message: "Ok!" };
+    return { ok: true, message: "actionCompleted" };
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));
   }
@@ -154,15 +154,15 @@ export async function updateStatusEssentials(
       data: { status },
     });
     if (result.count === 0) {
-      return { ok: false, message: "Item not found for this app." };
+      return { ok: false, message: "itemNotFoundForApp" };
     }
     revalidatePath(`/${locale}/s/${subdomain}/essentials`);
     return {
       ok: true,
-      message: "Ok!",
+      message: "actionCompleted",
     };
   } catch {
-    return { ok: false, message: "Somthing went wrong" };
+    return { ok: false, message: "somethingWentWrong" };
   }
 }
 
@@ -178,12 +178,12 @@ export async function deleteEssentials(
       where: { id, appId: membership.appId },
     });
     if (result.count === 0) {
-      return { status: "error", message: "Item not found for this app." };
+      return { status: "error", message: "itemNotFoundForApp" };
     }
     revalidatePath(`/${locale}/s/${subdomain}/essentials`);
     return {
       status: "success",
-      message: "O Essentials foi deletado com sucesso!",
+      message: "essentialDeleted",
     };
   } catch (error: unknown) {
     throw new Error(getErrorMessage(error));

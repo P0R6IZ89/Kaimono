@@ -37,6 +37,7 @@ import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { translateMessage } from "@/lib/translate-message";
 
 export function EditPlannedDialog({
   row,
@@ -48,6 +49,7 @@ export function EditPlannedDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const t = useTranslations("Planned");
+  const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
   const tD = useTranslations("Dialog");
   const { subdomain } = useSubdomain();
@@ -88,12 +90,12 @@ export function EditPlannedDialog({
   useEffect(() => {
     if (!state) return;
     if (state.ok) {
-      toast.success(state.message);
+      toast.success(translateMessage(tActions, state.message));
       onOpenChange(false);
     } else if (state.message) {
-      toast.error(state.message);
+      toast.error(translateMessage(tActions, state.message));
     }
-  }, [onOpenChange, state]);
+  }, [onOpenChange, state, tActions]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange} modal={false}>

@@ -10,14 +10,14 @@ import { revalidatePath } from "next/cache";
 export async function magicLinkSignIn(prevState: unknown, formData: FormData) {
   const email = String(formData.get("email") ?? "");
   if (!email || typeof email !== "string") {
-    return { error: "Email invalido, verifique o seu email" };
+    return { error: "emailInvalid" };
   }
   const result = await signIn("resend", {
     email,
     redirect: false,
   });
   if (result?.error) {
-    return { error: "Erro no servidor, tente novamente" };
+    return { error: "serverError" };
   }
   const locale = await getCurrentLocale();
   return redirect({ href: "/welcome", locale });

@@ -42,11 +42,11 @@ function ActionCell({ row }: ActionDialogProps) {
       <DropdownMenuContent align="end">
         <DropdownMenuItem onSelect={() => handleActionClick("edit")}>
           <Info />
-          {t("edit-item")}
+          {t("editItem")}
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => handleActionClick("delete")}>
           <Trash className="text-destructive" />
-          {t("delete-item")}
+          {t("deleteItem")}
         </DropdownMenuItem>
       </DropdownMenuContent>
       {actionType && (

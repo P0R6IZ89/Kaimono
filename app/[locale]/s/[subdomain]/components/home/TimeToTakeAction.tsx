@@ -1,3 +1,5 @@
+"use client";
+
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -6,20 +8,26 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { CldImage } from "next-cloudinary";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 const PLANNED_PLACEHOLDER_IMAGE =
   "https://res.cloudinary.com/dsttcre2h/image/upload/v1751870559/placeholder_dtzhrr.png";
 
 dayjs.extend(relativeTime);
 
-export function TimeToTakeAction({ items }: { items: oldestPlannedItemsType }) {
+export function TimeToTakeAction({
+  items,
+}: {
+  items: oldestPlannedItemsType;
+}) {
+  const t = useTranslations("DashboardHome");
   if (items.length === 0) {
     return null;
   }
 
   return (
     <section>
-      <p className="mb-2 text-sm">Time to take action</p>
+      <p className="mb-2 text-sm">{t("timeToTakeAction")}</p>
       <ScrollArea className="w-full max-w-full min-w-0">
         <div className="flex gap-3 pb-3">
           {items.map((item) => {
@@ -33,7 +41,7 @@ export function TimeToTakeAction({ items }: { items: oldestPlannedItemsType }) {
                     pathname: "/planned",
                     query: { title: item.title, showAll: "1" },
                   }}
-                  aria-label={`Open ${item.title}`}
+                  aria-label={t("openItem", { title: item.title })}
                 >
                   <div className="relative">
                     <Badge

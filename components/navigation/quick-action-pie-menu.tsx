@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Slot } from "@radix-ui/react-slot";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function cn(...classes: (string | false | null | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -45,6 +46,7 @@ export function RadialPieMenu({
   sweepAngleCW = Math.PI * 2, // full circle by default
   fixedCenter,
 }: RadialPieMenuProps) {
+  const t = useTranslations("RadialMenu");
   const [open, setOpen] = React.useState(defaultOpen);
   const [center, setCenter] = React.useState<{ x: number; y: number }>({
     x: 0,
@@ -184,7 +186,7 @@ export function RadialPieMenu({
       <div {...triggerProps} className="relative">
         {children ?? (
           <Button type="button" variant="outline">
-            Open Pie Menu
+            {t("open")}
           </Button>
         )}
       </div>
@@ -209,7 +211,7 @@ export function RadialPieMenu({
                   if (!target.closest("[data-radial-item]")) setOpen(false);
                 }}
                 onKeyDown={onKeyDown}
-                aria-label="Radial menu overlay"
+                aria-label={t("overlay")}
                 role="dialog"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

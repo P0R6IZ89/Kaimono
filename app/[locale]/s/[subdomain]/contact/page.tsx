@@ -23,18 +23,20 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 // Zod schema
 const contactSchema = z.object({
-  fullName: z.string().min(2, "Please enter at least 2 characters."),
-  email: z.string().email("Please enter a valid email address."),
-  title: z.string().min(3, "Please enter a title."),
-  description: z.string().min(10, "Please enter at least 10 characters."),
+  fullName: z.string().min(2, "min2"),
+  email: z.string().email("emailInvalid"),
+  title: z.string().min(3, "titleRequired"),
+  description: z.string().min(10, "min10"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 export default function ContactPage() {
+  const t = useTranslations("Contact");
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -49,11 +51,8 @@ export default function ContactPage() {
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-10">
       <Card className="w-full max-w-xl">
         <CardHeader>
-          <CardTitle>Contact Us</CardTitle>
-          <CardDescription>
-            Send us a message and we&apos;ll get back to you as soon as
-            possible.
-          </CardDescription>
+          <CardTitle>{t("title")}</CardTitle>
+          <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -63,9 +62,9 @@ export default function ContactPage() {
                 name="fullName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Full name</FormLabel>
+                    <FormLabel>{t("fields.fullName")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Doe" {...field} />
+                      <Input placeholder={t("placeholders.fullName")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -77,7 +76,7 @@ export default function ContactPage() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t("fields.email")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
@@ -95,9 +94,9 @@ export default function ContactPage() {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>{t("fields.subject")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Question about the app" {...field} />
+                      <Input placeholder={t("placeholders.subject")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,11 +108,11 @@ export default function ContactPage() {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>{t("fields.message")}</FormLabel>
                     <FormControl>
                       <Textarea
                         rows={5}
-                        placeholder="Write your message here..."
+                        placeholder={t("placeholders.message")}
                         {...field}
                       />
                     </FormControl>
@@ -123,7 +122,7 @@ export default function ContactPage() {
               />
 
               <div className="flex justify-end">
-                <Button type="submit">Send message</Button>
+                <Button type="submit">{t("submit")}</Button>
               </div>
             </form>
           </Form>

@@ -80,9 +80,9 @@ export async function createPlannedAction(
       },
     });
     revalidatePath(`/s/${data.subdomain}/planned`);
-    return { ok: true, message: "Item criado com sucesso!" };
+    return { ok: true, message: "plannedCreated" };
   } catch {
-    return { ok: false, message: "Falha ao criar o item" };
+    return { ok: false, message: "plannedCreateFailed" };
   }
 }
 
@@ -119,7 +119,7 @@ export async function updatePlanned(
   });
 
   if (!belongsToApp) {
-    return { ok: false, message: "Item not found for this app." };
+    return { ok: false, message: "itemNotFoundForApp" };
   }
 
   try {
@@ -137,11 +137,12 @@ export async function updatePlanned(
       },
     });
     revalidatePath(`/s/${data.subdomain}/planned`);
-    return { ok: true, message: "Item updated successfully" };
+    return { ok: true, message: "plannedUpdated" };
   } catch (error: unknown) {
     return {
       ok: false,
-      message: "Failed to update item: " + getErrorMessage(error),
+      message: "plannedUpdateFailed",
+      errorParams: { error: getErrorMessage(error) },
     };
   }
 }
@@ -261,14 +262,14 @@ export async function completeTask(id: string): Promise<ActionResult> {
       data: { status: "PURCHASED" },
     });
     if (result.count === 0) {
-      return { ok: false, message: "Item not found for this app." };
+      return { ok: false, message: "itemNotFoundForApp" };
     }
     if (subdomain) {
       revalidatePath(`/s/${subdomain}/planned`);
     }
-    return { ok: true, message: "Item atualizado com sucesso" };
+    return { ok: true, message: "plannedUpdated" };
   } catch {
-    return { ok: false, message: "Falha ao atualizar o item" };
+    return { ok: false, message: "plannedUpdateFailed" };
   }
 }
 export async function revertTask(id: string): Promise<ActionResult> {
@@ -284,14 +285,14 @@ export async function revertTask(id: string): Promise<ActionResult> {
       data: { status: "PENDING" },
     });
     if (result.count === 0) {
-      return { ok: false, message: "Item not found for this app." };
+      return { ok: false, message: "itemNotFoundForApp" };
     }
     if (subdomain) {
       revalidatePath(`/s/${subdomain}/planned`);
     }
-    return { ok: true, message: "Item atualizado com sucesso" };
+    return { ok: true, message: "plannedUpdated" };
   } catch {
-    return { ok: false, message: "Falha ao atualizar o item" };
+    return { ok: false, message: "plannedUpdateFailed" };
   }
 }
 
@@ -307,14 +308,14 @@ export async function deleteTask(id: string): Promise<ActionResult> {
       where: { id, appId },
     });
     if (result.count === 0) {
-      return { ok: false, message: "Item not found for this app." };
+      return { ok: false, message: "itemNotFoundForApp" };
     }
     if (subdomain) {
       revalidatePath(`/s/${subdomain}/planned`);
     }
-    return { ok: true, message: "Item deletado com sucesso" };
+    return { ok: true, message: "plannedDeleted" };
   } catch {
-    return { ok: false, message: "Falha ao deletar o item" };
+    return { ok: false, message: "plannedDeleteFailed" };
   }
 }
 

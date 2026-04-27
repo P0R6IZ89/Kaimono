@@ -43,7 +43,7 @@ export async function createProjectAction(
     });
 
     revalidatePath(`/s/${parsed.data.subdomain}/projects`);
-    return { ok: true, message: "Project created" };
+    return { ok: true, message: "projectCreated" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
   }
@@ -77,8 +77,8 @@ export async function attachPlannedToProjectAction(
     }),
   ]);
 
-  if (!project) return { ok: false, message: "Project not found." };
-  if (!planned) return { ok: false, message: "Planned item not found." };
+  if (!project) return { ok: false, message: "projectNotFound" };
+  if (!planned) return { ok: false, message: "plannedNotFound" };
 
   try {
     await prisma.planned.update({
@@ -90,7 +90,7 @@ export async function attachPlannedToProjectAction(
     });
     revalidatePath(`/s/${parsed.data.subdomain}/projects`);
     revalidatePath(`/s/${parsed.data.subdomain}/planned`);
-    return { ok: true, message: "Planned item assigned to project" };
+    return { ok: true, message: "plannedAssignedToProject" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
   }
@@ -117,7 +117,7 @@ export async function unassignPlannedFromProjectAction(
     select: { id: true },
   });
 
-  if (!planned) return { ok: false, message: "Planned item not found." };
+  if (!planned) return { ok: false, message: "plannedNotFound" };
 
   try {
     await prisma.planned.update({
@@ -126,7 +126,7 @@ export async function unassignPlannedFromProjectAction(
     });
     revalidatePath(`/s/${parsed.data.subdomain}/projects`);
     revalidatePath(`/s/${parsed.data.subdomain}/planned`);
-    return { ok: true, message: "Item removed from project" };
+    return { ok: true, message: "plannedRemovedFromProject" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
   }
@@ -329,7 +329,7 @@ export async function editProjectAction(
   });
 
   if (!project) {
-    return { ok: false, message: "Project not found." };
+    return { ok: false, message: "projectNotFound" };
   }
 
   try {
@@ -342,7 +342,7 @@ export async function editProjectAction(
     });
 
     revalidatePath(`/s/${parsed.data.subdomain}/projects`);
-    return { ok: true, message: "Project updated." };
+    return { ok: true, message: "projectUpdated" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
   }
@@ -360,7 +360,7 @@ export async function deleteProjectAction(
   });
 
   if (!project) {
-    return { ok: false, message: "Project not found." };
+    return { ok: false, message: "projectNotFound" };
   }
 
   try {
@@ -375,7 +375,7 @@ export async function deleteProjectAction(
     ]);
 
     revalidatePath(`/s/${subdomain}/projects`);
-    return { ok: true, message: "Project deleted." };
+    return { ok: true, message: "projectDeleted" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
   }
@@ -433,7 +433,7 @@ export async function createPlannedInProjectAction(
   });
 
   if (!project) {
-    return { ok: false, message: "Project not found." };
+    return { ok: false, message: "projectNotFound" };
   }
 
   try {
@@ -457,7 +457,7 @@ export async function createPlannedInProjectAction(
     revalidatePath(`/s/${subdomain}/projects`);
     revalidatePath(`/s/${subdomain}/planned`);
     revalidatePath(`/s/${subdomain}`);
-    return { ok: true, message: "Planned item created." };
+    return { ok: true, message: "plannedCreated" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
   }

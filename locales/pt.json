@@ -18,7 +18,9 @@
       "instruction": "Clique no botão para sair.",
       "title": "Esperamos você novamente 🤗"
     },
-    "or": "ou"
+    "or": "ou",
+    "home": "Início",
+    "signInWithEmail": "Entrar com e-mail"
   },
   "Common": {
     "actions": {
@@ -32,7 +34,8 @@
       "save": "Salvar",
       "signIn": "Entrar",
       "signOut": "Encerrar sessão",
-      "viewAll": "Ver tudo"
+      "viewAll": "Ver tudo",
+      "cancel": "Cancelar"
     },
     "labels": {
       "actions": "Ações"
@@ -59,7 +62,8 @@
     "hello2": "Olá!",
     "mainFeature": "Recursos",
     "welcomeBack": "Bem-vindo de volta!",
-    "workspace": "Você está no workspace {subdomain}"
+    "workspace": "Você está no workspace {subdomain}",
+    "Home": "Início"
   },
   "Dialog": {
     "close": "Voltar",
@@ -83,7 +87,10 @@
     "invalid-email": "Digite um endereço de e-mail válido.",
     "password-min-length": "A senha deve ter pelo menos 8 caracteres.",
     "passwords-no-match": "As senhas não coincidem.",
-    "required-field": "Este campo é obrigatório."
+    "required-field": "Este campo é obrigatório.",
+    "fields": {
+      "image": "Imagem"
+    }
   },
   "Essentials": {
     "actions": {
@@ -104,11 +111,18 @@
     "fields": {
       "itemName": "Nome do item",
       "price": "Preço",
-      "quantity": "Quantidade"
+      "quantity": "Quantidade",
+      "itemNamePlaceholder": "Adicionar item"
     },
     "stats": {
       "pendingItems": "Itens pendentes",
-      "totalPending": "Total pendente"
+      "totalPending": "Total pendente",
+      "pendingProducts": "produtos pendentes",
+      "completedCount": "{completed} de {total} completo",
+      "doneTitle": "Parabéns! 😍🎉",
+      "doneDescription": "Você não tem nenhuma compra pendente!",
+      "totalValue": "Valor total",
+      "pendingProductsSum": "Soma dos produtos pendentes."
     },
     "title": "Lista de compras"
   },
@@ -186,7 +200,9 @@
     "home": "Início",
     "planned": "Planejados",
     "projects": "Projetos",
-    "settings": "Configurações"
+    "settings": "Configurações",
+    "ariaLabel": "Navegação inferior",
+    "profile": "Perfil"
   },
   "NewTeam": {
     "createButton": "Criar equipe",
@@ -208,7 +224,9 @@
       "markAsPurchased": "Marcar como comprado",
       "revertToPending": "Voltar para pendente",
       "save": "Salvar",
-      "viewAll": "Ver tudo"
+      "viewAll": "Ver tudo",
+      "markAsPurchasedDescription": "Deseja marcar este item como comprado?",
+      "revertToPendingDescription": "Deseja voltar este item para pendente?"
     },
     "ai": {
       "blockedUrl": "Esta URL de produto não é permitida.",
@@ -223,7 +241,10 @@
       "partialExtract": "Alguns detalhes foram encontrados. Revise o formulário antes de salvar.",
       "placeholder": "https://example.com/produto",
       "rateLimited": "Você atingiu o limite por hora da extração com IA. Aguarde um pouco e tente novamente.",
-      "proBetaOnly": "Este recurso está disponível apenas para usuários Pro beta."
+      "proBetaOnly": "Este recurso está disponível apenas para usuários Pro beta.",
+      "clearUrl": "Limpar URL",
+      "extractedImage": "Imagem extraída",
+      "beta": "Beta"
     },
     "comments": {
       "delete": "Excluir",
@@ -259,7 +280,8 @@
       "priority": "Prioridade",
       "priorityPlaceholder": "Selecionar prioridade",
       "quantity": "Quantidade",
-      "quantityPlaceholder": "Digite a quantidade"
+      "quantityPlaceholder": "Digite a quantidade",
+      "image": "Imagem"
     },
     "saveMoney": "Vou economizar dinheiro",
     "title": "Planejados",
@@ -335,7 +357,8 @@
       "noDescription": "Nenhuma descrição adicionada ainda.",
       "openPlanned": "Todos os planejados",
       "totalValue": "Total",
-      "viewAll": "Ver todos"
+      "viewAll": "Ver todos",
+      "totalPendingValue": "Restante"
     },
     "summary": {
       "backlog": "{count, plural, =0 {Nenhum item sem projeto} =1 {1 item no backlog} other {# itens no backlog}}",
@@ -359,7 +382,9 @@
     "support": "Suporte",
     "team": "Equipe",
     "tutorialDescription": "Faça o tutorial para dominar o app",
-    "tutorialTitle": "Guia"
+    "tutorialTitle": "Guia",
+    "appearance": "Aparência",
+    "developedBy": "Desenvolvido por {name}"
   },
   "Sidebar": {
     "config": {
@@ -393,7 +418,9 @@
       "title": "Espaços de trabalho",
       "createTeam": "Criar equipe",
       "switchWorkspace": "Mudar para"
-    }
+    },
+    "platform": "Plataforma",
+    "toggle": "Alternar"
   },
   "Table": {
     "actions": "Ações",
@@ -412,7 +439,9 @@
     "page": "Página",
     "previous": "Anterior",
     "rows": "linhas",
-    "searchPlaceholder": "Buscar itens..."
+    "searchPlaceholder": "Buscar itens...",
+    "view": "Ver",
+    "toggleColumns": "Alternar colunas"
   },
   "Teams": {
     "create-team": "Criar equipe",
@@ -422,7 +451,8 @@
       "title": "Criar uma nova equipe"
     },
     "start-adding-a-new-team": "Comece a acompanhar seus gastos em conjunto!",
-    "title": " Escolha um Time"
+    "title": " Escolha um Time",
+    "add-team": "Adicionar equipe"
   },
   "UpdateApp": {
     "description": "Adicionado suporte para português e japonês.",
@@ -595,5 +625,154 @@
     "new-invite-content": "Você foi convidado para entrar em {teamName} com o papel de {inviteRole}.",
     "new-invite-to-invite-team-name": "Novo convite para {teamName}",
     "no-invites": "Sem convites."
+  },
+  "RadialMenu": {
+    "open": "Abrir menu radial",
+    "overlay": "Sobreposição do menu radial"
+  },
+  "Users": {
+    "empty": "Nenhum usuário encontrado."
+  },
+  "UserDialog": {
+    "title": "Editar perfil",
+    "description": "Faça alterações no seu perfil aqui. Clique em salvar quando terminar.",
+    "submit": "Convidar"
+  },
+  "Contact": {
+    "title": "Fale conosco",
+    "description": "Envie uma mensagem e responderemos assim que possível.",
+    "fields": {
+      "fullName": "Nome completo",
+      "email": "E-mail",
+      "subject": "Título",
+      "message": "Descrição"
+    },
+    "placeholders": {
+      "fullName": "João Silva",
+      "subject": "Pergunta sobre o app",
+      "message": "Escreva sua mensagem aqui..."
+    },
+    "submit": "Enviar mensagem"
+  },
+  "DashboardHome": {
+    "recentlyAdded": "Adicionados recentemente",
+    "recentShoppingItems": "Itens de compra recentes",
+    "noShoppingItems": "Ainda não há itens de compra.",
+    "timeToTakeAction": "Hora de agir",
+    "openItem": "Abrir {title}"
+  },
+  "ExpenseBar": {
+    "title": "Despesas mensais",
+    "description": "Edite categorias e informe sua <strong>despesa/orçamento mensal total</strong>. A barra e as tags atualizam instantaneamente.",
+    "spentSummary": "{spent} de {total} gastos",
+    "overBy": "Acima em {amount}",
+    "remaining": "Restante",
+    "totalLabel": "Despesa / orçamento mensal total",
+    "currency": "Moeda",
+    "category": "Categoria",
+    "amount": "Valor",
+    "tags": "Tags (separadas por vírgula)",
+    "color": "Cor",
+    "addCategory": "+ Adicionar categoria",
+    "tagsPlaceholder": "ex.: comida, família",
+    "remove": "Remover",
+    "removeCategory": "Remover {name}",
+    "tip": "Dica: alimente <total></total> e <segments></segments> pelo seu DB/API e renderize apenas <component></component> no dashboard.",
+    "aria": {
+      "usage": "Uso de despesas mensais",
+      "valueText": "{spent} de {total} gastos"
+    },
+    "defaults": {
+      "rent": "Aluguel",
+      "groceries": "Mercado",
+      "transport": "Transporte",
+      "utilities": "Contas",
+      "subscriptions": "Assinaturas",
+      "eatingOut": "Restaurantes",
+      "newCategory": "Nova categoria"
+    }
+  },
+  "InviteAccept": {
+    "title": "Status do convite",
+    "genericError": "Algo deu errado ao processar o convite.",
+    "missingToken": "Token do convite ausente.",
+    "appNotFound": "App convidado não encontrado.",
+    "inviteInvalidOrExpired": "Convite inválido ou expirado.",
+    "inviteWrongEmail": "Este convite pertence a outro e-mail. Entre com o e-mail convidado para continuar."
+  },
+  "InviteEmail": {
+    "title": "Convite",
+    "subject": "Você foi convidado a participar de {appName}",
+    "reminderSubject": "Lembrete: convite para participar de {appName}",
+    "greeting": "Olá,",
+    "acceptPrompt": "Clique",
+    "acceptLink": "aqui para aceitar seu convite",
+    "reminderBody": "Este é um lembrete de que você foi convidado para participar de {appName}.",
+    "expires": "(expira em {date})."
+  },
+  "ActionMessages": {
+    "actionCompleted": "Ação concluída.",
+    "somethingWentWrong": "Algo deu errado.",
+    "unexpectedWithError": "Algo deu errado: {error}",
+    "teamNotFound": "A equipe não existe.",
+    "itemNotFoundForApp": "Item não encontrado neste app.",
+    "essentialDeleted": "Item da lista excluído com sucesso.",
+    "plannedCreated": "Item criado com sucesso.",
+    "plannedCreateFailed": "Falha ao criar o item.",
+    "plannedUpdated": "Item atualizado com sucesso.",
+    "plannedUpdateFailed": "Falha ao atualizar o item.",
+    "plannedDeleted": "Item excluído com sucesso.",
+    "plannedDeleteFailed": "Falha ao excluir o item.",
+    "projectCreated": "Projeto criado.",
+    "projectNotFound": "Projeto não encontrado.",
+    "plannedNotFound": "Item planejado não encontrado.",
+    "plannedAssignedToProject": "Item planejado atribuído ao projeto.",
+    "plannedRemovedFromProject": "Item removido do projeto.",
+    "projectUpdated": "Projeto atualizado.",
+    "projectDeleted": "Projeto excluído.",
+    "notAppMember": "Você não é membro deste app.",
+    "ownerOnlyDeleteApp": "Somente proprietários podem excluir o app.",
+    "appDeleted": "App excluído.",
+    "appAlreadyDeleted": "App não encontrado (já excluído).",
+    "appDeleteFailed": "Falha ao excluir o app.",
+    "userNotMember": "O usuário não é membro.",
+    "insufficientPermission": "Permissão insuficiente.",
+    "adminCannotRemoveAdmin": "Administradores não podem remover outros administradores.",
+    "leftApp": "Você saiu do app.",
+    "userRemoved": "Usuário removido.",
+    "cannotRemoveLastOwner": "Não é possível remover o último proprietário. Promova outro usuário primeiro.",
+    "memberRemoveFailed": "Falha ao remover membro.",
+    "inviteManageDenied": "Você não tem permissão para gerenciar convites.",
+    "inviteSent": "Convite enviado com sucesso.",
+    "loginRequired": "Faça login.",
+    "invitationNotFound": "Convite não encontrado.",
+    "inviteResendDenied": "Você não tem permissão para reenviar este convite.",
+    "inviteResendInvalidStatus": "Somente convites pendentes ou revogados podem ser reenviados.",
+    "inviteResent": "Convite reenviado com sucesso.",
+    "inviteRevokeDenied": "Você não tem permissão para revogar este convite.",
+    "inviteRevokeInvalidStatus": "Somente convites pendentes ou expirados podem ser revogados.",
+    "inviteRevoked": "Convite revogado com sucesso.",
+    "confirmDeleteApp": "Deseja realmente excluir o app?"
+  },
+  "FormErrors": {
+    "productNameRequired": "O nome do produto é obrigatório.",
+    "productNameMax50": "O produto deve ter no máximo 50 caracteres.",
+    "productNameMax500": "O produto deve ter no máximo 500 caracteres.",
+    "priceNumber": "O preço deve ser um número.",
+    "priceNonNegative": "O preço não pode ser negativo.",
+    "statusInvalid": "O status é inválido.",
+    "quantityInteger": "A quantidade deve ser um número inteiro.",
+    "subdomainRequired": "Verifique seu link.",
+    "priorityInvalid": "Escolha uma prioridade válida.",
+    "commentRequired": "Escreva seu comentário.",
+    "emailInvalid": "Digite um endereço de e-mail válido.",
+    "serverError": "Erro no servidor. Tente novamente.",
+    "subdomainInvalidFormat": "O formato do subdomínio é inválido.",
+    "projectNameRequired": "O nome do projeto é obrigatório.",
+    "projectNameMax120": "Use 120 caracteres ou menos.",
+    "descriptionMax500": "Use 500 caracteres ou menos.",
+    "min2": "Digite pelo menos 2 caracteres.",
+    "titleRequired": "Digite um título.",
+    "min10": "Digite pelo menos 10 caracteres."
   }
 }

@@ -27,6 +27,7 @@ import { useParams } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { translateMessage } from "@/lib/translate-message";
 
 export function ProjectCreateDialog({
   className,
@@ -52,6 +53,7 @@ export function ProjectCreateDialog({
     initialState,
   );
   const t = useTranslations("Projects");
+  const tActions = useTranslations("ActionMessages");
 
   const form = useForm({
     defaultValues: {
@@ -66,10 +68,10 @@ export function ProjectCreateDialog({
     if (state.ok) {
       toast.success(t("toast.created"));
     } else if (state.message) {
-      toast.error(state.message);
+      toast.error(translateMessage(tActions, state.message));
     }
     form.reset();
-  }, [form, state, t]);
+  }, [form, state, t, tActions]);
 
   return (
     <Dialog>

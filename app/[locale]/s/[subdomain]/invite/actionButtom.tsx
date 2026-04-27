@@ -18,6 +18,7 @@ import {
 import { toast } from "sonner";
 import { removeMemberAction } from "@/actions/appActions";
 import { useTranslations } from "next-intl";
+import { translateMessage } from "@/lib/translate-message";
 
 type TranslateFn = (
   key: string,
@@ -35,6 +36,7 @@ type ActionConfig = {
 
 const makeRevokeAction = (
   t: TranslateFn,
+  tActions: TranslateFn,
   status: StatusEnum,
   id: string
 ): ActionConfig => ({
@@ -47,9 +49,9 @@ const makeRevokeAction = (
     try {
       const result = await revokeInviteAction(id);
       if (!result.ok) {
-        toast.error(result.message);
+        toast.error(translateMessage(tActions, result.message));
       } else if (result.message) {
-        toast.success(result.message);
+        toast.success(translateMessage(tActions, result.message));
       }
     } catch {
       toast.error(t("actions.genericError"));
@@ -59,6 +61,7 @@ const makeRevokeAction = (
 
 const makeResendAction = (
   t: TranslateFn,
+  tActions: TranslateFn,
   status: StatusEnum,
   id: string
 ): ActionConfig => ({
@@ -71,9 +74,9 @@ const makeResendAction = (
     try {
       const result = await resendInviteAction(id);
       if (!result.ok) {
-        toast.error(result.message);
+        toast.error(translateMessage(tActions, result.message));
       } else if (result.message) {
-        toast.success(result.message);
+        toast.success(translateMessage(tActions, result.message));
       }
     } catch {
       toast.error(t("actions.genericError"));
@@ -83,6 +86,7 @@ const makeResendAction = (
 
 const makeRemoveUserAction = (
   t: TranslateFn,
+  tActions: TranslateFn,
   id: string,
   subdomain: string
 ): ActionConfig => ({
@@ -95,10 +99,10 @@ const makeRemoveUserAction = (
     try {
       const result = await removeMemberAction(subdomain, id);
       if (!result.ok) {
-        toast.error(result.message);
+        toast.error(translateMessage(tActions, result.message));
       }
       if (result.ok) {
-        toast.success(result.message);
+        toast.success(translateMessage(tActions, result.message));
       }
     } catch {
       toast.error(t("actions.genericError"));
@@ -108,21 +112,22 @@ const makeRemoveUserAction = (
 
 const ACTIONS_BY_STATUS = (
   t: TranslateFn,
+  tActions: TranslateFn,
   status: StatusEnum,
   id: string,
   subdomain: string
 ): ActionConfig[] =>
   ({
     [StatusEnum.PENDING]: [
-      makeRevokeAction(t, StatusEnum.PENDING, id),
-      makeResendAction(t, StatusEnum.PENDING, id),
+      makeRevokeAction(t, tActions, StatusEnum.PENDING, id),
+      makeResendAction(t, tActions, StatusEnum.PENDING, id),
     ],
     [StatusEnum.EXPIRED]: [
-      makeRevokeAction(t, StatusEnum.EXPIRED, id),
-      makeResendAction(t, StatusEnum.EXPIRED, id),
+      makeRevokeAction(t, tActions, StatusEnum.EXPIRED, id),
+      makeResendAction(t, tActions, StatusEnum.EXPIRED, id),
     ],
-    [StatusEnum.ACCEPTED]: [makeRemoveUserAction(t, id, subdomain)],
-    [StatusEnum.REVOKED]: [makeResendAction(t, StatusEnum.REVOKED, id)],
+    [StatusEnum.ACCEPTED]: [makeRemoveUserAction(t, tActions, id, subdomain)],
+    [StatusEnum.REVOKED]: [makeResendAction(t, tActions, StatusEnum.REVOKED, id)],
   })[status] || [];
 
 export default function ActionsButton({
@@ -135,10 +140,11 @@ export default function ActionsButton({
   subdomain: string;
 }) {
   const t = useTranslations("Invite");
+  const tActions = useTranslations("ActionMessages");
 
   const rawActions = useMemo(
-    () => ACTIONS_BY_STATUS(t, status, invitationId, subdomain),
-    [t, status, invitationId, subdomain]
+    () => ACTIONS_BY_STATUS(t, tActions, status, invitationId, subdomain),
+    [t, tActions, status, invitationId, subdomain]
   );
 
   const [activeKey, setActiveKey] = useState<string | null>(null);

@@ -4,28 +4,28 @@ import { PLANNED_IMAGE_DEFAULT } from "@/lib/planned-defaults";
 export const essentialsSchema = z.object({
   title: z
     .string()
-    .min(1, "O Nome do produto é obrigatório")
-    .max(50, "Produto deve ter no máximo 50 caracteres"),
+    .min(1, "productNameRequired")
+    .max(50, "productNameMax50"),
   price: z.coerce
-    .number({ invalid_type_error: "O preço deve ser um número" })
-    .nonnegative("O preço não pode ser negativo")
+    .number({ invalid_type_error: "priceNumber" })
+    .nonnegative("priceNonNegative")
     .default(0),
   status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
-    message: "O status é incopatível",
+    message: "statusInvalid",
   }),
   quantity: z.coerce
     .number()
-    .int("A quantidade deve ser um número inteiro")
+    .int("quantityInteger")
     .default(1),
-  subdomain: z.string().min(1, "Verifique seu link"),
+  subdomain: z.string().min(1, "subdomainRequired"),
   id: z.string().cuid().optional(),
 });
 
 export const plannedSchema = z.object({
   title: z
     .string()
-    .min(1, "O Nome do produto é obrigatório")
-    .max(500, "Produto deve ter no máximo 500 caracteres"),
+    .min(1, "productNameRequired")
+    .max(500, "productNameMax500"),
   price: z.preprocess(
     (v) => (v === "" || v == null ? 0 : v),
     z.coerce.number().nonnegative(),
@@ -35,10 +35,10 @@ export const plannedSchema = z.object({
     z.coerce.number().nonnegative(),
   ),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"], {
-    message: "Escolha a prioridade copatível",
+    message: "priorityInvalid",
   }),
   status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
-    message: "O status é incopatível",
+    message: "statusInvalid",
   }),
   productUrl: z.preprocess(
     (v) => (v === "" ? undefined : v),
@@ -48,7 +48,7 @@ export const plannedSchema = z.object({
     (v) => (v === "" ? undefined : v),
     z.string().optional(),
   ),
-  subdomain: z.string().min(1, "Verifique seu link"),
+  subdomain: z.string().min(1, "subdomainRequired"),
   image: z.preprocess(
     (v) => (v === "" || v == null ? PLANNED_IMAGE_DEFAULT : v),
     z.string().url(),
@@ -71,21 +71,21 @@ export const appSchema = z.object({
 });
 
 export const plannedCommentSchema = z.object({
-  content: z.string().min(1, "Escreva seu comentário"),
+  content: z.string().min(1, "commentRequired"),
   author: z.string(),
   planned: z.string(),
 });
 
 export const inviteSchema = z.object({
   appId: z.string().cuid(),
-  email: z.string().email("Deve ser um e-mail válido"),
+  email: z.string().email("emailInvalid"),
   role: z.enum(["OWNER", "ADMIN", "MEMBER"]).default("MEMBER"),
 });
 
 export const statusUpdateSchema = z.object({
   id: z.string().cuid(),
   status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
-    message: "O status é incopatível",
+    message: "statusInvalid",
   }),
   subdomain: z
     .string()
@@ -93,35 +93,35 @@ export const statusUpdateSchema = z.object({
     .max(63)
     .transform((val) => val.toLowerCase())
     .refine((val) => SUBDOMAIN_REGEX.test(val), {
-      message: "Error",
+      message: "subdomainInvalidFormat",
     }),
 });
 
 export const projectSchema = z.object({
   name: z
     .string()
-    .min(1, "Project name is required")
-    .max(120, "Use 120 characters or fewer."),
+    .min(1, "projectNameRequired")
+    .max(120, "projectNameMax120"),
   description: z.preprocess(
     (v) => (v === "" ? undefined : v),
-    z.string().max(500, "Use 500 characters or fewer.").optional(),
+    z.string().max(500, "descriptionMax500").optional(),
   ),
-  subdomain: z.string().min(1, "Verifique seu link"),
+  subdomain: z.string().min(1, "subdomainRequired"),
 });
 
 export const projectLinkSchema = z.object({
   projectId: z.string().cuid(),
   plannedId: z.string().cuid(),
-  subdomain: z.string().min(1, "Verifique seu link"),
+  subdomain: z.string().min(1, "subdomainRequired"),
 });
 
 export const projectPlannedCreateSchema = z.object({
   projectId: z.string().cuid(),
-  subdomain: z.string().min(1, "Verifique seu link"),
+  subdomain: z.string().min(1, "subdomainRequired"),
   title: z
     .string()
-    .min(1, "O Nome do produto é obrigatório")
-    .max(500, "Produto deve ter no máximo 500 caracteres"),
+    .min(1, "productNameRequired")
+    .max(500, "productNameMax500"),
   price: z.preprocess(
     (v) => (v === "" || v == null ? 0 : v),
     z.coerce.number().nonnegative(),
@@ -131,7 +131,7 @@ export const projectPlannedCreateSchema = z.object({
     z.coerce.number().int().nonnegative(),
   ),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"], {
-    message: "Escolha a prioridade copatível",
+    message: "priorityInvalid",
   }),
   image: z.preprocess(
     (v) => (v === "" || v == null ? PLANNED_IMAGE_DEFAULT : v),

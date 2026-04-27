@@ -28,6 +28,7 @@ import { Loader2, Plus } from "lucide-react";
 import { PlannedBacklogItem } from "@/app/[locale]/types/projects";
 import { formatPriceYen } from "@/lib/formatPriceYen";
 import { initialState } from "@/lib/initial-action-return";
+import { translateMessage } from "@/lib/translate-message";
 
 type Props = {
   projectId: string;
@@ -50,6 +51,7 @@ export function AssignPlannedDialog({
   );
   const router = useRouter();
   const t = useTranslations("Projects");
+  const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
   const handledStateRef = useRef<typeof state | null>(null);
 
@@ -68,9 +70,9 @@ export function AssignPlannedDialog({
       setOpen(false);
       router.refresh();
     } else if (state.message) {
-      toast.error(state.message);
+      toast.error(translateMessage(tActions, state.message));
     }
-  }, [projectName, router, state, t]);
+  }, [projectName, router, state, t, tActions]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

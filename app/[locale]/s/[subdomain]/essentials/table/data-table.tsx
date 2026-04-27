@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
             );
           })
         ) : (
-          <div className="h-24 text-center">{tTable("no-result")}</div>
+          <div className="h-24 text-center">{tTable("noResult")}</div>
         )}
         <div className="flex items-center justify-end space-x-2 py-4 max-w-xl">
           <Button
