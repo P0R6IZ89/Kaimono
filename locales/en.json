@@ -384,6 +384,95 @@
     "title": "Select a Team",
     "add-team": "Add team"
   },
+  "HomePage": {
+    "cta": {
+      "createTeam": "Create a team",
+      "dashboard": "Open dashboard",
+      "features": "View features",
+      "signIn": "Sign in to start"
+    },
+    "features": {
+      "ai": {
+        "badge": "Beta",
+        "description": "Paste a product URL and let AI extract useful product details for planned purchases.",
+        "title": "AI product extraction"
+      },
+      "badge": "Current features",
+      "collaboration": {
+        "description": "Invite teammates, discuss planned purchases with comments, and react with likes.",
+        "title": "Collaboration"
+      },
+      "description": "Kaimono brings recurring shopping, future purchases, project planning, and team decisions into one workspace.",
+      "essentials": {
+        "description": "Track recurring items with quantity, price, and purchase status for fast shopping routines.",
+        "title": "Essentials"
+      },
+      "planned": {
+        "description": "Save future purchases with priority, images, product links, descriptions, comments, and likes.",
+        "title": "Planned purchases"
+      },
+      "projects": {
+        "description": "Group planned purchases by goal, room, event, client, or any shared buying context.",
+        "title": "Projects"
+      },
+      "teams": {
+        "description": "Create isolated workspaces for each family, team, or project using subdomain-based routing.",
+        "title": "Team workspaces"
+      },
+      "title": "Everything your team needs to plan what to buy"
+    },
+    "finalCta": {
+      "description": "Start with one workspace, add the things you already know you need, and let the team refine the plan together.",
+      "title": "Turn scattered purchase ideas into a shared plan."
+    },
+    "hero": {
+      "description": "Kaimono helps families, teams, and projects manage recurring shopping, planned purchases, priorities, comments, and buying decisions in one tenant-isolated workspace.",
+      "points": {
+        "collaboration": "Invitations, roles, comments, and likes",
+        "planning": "Essentials, planned items, projects, and priorities",
+        "workspace": "Separate workspace per team or project"
+      },
+      "title": "Kaimono keeps every shared purchase organized."
+    },
+    "trust": {
+      "badge": "Workspace-ready",
+      "description": "The app is built around separated tenants, practical team permissions, and invitation-based access for shared buying work.",
+      "invitations": {
+        "description": "Invite people by email and manage pending, accepted, expired, or revoked access.",
+        "title": "Invitation flow"
+      },
+      "roles": {
+        "description": "Owner, admin, and member roles keep team management clear.",
+        "title": "Role-based access"
+      },
+      "tenant": {
+        "description": "Each workspace is isolated by subdomain and membership.",
+        "title": "Tenant isolation"
+      },
+      "title": "Designed for shared workspaces, not just personal notes"
+    },
+    "workflow": {
+      "badge": "How it works",
+      "capture": {
+        "description": "Add everyday essentials quickly, or create richer planned purchases with prices, priority, images, and URLs.",
+        "title": "Capture what you need"
+      },
+      "collaborate": {
+        "description": "Invite members, assign roles, discuss planned items, and keep everyone aligned before buying.",
+        "title": "Decide together"
+      },
+      "create": {
+        "description": "Create a team workspace for a household, event, office setup, client project, or any buying context.",
+        "title": "Create a workspace"
+      },
+      "description": "Use Kaimono as the working surface between an idea, a shopping run, and a completed purchase.",
+      "organize": {
+        "description": "Move planned purchases into projects so related decisions stay grouped by goal.",
+        "title": "Organize by project"
+      },
+      "title": "From shopping idea to team decision"
+    }
+  },
   "UserGuide": {
     "collaboration": {
       "admin": {

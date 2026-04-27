@@ -384,6 +384,95 @@
     "title": " Escolha um Time",
     "add-team": "Adicionar equipe"
   },
+  "HomePage": {
+    "cta": {
+      "createTeam": "Criar equipe",
+      "dashboard": "Abrir dashboard",
+      "features": "Ver recursos",
+      "signIn": "Entrar para começar"
+    },
+    "features": {
+      "ai": {
+        "badge": "Beta",
+        "description": "Cole uma URL de produto e deixe a IA extrair detalhes úteis para compras planejadas.",
+        "title": "Extração de produto com IA"
+      },
+      "badge": "Recursos atuais",
+      "collaboration": {
+        "description": "Convide membros, discuta compras planejadas com comentários e reaja com curtidas.",
+        "title": "Colaboração"
+      },
+      "description": "Kaimono reúne compras recorrentes, compras futuras, planejamento por projeto e decisões em equipe em um só workspace.",
+      "essentials": {
+        "description": "Acompanhe itens recorrentes com quantidade, preço e status de compra para rotinas rápidas.",
+        "title": "Lista de compras"
+      },
+      "planned": {
+        "description": "Salve compras futuras com prioridade, imagens, links de produto, descrições, comentários e curtidas.",
+        "title": "Compras planejadas"
+      },
+      "projects": {
+        "description": "Agrupe compras planejadas por objetivo, cômodo, evento, cliente ou qualquer contexto compartilhado.",
+        "title": "Projetos"
+      },
+      "teams": {
+        "description": "Crie workspaces isolados para cada família, equipe ou projeto usando rotas por subdomínio.",
+        "title": "Workspaces de equipe"
+      },
+      "title": "Tudo que sua equipe precisa para planejar o que comprar"
+    },
+    "finalCta": {
+      "description": "Comece com um workspace, adicione o que você já sabe que precisa e deixe a equipe ajustar o plano em conjunto.",
+      "title": "Transforme ideias soltas de compra em um plano compartilhado."
+    },
+    "hero": {
+      "description": "Kaimono ajuda famílias, equipes e projetos a gerenciar compras recorrentes, compras planejadas, prioridades, comentários e decisões de compra em um workspace isolado por tenant.",
+      "points": {
+        "collaboration": "Convites, papéis, comentários e curtidas",
+        "planning": "Lista de compras, planejados, projetos e prioridades",
+        "workspace": "Workspace separado por equipe ou projeto"
+      },
+      "title": "Kaimono mantém cada compra compartilhada organizada."
+    },
+    "trust": {
+      "badge": "Pronto para workspace",
+      "description": "O app foi criado em torno de tenants separados, permissões práticas de equipe e acesso por convite para compras compartilhadas.",
+      "invitations": {
+        "description": "Convide pessoas por e-mail e gerencie acessos pendentes, aceitos, expirados ou revogados.",
+        "title": "Fluxo de convites"
+      },
+      "roles": {
+        "description": "Papéis de proprietário, administrador e membro deixam a gestão da equipe clara.",
+        "title": "Acesso por função"
+      },
+      "tenant": {
+        "description": "Cada workspace é isolado por subdomínio e associação.",
+        "title": "Isolamento por tenant"
+      },
+      "title": "Projetado para workspaces compartilhados, não apenas notas pessoais"
+    },
+    "workflow": {
+      "badge": "Como funciona",
+      "capture": {
+        "description": "Adicione itens do dia a dia rapidamente ou crie compras planejadas mais completas com preços, prioridade, imagens e URLs.",
+        "title": "Registre o que precisa"
+      },
+      "collaborate": {
+        "description": "Convide membros, defina papéis, discuta itens planejados e mantenha todos alinhados antes da compra.",
+        "title": "Decida em conjunto"
+      },
+      "create": {
+        "description": "Crie um workspace para casa, evento, montagem de escritório, projeto de cliente ou qualquer contexto de compra.",
+        "title": "Crie um workspace"
+      },
+      "description": "Use Kaimono como a superfície de trabalho entre uma ideia, uma ida às compras e uma compra concluída.",
+      "organize": {
+        "description": "Mova compras planejadas para projetos para manter decisões relacionadas agrupadas por objetivo.",
+        "title": "Organize por projeto"
+      },
+      "title": "Da ideia de compra à decisão da equipe"
+    }
+  },
   "UserGuide": {
     "collaboration": {
       "admin": {
