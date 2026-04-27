@@ -707,7 +707,7 @@
     "greeting": "Hello,",
     "acceptPrompt": "Click",
     "acceptLink": "here to accept your invitation",
-    "reminderBody": "This is a reminder that you were invited to join <strong>{appName}</strong>.",
+    "reminderBody": "This is a reminder that you were invited to join {appName}.",
     "expires": "(expires {date})."
   },
   "ActionMessages": {

@@ -46,6 +46,15 @@ function normalizeEmail(email: string | null | undefined) {
   return email?.trim().toLowerCase() ?? "";
 }
 
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function getInvitedUsersActions(subdomain: string) {
   const { appId } = await requireInviteManagerBySubdomain(subdomain);
   const invitedUsers = await prisma.invitation.findMany({
@@ -229,6 +238,7 @@ export async function resendInviteAction(
     `/${locale}/invite/accept?token=${invite.token}`,
     `${protocol}://${rootDomain}`,
   ).toString();
+  const escapedAppName = escapeHtml(invite.app.name);
 
   await resend.emails.send({
     from: process.env.INVITE_LOGIN_FROM_EMAIL!,
@@ -236,7 +246,7 @@ export async function resendInviteAction(
     subject: tEmail("reminderSubject", { appName: invite.app.name }),
     html: `
       <p>${tEmail("greeting")}</p>
-      <p>${tEmail("reminderBody", { appName: invite.app.name })}</p>
+      <p>${tEmail("reminderBody", { appName: escapedAppName })}</p>
       <p><a href="${acceptUrl}">${tEmail("acceptLink")}</a> ${tEmail("expires", { date: newExpiry.toDateString() })}</p>
     `,
   });

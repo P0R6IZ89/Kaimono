@@ -707,7 +707,7 @@
     "greeting": "こんにちは。",
     "acceptPrompt": "招待を承認するには",
     "acceptLink": "こちらをクリック",
-    "reminderBody": "<strong>{appName}</strong> への招待リマインダーです。",
+    "reminderBody": "{appName} への招待リマインダーです。",
     "expires": "（有効期限: {date}）"
   },
   "ActionMessages": {

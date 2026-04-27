@@ -707,7 +707,7 @@
     "greeting": "Olá,",
     "acceptPrompt": "Clique",
     "acceptLink": "aqui para aceitar seu convite",
-    "reminderBody": "Este é um lembrete de que você foi convidado para participar de <strong>{appName}</strong>.",
+    "reminderBody": "Este é um lembrete de que você foi convidado para participar de {appName}.",
     "expires": "(expira em {date})."
   },
   "ActionMessages": {
