@@ -219,7 +219,11 @@ export async function resendInviteAction(
     };
   }
 
-  if (invite.status !== "PENDING" && invite.status !== "REVOKED") {
+  if (
+    invite.status !== "PENDING" &&
+    invite.status !== "EXPIRED" &&
+    invite.status !== "REVOKED"
+  ) {
     return {
       ok: false,
       message: "inviteResendInvalidStatus",
@@ -241,7 +245,7 @@ export async function resendInviteAction(
   const escapedAppName = escapeHtml(invite.app.name);
 
   await resend.emails.send({
-    from: process.env.INVITE_LOGIN_FROM_EMAIL!,
+    from: process.env.INVITE_FROM_EMAIL!,
     to: invite.email,
     subject: tEmail("reminderSubject", { appName: invite.app.name }),
     html: `
