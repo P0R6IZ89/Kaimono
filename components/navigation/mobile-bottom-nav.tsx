@@ -35,7 +35,7 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
   const essentialTriggerRef = useRef<HTMLButtonElement>(null);
   const plannedTriggerRef = useRef<HTMLButtonElement>(null);
   const projectTriggerRef = useRef<HTMLButtonElement>(null);
-  const profileAlt = user.name ?? user.email ?? "Profile";
+  const profileAlt = user.name ?? user.email ?? t("profile");
 
   const items: NavItem[] = [
     { href: "/", label: t("home"), icon: Home },
@@ -51,7 +51,7 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
 
   return (
     <nav
-      aria-label="Bottom navigation"
+      aria-label={t("ariaLabel")}
       suppressHydrationWarning
       className="fixed inset-x-0 bottom-0 z-50 md:hidden bg-transparent px-2"
     >

@@ -15,10 +15,12 @@ import { useEffect, useState, useTransition, useCallback } from "react";
 import { toast } from "sonner";
 import { EditPlannedDialog } from "../../dialogs/dialog-edit";
 import { ConfirmDialog } from "@/components/dialog/confirmMenuItem";
+import { translateMessage } from "@/lib/translate-message";
 
 export default function ActionsButton({ row }: { row: Row<PlannedSchema> }) {
   const { id } = row.original;
   const t = useTranslations("Planned");
+  const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
   const [state, setState] = useState<ActionResult>(initialState);
   const [isPending, startTransition] = useTransition();
@@ -30,20 +32,24 @@ export default function ActionsButton({ row }: { row: Row<PlannedSchema> }) {
     startTransition(async () => {
       const result = await deleteTask(id);
       const message =
-        result.message ??
+        translateMessage(tActions, result.message) ??
         (result.ok ? t("feedback.actionSuccess") : t("feedback.actionFailed"));
       setState({ ok: result.ok, message });
     });
-  }, [id, t]);
+  }, [id, t, tActions]);
 
   useEffect(() => {
     if (!state.message) return;
     if (state.ok) {
-      toast.success(state.message || t("feedback.actionSuccess"));
+      toast.success(
+        translateMessage(tActions, state.message) ?? t("feedback.actionSuccess"),
+      );
     } else {
-      toast.error(state.message || t("feedback.actionFailed"));
+      toast.error(
+        translateMessage(tActions, state.message) ?? t("feedback.actionFailed"),
+      );
     }
-  }, [state, t]);
+  }, [state, t, tActions]);
   return (
     <>
       <DropdownMenu

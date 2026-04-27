@@ -22,6 +22,7 @@ import { createInviteAction } from "@/actions/invitationActions";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { translateMessage } from "@/lib/translate-message";
 
 interface AppData {
   subdomain: string;
@@ -37,6 +38,7 @@ interface InviteFormProps {
 
 function InviteForm({ app }: InviteFormProps) {
   const t = useTranslations("Invite");
+  const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
   const initialState = { ok: false, message: "" };
   const [state, action, isPending] = useActionState(
@@ -55,12 +57,12 @@ function InviteForm({ app }: InviteFormProps) {
   useEffect(() => {
     if (state) {
       if (state.ok) {
-        toast.success(state.message);
+        toast.success(translateMessage(tActions, state.message));
       } else if (state.message) {
-        toast.error(state.message);
+        toast.error(translateMessage(tActions, state.message));
       }
     }
-  }, [state]);
+  }, [state, tActions]);
 
   return (
     <Form {...form}>

@@ -97,7 +97,7 @@ export default async function Settings({
         </ItemGroup>
       </div>
       <div>
-        <p className="py-2">Apperance</p>
+        <p className="py-2">{t("appearance")}</p>
         <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
           <ThemeToggler className="p-2 gap-4" />
         </ItemGroup>
@@ -109,7 +109,7 @@ export default async function Settings({
       </div>
       <div className="flex justify-center">
         <p className="text-xs text-muted-foreground">
-          Developed by Alam Sawamme
+          {t("developedBy", { name: "Alam Sawamme" })}
         </p>
       </div>
     </div>

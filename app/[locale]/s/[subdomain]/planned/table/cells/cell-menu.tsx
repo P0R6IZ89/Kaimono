@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useTransition } from "react";
 import {
   DropdownMenu,
@@ -12,9 +14,13 @@ import { completeTask, deleteTask, revertTask } from "@/actions/plannedActions";
 import { Row } from "@tanstack/react-table";
 import { PlannedSchema } from "@/app/[locale]/types/planned";
 import { ActionResult } from "@/lib/initial-action-return";
+import { useTranslations } from "next-intl";
+import { translateMessage } from "@/lib/translate-message";
 
 function MenuCell(row: Row<PlannedSchema>) {
   const { status, id } = row.original;
+  const t = useTranslations("Planned");
+  const tActions = useTranslations("ActionMessages");
 
   const [isPending, startTransition] = useTransition();
 
@@ -27,16 +33,21 @@ function MenuCell(row: Row<PlannedSchema>) {
         const res = await action(id);
 
         if (!res.ok) {
-          toast.error(res.message ?? "Operação não finalizada com sucesso");
+          toast.error(
+            translateMessage(tActions, res.message) ??
+              t("feedback.actionFailed"),
+          );
           return;
         }
 
-        toast.success(res.message ?? successText);
+        toast.success(
+          translateMessage(tActions, res.message) ?? successText,
+        );
       } catch (err: unknown) {
         if (err instanceof Error) {
-          toast.error(err.message ?? "Algo deu errado");
+          toast.error(err.message ?? t("feedback.actionFailed"));
         } else {
-          toast.error("Algo deu errado");
+          toast.error(t("feedback.actionFailed"));
         }
       }
     });
@@ -56,29 +67,29 @@ function MenuCell(row: Row<PlannedSchema>) {
         <DropdownMenuContent align="end">
           {status === "PENDING" ? (
             <ConfirmMenuItem
-              title="Completar"
-              description="Deseja marcar como completo?"
+              title={t("actions.markAsPurchased")}
+              description={t("actions.markAsPurchasedDescription")}
               onConfirm={() =>
-                wrapAction(completeTask, "Item marcado como completo")
+                wrapAction(completeTask, t("feedback.actionSuccess"))
               }
               icon={<CheckCircle className="text-confirm" />}
               isPending={isPending}
             />
           ) : (
             <ConfirmMenuItem
-              title="Reverter"
-              description="Deseja reverter o status?"
+              title={t("actions.revertToPending")}
+              description={t("actions.revertToPendingDescription")}
               onConfirm={() =>
-                wrapAction(revertTask, "Item marcado como completo")
+                wrapAction(revertTask, t("feedback.actionSuccess"))
               }
               icon={<Clock className="text-orange-400" />}
               isPending={isPending}
             />
           )}
           <ConfirmMenuItem
-            title="Deletar"
-            description="Deseja deletar o item? Esta ação não pode ser desfeita."
-            onConfirm={() => wrapAction(deleteTask, "Item deletado")}
+            title={t("actions.deleteConfirmTitle")}
+            description={t("actions.deleteConfirmDescription")}
+            onConfirm={() => wrapAction(deleteTask, t("feedback.actionSuccess"))}
             icon={<Trash className="text-destructive" />}
             isPending={isPending}
           />

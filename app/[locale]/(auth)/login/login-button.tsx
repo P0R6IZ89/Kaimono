@@ -7,9 +7,10 @@ import { AuthError } from "next-auth";
 import React, { useActionState } from "react";
 import { GithubIcon, Google } from "@/lib/oauth-icon";
 import { magicLinkSignIn } from "@/actions/authActions";
-import { AlertCircle, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useTranslations } from "next-intl";
+import { translateMessage } from "@/lib/translate-message";
 
 const SIGNIN_ERROR_URL = "/error";
 
@@ -20,11 +21,9 @@ interface SignInProps {
 export default function SignInButtons({ callbackUrl }: SignInProps) {
   const router = useRouter();
   const t = useTranslations("Auth");
+  const tErrors = useTranslations("FormErrors");
   const initialState = { error: "" };
-  const [state, action, isPending] = useActionState(
-    magicLinkSignIn,
-    initialState,
-  );
+  const [state] = useActionState(magicLinkSignIn, initialState);
 
   const handleSignIn =
     (providerId: string) => async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,10 +73,10 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
           type="button"
           onClick={() => router.push("/home")}
         >
-          <ChevronLeft /> Home
+          <ChevronLeft /> {t("home")}
         </Button>
         <Button variant="ghost">
-          Sign In with Email
+          {t("signInWithEmail")}
           <ChevronRight />
         </Button>
       </div>
@@ -110,7 +109,9 @@ export default function SignInButtons({ callbackUrl }: SignInProps) {
         <Alert variant={"destructive"}>
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>{t("error")}</AlertTitle>
-          <AlertDescription>{state.error}</AlertDescription>
+          <AlertDescription>
+            {translateMessage(tErrors, state.error)}
+          </AlertDescription>
         </Alert>
       )}
     </div>

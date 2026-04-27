@@ -8,6 +8,7 @@ import {
 } from "../../../../../../components/ui/card";
 import { ShoppingCart } from "lucide-react";
 import { Progress } from "../../../../../../components/ui/progress";
+import { getTranslations } from "next-intl/server";
 
 interface CounterCardProps {
   count: {
@@ -16,7 +17,10 @@ interface CounterCardProps {
   };
 }
 
-function CounterCard({ count: { fullCount, pendingCount } }: CounterCardProps) {
+async function CounterCard({
+  count: { fullCount, pendingCount },
+}: CounterCardProps) {
+  const t = await getTranslations("Essentials");
   const completed = fullCount - pendingCount;
   const percentage = (completed / fullCount) * 100;
   return (
@@ -29,7 +33,9 @@ function CounterCard({ count: { fullCount, pendingCount } }: CounterCardProps) {
                 <p className="text-2xl font-bold text-primary">
                   {pendingCount}
                 </p>
-                <p className="text-base font-medium">produtos pendentes</p>
+                <p className="text-base font-medium">
+                  {t("stats.pendingProducts")}
+                </p>
               </span>
               <ShoppingCart
                 size={16}
@@ -39,16 +45,16 @@ function CounterCard({ count: { fullCount, pendingCount } }: CounterCardProps) {
             </div>
             <div className="flex flex-row gap-4 items-center">
               <p className="flex-none text-xs text-muted-foreground">
-                {completed} de {fullCount} completo
+                {t("stats.completedCount", { completed, total: fullCount })}
               </p>
               <Progress className="h-2" value={percentage} />
             </div>
           </>
         ) : (
           <CardHeader>
-            <CardTitle>Parabéns! 😍🎉</CardTitle>
+            <CardTitle>{t("stats.doneTitle")}</CardTitle>
             <CardDescription>
-              Você não tem nenhuma compra pendente!
+              {t("stats.doneDescription")}
             </CardDescription>
           </CardHeader>
         )}

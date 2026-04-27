@@ -258,22 +258,22 @@ export async function deleteApp(id: string): Promise<Result> {
     select: { role: true },
   });
   if (!membership)
-    return { ok: false, message: "You are not a member of this app." };
+    return { ok: false, message: "notAppMember" };
   if (membership.role !== "OWNER")
-    return { ok: false, message: "Only Owners can delete the app." };
+    return { ok: false, message: "ownerOnlyDeleteApp" };
 
   try {
     await prisma.app.delete({ where: { id } });
     revalidatePath("/");
-    return { ok: true, message: "App deleted." };
+    return { ok: true, message: "appDeleted" };
   } catch (error: unknown) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2025"
     ) {
-      return { ok: true, message: "App not found (already deleted)." };
+      return { ok: true, message: "appAlreadyDeleted" };
     }
-    return { ok: false, message: "Failed to delete app." };
+    return { ok: false, message: "appDeleteFailed" };
   }
 }
 
@@ -295,17 +295,17 @@ export async function removeMemberAction(
 
   if (!targetMembership) {
     revalidatePath(`/s/${subdomain}/settings/members`);
-    return { ok: true, message: "User is not a member." };
+    return { ok: true, message: "userNotMember" };
   }
 
   const removingSelf = actingUserId === targetUserId;
 
   if (!removingSelf) {
     if (actingRole === "MEMBER") {
-      return { ok: false, message: "Insufficient permission." };
+      return { ok: false, message: "insufficientPermission" };
     }
     if (actingRole === "ADMIN" && targetMembership.role === "ADMIN") {
-      return { ok: false, message: "Admins cannot remove other Admins." };
+      return { ok: false, message: "adminCannotRemoveAdmin" };
     }
   }
 
@@ -335,16 +335,16 @@ export async function removeMemberAction(
     revalidatePath(`/s/${subdomain}`);
     return {
       ok: true,
-      message: removingSelf ? "You left the app." : "User removed.",
+      message: removingSelf ? "leftApp" : "userRemoved",
     };
   } catch (e) {
     if (e instanceof Error && e.message === "LAST_OWNER") {
       return {
         ok: false,
-        message: "Cannot remove the last Owner. Promote another user first.",
+        message: "cannotRemoveLastOwner",
       };
     }
-    return { ok: false, message: "Failed to remove member." };
+    return { ok: false, message: "memberRemoveFailed" };
   }
 }
 

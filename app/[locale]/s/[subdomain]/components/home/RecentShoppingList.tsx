@@ -1,19 +1,23 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { recentShoppingItemsType } from "../HomeContent";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/navigation";
 import { PlusCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function RecentShoppingList({
   items,
 }: {
   items: recentShoppingItemsType;
 }) {
+  const t = useTranslations("DashboardHome");
   if (items.length === 0) {
     return (
       <div>
-        <p className="mb-2 text-sm">Recent shopping items</p>
+        <p className="mb-2 text-sm">{t("recentShoppingItems")}</p>
         <Link href="/essentials">
           <Card className="h-32 ring-0 border border-dashed">
             <CardContent className="flex flex-col gap-2 items-center justify-center h-full">
@@ -21,7 +25,7 @@ export function RecentShoppingList({
                 <PlusCircle />
               </p>
               <p className="text-muted-foreground">
-                There are no shopping items yet.
+                {t("noShoppingItems")}
               </p>
             </CardContent>
           </Card>
@@ -31,7 +35,7 @@ export function RecentShoppingList({
   }
   return (
     <div>
-      <p className="mb-2 text-sm">Recent shopping items</p>
+      <p className="mb-2 text-sm">{t("recentShoppingItems")}</p>
       <Card className="p-0 max-h-32 overflow-y-auto">
         <Link href="/essentials">
           <CardContent className="relative">

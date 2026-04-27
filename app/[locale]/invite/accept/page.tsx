@@ -13,7 +13,7 @@ export default async function AcceptInvitePage({
 }: AcceptPageProps) {
   const { token } = await searchParams;
   if (!token) {
-    return <ClientFeedback error="Missing invitation token." />;
+    return <ClientFeedback error="missingToken" />;
   }
 
   const result = await acceptInviteAction(token);
@@ -27,7 +27,7 @@ export default async function AcceptInvitePage({
     select: { subdomain: true },
   });
   if (!app?.subdomain) {
-    return <ClientFeedback error="Invited app not found." />;
+    return <ClientFeedback error="appNotFound" />;
   }
 
   const params = new URLSearchParams();

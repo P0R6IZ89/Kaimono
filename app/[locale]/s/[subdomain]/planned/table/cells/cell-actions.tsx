@@ -11,9 +11,11 @@ import { useTranslations } from "next-intl";
 import { ActionResult, initialState } from "@/lib/initial-action-return";
 import CommentsDrawer from "./comment-drawer";
 import ActionsButton from "./actions-buttons";
+import { translateMessage } from "@/lib/translate-message";
 
 function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
   const t = useTranslations("Planned");
+  const tActions = useTranslations("ActionMessages");
 
   const { status, id, comments, commentsCount } = row.original;
   const [state, setState] = useState<ActionResult>(initialState);
@@ -21,11 +23,15 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
   useEffect(() => {
     if (!state.message) return;
     if (state.ok) {
-      toast.success(state.message || t("feedback.actionSuccess"));
+      toast.success(
+        translateMessage(tActions, state.message) ?? t("feedback.actionSuccess"),
+      );
     } else {
-      toast.error(state.message || t("feedback.actionFailed"));
+      toast.error(
+        translateMessage(tActions, state.message) ?? t("feedback.actionFailed"),
+      );
     }
-  }, [state, t]);
+  }, [state, t, tActions]);
 
   return (
     <div className="flex flex-row gap-2 px-4 pt-4">
@@ -39,7 +45,7 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
               startTransition(async () => {
                 const result = await completeTask(id);
                 const message =
-                  result.message ??
+                  translateMessage(tActions, result.message) ??
                   (result.ok
                     ? t("feedback.actionSuccess")
                     : t("feedback.actionFailed"));
@@ -63,7 +69,7 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
             startTransition(async () => {
               const result = await revertTask(id);
               const message =
-                result.message ??
+                translateMessage(tActions, result.message) ??
                 (result.ok
                   ? t("feedback.actionSuccess")
                   : t("feedback.actionFailed"));

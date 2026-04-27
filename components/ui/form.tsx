@@ -15,6 +15,8 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
+import { translateMessage } from "@/lib/translate-message"
+import { useTranslations } from "next-intl"
 
 const Form = FormProvider
 
@@ -137,7 +139,10 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
 
 function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message ?? "") : props.children
+  const tErrors = useTranslations("FormErrors")
+  const body = error
+    ? translateMessage(tErrors, String(error?.message ?? ""))
+    : props.children
 
   if (!body) {
     return null

@@ -12,6 +12,8 @@ import { redirect as NextRedirect } from "next/navigation";
 import type { ActionResult } from "@/lib/initial-action-return";
 import type { Role } from "@prisma/client";
 import { protocol, rootDomain } from "@/lib/variables";
+import { getCurrentLocale } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 
 function canManageInvites(role: Role) {
   return role === "OWNER" || role === "ADMIN";
@@ -58,7 +60,7 @@ export async function createInviteAction(
   formData: FormData,
 ): Promise<ActionResult> {
   const session = await requireSession();
-  const appName = formData.get("appName");
+  const appName = String(formData.get("appName") ?? "");
   const raw = {
     appId: formData.get("appId"),
     email: formData.get("email"),
@@ -73,7 +75,7 @@ export async function createInviteAction(
   if (!(await getInviteManagerMembership(parse.data.appId, me))) {
     return {
       ok: false,
-      message: "Você não tem permissão para convidar usuários.",
+      message: "inviteManageDenied",
     };
   }
 
@@ -87,25 +89,27 @@ export async function createInviteAction(
     },
   });
 
+  const locale = await getCurrentLocale();
+  const tEmail = await getTranslations({ locale, namespace: "InviteEmail" });
+  const acceptUrl = `${protocol}://${rootDomain}/${locale}/invite/accept?token=${token}`;
   const html = `
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="${locale}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Convite</title>
+  <title>${tEmail("title")}</title>
 </head>
 <body style="margin:0; padding:20px; background-color:#f9f9f9; font-family:Arial,sans-serif;">
   <p>
-    Clique em 
-    <a 
-      href="${protocol}://${rootDomain}/invite/accept?token=${token}" 
+    ${tEmail("acceptPrompt")}
+    <a
+      href="${acceptUrl}"
       style="color:#1a73e8; text-decoration:none; font-weight:bold;"
       target="_blank"
     >
-      aqui
+      ${tEmail("acceptLink")}
     </a> 
-    para aceitar seu convite.
   </p>
 </body>
 </html>
@@ -115,11 +119,11 @@ export async function createInviteAction(
   await resend.emails.send({
     from: process.env.INVITE_FROM_EMAIL!,
     to: parse.data.email,
-    subject: `Você foi convidado a participar ${appName}`,
+    subject: tEmail("subject", { appName }),
     html,
   });
   revalidatePath("/invite");
-  return { ok: true, message: "Convite enviado com sucesso!" };
+  return { ok: true, message: "inviteSent" };
 }
 
 export async function acceptInviteAction(token: string) {
@@ -135,7 +139,7 @@ export async function acceptInviteAction(token: string) {
     where: { token },
   });
   if (!invite) {
-    return { error: "Convite inválido ou expirado." };
+    return { error: "inviteInvalidOrExpired" };
   }
 
   if (invite.status === "ACCEPTED") {
@@ -143,13 +147,12 @@ export async function acceptInviteAction(token: string) {
   }
 
   if (invite.status !== "PENDING" || invite.expiresAt < new Date()) {
-    return { error: "Convite inválido ou expirado." };
+    return { error: "inviteInvalidOrExpired" };
   }
 
   if (normalizeEmail(session.user.email) !== normalizeEmail(invite.email)) {
     return {
-      error:
-        "Este convite pertence a outro e-mail. Entre com o e-mail convidado para continuar.",
+      error: "inviteWrongEmail",
     };
   }
 
@@ -187,7 +190,7 @@ export async function resendInviteAction(
 ): Promise<ActionResult> {
   const session = await auth();
   if (!session?.user?.id) {
-    return { ok: false, message: "Unauthorized. Please log in." };
+    return { ok: false, message: "loginRequired" };
   }
 
   const me = session.user.id;
@@ -197,20 +200,20 @@ export async function resendInviteAction(
     include: { app: true },
   });
   if (!invite) {
-    return { ok: false, message: "Invitation not found" };
+    return { ok: false, message: "invitationNotFound" };
   }
 
   if (!(await getInviteManagerMembership(invite.appId, me))) {
     return {
       ok: false,
-      message: "You don’t have permission to resend this invitation.",
+      message: "inviteResendDenied",
     };
   }
 
   if (invite.status !== "PENDING" && invite.status !== "REVOKED") {
     return {
       ok: false,
-      message: "Only pending or revoked invitations may be resent.",
+      message: "inviteResendInvalidStatus",
     };
   }
   const newExpiry = addDays(new Date(), 9);
@@ -220,23 +223,25 @@ export async function resendInviteAction(
   });
 
   const resend = new Resend(process.env.AUTH_RESEND_KEY!);
+  const locale = await getCurrentLocale();
+  const tEmail = await getTranslations({ locale, namespace: "InviteEmail" });
   const acceptUrl = new URL(
-    `/invite/accept?token=${invite.token}`,
+    `/${locale}/invite/accept?token=${invite.token}`,
     `${protocol}://${rootDomain}`,
   ).toString();
 
   await resend.emails.send({
     from: process.env.INVITE_LOGIN_FROM_EMAIL!,
     to: invite.email,
-    subject: `Reminder: Invitation to join ${invite.app.name}`,
+    subject: tEmail("reminderSubject", { appName: invite.app.name }),
     html: `
-      <p>Hello,</p>
-      <p>This is a reminder that you were invited to join <strong>${invite.app.name}</strong>.</p>
-      <p><a href="${acceptUrl}">Click here to accept</a> (expires ${newExpiry.toDateString()}).</p>
+      <p>${tEmail("greeting")}</p>
+      <p>${tEmail("reminderBody", { appName: invite.app.name })}</p>
+      <p><a href="${acceptUrl}">${tEmail("acceptLink")}</a> ${tEmail("expires", { date: newExpiry.toDateString() })}</p>
     `,
   });
   revalidatePath("/invite");
-  return { ok: true, message: "Invitation resent successfully." };
+  return { ok: true, message: "inviteResent" };
 }
 
 export async function revokeInviteAction(
@@ -248,19 +253,19 @@ export async function revokeInviteAction(
     where: { id: invitationId },
   });
   if (!invite) {
-    return { ok: false, message: "Convite não encontrado." };
+    return { ok: false, message: "invitationNotFound" };
   }
 
   if (!(await getInviteManagerMembership(invite.appId, me))) {
     return {
       ok: false,
-      message: "You do not have permission to revoke this invitation.",
+      message: "inviteRevokeDenied",
     };
   }
   if (invite.status !== "PENDING" && invite.status !== "EXPIRED") {
     return {
       ok: false,
-      message: "Only pending or expired invitations can be revoked.",
+      message: "inviteRevokeInvalidStatus",
     };
   }
   await prisma.invitation.update({
@@ -268,5 +273,5 @@ export async function revokeInviteAction(
     data: { status: "REVOKED", revokedAt: new Date() },
   });
   revalidatePath("/invite");
-  return { ok: true, message: "Invitation revoked successfully." };
+  return { ok: true, message: "inviteRevoked" };
 }

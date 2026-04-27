@@ -1,20 +1,24 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Link } from "@/i18n/navigation";
 import { CldImage } from "next-cloudinary";
 import { recentlyAddedType } from "../HomeContent";
+import { useTranslations } from "next-intl";
 
 const PLANNED_PLACEHOLDER_IMAGE =
   "https://res.cloudinary.com/dsttcre2h/image/upload/v1751870559/placeholder_dtzhrr.png";
 
 export function RecentPlannedItems({ items }: { items: recentlyAddedType }) {
+  const t = useTranslations("DashboardHome");
   if (items.length === 0) {
     return null;
   }
 
   return (
     <section className="">
-      <p className="mb-4 text-sm">Recently added</p>
+      <p className="mb-4 text-sm">{t("recentlyAdded")}</p>
       <ScrollArea className="w-full max-w-full min-w-0 overflow-hidden">
         <div className="flex gap-3 pb-3">
           {items.map((item) => (
@@ -27,7 +31,7 @@ export function RecentPlannedItems({ items }: { items: recentlyAddedType }) {
                   pathname: "/planned",
                   query: { title: item.title, showAll: "1" },
                 }}
-                aria-label={`Open ${item.title}`}
+                aria-label={t("openItem", { title: item.title })}
               >
                 <CldImage
                   width={320}

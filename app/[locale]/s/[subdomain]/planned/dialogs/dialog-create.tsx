@@ -33,6 +33,7 @@ import { createPlannedInProjectAction } from "@/actions/projectActions";
 import { useTranslations } from "next-intl";
 import { ActionResult, initialState } from "@/lib/initial-action-return";
 import { cn } from "@/lib/utils";
+import { translateMessage } from "@/lib/translate-message";
 import { AutoCreateForm } from "./dialog-auto-create";
 
 type PlannedCreateFormProps = {
@@ -95,6 +96,7 @@ export function PlannedCreateForm({
   form: externalForm,
 }: PlannedCreateFormProps) {
   const t = useTranslations("Planned");
+  const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
   const tErrors = useTranslations("Errors");
   const router = useRouter();
@@ -132,21 +134,21 @@ export function PlannedCreateForm({
     handledStateRef.current = state;
 
     if (state.ok) {
-      toast.success(state.message);
+      toast.success(translateMessage(tActions, state.message));
       form.reset(getDefaultValues(subdomain));
       setSelectedImage(undefined);
       onCompleted?.();
       router.refresh();
     } else {
-      toast.error(state.message);
+      toast.error(translateMessage(tActions, state.message));
     }
-  }, [form, onCompleted, router, setSelectedImage, state, subdomain]);
+  }, [form, onCompleted, router, setSelectedImage, state, subdomain, tActions]);
 
   const uploadButtonLabel =
     selectedImage?.source === "upload"
       ? `${t("feedback.selected")}: ${selectedImage.info.original_filename}.${selectedImage.info.format}`
       : selectedImage?.source === "ai"
-        ? `${t("feedback.selected")}: Extracted Image`
+        ? `${t("feedback.selected")}: ${t("ai.extractedImage")}`
         : t("uploadImage");
 
   return (
@@ -350,7 +352,9 @@ export function PlannedCreateForm({
             <Alert variant={"destructive"}>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>{tErrors("error")}</AlertTitle>
-              <AlertDescription>{state.message}</AlertDescription>
+              <AlertDescription>
+                {translateMessage(tActions, state.message)}
+              </AlertDescription>
             </Alert>
           )}
         </div>

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Loader2 } from "lucide-react";
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 
 type ConfirmDialogProps = {
   title: string;
@@ -30,13 +31,14 @@ function ConfirmDialogContent({
   isPending = false,
   variant = "default",
 }: ConfirmDialogProps) {
+  const t = useTranslations("Common");
   return (
     <AlertDialogContent>
       <AlertDialogHeader>
         <AlertDialogTitle>{description}</AlertDialogTitle>
       </AlertDialogHeader>
       <AlertDialogFooter className="space-x-2">
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
+        <AlertDialogCancel>{t("actions.cancel")}</AlertDialogCancel>
         <AlertDialogAction asChild>
           <Button variant={variant} disabled={isPending} onClick={onConfirm}>
             {isPending ? <Loader2 className="animate-spin" /> : icon}

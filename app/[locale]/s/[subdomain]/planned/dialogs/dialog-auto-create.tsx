@@ -182,7 +182,9 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
       <Field>
         <CollapsibleTrigger asChild>
           <FieldLabel htmlFor="input-group-url">
-            <Badge className="bg-amber-300 text-background">Beta</Badge>
+            <Badge className="bg-amber-300 text-background">
+              {t("ai.beta")}
+            </Badge>
             {t("ai.label")}
             <ChevronDown
               className={`size-4 text-muted-foreground transition duration-300 ease-in-out ${isOpen ? "rotate-180" : null}`}
@@ -211,7 +213,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
                     ? "shadow-sm transition-[color,box-shadow,background-color] text-primary-foreground"
                     : "text-muted-foreground transition-[color,box-shadow,background-color]"
                 }
-                aria-label="Extract product"
+                aria-label={t("ai.extract")}
               >
                 {isExtracting ? (
                   <Wand2 className="animate-spin" />
@@ -229,7 +231,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
                     setStatus(null);
                   }}
                   disabled={isExtracting}
-                  aria-label="Clear URL"
+                  aria-label={t("ai.clearUrl")}
                   className="text-muted-foreground hover:text-foreground"
                 >
                   <X />

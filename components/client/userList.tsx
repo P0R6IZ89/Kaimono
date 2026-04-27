@@ -2,15 +2,17 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getTenFirstUsersOfApp } from "@/actions/userActions";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { getTranslations } from "next-intl/server";
 
 export default async function UserList({ subdomain }: { subdomain: string }) {
   const response = await getTenFirstUsersOfApp(subdomain);
+  const t = await getTranslations("Users");
 
   return (
     <div className="flex justify-end">
       <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 ">
         {response.users.length === 0 ? (
-          <p className="p-4 text-sm text-muted-foreground">No users found.</p>
+          <p className="p-4 text-sm text-muted-foreground">{t("empty")}</p>
         ) : (
           response.users.map((user, i) => (
             <Tooltip key={i}>
