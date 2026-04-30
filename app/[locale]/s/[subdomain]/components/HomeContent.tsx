@@ -9,7 +9,8 @@ type projectType = {
   id: string;
   name: string;
   description?: string | null | undefined;
-  image: string | null;
+  image?: string | null;
+  icon?: string | null;
 }[];
 
 export type allProjectType = {

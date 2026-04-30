@@ -34,7 +34,7 @@ export default async function Essentials({
     {
       id: "1",
       name: "Home",
-      image: null,
+      image: "/images/image.png",
     },
   ];
 
