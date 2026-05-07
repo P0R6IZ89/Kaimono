@@ -46,6 +46,13 @@ import { useTranslations } from "next-intl";
 import { CldImage } from "next-cloudinary";
 import { Link } from "@/i18n/navigation";
 import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from "@/components/ui/item";
+import { formatPriceYen } from "@/lib/formatPriceYen";
 
 type HomePlannedItem = allProjectType["plannedItems"][number];
 type HomeProject = allProjectType;
@@ -346,28 +353,36 @@ function ProjectPlannedGrid({
       (acc, item) => acc + item.price * item.quantity,
       0,
     ) ?? 0;
-  const totalPendingPrice = selectedPlannedItems?.reduce((acc, item) => {
-    if (item.status === "PENDING") {
-      return acc + item.price * item.quantity;
-    }
-    return acc;
-  }, 0);
+  const totalPendingPrice =
+    selectedPlannedItems?.reduce((acc, item) => {
+      if (item.status === "PENDING") {
+        return acc + item.price * item.quantity;
+      }
+      return acc;
+    }, 0) ?? 0;
 
   return (
     <div>
-      <div className="flex flex-col gap-4 pb-4">
-        <Card>
-          <CardHeader>
-            <CardDescription>Total pending price</CardDescription>
-            <CardTitle>{totalPendingPrice}</CardTitle>
-          </CardHeader>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardDescription>Total price</CardDescription>
-            <CardTitle>{totalPrice}</CardTitle>
-          </CardHeader>
-        </Card>
+      <div className="flex flex-row gap-4 pb-4">
+        <Item className="flex-1" variant="muted">
+          <ItemContent>
+            <ItemDescription>Pending Total Price</ItemDescription>
+            <ItemTitle className="flex items-baseline gap-2">
+              <p className="text-xl font-semibold tracking-tight">
+                {formatPriceYen(totalPendingPrice)}
+              </p>
+              <p className="text-muted-foreground ">
+                / {formatPriceYen(totalPrice)}
+              </p>
+            </ItemTitle>
+          </ItemContent>
+        </Item>
+        {/* <Item className="flex-1" variant="muted">
+          <ItemContent>
+            <ItemDescription className="text-sm">Total price</ItemDescription>
+            <ItemTitle>{formatPriceYen(totalPrice)}</ItemTitle>
+          </ItemContent>
+        </Item> */}
       </div>
       <HomePlannedToolbar table={table} onReset={resetFilters} />
       <ResponsiveMasonry
