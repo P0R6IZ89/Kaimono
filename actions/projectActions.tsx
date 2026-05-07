@@ -187,7 +187,7 @@ export async function getProjectsWithPlanned(subdomain: string) {
     };
   });
 }
-export async function getInitialsProjectsAndPlanned(subdomain: string) {
+export async function getAllProjectsAndPlanned(subdomain: string) {
   const { appId } = await requireMembership(subdomain);
 
   const projects = await prisma.project.findMany({

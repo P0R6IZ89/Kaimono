@@ -50,7 +50,7 @@ TODO.md
 .env*.local
 schemaBackup.txt
 
-prisma/seed.ts
-
 essentialsOld/
 planned-defaults.ts
+GeneratedImages/
+seed.ts

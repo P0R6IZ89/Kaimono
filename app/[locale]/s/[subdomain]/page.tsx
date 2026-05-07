@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  getInitialsProjectsAndPlanned,
+  getAllProjectsAndPlanned,
   getProjectWithFirstPlanned,
 } from "@/actions/projectActions";
 import { HomeContent } from "./components/HomeContent";
@@ -25,7 +25,7 @@ export default async function Essentials({
   ] = await Promise.all([
     getRecentEssentialItems(subdomain),
     getProjectWithFirstPlanned(subdomain),
-    getInitialsProjectsAndPlanned(subdomain),
+    getAllProjectsAndPlanned(subdomain),
     getOldestPlannedItems(subdomain),
     getRecentlyAdded(subdomain),
   ]);
