@@ -391,86 +391,100 @@
       "features": "View features",
       "signIn": "Sign in to start"
     },
-    "features": {
+    "differentiators": {
       "ai": {
         "badge": "Beta",
-        "description": "Paste a product URL and let AI extract useful product details for planned purchases.",
-        "title": "AI product extraction"
+        "description": "Paste a product URL and Kaimono helps fill in useful product details like title, image, price, and notes.",
+        "placeholder": {
+          "description": "Replace this block with a GIF showing URL paste and auto-filled product fields.",
+          "title": "AI link parsing GIF placeholder"
+        },
+        "title": "AI fills product details from links"
       },
-      "badge": "Current features",
-      "collaboration": {
-        "description": "Invite teammates, discuss planned purchases with comments, and react with likes.",
-        "title": "Collaboration"
+      "badge": "Why it is more than notes",
+      "description": "Kaimono keeps the source, the item details, and the people involved together, so purchase ideas can turn into decisions.",
+      "sharing": {
+        "description": "Create separate workspaces for family, friends, or teams, then invite the right people into each buying plan.",
+        "placeholder": {
+          "description": "Replace this block with a GIF showing a shared workspace and team invitation.",
+          "title": "Shared workspace GIF placeholder"
+        },
+        "title": "Share by workspace"
       },
-      "description": "Kaimono brings recurring shopping, future purchases, project planning, and team decisions into one workspace.",
+      "source": {
+        "description": "Keep the original product page attached to every item, so anyone can jump back to compare, confirm, or buy.",
+        "placeholder": {
+          "description": "Replace this block with a GIF showing an item opening its original product page.",
+          "title": "Source page jump GIF placeholder"
+        },
+        "title": "Return to the source page fast"
+      },
+      "title": "Built for purchase planning, not freeform notes"
+    },
+    "finalCta": {
+      "description": "Start by saving one product link, then organize it with the people who will actually decide what to buy.",
+      "title": "Turn product links into shared purchase decisions."
+    },
+    "hero": {
+      "badge": "Purchase planning from product links",
+      "description": "Kaimono turns product links into structured items, keeps the original source page one click away, and lets you share buying plans with family, friends, or teams.",
+      "points": {
+        "ai": "AI-assisted product detail entry",
+        "sharing": "Separate spaces for family, friends, and teams",
+        "source": "Original product pages stay attached"
+      },
+      "title": "Plan what to buy without losing the link, context, or people."
+    },
+    "supporting": {
+      "badge": "What stays organized",
+      "description": "After a link becomes an item, Kaimono gives it the structure a note app does not: status, priority, projects, and reusable shopping lists.",
       "essentials": {
-        "description": "Track recurring items with quantity, price, and purchase status for fast shopping routines.",
+        "description": "Keep recurring shopping items ready for everyday buying routines.",
         "title": "Essentials"
       },
       "planned": {
-        "description": "Save future purchases with priority, images, product links, descriptions, comments, and likes.",
+        "description": "Track future purchases with priority, quantity, price, image, URL, comments, and likes.",
         "title": "Planned purchases"
       },
       "projects": {
-        "description": "Group planned purchases by goal, room, event, client, or any shared buying context.",
+        "description": "Group related planned items by trip, room, event, client, or shared goal.",
         "title": "Projects"
       },
-      "teams": {
-        "description": "Create isolated workspaces for each family, team, or project using subdomain-based routing.",
-        "title": "Team workspaces"
-      },
-      "title": "Everything your team needs to plan what to buy"
-    },
-    "finalCta": {
-      "description": "Start with one workspace, add the things you already know you need, and let the team refine the plan together.",
-      "title": "Turn scattered purchase ideas into a shared plan."
-    },
-    "hero": {
-      "description": "Kaimono helps families, teams, and projects manage recurring shopping, planned purchases, priorities, comments, and buying decisions in one tenant-isolated workspace.",
-      "points": {
-        "collaboration": "Invitations, roles, comments, and likes",
-        "planning": "Essentials, planned items, projects, and priorities",
-        "workspace": "Separate workspace per team or project"
-      },
-      "title": "Kaimono keeps every shared purchase organized."
+      "title": "A structured layer around every item"
     },
     "trust": {
-      "badge": "Workspace-ready",
-      "description": "The app is built around separated tenants, practical team permissions, and invitation-based access for shared buying work.",
+      "badge": "Login-only workspace",
+      "description": "Kaimono is designed for private shared planning after sign-in, with isolated tenants, clear roles, and invitation-based access.",
       "invitations": {
-        "description": "Invite people by email and manage pending, accepted, expired, or revoked access.",
-        "title": "Invitation flow"
+        "description": "Invite the right people into each workspace and manage pending, accepted, expired, or revoked access.",
+        "title": "Team invitations"
       },
       "roles": {
-        "description": "Owner, admin, and member roles keep team management clear.",
+        "description": "Owner, admin, and member roles keep workspace responsibilities clear.",
         "title": "Role-based access"
       },
       "tenant": {
-        "description": "Each workspace is isolated by subdomain and membership.",
+        "description": "Each family, friend group, or team gets its own subdomain-based workspace.",
         "title": "Tenant isolation"
       },
-      "title": "Designed for shared workspaces, not just personal notes"
+      "title": "Private by default, shareable when you choose"
     },
     "workflow": {
       "badge": "How it works",
-      "capture": {
-        "description": "Add everyday essentials quickly, or create richer planned purchases with prices, priority, images, and URLs.",
-        "title": "Capture what you need"
+      "description": "Kaimono keeps a purchase idea connected to the page it came from and the people who need to decide.",
+      "paste": {
+        "description": "Paste a product URL and use AI-assisted extraction to start from real product information.",
+        "title": "Paste the source link"
       },
-      "collaborate": {
-        "description": "Invite members, assign roles, discuss planned items, and keep everyone aligned before buying.",
-        "title": "Decide together"
+      "review": {
+        "description": "Keep the source page attached so the team can jump back before comparing, confirming, or buying.",
+        "title": "Review from the original page"
       },
-      "create": {
-        "description": "Create a team workspace for a household, event, office setup, client project, or any buying context.",
-        "title": "Create a workspace"
+      "share": {
+        "description": "Invite family, friends, or teammates into the workspace and decide together.",
+        "title": "Share the buying plan"
       },
-      "description": "Use Kaimono as the working surface between an idea, a shopping run, and a completed purchase.",
-      "organize": {
-        "description": "Move planned purchases into projects so related decisions stay grouped by goal.",
-        "title": "Organize by project"
-      },
-      "title": "From shopping idea to team decision"
+      "title": "From product link to shared purchase plan"
     }
   },
   "UserGuide": {

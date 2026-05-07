@@ -1,5 +1,5 @@
-import { auth } from "@/auth";
 import { userHasApps } from "@/actions/appActions";
+import { auth } from "@/auth";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,10 +15,12 @@ import {
   ArrowRight,
   Bot,
   CheckCircle2,
+  ExternalLink,
+  Film,
   FolderKanban,
   ListChecks,
   LockKeyhole,
-  MessageSquareText,
+  MailPlus,
   ShieldCheck,
   ShoppingCart,
   UsersRound,
@@ -39,60 +41,68 @@ export default async function Home({ params }: PageProps) {
       : { href: "/new-team", label: t("cta.createTeam") }
     : { href: "/login", label: t("cta.signIn") };
 
-  const features = [
+  const differentiators = [
     {
-      icon: UsersRound,
-      title: t("features.teams.title"),
-      description: t("features.teams.description"),
+      icon: Bot,
+      title: t("differentiators.ai.title"),
+      description: t("differentiators.ai.description"),
+      badge: t("differentiators.ai.badge"),
+      placeholderTitle: t("differentiators.ai.placeholder.title"),
+      placeholderDescription: t("differentiators.ai.placeholder.description"),
     },
     {
+      icon: ExternalLink,
+      title: t("differentiators.source.title"),
+      description: t("differentiators.source.description"),
+      placeholderTitle: t("differentiators.source.placeholder.title"),
+      placeholderDescription: t(
+        "differentiators.source.placeholder.description",
+      ),
+    },
+    {
+      icon: UsersRound,
+      title: t("differentiators.sharing.title"),
+      description: t("differentiators.sharing.description"),
+      placeholderTitle: t("differentiators.sharing.placeholder.title"),
+      placeholderDescription: t(
+        "differentiators.sharing.placeholder.description",
+      ),
+    },
+  ];
+
+  const supportingFeatures = [
+    {
       icon: ShoppingCart,
-      title: t("features.essentials.title"),
-      description: t("features.essentials.description"),
+      title: t("supporting.essentials.title"),
+      description: t("supporting.essentials.description"),
     },
     {
       icon: ListChecks,
-      title: t("features.planned.title"),
-      description: t("features.planned.description"),
+      title: t("supporting.planned.title"),
+      description: t("supporting.planned.description"),
     },
     {
       icon: FolderKanban,
-      title: t("features.projects.title"),
-      description: t("features.projects.description"),
-    },
-    {
-      icon: MessageSquareText,
-      title: t("features.collaboration.title"),
-      description: t("features.collaboration.description"),
-    },
-    {
-      icon: Bot,
-      title: t("features.ai.title"),
-      description: t("features.ai.description"),
-      badge: t("features.ai.badge"),
+      title: t("supporting.projects.title"),
+      description: t("supporting.projects.description"),
     },
   ];
 
   const workflow = [
     {
       step: "01",
-      title: t("workflow.create.title"),
-      description: t("workflow.create.description"),
+      title: t("workflow.paste.title"),
+      description: t("workflow.paste.description"),
     },
     {
       step: "02",
-      title: t("workflow.capture.title"),
-      description: t("workflow.capture.description"),
+      title: t("workflow.review.title"),
+      description: t("workflow.review.description"),
     },
     {
       step: "03",
-      title: t("workflow.organize.title"),
-      description: t("workflow.organize.description"),
-    },
-    {
-      step: "04",
-      title: t("workflow.collaborate.title"),
-      description: t("workflow.collaborate.description"),
+      title: t("workflow.share.title"),
+      description: t("workflow.share.description"),
     },
   ];
 
@@ -108,7 +118,7 @@ export default async function Home({ params }: PageProps) {
       description: t("trust.roles.description"),
     },
     {
-      icon: UsersRound,
+      icon: MailPlus,
       title: t("trust.invitations.title"),
       description: t("trust.invitations.description"),
     },
@@ -119,6 +129,9 @@ export default async function Home({ params }: PageProps) {
       <section className="mx-auto flex min-h-[82svh] w-full max-w-6xl flex-col justify-center px-6 py-16 md:px-10">
         <div className="max-w-3xl space-y-8">
           <div className="space-y-5">
+            <Badge variant="secondary" className="w-fit">
+              {t("hero.badge")}
+            </Badge>
             <h1 className="text-4xl font-semibold leading-tight tracking-normal text-balance md:text-6xl">
               {t("hero.title")}
             </h1>
@@ -148,15 +161,15 @@ export default async function Home({ params }: PageProps) {
         <div className="mt-14 grid gap-3 border-y py-5 text-sm text-muted-foreground md:grid-cols-3">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-primary" />
-            {t("hero.points.workspace")}
+            {t("hero.points.ai")}
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-primary" />
-            {t("hero.points.planning")}
+            {t("hero.points.source")}
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-primary" />
-            {t("hero.points.collaboration")}
+            {t("hero.points.sharing")}
           </div>
         </div>
       </section>
@@ -167,38 +180,51 @@ export default async function Home({ params }: PageProps) {
       >
         <div className="mb-8 max-w-2xl space-y-3">
           <Badge variant="secondary" className="w-fit">
-            {t("features.badge")}
+            {t("differentiators.badge")}
           </Badge>
           <h2 className="text-3xl font-semibold tracking-normal">
-            {t("features.title")}
+            {t("differentiators.title")}
           </h2>
           <p className="leading-7 text-muted-foreground">
-            {t("features.description")}
+            {t("differentiators.description")}
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => {
+        <div className="grid gap-4 lg:grid-cols-3">
+          {differentiators.map((feature) => {
             const Icon = feature.icon;
 
             return (
-              <Card key={feature.title} className="h-full">
-                <CardHeader className="space-y-3">
+              <Card key={feature.title} className="h-full overflow-hidden">
+                <CardHeader className="space-y-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/10 text-primary">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <CardTitle className="text-lg">{feature.title}</CardTitle>
-                    {feature.badge ? (
-                      <Badge variant="outline" className="text-xs">
-                        {feature.badge}
-                      </Badge>
-                    ) : null}
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <CardTitle className="text-lg">{feature.title}</CardTitle>
+                      {feature.badge ? (
+                        <Badge variant="outline" className="text-xs">
+                          {feature.badge}
+                        </Badge>
+                      ) : null}
+                    </div>
+                    <CardDescription className="leading-6">
+                      {feature.description}
+                    </CardDescription>
                   </div>
-                  <CardDescription className="leading-6">
-                    {feature.description}
-                  </CardDescription>
                 </CardHeader>
+                <CardContent>
+                  <div className="flex aspect-video flex-col items-center justify-center rounded-lg border border-dashed bg-muted/50 p-4 text-center">
+                    <Film className="mb-3 h-6 w-6 text-primary" />
+                    <p className="text-sm font-medium">
+                      {feature.placeholderTitle}
+                    </p>
+                    <p className="mt-1 max-w-56 text-xs leading-5 text-muted-foreground">
+                      {feature.placeholderDescription}
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             );
           })}
@@ -206,7 +232,39 @@ export default async function Home({ params }: PageProps) {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-6 py-16 md:px-10">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div className="space-y-4">
+            <Badge variant="secondary" className="w-fit">
+              {t("supporting.badge")}
+            </Badge>
+            <h2 className="text-3xl font-semibold tracking-normal">
+              {t("supporting.title")}
+            </h2>
+            <p className="leading-7 text-muted-foreground">
+              {t("supporting.description")}
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {supportingFeatures.map((feature) => {
+              const Icon = feature.icon;
+
+              return (
+                <div key={feature.title} className="rounded-lg border p-5">
+                  <Icon className="mb-4 h-5 w-5 text-primary" />
+                  <h3 className="font-medium">{feature.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    {feature.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-6 py-16 md:px-10">
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div className="space-y-4">
             <Badge variant="secondary" className="w-fit">
               {t("workflow.badge")}

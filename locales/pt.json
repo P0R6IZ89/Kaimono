@@ -391,86 +391,100 @@
       "features": "Ver recursos",
       "signIn": "Entrar para começar"
     },
-    "features": {
+    "differentiators": {
       "ai": {
         "badge": "Beta",
-        "description": "Cole uma URL de produto e deixe a IA extrair detalhes úteis para compras planejadas.",
-        "title": "Extração de produto com IA"
+        "description": "Cole uma URL de produto e o Kaimono ajuda a preencher detalhes como título, imagem, preço e notas.",
+        "placeholder": {
+          "description": "Substitua este bloco por um GIF mostrando a URL colada e os campos preenchidos automaticamente.",
+          "title": "Placeholder de GIF da análise de link com IA"
+        },
+        "title": "IA preenche detalhes a partir de links"
       },
-      "badge": "Recursos atuais",
-      "collaboration": {
-        "description": "Convide membros, discuta compras planejadas com comentários e reaja com curtidas.",
-        "title": "Colaboração"
+      "badge": "Por que é mais que notas",
+      "description": "Kaimono mantém a fonte, os detalhes do item e as pessoas envolvidas juntos, para transformar ideias de compra em decisões.",
+      "sharing": {
+        "description": "Crie workspaces separados para família, amigos ou equipes, e convide as pessoas certas para cada plano de compra.",
+        "placeholder": {
+          "description": "Substitua este bloco por um GIF mostrando um workspace compartilhado e convite de equipe.",
+          "title": "Placeholder de GIF do workspace compartilhado"
+        },
+        "title": "Compartilhe por workspace"
       },
-      "description": "Kaimono reúne compras recorrentes, compras futuras, planejamento por projeto e decisões em equipe em um só workspace.",
+      "source": {
+        "description": "Mantenha a página original do produto anexada a cada item para voltar rápido, comparar, confirmar ou comprar.",
+        "placeholder": {
+          "description": "Substitua este bloco por um GIF mostrando um item abrindo sua página original.",
+          "title": "Placeholder de GIF para abrir a página fonte"
+        },
+        "title": "Volte rápido para a página fonte"
+      },
+      "title": "Feito para planejar compras, não para notas livres"
+    },
+    "finalCta": {
+      "description": "Comece salvando um link de produto e organize-o com as pessoas que vão decidir o que comprar.",
+      "title": "Transforme links de produto em decisões compartilhadas."
+    },
+    "hero": {
+      "badge": "Planejamento de compras a partir de links",
+      "description": "Kaimono transforma links de produto em itens estruturados, mantém a página original a um clique e permite compartilhar planos de compra com família, amigos ou equipes.",
+      "points": {
+        "ai": "IA ajuda a preencher detalhes do produto",
+        "sharing": "Espaços separados para família, amigos e equipes",
+        "source": "As páginas originais ficam anexadas aos itens"
+      },
+      "title": "Planeje o que comprar sem perder o link, o contexto ou as pessoas."
+    },
+    "supporting": {
+      "badge": "O que fica organizado",
+      "description": "Depois que um link vira item, Kaimono adiciona a estrutura que um app de notas não tem: status, prioridade, projetos e listas reutilizáveis.",
       "essentials": {
-        "description": "Acompanhe itens recorrentes com quantidade, preço e status de compra para rotinas rápidas.",
+        "description": "Mantenha itens recorrentes prontos para rotinas de compra do dia a dia.",
         "title": "Lista de compras"
       },
       "planned": {
-        "description": "Salve compras futuras com prioridade, imagens, links de produto, descrições, comentários e curtidas.",
+        "description": "Acompanhe compras futuras com prioridade, quantidade, preço, imagem, URL, comentários e curtidas.",
         "title": "Compras planejadas"
       },
       "projects": {
-        "description": "Agrupe compras planejadas por objetivo, cômodo, evento, cliente ou qualquer contexto compartilhado.",
+        "description": "Agrupe itens relacionados por viagem, cômodo, evento, cliente ou objetivo compartilhado.",
         "title": "Projetos"
       },
-      "teams": {
-        "description": "Crie workspaces isolados para cada família, equipe ou projeto usando rotas por subdomínio.",
-        "title": "Workspaces de equipe"
-      },
-      "title": "Tudo que sua equipe precisa para planejar o que comprar"
-    },
-    "finalCta": {
-      "description": "Comece com um workspace, adicione o que você já sabe que precisa e deixe a equipe ajustar o plano em conjunto.",
-      "title": "Transforme ideias soltas de compra em um plano compartilhado."
-    },
-    "hero": {
-      "description": "Kaimono ajuda famílias, equipes e projetos a gerenciar compras recorrentes, compras planejadas, prioridades, comentários e decisões de compra em um workspace isolado por tenant.",
-      "points": {
-        "collaboration": "Convites, papéis, comentários e curtidas",
-        "planning": "Lista de compras, planejados, projetos e prioridades",
-        "workspace": "Workspace separado por equipe ou projeto"
-      },
-      "title": "Kaimono mantém cada compra compartilhada organizada."
+      "title": "Uma camada estruturada para cada item"
     },
     "trust": {
-      "badge": "Pronto para workspace",
-      "description": "O app foi criado em torno de tenants separados, permissões práticas de equipe e acesso por convite para compras compartilhadas.",
+      "badge": "Workspace com login",
+      "description": "Kaimono foi pensado para planejamento privado compartilhado após login, com tenants isolados, papéis claros e acesso por convite.",
       "invitations": {
-        "description": "Convide pessoas por e-mail e gerencie acessos pendentes, aceitos, expirados ou revogados.",
-        "title": "Fluxo de convites"
+        "description": "Convide as pessoas certas para cada workspace e gerencie acessos pendentes, aceitos, expirados ou revogados.",
+        "title": "Convites de equipe"
       },
       "roles": {
-        "description": "Papéis de proprietário, administrador e membro deixam a gestão da equipe clara.",
+        "description": "Papéis de proprietário, administrador e membro deixam claras as responsabilidades no workspace.",
         "title": "Acesso por função"
       },
       "tenant": {
-        "description": "Cada workspace é isolado por subdomínio e associação.",
+        "description": "Cada família, grupo de amigos ou equipe tem seu próprio workspace por subdomínio.",
         "title": "Isolamento por tenant"
       },
-      "title": "Projetado para workspaces compartilhados, não apenas notas pessoais"
+      "title": "Privado por padrão, compartilhável quando você quiser"
     },
     "workflow": {
       "badge": "Como funciona",
-      "capture": {
-        "description": "Adicione itens do dia a dia rapidamente ou crie compras planejadas mais completas com preços, prioridade, imagens e URLs.",
-        "title": "Registre o que precisa"
+      "description": "Kaimono mantém uma ideia de compra conectada à página de origem e às pessoas que precisam decidir.",
+      "paste": {
+        "description": "Cole uma URL de produto e use a extração com IA para começar com informações reais do produto.",
+        "title": "Cole o link fonte"
       },
-      "collaborate": {
-        "description": "Convide membros, defina papéis, discuta itens planejados e mantenha todos alinhados antes da compra.",
-        "title": "Decida em conjunto"
+      "review": {
+        "description": "Mantenha a página fonte anexada para a equipe voltar antes de comparar, confirmar ou comprar.",
+        "title": "Revise pela página original"
       },
-      "create": {
-        "description": "Crie um workspace para casa, evento, montagem de escritório, projeto de cliente ou qualquer contexto de compra.",
-        "title": "Crie um workspace"
+      "share": {
+        "description": "Convide família, amigos ou colegas para o workspace e decida em conjunto.",
+        "title": "Compartilhe o plano de compra"
       },
-      "description": "Use Kaimono como a superfície de trabalho entre uma ideia, uma ida às compras e uma compra concluída.",
-      "organize": {
-        "description": "Mova compras planejadas para projetos para manter decisões relacionadas agrupadas por objetivo.",
-        "title": "Organize por projeto"
-      },
-      "title": "Da ideia de compra à decisão da equipe"
+      "title": "Do link do produto ao plano de compra compartilhado"
     }
   },
   "UserGuide": {

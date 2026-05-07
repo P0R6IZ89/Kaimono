@@ -6,7 +6,13 @@ import type {
   recentlyAddedType,
   recentShoppingItemsType,
 } from "./HomeContent";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   CircleCheckBig,
   CircleMinus,
@@ -39,6 +45,7 @@ import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { CldImage } from "next-cloudinary";
 import { Link } from "@/i18n/navigation";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type HomePlannedItem = allProjectType["plannedItems"][number];
 type HomeProject = allProjectType;
@@ -54,6 +61,16 @@ function getDefaultColumnFilters(): ColumnFiltersState {
 
 function getDefaultPagination(): PaginationState {
   return { pageIndex: 0, pageSize: DEFAULT_PAGE_SIZE };
+}
+
+function TotalPriceCount({ totalPrice }: { totalPrice: number }) {
+  const t = useTranslations("Table");
+
+  return (
+    <p className="mb-2 text-sm text-muted-foreground">
+      {totalPrice} {t("items")}
+    </p>
+  );
 }
 
 function PlannedMasonryCard({ item }: { item: HomePlannedItem }) {
@@ -170,6 +187,8 @@ function HomePlannedToolbar({
   table: Table<HomePlannedItem>;
   onReset: () => void;
 }) {
+  const isMobile = useIsMobile();
+
   const t = useTranslations("Table");
   const tCommon = useTranslations("Common");
 
@@ -195,7 +214,7 @@ function HomePlannedToolbar({
   );
 
   return (
-    <div className="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+    <div className="mb-4 flex flex-row gap-2 md:flex-row md:items-center md:justify-between">
       <Input
         className="md:max-w-sm"
         placeholder={t("searchPlaceholder")}
@@ -204,11 +223,11 @@ function HomePlannedToolbar({
           table.getColumn("title")?.setFilterValue(event.target.value);
         }}
       />
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-row items-center gap-2">
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title={t("filterByStatus")}
+            title={!isMobile ? t("filterByStatus") : undefined}
             options={statusOptions}
           />
         )}
@@ -218,7 +237,7 @@ function HomePlannedToolbar({
           onClick={onReset}
           className="h-8 px-2 lg:px-3"
         >
-          {t("clearFilters")}
+          {!isMobile && t("clearFilters")}
           <X />
         </Button>
       </div>
@@ -254,11 +273,21 @@ export function FilteredHomeContent({
   }
 
   return (
-    <ProjectPlannedGrid key={activeProject.id} activeProject={activeProject} />
+    <ProjectPlannedGrid
+      key={activeProject.id}
+      activeProject={activeProject}
+      allProjects={allProjects}
+    />
   );
 }
 
-function ProjectPlannedGrid({ activeProject }: { activeProject: HomeProject }) {
+function ProjectPlannedGrid({
+  activeProject,
+  allProjects,
+}: {
+  activeProject: HomeProject;
+  allProjects: allProjectType[];
+}) {
   const t = useTranslations("Table");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     getDefaultColumnFilters,
@@ -309,9 +338,37 @@ function ProjectPlannedGrid({ activeProject }: { activeProject: HomeProject }) {
     setColumnFilters(getDefaultColumnFilters());
     setPagination(getDefaultPagination());
   };
+  const selectedPlannedItems = allProjects.find(
+    (p) => p.id === activeProject.id,
+  )?.plannedItems;
+  const totalPrice =
+    selectedPlannedItems?.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0,
+    ) ?? 0;
+  const totalPendingPrice = selectedPlannedItems?.reduce((acc, item) => {
+    if (item.status === "PENDING") {
+      return acc + item.price * item.quantity;
+    }
+    return acc;
+  }, 0);
 
   return (
     <div>
+      <div className="flex flex-col gap-4 pb-4">
+        <Card>
+          <CardHeader>
+            <CardDescription>Total pending price</CardDescription>
+            <CardTitle>{totalPendingPrice}</CardTitle>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardDescription>Total price</CardDescription>
+            <CardTitle>{totalPrice}</CardTitle>
+          </CardHeader>
+        </Card>
+      </div>
       <HomePlannedToolbar table={table} onReset={resetFilters} />
       <ResponsiveMasonry
         columnsCountBreakPoints={{ 350: 2, 750: 2, 900: 3 }}
