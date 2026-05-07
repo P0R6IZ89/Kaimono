@@ -111,7 +111,7 @@ type ProjectSeed = {
   planned: PlannedSeed[];
 };
 
-const projects = [
+const projects: ProjectSeed[] = [
   {
     name: "Fitness Setup",
     description: "Build a compact home workout kit.",
@@ -450,7 +450,7 @@ const projects = [
       },
     ],
   },
-] satisfies ProjectSeed[];
+];
 
 function seededProductUrl(title: string) {
   return `https://example.com/products/${title
@@ -510,7 +510,6 @@ async function main() {
     await tx.essential.createMany({
       data: essentials.map((essential, index) => {
         const createdAt = daysAgo(essentials.length - index);
-
         return {
           ...essential,
           appId: personalApp.id,
