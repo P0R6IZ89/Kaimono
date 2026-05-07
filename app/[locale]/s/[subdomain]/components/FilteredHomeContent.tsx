@@ -8,8 +8,6 @@ import type {
 } from "./HomeContent";
 import {
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -63,21 +61,11 @@ const DEFAULT_PAGE_SIZE = 10;
 const DEFAULT_STATUS_FILTER = ["PENDING"];
 
 function getDefaultColumnFilters(): ColumnFiltersState {
-  return [{ id: "status", value: DEFAULT_STATUS_FILTER }];
+  return [{ id: "status", value: [...DEFAULT_STATUS_FILTER] }];
 }
 
 function getDefaultPagination(): PaginationState {
   return { pageIndex: 0, pageSize: DEFAULT_PAGE_SIZE };
-}
-
-function TotalPriceCount({ totalPrice }: { totalPrice: number }) {
-  const t = useTranslations("Table");
-
-  return (
-    <p className="mb-2 text-sm text-muted-foreground">
-      {totalPrice} {t("items")}
-    </p>
-  );
 }
 
 function PlannedMasonryCard({ item }: { item: HomePlannedItem }) {
@@ -189,15 +177,16 @@ const columns: ColumnDef<HomePlannedItem>[] = [
 
 function HomePlannedToolbar({
   table,
-  onReset,
+  onClearFilters,
 }: {
   table: Table<HomePlannedItem>;
-  onReset: () => void;
+  onClearFilters: () => void;
 }) {
   const isMobile = useIsMobile();
 
   const t = useTranslations("Table");
   const tCommon = useTranslations("Common");
+  const isFiltered = table.getState().columnFilters.length > 0;
 
   const statusOptions = useMemo(
     () => [
@@ -222,14 +211,6 @@ function HomePlannedToolbar({
 
   return (
     <div className="mb-4 flex flex-row gap-2 md:flex-row md:items-center md:justify-between">
-      <Input
-        className="md:max-w-sm"
-        placeholder={t("searchPlaceholder")}
-        value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-        onChange={(event) => {
-          table.getColumn("title")?.setFilterValue(event.target.value);
-        }}
-      />
       <div className="flex flex-row items-center gap-2">
         {table.getColumn("status") && (
           <DataTableFacetedFilter
@@ -238,16 +219,26 @@ function HomePlannedToolbar({
             options={statusOptions}
           />
         )}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onReset}
-          className="h-8 px-2 lg:px-3"
-        >
-          {!isMobile && t("clearFilters")}
-          <X />
-        </Button>
+        {isFiltered && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onClearFilters}
+            className="h-8 px-2 lg:px-3"
+          >
+            {!isMobile && t("clearFilters")}
+            <X />
+          </Button>
+        )}
       </div>
+      <Input
+        className="md:max-w-sm"
+        placeholder={t("searchPlaceholder")}
+        value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+        onChange={(event) => {
+          table.getColumn("title")?.setFilterValue(event.target.value);
+        }}
+      />
     </div>
   );
 }
@@ -283,17 +274,14 @@ export function FilteredHomeContent({
     <ProjectPlannedGrid
       key={activeProject.id}
       activeProject={activeProject}
-      allProjects={allProjects}
     />
   );
 }
 
 function ProjectPlannedGrid({
   activeProject,
-  allProjects,
 }: {
   activeProject: HomeProject;
-  allProjects: allProjectType[];
 }) {
   const t = useTranslations("Table");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
@@ -341,50 +329,32 @@ function ProjectPlannedGrid({
   });
 
   const rows = table.getRowModel().rows;
-  const resetFilters = () => {
-    setColumnFilters(getDefaultColumnFilters());
+  const clearFilters = () => {
+    setColumnFilters([]);
     setPagination(getDefaultPagination());
   };
-  const selectedPlannedItems = allProjects.find(
-    (p) => p.id === activeProject.id,
-  )?.plannedItems;
-  const totalPrice =
-    selectedPlannedItems?.reduce(
-      (acc, item) => acc + item.price * item.quantity,
+  const filteredTotalPrice = table
+    .getFilteredRowModel()
+    .rows.reduce(
+      (acc, row) => acc + row.original.price * row.original.quantity,
       0,
-    ) ?? 0;
-  const totalPendingPrice =
-    selectedPlannedItems?.reduce((acc, item) => {
-      if (item.status === "PENDING") {
-        return acc + item.price * item.quantity;
-      }
-      return acc;
-    }, 0) ?? 0;
+    );
 
   return (
     <div>
       <div className="flex flex-row gap-4 pb-4">
         <Item className="flex-1" variant="muted">
           <ItemContent>
-            <ItemDescription>Pending Total Price</ItemDescription>
+            <ItemDescription>Total Price</ItemDescription>
             <ItemTitle className="flex items-baseline gap-2">
               <p className="text-xl font-semibold tracking-tight">
-                {formatPriceYen(totalPendingPrice)}
-              </p>
-              <p className="text-muted-foreground ">
-                / {formatPriceYen(totalPrice)}
+                {formatPriceYen(filteredTotalPrice)}
               </p>
             </ItemTitle>
           </ItemContent>
         </Item>
-        {/* <Item className="flex-1" variant="muted">
-          <ItemContent>
-            <ItemDescription className="text-sm">Total price</ItemDescription>
-            <ItemTitle>{formatPriceYen(totalPrice)}</ItemTitle>
-          </ItemContent>
-        </Item> */}
       </div>
-      <HomePlannedToolbar table={table} onReset={resetFilters} />
+      <HomePlannedToolbar table={table} onClearFilters={clearFilters} />
       <ResponsiveMasonry
         columnsCountBreakPoints={{ 350: 2, 750: 2, 900: 3 }}
         gutterBreakPoints={{ 350: "12px", 750: "12px", 900: "12px" }}
