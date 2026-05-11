@@ -47,6 +47,7 @@ export default async function Home({ params }: PageProps) {
       title: t("differentiators.ai.title"),
       description: t("differentiators.ai.description"),
       badge: t("differentiators.ai.badge"),
+      videoSource: "/videos/feature01.mov",
       placeholderTitle: t("differentiators.ai.placeholder.title"),
       placeholderDescription: t("differentiators.ai.placeholder.description"),
     },
@@ -215,14 +216,28 @@ export default async function Home({ params }: PageProps) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex aspect-video flex-col items-center justify-center rounded-lg border border-dashed bg-muted/50 p-4 text-center">
-                    <Film className="mb-3 h-6 w-6 text-primary" />
-                    <p className="text-sm font-medium">
-                      {feature.placeholderTitle}
-                    </p>
-                    <p className="mt-1 max-w-56 text-xs leading-5 text-muted-foreground">
-                      {feature.placeholderDescription}
-                    </p>
+                  <div className="flex aspect-video flex-col items-center justify-center rounded-lg bg-muted/50 text-center">
+                    {feature.videoSource ? (
+                      <video
+                        src={feature.videoSource}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        className="w-full rounded-xl"
+                      />
+                    ) : (
+                      <>
+                        <Film className="mb-3 h-6 w-6 text-primary" />
+                        <p className="text-sm font-medium">
+                          {feature.placeholderTitle}
+                        </p>
+                        <p className="mt-1 max-w-56 text-xs leading-5 text-muted-foreground">
+                          {feature.placeholderDescription}
+                        </p>
+                      </>
+                    )}
                   </div>
                 </CardContent>
               </Card>

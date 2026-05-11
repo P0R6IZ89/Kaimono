@@ -80,7 +80,7 @@ export function HomeContent({
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
 
   useEffect(() => {
-    setActiveProjectId(projects[1]?.id ?? null);
+    setActiveProjectId(projects[0]?.id ?? null);
   }, [projects]);
   return (
     <div className="min-w-0">
