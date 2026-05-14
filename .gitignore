@@ -52,5 +52,6 @@ schemaBackup.txt
 
 essentialsOld/
 planned-defaults.ts
-GeneratedImages/
+
+ProjectAssets
 seed.ts

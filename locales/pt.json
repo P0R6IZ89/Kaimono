@@ -320,7 +320,7 @@
     "support": "Suporte",
     "team": "Equipe",
     "tutorialDescription": "Faça o tutorial para dominar o app",
-    "tutorialTitle": "Guia",
+    "homeTitle": "Início",
     "appearance": "Aparência",
     "developedBy": "Desenvolvido por {name}"
   },
@@ -396,8 +396,8 @@
         "badge": "Beta",
         "description": "Cole uma URL de produto e o Kaimono ajuda a preencher detalhes como título, imagem, preço e notas.",
         "placeholder": {
-          "description": "Substitua este bloco por um GIF mostrando a URL colada e os campos preenchidos automaticamente.",
-          "title": "Placeholder de GIF da análise de link com IA"
+          "description": "Cole um link de produto e o Kaimono ajuda a transformá-lo em um item estruturado, com detalhes prontos para revisar.",
+          "title": "Entrada de produto com IA"
         },
         "title": "IA preenche detalhes a partir de links"
       },
@@ -406,16 +406,16 @@
       "sharing": {
         "description": "Crie workspaces separados para família, amigos ou equipes, e convide as pessoas certas para cada plano de compra.",
         "placeholder": {
-          "description": "Substitua este bloco por um GIF mostrando um workspace compartilhado e convite de equipe.",
-          "title": "Placeholder de GIF do workspace compartilhado"
+          "description": "Crie workspaces separados para família, amigos ou equipes e convide apenas as pessoas envolvidas em cada plano de compra.",
+          "title": "Workspaces de planejamento compartilhado"
         },
         "title": "Compartilhe por workspace"
       },
       "source": {
         "description": "Mantenha a página original do produto anexada a cada item para voltar rápido, comparar, confirmar ou comprar.",
         "placeholder": {
-          "description": "Substitua este bloco por um GIF mostrando um item abrindo sua página original.",
-          "title": "Placeholder de GIF para abrir a página fonte"
+          "description": "Cada item salvo mantém a página original do produto anexada, para reabrir, comparar, confirmar ou comprar.",
+          "title": "Página original do produto salva"
         },
         "title": "Volte rápido para a página fonte"
       },
@@ -433,7 +433,7 @@
         "sharing": "Espaços separados para família, amigos e equipes",
         "source": "As páginas originais ficam anexadas aos itens"
       },
-      "title": "Planeje o que comprar sem perder o link, o contexto ou as pessoas."
+      "title": "Planeje o que comprar no modo fácil."
     },
     "supporting": {
       "badge": "O que fica organizado",
