@@ -110,7 +110,7 @@ export async function getAllAppsAction() {
     include: {
       _count: { select: { memberships: true } },
       memberships: {
-        // where: { userId: session.user.id },
+        where: { userId: session.user.id },
         select: {
           role: true,
           user: { select: { image: true, name: true, email: true } },
