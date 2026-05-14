@@ -111,7 +111,10 @@ export async function getAllAppsAction() {
       _count: { select: { memberships: true } },
       memberships: {
         where: { userId: session.user.id },
-        select: { role: true },
+        select: {
+          role: true,
+          user: { select: { image: true, name: true, email: true } },
+        },
       },
     },
     orderBy: { createdAt: "desc" },
@@ -257,8 +260,7 @@ export async function deleteApp(id: string): Promise<Result> {
     where: { appId_userId: { appId: id, userId: session.user.id } },
     select: { role: true },
   });
-  if (!membership)
-    return { ok: false, message: "notAppMember" };
+  if (!membership) return { ok: false, message: "notAppMember" };
   if (membership.role !== "OWNER")
     return { ok: false, message: "ownerOnlyDeleteApp" };
 

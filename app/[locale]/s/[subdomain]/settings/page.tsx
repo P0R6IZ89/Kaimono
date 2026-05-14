@@ -74,9 +74,7 @@ export default async function Settings({
         <p className="py-2">{t("help")}</p>
         <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
           <Item className="p-2 gap-4" asChild>
-            <Link
-              href={`${protocol}://${rootDomain}/${locale}/home/#getting-started`}
-            >
+            <Link href={`${protocol}://${rootDomain}/${locale}/home`}>
               <ItemMedia
                 variant={"icon"}
                 className="bg-muted rounded-lg size-8"
@@ -84,10 +82,7 @@ export default async function Settings({
                 <GraduationCap />
               </ItemMedia>
               <ItemContent className="gap-0">
-                <ItemTitle>{t("tutorialTitle")}</ItemTitle>
-                <ItemDescription className="text-xs">
-                  {t("tutorialDescription")}
-                </ItemDescription>
+                <ItemTitle>{t("homeTitle")}</ItemTitle>
               </ItemContent>
               <ItemActions>
                 <ChevronRight className="size-4" />

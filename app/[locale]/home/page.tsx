@@ -11,12 +11,12 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
+import { FeatureMedia } from "./components/feature-media";
 import {
   ArrowRight,
   Bot,
   CheckCircle2,
   ExternalLink,
-  Film,
   FolderKanban,
   ListChecks,
   LockKeyhole,
@@ -48,15 +48,16 @@ export default async function Home({ params }: PageProps) {
       description: t("differentiators.ai.description"),
       badge: t("differentiators.ai.badge"),
       videoSource: "/videos/feature01.mov",
-      placeholderTitle: t("differentiators.ai.placeholder.title"),
-      placeholderDescription: t("differentiators.ai.placeholder.description"),
+      fallbackTitle: t("differentiators.ai.placeholder.title"),
+      fallbackDescription: t("differentiators.ai.placeholder.description"),
     },
     {
       icon: ExternalLink,
       title: t("differentiators.source.title"),
       description: t("differentiators.source.description"),
-      placeholderTitle: t("differentiators.source.placeholder.title"),
-      placeholderDescription: t(
+      videoSource: "/videos/feature02.mov",
+      fallbackTitle: t("differentiators.source.placeholder.title"),
+      fallbackDescription: t(
         "differentiators.source.placeholder.description",
       ),
     },
@@ -64,8 +65,9 @@ export default async function Home({ params }: PageProps) {
       icon: UsersRound,
       title: t("differentiators.sharing.title"),
       description: t("differentiators.sharing.description"),
-      placeholderTitle: t("differentiators.sharing.placeholder.title"),
-      placeholderDescription: t(
+      videoSource: "/videos/feature03.mov",
+      fallbackTitle: t("differentiators.sharing.placeholder.title"),
+      fallbackDescription: t(
         "differentiators.sharing.placeholder.description",
       ),
     },
@@ -133,7 +135,7 @@ export default async function Home({ params }: PageProps) {
             <Badge variant="secondary" className="w-fit">
               {t("hero.badge")}
             </Badge>
-            <h1 className="text-4xl font-semibold leading-tight tracking-normal text-balance md:text-6xl">
+            <h1 className="text-4xl uppercase font-semibold leading-15 tracking-tighter text-balance md:text-6xl">
               {t("hero.title")}
             </h1>
             <p className="max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
@@ -216,29 +218,11 @@ export default async function Home({ params }: PageProps) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex aspect-video flex-col items-center justify-center rounded-lg bg-muted/50 text-center">
-                    {feature.videoSource ? (
-                      <video
-                        src={feature.videoSource}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                        className="w-full rounded-xl"
-                      />
-                    ) : (
-                      <>
-                        <Film className="mb-3 h-6 w-6 text-primary" />
-                        <p className="text-sm font-medium">
-                          {feature.placeholderTitle}
-                        </p>
-                        <p className="mt-1 max-w-56 text-xs leading-5 text-muted-foreground">
-                          {feature.placeholderDescription}
-                        </p>
-                      </>
-                    )}
-                  </div>
+                  <FeatureMedia
+                    videoSource={feature.videoSource}
+                    fallbackTitle={feature.fallbackTitle}
+                    fallbackDescription={feature.fallbackDescription}
+                  />
                 </CardContent>
               </Card>
             );

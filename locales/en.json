@@ -320,7 +320,7 @@
     "support": "Support",
     "team": "Team",
     "tutorialDescription": "Go through the tutorial to master the app",
-    "tutorialTitle": "Tutorial",
+    "homeTitle": "Home",
     "appearance": "Appearance",
     "developedBy": "Developed by {name}"
   },
@@ -396,8 +396,8 @@
         "badge": "Beta",
         "description": "Paste a product URL and Kaimono helps fill in useful product details like title, image, price, and notes.",
         "placeholder": {
-          "description": "Replace this block with a GIF showing URL paste and auto-filled product fields.",
-          "title": "AI link parsing GIF placeholder"
+          "description": "Paste a product link and Kaimono can help turn it into a structured item with details ready to review.",
+          "title": "AI-assisted product entry"
         },
         "title": "AI fills product details from links"
       },
@@ -406,16 +406,16 @@
       "sharing": {
         "description": "Create separate workspaces for family, friends, or teams, then invite the right people into each buying plan.",
         "placeholder": {
-          "description": "Replace this block with a GIF showing a shared workspace and team invitation.",
-          "title": "Shared workspace GIF placeholder"
+          "description": "Create separate workspaces for family, friends, or teams and invite only the people involved in each buying plan.",
+          "title": "Shared planning workspaces"
         },
         "title": "Share by workspace"
       },
       "source": {
         "description": "Keep the original product page attached to every item, so anyone can jump back to compare, confirm, or buy.",
         "placeholder": {
-          "description": "Replace this block with a GIF showing an item opening its original product page.",
-          "title": "Source page jump GIF placeholder"
+          "description": "Each saved item keeps its original product page attached, so anyone can reopen it to compare, confirm, or buy.",
+          "title": "Original product page saved"
         },
         "title": "Return to the source page fast"
       },
@@ -433,7 +433,7 @@
         "sharing": "Separate spaces for family, friends, and teams",
         "source": "Original product pages stay attached"
       },
-      "title": "Plan what to buy without losing the link, context, or people."
+      "title": "Plan what to buy, easy mode."
     },
     "supporting": {
       "badge": "What stays organized",
