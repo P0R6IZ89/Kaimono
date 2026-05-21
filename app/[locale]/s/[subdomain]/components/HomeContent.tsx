@@ -7,10 +7,11 @@ import { FilteredHomeContent } from "./FilteredHomeContent";
 
 type projectType = {
   id: string;
-  name: string;
+  name?: string | null | undefined;
   description?: string | null | undefined;
   image?: string | null;
   icon?: string | null;
+  type?: string | undefined;
 }[];
 
 export type allProjectType = {

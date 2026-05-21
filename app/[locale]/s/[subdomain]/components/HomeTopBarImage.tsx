@@ -1,19 +1,19 @@
 "use client";
 
 import { CldImage } from "next-cloudinary";
-import { PROJECT_IMAGE_DEFAULT } from "@/lib/planned-defaults";
+import { PLANNED_IMAGE_DEFAULT } from "@/lib/planned-defaults";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Star from "@/public/icons/Star.svg";
 import React from "react";
 
 export function HomeTopBarImage({
-  isDefaultImage = false,
+  projectType,
   imageSrc,
   alt,
   selected = true,
 }: {
-  isDefaultImage?: boolean;
+  projectType?: string | undefined;
   imageSrc?: string | null;
   alt: string;
   selected?: boolean;
@@ -21,22 +21,21 @@ export function HomeTopBarImage({
   return (
     <div
       className={cn(
-        "relative size-20 overflow-clip rounded-md border bg-muted/40 transition-all",
-        selected
-          ? "border-primary/50 border-2 bg-card  ring-2 ring-primary/20"
-          : "border-border text-muted-foreground",
+        "overflow-clip relative size-20 rounded-md transition-all",
+        selected ? "opacity-100" : "opacity-90",
       )}
     >
-      {isDefaultImage ? (
+      {projectType === "home" ? (
         <React.Fragment>
           <Image
+            className="rounded-md"
             src={imageSrc || "/images/placeholder.png"}
             alt={alt}
             fill
             style={{ objectFit: "cover" }}
           />
           <Image
-            className="absolute size-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            className="rounded-md absolute size-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             alt="Star"
             width={16}
             height={16}
@@ -45,9 +44,9 @@ export function HomeTopBarImage({
         </React.Fragment>
       ) : (
         <CldImage
-          className={cn("bg-card", !selected && "opacity-80")}
+          className={cn("bg-card rounded-md")}
           fill
-          src={imageSrc || PROJECT_IMAGE_DEFAULT}
+          src={imageSrc || PLANNED_IMAGE_DEFAULT}
           alt={alt}
           style={{ objectFit: "cover" }}
         />

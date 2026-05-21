@@ -6,11 +6,7 @@ import type {
   recentlyAddedType,
   recentShoppingItemsType,
 } from "./HomeContent";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   CircleCheckBig,
   CircleMinus,
@@ -271,18 +267,11 @@ export function FilteredHomeContent({
   }
 
   return (
-    <ProjectPlannedGrid
-      key={activeProject.id}
-      activeProject={activeProject}
-    />
+    <ProjectPlannedGrid key={activeProject.id} activeProject={activeProject} />
   );
 }
 
-function ProjectPlannedGrid({
-  activeProject,
-}: {
-  activeProject: HomeProject;
-}) {
+function ProjectPlannedGrid({ activeProject }: { activeProject: HomeProject }) {
   const t = useTranslations("Table");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     getDefaultColumnFilters,
@@ -342,7 +331,7 @@ function ProjectPlannedGrid({
 
   return (
     <div>
-      <div className="flex flex-row gap-4 pb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-4">
         <Item className="flex-1" variant="muted">
           <ItemContent>
             <ItemDescription>Total Price</ItemDescription>

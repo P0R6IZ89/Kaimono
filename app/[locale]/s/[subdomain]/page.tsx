@@ -33,6 +33,7 @@ export default async function Essentials({
   const Home = [
     {
       id: "1",
+      type: "home",
       name: "Home",
       image: "/images/image.png",
     },

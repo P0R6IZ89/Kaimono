@@ -1,9 +1,9 @@
-import { getAllAppsAction, requireSession } from "@/actions/appActions";
+import { getAllAppsAction } from "@/actions/appActions";
 import DeleteDropdown from "@/components/client/deleteDropdown";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link2, Plus, UserRound, Users } from "lucide-react";
+import { Link2, Plus, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import {
@@ -14,8 +14,6 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import { UserManager } from "@/components/auth/userManage";
-import { Separator } from "@/components/ui/separator";
 import { protocol, rootDomain, rootDomainHost } from "@/lib/variables";
 import {
   Avatar,
@@ -43,7 +41,6 @@ export default async function App({ params }: PageProps) {
             <ItemDescription>{t("description")}</ItemDescription>
           </ItemContent>
         </Item>
-        {/* <UserManager user={session.user} className="w-fit" variant={"muted"} /> */}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 pt-4">
         <Card className="p-0 justify-center outline-1 outline-dashed ring-0 bg-muted/50 border-transparent hover:outline-solid hover:outline-primary/50 hover:bg-accent/50 transition-colors">
