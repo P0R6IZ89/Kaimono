@@ -78,6 +78,11 @@ export type PlannedComment = $Result.DefaultSelection<Prisma.$PlannedCommentPayl
  * 
  */
 export type PlannedLike = $Result.DefaultSelection<Prisma.$PlannedLikePayload>
+/**
+ * Model AiCreditLedger
+ * 
+ */
+export type AiCreditLedger = $Result.DefaultSelection<Prisma.$AiCreditLedgerPayload>
 
 /**
  * Enums
@@ -120,6 +125,16 @@ export const Priority: {
 
 export type Priority = (typeof Priority)[keyof typeof Priority]
 
+
+export const AiCreditLedgerType: {
+  PURCHASE: 'PURCHASE',
+  DEDUCTION: 'DEDUCTION',
+  REFUND: 'REFUND',
+  ADJUSTMENT: 'ADJUSTMENT'
+};
+
+export type AiCreditLedgerType = (typeof AiCreditLedgerType)[keyof typeof AiCreditLedgerType]
+
 }
 
 export type Role = $Enums.Role
@@ -137,6 +152,10 @@ export const Status: typeof $Enums.Status
 export type Priority = $Enums.Priority
 
 export const Priority: typeof $Enums.Priority
+
+export type AiCreditLedgerType = $Enums.AiCreditLedgerType
+
+export const AiCreditLedgerType: typeof $Enums.AiCreditLedgerType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -385,6 +404,16 @@ export class PrismaClient<
     * ```
     */
   get plannedLike(): Prisma.PlannedLikeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aiCreditLedger`: Exposes CRUD operations for the **AiCreditLedger** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AiCreditLedgers
+    * const aiCreditLedgers = await prisma.aiCreditLedger.findMany()
+    * ```
+    */
+  get aiCreditLedger(): Prisma.AiCreditLedgerDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -443,7 +472,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.19.1
+   * Prisma Client JS version: 6.19.3
    * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
    */
   export type PrismaVersion = {
@@ -838,7 +867,8 @@ export namespace Prisma {
     Essential: 'Essential',
     Planned: 'Planned',
     PlannedComment: 'PlannedComment',
-    PlannedLike: 'PlannedLike'
+    PlannedLike: 'PlannedLike',
+    AiCreditLedger: 'AiCreditLedger'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -857,7 +887,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "app" | "membership" | "invitation" | "account" | "session" | "verificationToken" | "authenticator" | "project" | "essential" | "planned" | "plannedComment" | "plannedLike"
+      modelProps: "user" | "app" | "membership" | "invitation" | "account" | "session" | "verificationToken" | "authenticator" | "project" | "essential" | "planned" | "plannedComment" | "plannedLike" | "aiCreditLedger"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1823,6 +1853,80 @@ export namespace Prisma {
           }
         }
       }
+      AiCreditLedger: {
+        payload: Prisma.$AiCreditLedgerPayload<ExtArgs>
+        fields: Prisma.AiCreditLedgerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AiCreditLedgerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AiCreditLedgerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>
+          }
+          findFirst: {
+            args: Prisma.AiCreditLedgerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AiCreditLedgerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>
+          }
+          findMany: {
+            args: Prisma.AiCreditLedgerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>[]
+          }
+          create: {
+            args: Prisma.AiCreditLedgerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>
+          }
+          createMany: {
+            args: Prisma.AiCreditLedgerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AiCreditLedgerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>[]
+          }
+          delete: {
+            args: Prisma.AiCreditLedgerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>
+          }
+          update: {
+            args: Prisma.AiCreditLedgerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>
+          }
+          deleteMany: {
+            args: Prisma.AiCreditLedgerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AiCreditLedgerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AiCreditLedgerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>[]
+          }
+          upsert: {
+            args: Prisma.AiCreditLedgerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiCreditLedgerPayload>
+          }
+          aggregate: {
+            args: Prisma.AiCreditLedgerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAiCreditLedger>
+          }
+          groupBy: {
+            args: Prisma.AiCreditLedgerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AiCreditLedgerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AiCreditLedgerCountArgs<ExtArgs>
+            result: $Utils.Optional<AiCreditLedgerCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1932,6 +2036,7 @@ export namespace Prisma {
     planned?: PlannedOmit
     plannedComment?: PlannedCommentOmit
     plannedLike?: PlannedLikeOmit
+    aiCreditLedger?: AiCreditLedgerOmit
   }
 
   /* Types for Logging */
@@ -2022,6 +2127,7 @@ export namespace Prisma {
     plannedComments: number
     plannedLikes: number
     Project: number
+    aiCreditLedger: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2035,6 +2141,7 @@ export namespace Prisma {
     plannedComments?: boolean | UserCountOutputTypeCountPlannedCommentsArgs
     plannedLikes?: boolean | UserCountOutputTypeCountPlannedLikesArgs
     Project?: boolean | UserCountOutputTypeCountProjectArgs
+    aiCreditLedger?: boolean | UserCountOutputTypeCountAiCreditLedgerArgs
   }
 
   // Custom InputTypes
@@ -2116,6 +2223,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProjectWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiCreditLedgerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiCreditLedgerWhereInput
   }
 
 
@@ -2467,6 +2581,7 @@ export namespace Prisma {
     plannedComments?: boolean | User$plannedCommentsArgs<ExtArgs>
     plannedLikes?: boolean | User$plannedLikesArgs<ExtArgs>
     Project?: boolean | User$ProjectArgs<ExtArgs>
+    aiCreditLedger?: boolean | User$aiCreditLedgerArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2518,6 +2633,7 @@ export namespace Prisma {
     plannedComments?: boolean | User$plannedCommentsArgs<ExtArgs>
     plannedLikes?: boolean | User$plannedLikesArgs<ExtArgs>
     Project?: boolean | User$ProjectArgs<ExtArgs>
+    aiCreditLedger?: boolean | User$aiCreditLedgerArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2536,6 +2652,7 @@ export namespace Prisma {
       plannedComments: Prisma.$PlannedCommentPayload<ExtArgs>[]
       plannedLikes: Prisma.$PlannedLikePayload<ExtArgs>[]
       Project: Prisma.$ProjectPayload<ExtArgs>[]
+      aiCreditLedger: Prisma.$AiCreditLedgerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2951,6 +3068,7 @@ export namespace Prisma {
     plannedComments<T extends User$plannedCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$plannedCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlannedCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     plannedLikes<T extends User$plannedLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$plannedLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlannedLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Project<T extends User$ProjectArgs<ExtArgs> = {}>(args?: Subset<T, User$ProjectArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiCreditLedger<T extends User$aiCreditLedgerArgs<ExtArgs> = {}>(args?: Subset<T, User$aiCreditLedgerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3614,6 +3732,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiCreditLedger
+   */
+  export type User$aiCreditLedgerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    where?: AiCreditLedgerWhereInput
+    orderBy?: AiCreditLedgerOrderByWithRelationInput | AiCreditLedgerOrderByWithRelationInput[]
+    cursor?: AiCreditLedgerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AiCreditLedgerScalarFieldEnum | AiCreditLedgerScalarFieldEnum[]
   }
 
   /**
@@ -17226,6 +17368,1133 @@ export namespace Prisma {
 
 
   /**
+   * Model AiCreditLedger
+   */
+
+  export type AggregateAiCreditLedger = {
+    _count: AiCreditLedgerCountAggregateOutputType | null
+    _avg: AiCreditLedgerAvgAggregateOutputType | null
+    _sum: AiCreditLedgerSumAggregateOutputType | null
+    _min: AiCreditLedgerMinAggregateOutputType | null
+    _max: AiCreditLedgerMaxAggregateOutputType | null
+  }
+
+  export type AiCreditLedgerAvgAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type AiCreditLedgerSumAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type AiCreditLedgerMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: $Enums.AiCreditLedgerType | null
+    amount: number | null
+    description: string | null
+    externalId: string | null
+    createdAt: Date | null
+  }
+
+  export type AiCreditLedgerMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: $Enums.AiCreditLedgerType | null
+    amount: number | null
+    description: string | null
+    externalId: string | null
+    createdAt: Date | null
+  }
+
+  export type AiCreditLedgerCountAggregateOutputType = {
+    id: number
+    userId: number
+    type: number
+    amount: number
+    description: number
+    externalId: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AiCreditLedgerAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type AiCreditLedgerSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type AiCreditLedgerMinAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    amount?: true
+    description?: true
+    externalId?: true
+    createdAt?: true
+  }
+
+  export type AiCreditLedgerMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    amount?: true
+    description?: true
+    externalId?: true
+    createdAt?: true
+  }
+
+  export type AiCreditLedgerCountAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    amount?: true
+    description?: true
+    externalId?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AiCreditLedgerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiCreditLedger to aggregate.
+     */
+    where?: AiCreditLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiCreditLedgers to fetch.
+     */
+    orderBy?: AiCreditLedgerOrderByWithRelationInput | AiCreditLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AiCreditLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiCreditLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiCreditLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AiCreditLedgers
+    **/
+    _count?: true | AiCreditLedgerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AiCreditLedgerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AiCreditLedgerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AiCreditLedgerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AiCreditLedgerMaxAggregateInputType
+  }
+
+  export type GetAiCreditLedgerAggregateType<T extends AiCreditLedgerAggregateArgs> = {
+        [P in keyof T & keyof AggregateAiCreditLedger]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAiCreditLedger[P]>
+      : GetScalarType<T[P], AggregateAiCreditLedger[P]>
+  }
+
+
+
+
+  export type AiCreditLedgerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiCreditLedgerWhereInput
+    orderBy?: AiCreditLedgerOrderByWithAggregationInput | AiCreditLedgerOrderByWithAggregationInput[]
+    by: AiCreditLedgerScalarFieldEnum[] | AiCreditLedgerScalarFieldEnum
+    having?: AiCreditLedgerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AiCreditLedgerCountAggregateInputType | true
+    _avg?: AiCreditLedgerAvgAggregateInputType
+    _sum?: AiCreditLedgerSumAggregateInputType
+    _min?: AiCreditLedgerMinAggregateInputType
+    _max?: AiCreditLedgerMaxAggregateInputType
+  }
+
+  export type AiCreditLedgerGroupByOutputType = {
+    id: string
+    userId: string
+    type: $Enums.AiCreditLedgerType
+    amount: number
+    description: string | null
+    externalId: string | null
+    metadata: JsonValue | null
+    createdAt: Date
+    _count: AiCreditLedgerCountAggregateOutputType | null
+    _avg: AiCreditLedgerAvgAggregateOutputType | null
+    _sum: AiCreditLedgerSumAggregateOutputType | null
+    _min: AiCreditLedgerMinAggregateOutputType | null
+    _max: AiCreditLedgerMaxAggregateOutputType | null
+  }
+
+  type GetAiCreditLedgerGroupByPayload<T extends AiCreditLedgerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AiCreditLedgerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AiCreditLedgerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AiCreditLedgerGroupByOutputType[P]>
+            : GetScalarType<T[P], AiCreditLedgerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AiCreditLedgerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    amount?: boolean
+    description?: boolean
+    externalId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiCreditLedger"]>
+
+  export type AiCreditLedgerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    amount?: boolean
+    description?: boolean
+    externalId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiCreditLedger"]>
+
+  export type AiCreditLedgerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    amount?: boolean
+    description?: boolean
+    externalId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiCreditLedger"]>
+
+  export type AiCreditLedgerSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    amount?: boolean
+    description?: boolean
+    externalId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type AiCreditLedgerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "amount" | "description" | "externalId" | "metadata" | "createdAt", ExtArgs["result"]["aiCreditLedger"]>
+  export type AiCreditLedgerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AiCreditLedgerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AiCreditLedgerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AiCreditLedgerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AiCreditLedger"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      type: $Enums.AiCreditLedgerType
+      amount: number
+      description: string | null
+      externalId: string | null
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["aiCreditLedger"]>
+    composites: {}
+  }
+
+  type AiCreditLedgerGetPayload<S extends boolean | null | undefined | AiCreditLedgerDefaultArgs> = $Result.GetResult<Prisma.$AiCreditLedgerPayload, S>
+
+  type AiCreditLedgerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AiCreditLedgerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AiCreditLedgerCountAggregateInputType | true
+    }
+
+  export interface AiCreditLedgerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AiCreditLedger'], meta: { name: 'AiCreditLedger' } }
+    /**
+     * Find zero or one AiCreditLedger that matches the filter.
+     * @param {AiCreditLedgerFindUniqueArgs} args - Arguments to find a AiCreditLedger
+     * @example
+     * // Get one AiCreditLedger
+     * const aiCreditLedger = await prisma.aiCreditLedger.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AiCreditLedgerFindUniqueArgs>(args: SelectSubset<T, AiCreditLedgerFindUniqueArgs<ExtArgs>>): Prisma__AiCreditLedgerClient<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AiCreditLedger that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AiCreditLedgerFindUniqueOrThrowArgs} args - Arguments to find a AiCreditLedger
+     * @example
+     * // Get one AiCreditLedger
+     * const aiCreditLedger = await prisma.aiCreditLedger.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AiCreditLedgerFindUniqueOrThrowArgs>(args: SelectSubset<T, AiCreditLedgerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AiCreditLedgerClient<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiCreditLedger that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiCreditLedgerFindFirstArgs} args - Arguments to find a AiCreditLedger
+     * @example
+     * // Get one AiCreditLedger
+     * const aiCreditLedger = await prisma.aiCreditLedger.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AiCreditLedgerFindFirstArgs>(args?: SelectSubset<T, AiCreditLedgerFindFirstArgs<ExtArgs>>): Prisma__AiCreditLedgerClient<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiCreditLedger that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiCreditLedgerFindFirstOrThrowArgs} args - Arguments to find a AiCreditLedger
+     * @example
+     * // Get one AiCreditLedger
+     * const aiCreditLedger = await prisma.aiCreditLedger.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AiCreditLedgerFindFirstOrThrowArgs>(args?: SelectSubset<T, AiCreditLedgerFindFirstOrThrowArgs<ExtArgs>>): Prisma__AiCreditLedgerClient<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AiCreditLedgers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiCreditLedgerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AiCreditLedgers
+     * const aiCreditLedgers = await prisma.aiCreditLedger.findMany()
+     * 
+     * // Get first 10 AiCreditLedgers
+     * const aiCreditLedgers = await prisma.aiCreditLedger.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aiCreditLedgerWithIdOnly = await prisma.aiCreditLedger.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AiCreditLedgerFindManyArgs>(args?: SelectSubset<T, AiCreditLedgerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AiCreditLedger.
+     * @param {AiCreditLedgerCreateArgs} args - Arguments to create a AiCreditLedger.
+     * @example
+     * // Create one AiCreditLedger
+     * const AiCreditLedger = await prisma.aiCreditLedger.create({
+     *   data: {
+     *     // ... data to create a AiCreditLedger
+     *   }
+     * })
+     * 
+     */
+    create<T extends AiCreditLedgerCreateArgs>(args: SelectSubset<T, AiCreditLedgerCreateArgs<ExtArgs>>): Prisma__AiCreditLedgerClient<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AiCreditLedgers.
+     * @param {AiCreditLedgerCreateManyArgs} args - Arguments to create many AiCreditLedgers.
+     * @example
+     * // Create many AiCreditLedgers
+     * const aiCreditLedger = await prisma.aiCreditLedger.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AiCreditLedgerCreateManyArgs>(args?: SelectSubset<T, AiCreditLedgerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AiCreditLedgers and returns the data saved in the database.
+     * @param {AiCreditLedgerCreateManyAndReturnArgs} args - Arguments to create many AiCreditLedgers.
+     * @example
+     * // Create many AiCreditLedgers
+     * const aiCreditLedger = await prisma.aiCreditLedger.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AiCreditLedgers and only return the `id`
+     * const aiCreditLedgerWithIdOnly = await prisma.aiCreditLedger.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AiCreditLedgerCreateManyAndReturnArgs>(args?: SelectSubset<T, AiCreditLedgerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AiCreditLedger.
+     * @param {AiCreditLedgerDeleteArgs} args - Arguments to delete one AiCreditLedger.
+     * @example
+     * // Delete one AiCreditLedger
+     * const AiCreditLedger = await prisma.aiCreditLedger.delete({
+     *   where: {
+     *     // ... filter to delete one AiCreditLedger
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AiCreditLedgerDeleteArgs>(args: SelectSubset<T, AiCreditLedgerDeleteArgs<ExtArgs>>): Prisma__AiCreditLedgerClient<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AiCreditLedger.
+     * @param {AiCreditLedgerUpdateArgs} args - Arguments to update one AiCreditLedger.
+     * @example
+     * // Update one AiCreditLedger
+     * const aiCreditLedger = await prisma.aiCreditLedger.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AiCreditLedgerUpdateArgs>(args: SelectSubset<T, AiCreditLedgerUpdateArgs<ExtArgs>>): Prisma__AiCreditLedgerClient<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AiCreditLedgers.
+     * @param {AiCreditLedgerDeleteManyArgs} args - Arguments to filter AiCreditLedgers to delete.
+     * @example
+     * // Delete a few AiCreditLedgers
+     * const { count } = await prisma.aiCreditLedger.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AiCreditLedgerDeleteManyArgs>(args?: SelectSubset<T, AiCreditLedgerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiCreditLedgers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiCreditLedgerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AiCreditLedgers
+     * const aiCreditLedger = await prisma.aiCreditLedger.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AiCreditLedgerUpdateManyArgs>(args: SelectSubset<T, AiCreditLedgerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiCreditLedgers and returns the data updated in the database.
+     * @param {AiCreditLedgerUpdateManyAndReturnArgs} args - Arguments to update many AiCreditLedgers.
+     * @example
+     * // Update many AiCreditLedgers
+     * const aiCreditLedger = await prisma.aiCreditLedger.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AiCreditLedgers and only return the `id`
+     * const aiCreditLedgerWithIdOnly = await prisma.aiCreditLedger.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AiCreditLedgerUpdateManyAndReturnArgs>(args: SelectSubset<T, AiCreditLedgerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AiCreditLedger.
+     * @param {AiCreditLedgerUpsertArgs} args - Arguments to update or create a AiCreditLedger.
+     * @example
+     * // Update or create a AiCreditLedger
+     * const aiCreditLedger = await prisma.aiCreditLedger.upsert({
+     *   create: {
+     *     // ... data to create a AiCreditLedger
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AiCreditLedger we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AiCreditLedgerUpsertArgs>(args: SelectSubset<T, AiCreditLedgerUpsertArgs<ExtArgs>>): Prisma__AiCreditLedgerClient<$Result.GetResult<Prisma.$AiCreditLedgerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AiCreditLedgers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiCreditLedgerCountArgs} args - Arguments to filter AiCreditLedgers to count.
+     * @example
+     * // Count the number of AiCreditLedgers
+     * const count = await prisma.aiCreditLedger.count({
+     *   where: {
+     *     // ... the filter for the AiCreditLedgers we want to count
+     *   }
+     * })
+    **/
+    count<T extends AiCreditLedgerCountArgs>(
+      args?: Subset<T, AiCreditLedgerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AiCreditLedgerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AiCreditLedger.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiCreditLedgerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AiCreditLedgerAggregateArgs>(args: Subset<T, AiCreditLedgerAggregateArgs>): Prisma.PrismaPromise<GetAiCreditLedgerAggregateType<T>>
+
+    /**
+     * Group by AiCreditLedger.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiCreditLedgerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AiCreditLedgerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AiCreditLedgerGroupByArgs['orderBy'] }
+        : { orderBy?: AiCreditLedgerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AiCreditLedgerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAiCreditLedgerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AiCreditLedger model
+   */
+  readonly fields: AiCreditLedgerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AiCreditLedger.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AiCreditLedgerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AiCreditLedger model
+   */
+  interface AiCreditLedgerFieldRefs {
+    readonly id: FieldRef<"AiCreditLedger", 'String'>
+    readonly userId: FieldRef<"AiCreditLedger", 'String'>
+    readonly type: FieldRef<"AiCreditLedger", 'AiCreditLedgerType'>
+    readonly amount: FieldRef<"AiCreditLedger", 'Int'>
+    readonly description: FieldRef<"AiCreditLedger", 'String'>
+    readonly externalId: FieldRef<"AiCreditLedger", 'String'>
+    readonly metadata: FieldRef<"AiCreditLedger", 'Json'>
+    readonly createdAt: FieldRef<"AiCreditLedger", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AiCreditLedger findUnique
+   */
+  export type AiCreditLedgerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which AiCreditLedger to fetch.
+     */
+    where: AiCreditLedgerWhereUniqueInput
+  }
+
+  /**
+   * AiCreditLedger findUniqueOrThrow
+   */
+  export type AiCreditLedgerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which AiCreditLedger to fetch.
+     */
+    where: AiCreditLedgerWhereUniqueInput
+  }
+
+  /**
+   * AiCreditLedger findFirst
+   */
+  export type AiCreditLedgerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which AiCreditLedger to fetch.
+     */
+    where?: AiCreditLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiCreditLedgers to fetch.
+     */
+    orderBy?: AiCreditLedgerOrderByWithRelationInput | AiCreditLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiCreditLedgers.
+     */
+    cursor?: AiCreditLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiCreditLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiCreditLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiCreditLedgers.
+     */
+    distinct?: AiCreditLedgerScalarFieldEnum | AiCreditLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * AiCreditLedger findFirstOrThrow
+   */
+  export type AiCreditLedgerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which AiCreditLedger to fetch.
+     */
+    where?: AiCreditLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiCreditLedgers to fetch.
+     */
+    orderBy?: AiCreditLedgerOrderByWithRelationInput | AiCreditLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiCreditLedgers.
+     */
+    cursor?: AiCreditLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiCreditLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiCreditLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiCreditLedgers.
+     */
+    distinct?: AiCreditLedgerScalarFieldEnum | AiCreditLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * AiCreditLedger findMany
+   */
+  export type AiCreditLedgerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which AiCreditLedgers to fetch.
+     */
+    where?: AiCreditLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiCreditLedgers to fetch.
+     */
+    orderBy?: AiCreditLedgerOrderByWithRelationInput | AiCreditLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AiCreditLedgers.
+     */
+    cursor?: AiCreditLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiCreditLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiCreditLedgers.
+     */
+    skip?: number
+    distinct?: AiCreditLedgerScalarFieldEnum | AiCreditLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * AiCreditLedger create
+   */
+  export type AiCreditLedgerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AiCreditLedger.
+     */
+    data: XOR<AiCreditLedgerCreateInput, AiCreditLedgerUncheckedCreateInput>
+  }
+
+  /**
+   * AiCreditLedger createMany
+   */
+  export type AiCreditLedgerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AiCreditLedgers.
+     */
+    data: AiCreditLedgerCreateManyInput | AiCreditLedgerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AiCreditLedger createManyAndReturn
+   */
+  export type AiCreditLedgerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * The data used to create many AiCreditLedgers.
+     */
+    data: AiCreditLedgerCreateManyInput | AiCreditLedgerCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiCreditLedger update
+   */
+  export type AiCreditLedgerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AiCreditLedger.
+     */
+    data: XOR<AiCreditLedgerUpdateInput, AiCreditLedgerUncheckedUpdateInput>
+    /**
+     * Choose, which AiCreditLedger to update.
+     */
+    where: AiCreditLedgerWhereUniqueInput
+  }
+
+  /**
+   * AiCreditLedger updateMany
+   */
+  export type AiCreditLedgerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AiCreditLedgers.
+     */
+    data: XOR<AiCreditLedgerUpdateManyMutationInput, AiCreditLedgerUncheckedUpdateManyInput>
+    /**
+     * Filter which AiCreditLedgers to update
+     */
+    where?: AiCreditLedgerWhereInput
+    /**
+     * Limit how many AiCreditLedgers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiCreditLedger updateManyAndReturn
+   */
+  export type AiCreditLedgerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * The data used to update AiCreditLedgers.
+     */
+    data: XOR<AiCreditLedgerUpdateManyMutationInput, AiCreditLedgerUncheckedUpdateManyInput>
+    /**
+     * Filter which AiCreditLedgers to update
+     */
+    where?: AiCreditLedgerWhereInput
+    /**
+     * Limit how many AiCreditLedgers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiCreditLedger upsert
+   */
+  export type AiCreditLedgerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AiCreditLedger to update in case it exists.
+     */
+    where: AiCreditLedgerWhereUniqueInput
+    /**
+     * In case the AiCreditLedger found by the `where` argument doesn't exist, create a new AiCreditLedger with this data.
+     */
+    create: XOR<AiCreditLedgerCreateInput, AiCreditLedgerUncheckedCreateInput>
+    /**
+     * In case the AiCreditLedger was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AiCreditLedgerUpdateInput, AiCreditLedgerUncheckedUpdateInput>
+  }
+
+  /**
+   * AiCreditLedger delete
+   */
+  export type AiCreditLedgerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+    /**
+     * Filter which AiCreditLedger to delete.
+     */
+    where: AiCreditLedgerWhereUniqueInput
+  }
+
+  /**
+   * AiCreditLedger deleteMany
+   */
+  export type AiCreditLedgerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiCreditLedgers to delete
+     */
+    where?: AiCreditLedgerWhereInput
+    /**
+     * Limit how many AiCreditLedgers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiCreditLedger without action
+   */
+  export type AiCreditLedgerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiCreditLedger
+     */
+    select?: AiCreditLedgerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiCreditLedger
+     */
+    omit?: AiCreditLedgerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiCreditLedgerInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17420,12 +18689,34 @@ export namespace Prisma {
   export type PlannedLikeScalarFieldEnum = (typeof PlannedLikeScalarFieldEnum)[keyof typeof PlannedLikeScalarFieldEnum]
 
 
+  export const AiCreditLedgerScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    amount: 'amount',
+    description: 'description',
+    externalId: 'externalId',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type AiCreditLedgerScalarFieldEnum = (typeof AiCreditLedgerScalarFieldEnum)[keyof typeof AiCreditLedgerScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -17442,6 +18733,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -17569,6 +18869,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'AiCreditLedgerType'
+   */
+  export type EnumAiCreditLedgerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiCreditLedgerType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AiCreditLedgerType[]'
+   */
+  export type ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiCreditLedgerType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -17608,6 +18936,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentListRelationFilter
     plannedLikes?: PlannedLikeListRelationFilter
     Project?: ProjectListRelationFilter
+    aiCreditLedger?: AiCreditLedgerListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17630,6 +18959,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentOrderByRelationAggregateInput
     plannedLikes?: PlannedLikeOrderByRelationAggregateInput
     Project?: ProjectOrderByRelationAggregateInput
+    aiCreditLedger?: AiCreditLedgerOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17655,6 +18985,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentListRelationFilter
     plannedLikes?: PlannedLikeListRelationFilter
     Project?: ProjectListRelationFilter
+    aiCreditLedger?: AiCreditLedgerListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -18574,6 +19905,78 @@ export namespace Prisma {
     plannedId?: StringWithAggregatesFilter<"PlannedLike"> | string
   }
 
+  export type AiCreditLedgerWhereInput = {
+    AND?: AiCreditLedgerWhereInput | AiCreditLedgerWhereInput[]
+    OR?: AiCreditLedgerWhereInput[]
+    NOT?: AiCreditLedgerWhereInput | AiCreditLedgerWhereInput[]
+    id?: StringFilter<"AiCreditLedger"> | string
+    userId?: StringFilter<"AiCreditLedger"> | string
+    type?: EnumAiCreditLedgerTypeFilter<"AiCreditLedger"> | $Enums.AiCreditLedgerType
+    amount?: IntFilter<"AiCreditLedger"> | number
+    description?: StringNullableFilter<"AiCreditLedger"> | string | null
+    externalId?: StringNullableFilter<"AiCreditLedger"> | string | null
+    metadata?: JsonNullableFilter<"AiCreditLedger">
+    createdAt?: DateTimeFilter<"AiCreditLedger"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AiCreditLedgerOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    description?: SortOrderInput | SortOrder
+    externalId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AiCreditLedgerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    externalId?: string
+    AND?: AiCreditLedgerWhereInput | AiCreditLedgerWhereInput[]
+    OR?: AiCreditLedgerWhereInput[]
+    NOT?: AiCreditLedgerWhereInput | AiCreditLedgerWhereInput[]
+    userId?: StringFilter<"AiCreditLedger"> | string
+    type?: EnumAiCreditLedgerTypeFilter<"AiCreditLedger"> | $Enums.AiCreditLedgerType
+    amount?: IntFilter<"AiCreditLedger"> | number
+    description?: StringNullableFilter<"AiCreditLedger"> | string | null
+    metadata?: JsonNullableFilter<"AiCreditLedger">
+    createdAt?: DateTimeFilter<"AiCreditLedger"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "externalId">
+
+  export type AiCreditLedgerOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    description?: SortOrderInput | SortOrder
+    externalId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: AiCreditLedgerCountOrderByAggregateInput
+    _avg?: AiCreditLedgerAvgOrderByAggregateInput
+    _max?: AiCreditLedgerMaxOrderByAggregateInput
+    _min?: AiCreditLedgerMinOrderByAggregateInput
+    _sum?: AiCreditLedgerSumOrderByAggregateInput
+  }
+
+  export type AiCreditLedgerScalarWhereWithAggregatesInput = {
+    AND?: AiCreditLedgerScalarWhereWithAggregatesInput | AiCreditLedgerScalarWhereWithAggregatesInput[]
+    OR?: AiCreditLedgerScalarWhereWithAggregatesInput[]
+    NOT?: AiCreditLedgerScalarWhereWithAggregatesInput | AiCreditLedgerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AiCreditLedger"> | string
+    userId?: StringWithAggregatesFilter<"AiCreditLedger"> | string
+    type?: EnumAiCreditLedgerTypeWithAggregatesFilter<"AiCreditLedger"> | $Enums.AiCreditLedgerType
+    amount?: IntWithAggregatesFilter<"AiCreditLedger"> | number
+    description?: StringNullableWithAggregatesFilter<"AiCreditLedger"> | string | null
+    externalId?: StringNullableWithAggregatesFilter<"AiCreditLedger"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"AiCreditLedger">
+    createdAt?: DateTimeWithAggregatesFilter<"AiCreditLedger"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -18594,6 +19997,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -18616,6 +20020,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -18638,6 +20043,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -18660,6 +20066,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -19619,6 +21026,82 @@ export namespace Prisma {
     plannedId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type AiCreditLedgerCreateInput = {
+    id?: string
+    type: $Enums.AiCreditLedgerType
+    amount: number
+    description?: string | null
+    externalId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAiCreditLedgerInput
+  }
+
+  export type AiCreditLedgerUncheckedCreateInput = {
+    id?: string
+    userId: string
+    type: $Enums.AiCreditLedgerType
+    amount: number
+    description?: string | null
+    externalId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AiCreditLedgerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAiCreditLedgerTypeFieldUpdateOperationsInput | $Enums.AiCreditLedgerType
+    amount?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiCreditLedgerNestedInput
+  }
+
+  export type AiCreditLedgerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumAiCreditLedgerTypeFieldUpdateOperationsInput | $Enums.AiCreditLedgerType
+    amount?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiCreditLedgerCreateManyInput = {
+    id?: string
+    userId: string
+    type: $Enums.AiCreditLedgerType
+    amount: number
+    description?: string | null
+    externalId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AiCreditLedgerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAiCreditLedgerTypeFieldUpdateOperationsInput | $Enums.AiCreditLedgerType
+    amount?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiCreditLedgerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumAiCreditLedgerTypeFieldUpdateOperationsInput | $Enums.AiCreditLedgerType
+    amount?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19736,6 +21219,12 @@ export namespace Prisma {
     none?: ProjectWhereInput
   }
 
+  export type AiCreditLedgerListRelationFilter = {
+    every?: AiCreditLedgerWhereInput
+    some?: AiCreditLedgerWhereInput
+    none?: AiCreditLedgerWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -19778,6 +21267,10 @@ export namespace Prisma {
   }
 
   export type ProjectOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AiCreditLedgerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20524,6 +22017,111 @@ export namespace Prisma {
     plannedId?: SortOrder
   }
 
+  export type EnumAiCreditLedgerTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiCreditLedgerType | EnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AiCreditLedgerType[] | ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiCreditLedgerType[] | ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiCreditLedgerTypeFilter<$PrismaModel> | $Enums.AiCreditLedgerType
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type AiCreditLedgerCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    description?: SortOrder
+    externalId?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AiCreditLedgerAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type AiCreditLedgerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    description?: SortOrder
+    externalId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AiCreditLedgerMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    description?: SortOrder
+    externalId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AiCreditLedgerSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EnumAiCreditLedgerTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiCreditLedgerType | EnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AiCreditLedgerType[] | ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiCreditLedgerType[] | ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiCreditLedgerTypeWithAggregatesFilter<$PrismaModel> | $Enums.AiCreditLedgerType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAiCreditLedgerTypeFilter<$PrismaModel>
+    _max?: NestedEnumAiCreditLedgerTypeFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20594,6 +22192,13 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
+  export type AiCreditLedgerCreateNestedManyWithoutUserInput = {
+    create?: XOR<AiCreditLedgerCreateWithoutUserInput, AiCreditLedgerUncheckedCreateWithoutUserInput> | AiCreditLedgerCreateWithoutUserInput[] | AiCreditLedgerUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiCreditLedgerCreateOrConnectWithoutUserInput | AiCreditLedgerCreateOrConnectWithoutUserInput[]
+    createMany?: AiCreditLedgerCreateManyUserInputEnvelope
+    connect?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20662,6 +22267,13 @@ export namespace Prisma {
     connectOrCreate?: ProjectCreateOrConnectWithoutCreatorInput | ProjectCreateOrConnectWithoutCreatorInput[]
     createMany?: ProjectCreateManyCreatorInputEnvelope
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+  }
+
+  export type AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AiCreditLedgerCreateWithoutUserInput, AiCreditLedgerUncheckedCreateWithoutUserInput> | AiCreditLedgerCreateWithoutUserInput[] | AiCreditLedgerUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiCreditLedgerCreateOrConnectWithoutUserInput | AiCreditLedgerCreateOrConnectWithoutUserInput[]
+    createMany?: AiCreditLedgerCreateManyUserInputEnvelope
+    connect?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -20824,6 +22436,20 @@ export namespace Prisma {
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
+  export type AiCreditLedgerUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AiCreditLedgerCreateWithoutUserInput, AiCreditLedgerUncheckedCreateWithoutUserInput> | AiCreditLedgerCreateWithoutUserInput[] | AiCreditLedgerUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiCreditLedgerCreateOrConnectWithoutUserInput | AiCreditLedgerCreateOrConnectWithoutUserInput[]
+    upsert?: AiCreditLedgerUpsertWithWhereUniqueWithoutUserInput | AiCreditLedgerUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AiCreditLedgerCreateManyUserInputEnvelope
+    set?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+    disconnect?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+    delete?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+    connect?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+    update?: AiCreditLedgerUpdateWithWhereUniqueWithoutUserInput | AiCreditLedgerUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AiCreditLedgerUpdateManyWithWhereWithoutUserInput | AiCreditLedgerUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AiCreditLedgerScalarWhereInput | AiCreditLedgerScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20962,6 +22588,20 @@ export namespace Prisma {
     update?: ProjectUpdateWithWhereUniqueWithoutCreatorInput | ProjectUpdateWithWhereUniqueWithoutCreatorInput[]
     updateMany?: ProjectUpdateManyWithWhereWithoutCreatorInput | ProjectUpdateManyWithWhereWithoutCreatorInput[]
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+  }
+
+  export type AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AiCreditLedgerCreateWithoutUserInput, AiCreditLedgerUncheckedCreateWithoutUserInput> | AiCreditLedgerCreateWithoutUserInput[] | AiCreditLedgerUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiCreditLedgerCreateOrConnectWithoutUserInput | AiCreditLedgerCreateOrConnectWithoutUserInput[]
+    upsert?: AiCreditLedgerUpsertWithWhereUniqueWithoutUserInput | AiCreditLedgerUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AiCreditLedgerCreateManyUserInputEnvelope
+    set?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+    disconnect?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+    delete?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+    connect?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
+    update?: AiCreditLedgerUpdateWithWhereUniqueWithoutUserInput | AiCreditLedgerUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AiCreditLedgerUpdateManyWithWhereWithoutUserInput | AiCreditLedgerUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AiCreditLedgerScalarWhereInput | AiCreditLedgerScalarWhereInput[]
   }
 
   export type MembershipCreateNestedManyWithoutAppInput = {
@@ -21602,6 +23242,24 @@ export namespace Prisma {
     update?: XOR<XOR<PlannedUpdateToOneWithWhereWithoutLikesInput, PlannedUpdateWithoutLikesInput>, PlannedUncheckedUpdateWithoutLikesInput>
   }
 
+  export type UserCreateNestedOneWithoutAiCreditLedgerInput = {
+    create?: XOR<UserCreateWithoutAiCreditLedgerInput, UserUncheckedCreateWithoutAiCreditLedgerInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiCreditLedgerInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumAiCreditLedgerTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AiCreditLedgerType
+  }
+
+  export type UserUpdateOneRequiredWithoutAiCreditLedgerNestedInput = {
+    create?: XOR<UserCreateWithoutAiCreditLedgerInput, UserUncheckedCreateWithoutAiCreditLedgerInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiCreditLedgerInput
+    upsert?: UserUpsertWithoutAiCreditLedgerInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiCreditLedgerInput, UserUpdateWithoutAiCreditLedgerInput>, UserUncheckedUpdateWithoutAiCreditLedgerInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -21896,6 +23554,46 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPriorityFilter<$PrismaModel>
     _max?: NestedEnumPriorityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAiCreditLedgerTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiCreditLedgerType | EnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AiCreditLedgerType[] | ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiCreditLedgerType[] | ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiCreditLedgerTypeFilter<$PrismaModel> | $Enums.AiCreditLedgerType
+  }
+
+  export type NestedEnumAiCreditLedgerTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiCreditLedgerType | EnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AiCreditLedgerType[] | ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiCreditLedgerType[] | ListEnumAiCreditLedgerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiCreditLedgerTypeWithAggregatesFilter<$PrismaModel> | $Enums.AiCreditLedgerType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAiCreditLedgerTypeFilter<$PrismaModel>
+    _max?: NestedEnumAiCreditLedgerTypeFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -22211,6 +23909,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AiCreditLedgerCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.AiCreditLedgerType
+    amount: number
+    description?: string | null
+    externalId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AiCreditLedgerUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.AiCreditLedgerType
+    amount: number
+    description?: string | null
+    externalId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type AiCreditLedgerCreateOrConnectWithoutUserInput = {
+    where: AiCreditLedgerWhereUniqueInput
+    create: XOR<AiCreditLedgerCreateWithoutUserInput, AiCreditLedgerUncheckedCreateWithoutUserInput>
+  }
+
+  export type AiCreditLedgerCreateManyUserInputEnvelope = {
+    data: AiCreditLedgerCreateManyUserInput | AiCreditLedgerCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -22513,6 +24241,36 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     appId?: StringFilter<"Project"> | string
+  }
+
+  export type AiCreditLedgerUpsertWithWhereUniqueWithoutUserInput = {
+    where: AiCreditLedgerWhereUniqueInput
+    update: XOR<AiCreditLedgerUpdateWithoutUserInput, AiCreditLedgerUncheckedUpdateWithoutUserInput>
+    create: XOR<AiCreditLedgerCreateWithoutUserInput, AiCreditLedgerUncheckedCreateWithoutUserInput>
+  }
+
+  export type AiCreditLedgerUpdateWithWhereUniqueWithoutUserInput = {
+    where: AiCreditLedgerWhereUniqueInput
+    data: XOR<AiCreditLedgerUpdateWithoutUserInput, AiCreditLedgerUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AiCreditLedgerUpdateManyWithWhereWithoutUserInput = {
+    where: AiCreditLedgerScalarWhereInput
+    data: XOR<AiCreditLedgerUpdateManyMutationInput, AiCreditLedgerUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AiCreditLedgerScalarWhereInput = {
+    AND?: AiCreditLedgerScalarWhereInput | AiCreditLedgerScalarWhereInput[]
+    OR?: AiCreditLedgerScalarWhereInput[]
+    NOT?: AiCreditLedgerScalarWhereInput | AiCreditLedgerScalarWhereInput[]
+    id?: StringFilter<"AiCreditLedger"> | string
+    userId?: StringFilter<"AiCreditLedger"> | string
+    type?: EnumAiCreditLedgerTypeFilter<"AiCreditLedger"> | $Enums.AiCreditLedgerType
+    amount?: IntFilter<"AiCreditLedger"> | number
+    description?: StringNullableFilter<"AiCreditLedger"> | string | null
+    externalId?: StringNullableFilter<"AiCreditLedger"> | string | null
+    metadata?: JsonNullableFilter<"AiCreditLedger">
+    createdAt?: DateTimeFilter<"AiCreditLedger"> | Date | string
   }
 
   export type MembershipCreateWithoutAppInput = {
@@ -22818,6 +24576,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -22839,6 +24598,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -22915,6 +24675,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -22936,6 +24697,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AppCreateWithoutInvitationsInput = {
@@ -22990,6 +24752,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInvitationsSentInput = {
@@ -23011,6 +24774,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInvitationsSentInput = {
@@ -23087,6 +24851,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInvitationsSentInput = {
@@ -23108,6 +24873,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -23129,6 +24895,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -23150,6 +24917,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -23187,6 +24955,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -23208,6 +24977,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -23229,6 +24999,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -23250,6 +25021,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -23287,6 +25059,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -23308,6 +25081,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAuthenticatorInput = {
@@ -23329,6 +25103,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuthenticatorInput = {
@@ -23350,6 +25125,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuthenticatorInput = {
@@ -23387,6 +25163,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuthenticatorInput = {
@@ -23408,6 +25185,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProjectInput = {
@@ -23429,6 +25207,7 @@ export namespace Prisma {
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectInput = {
@@ -23450,6 +25229,7 @@ export namespace Prisma {
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectInput = {
@@ -23566,6 +25346,7 @@ export namespace Prisma {
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectInput = {
@@ -23587,6 +25368,7 @@ export namespace Prisma {
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PlannedUpsertWithWhereUniqueWithoutProjectInput = {
@@ -23696,6 +25478,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEssentialsInput = {
@@ -23717,6 +25500,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEssentialsInput = {
@@ -23793,6 +25577,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEssentialsInput = {
@@ -23814,6 +25599,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AppCreateWithoutPlannedsInput = {
@@ -23868,6 +25654,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPlannedsInput = {
@@ -23889,6 +25676,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPlannedsInput = {
@@ -24038,6 +25826,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPlannedsInput = {
@@ -24059,6 +25848,7 @@ export namespace Prisma {
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutPlannedItemsInput = {
@@ -24143,6 +25933,7 @@ export namespace Prisma {
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
     plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPlannedCommentsInput = {
@@ -24164,6 +25955,7 @@ export namespace Prisma {
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
     plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPlannedCommentsInput = {
@@ -24243,6 +26035,7 @@ export namespace Prisma {
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
     plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPlannedCommentsInput = {
@@ -24264,6 +26057,7 @@ export namespace Prisma {
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
     plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PlannedUpsertWithoutCommentsInput = {
@@ -24333,6 +26127,7 @@ export namespace Prisma {
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
     plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
     Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPlannedLikesInput = {
@@ -24354,6 +26149,7 @@ export namespace Prisma {
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
     plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
     Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPlannedLikesInput = {
@@ -24433,6 +26229,7 @@ export namespace Prisma {
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
     plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
     Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPlannedLikesInput = {
@@ -24454,6 +26251,7 @@ export namespace Prisma {
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
     plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PlannedUpsertWithoutLikesInput = {
@@ -24502,6 +26300,110 @@ export namespace Prisma {
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
     projectAppId?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: PlannedCommentUncheckedUpdateManyWithoutPlannedNestedInput
+  }
+
+  export type UserCreateWithoutAiCreditLedgerInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    isBetaTester?: boolean
+    isProUser?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
+    essentials?: EssentialCreateNestedManyWithoutCreatorInput
+    planneds?: PlannedCreateNestedManyWithoutCreatorInput
+    plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
+    plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
+    Project?: ProjectCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutAiCreditLedgerInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    isBetaTester?: boolean
+    isProUser?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
+    planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
+    plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
+    plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
+    Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutAiCreditLedgerInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiCreditLedgerInput, UserUncheckedCreateWithoutAiCreditLedgerInput>
+  }
+
+  export type UserUpsertWithoutAiCreditLedgerInput = {
+    update: XOR<UserUpdateWithoutAiCreditLedgerInput, UserUncheckedUpdateWithoutAiCreditLedgerInput>
+    create: XOR<UserCreateWithoutAiCreditLedgerInput, UserUncheckedCreateWithoutAiCreditLedgerInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiCreditLedgerInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiCreditLedgerInput, UserUncheckedUpdateWithoutAiCreditLedgerInput>
+  }
+
+  export type UserUpdateWithoutAiCreditLedgerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isBetaTester?: BoolFieldUpdateOperationsInput | boolean
+    isProUser?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
+    essentials?: EssentialUpdateManyWithoutCreatorNestedInput
+    planneds?: PlannedUpdateManyWithoutCreatorNestedInput
+    plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
+    plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
+    Project?: ProjectUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiCreditLedgerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isBetaTester?: BoolFieldUpdateOperationsInput | boolean
+    isProUser?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
+    planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
+    plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
+    Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -24606,6 +26508,16 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     appId: string
+  }
+
+  export type AiCreditLedgerCreateManyUserInput = {
+    id?: string
+    type: $Enums.AiCreditLedgerType
+    amount: number
+    description?: string | null
+    externalId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -24923,6 +26835,36 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AiCreditLedgerUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAiCreditLedgerTypeFieldUpdateOperationsInput | $Enums.AiCreditLedgerType
+    amount?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiCreditLedgerUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAiCreditLedgerTypeFieldUpdateOperationsInput | $Enums.AiCreditLedgerType
+    amount?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiCreditLedgerUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAiCreditLedgerTypeFieldUpdateOperationsInput | $Enums.AiCreditLedgerType
+    amount?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MembershipCreateManyAppInput = {

@@ -21,11 +21,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.19.1
+ * Prisma Client JS version: 6.19.3
  * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
  */
 Prisma.prismaVersion = {
-  client: "6.19.1",
+  client: "6.19.3",
   engine: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7"
 }
 
@@ -263,9 +263,25 @@ exports.Prisma.PlannedLikeScalarFieldEnum = {
   plannedId: 'plannedId'
 };
 
+exports.Prisma.AiCreditLedgerScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  amount: 'amount',
+  description: 'description',
+  externalId: 'externalId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -276,6 +292,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   OWNER: 'OWNER',
@@ -303,6 +325,13 @@ exports.Priority = exports.$Enums.Priority = {
   URGENT: 'URGENT'
 };
 
+exports.AiCreditLedgerType = exports.$Enums.AiCreditLedgerType = {
+  PURCHASE: 'PURCHASE',
+  DEDUCTION: 'DEDUCTION',
+  REFUND: 'REFUND',
+  ADJUSTMENT: 'ADJUSTMENT'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   App: 'App',
@@ -316,7 +345,8 @@ exports.Prisma.ModelName = {
   Essential: 'Essential',
   Planned: 'Planned',
   PlannedComment: 'PlannedComment',
-  PlannedLike: 'PlannedLike'
+  PlannedLike: 'PlannedLike',
+  AiCreditLedger: 'AiCreditLedger'
 };
 
 /**

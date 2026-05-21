@@ -197,6 +197,7 @@
       "deleteConfirmTitle": "Delete planned item",
       "markAsPurchased": "Mark as Purchased",
       "revertToPending": "Revert to Pending",
+      "add": "Add item",
       "save": "Save",
       "markAsPurchasedDescription": "Do you want to mark this item as purchased?",
       "revertToPendingDescription": "Do you want to revert this item to pending?"
@@ -205,6 +206,7 @@
       "blockedUrl": "This product URL is not allowed.",
       "description": "Paste a product URL to autofill the form.",
       "extract": "Extract",
+      "generateDetails": "Generate item details",
       "extractComplete": "Product details added to the form.",
       "extractFailed": "Failed to extract product details.",
       "invalidUrl": "Enter a valid product URL.",
@@ -214,8 +216,15 @@
       "placeholder": "https://example.com/product",
       "rateLimited": "You reached the hourly AI extraction limit. Please wait and try again.",
       "proBetaOnly": "This feature is available only to Pro beta users.",
+      "creditsRequired": "Add AI extraction credits to use this feature.",
+      "creditsLoading": "Checking credits...",
+      "creditsRemaining": "{count, plural, =0 {No AI credits} one {# AI credit} other {# AI credits}}",
+      "addStarterCredits": "$1 / 100",
+      "addValueCredits": "$3 / 350",
+      "checkoutFailed": "Could not start credit checkout.",
       "clearUrl": "Clear URL",
       "extractedImage": "Extracted image",
+      "reviewHint": "AI will fill what it can. Review before saving.",
       "beta": "Beta"
     },
     "comments": {
@@ -226,6 +235,9 @@
     },
     "create": {
       "description": "Add a new item to your planned list.",
+      "manualDescription": "Enter the item details yourself.",
+      "manualTitle": "Fill manually",
+      "separator": "or",
       "title": "Create a new item"
     },
     "description": "Your planned shopping list items.  You can send to an existing project or keep in backlog for better organization.",
@@ -241,13 +253,19 @@
     "fields": {
       "description": "Description (optional)",
       "descriptionPlaceholder": "Add description or notes",
+      "decreaseQuantity": "Decrease quantity",
+      "imageHint": "JPG or PNG up to 5MB",
+      "increaseQuantity": "Increase quantity",
       "itemName": "Item Name",
+      "itemNamePlaceholder": "e.g. Running Shoes",
       "link": "Link",
-      "linkPlaceholder": "www.example.com/product",
+      "linkPlaceholder": "https://example.com/product",
       "price": "Price",
+      "pricePlaceholder": "0.00",
       "priority": "Priority",
       "priorityPlaceholder": "Select Priority",
       "quantity": "Quantity",
+      "quantityPlaceholder": "1",
       "image": "Image"
     },
     "title": "All Project Items",
@@ -322,6 +340,22 @@
     "tutorialDescription": "Go through the tutorial to master the app",
     "homeTitle": "Home",
     "appearance": "Appearance",
+    "aiCredits": {
+      "section": "AI credits",
+      "rowTitle": "Manage AI extraction credits",
+      "rowDescription": "View balance and add credits.",
+      "title": "AI extraction credits",
+      "remainingTitle": "Remaining credits",
+      "remainingCount": "{count, plural, =0 {0 credits} one {# credit} other {# credits}}",
+      "description": "Credits are used only for AI product extraction.",
+      "addCredits": "Add credits",
+      "packsTitle": "Credit packs",
+      "costNote": "One-time credit packs help cover AI processing costs. This is not a subscription.",
+      "starterPack": "$1 / 100 credits",
+      "valuePack": "$3 / 350 credits",
+      "redirecting": "Redirecting...",
+      "checkoutFailed": "Could not start credit checkout."
+    },
     "developedBy": "Developed by {name}"
   },
   "Sidebar": {

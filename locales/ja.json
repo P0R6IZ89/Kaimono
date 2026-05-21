@@ -197,6 +197,7 @@
       "deleteConfirmTitle": "計画アイテムを削除",
       "markAsPurchased": "購入済みにする",
       "revertToPending": "保留に戻す",
+      "add": "アイテムを追加",
       "save": "保存",
       "markAsPurchasedDescription": "このアイテムを購入済みにしますか？",
       "revertToPendingDescription": "このアイテムを保留に戻しますか？"
@@ -205,6 +206,7 @@
       "blockedUrl": "この商品 URL は使用できません。",
       "description": "商品 URL を貼り付けると、抽出した情報でフォームを入力します。",
       "extract": "抽出",
+      "generateDetails": "アイテム情報を生成",
       "extractComplete": "商品情報をフォームに反映しました。",
       "extractFailed": "商品情報を抽出できませんでした。",
       "invalidUrl": "有効な商品 URL を入力してください。",
@@ -214,8 +216,15 @@
       "placeholder": "https://example.com/product",
       "rateLimited": "1時間あたりの AI 抽出上限に達しました。しばらく待ってから再試行してください。",
       "proBetaOnly": "この機能は Pro ベータユーザーのみ利用できます。",
+      "creditsRequired": "この機能を使うには AI 抽出クレジットを追加してください。",
+      "creditsLoading": "クレジットを確認中...",
+      "creditsRemaining": "{count, plural, =0 {AI クレジットなし} other {AI クレジット # 件}}",
+      "addStarterCredits": "$1 / 100",
+      "addValueCredits": "$3 / 350",
+      "checkoutFailed": "クレジット購入画面を開始できませんでした。",
       "clearUrl": "URLをクリア",
       "extractedImage": "抽出した画像",
+      "reviewHint": "AI が取得できる情報を入力します。保存前に確認してください。",
       "beta": "ベータ機能"
     },
     "comments": {
@@ -226,6 +235,9 @@
     },
     "create": {
       "description": "計画リストに新しいアイテムを追加します。",
+      "manualDescription": "アイテムの詳細を自分で入力します。",
+      "manualTitle": "手動で入力",
+      "separator": "または",
       "title": "計画アイテムを追加"
     },
     "description": "計画中の買い物アイテムです。既存プロジェクトに送るか、整理のためにバックログに残せます。",
@@ -241,13 +253,19 @@
     "fields": {
       "description": "説明（任意）",
       "descriptionPlaceholder": "説明やメモを追加（任意）",
+      "decreaseQuantity": "数量を減らす",
+      "imageHint": "JPG、PNG（最大5MB）",
+      "increaseQuantity": "数量を増やす",
       "itemName": "アイテム名",
+      "itemNamePlaceholder": "例：ランニングシューズ",
       "link": "リンク（任意）",
-      "linkPlaceholder": "商品リンクを入力（任意）",
+      "linkPlaceholder": "https://example.com/product",
       "price": "価格",
+      "pricePlaceholder": "0.00",
       "priority": "優先度",
       "priorityPlaceholder": "優先度を選択",
       "quantity": "数量",
+      "quantityPlaceholder": "1",
       "image": "画像"
     },
     "title": "計画",
@@ -322,6 +340,22 @@
     "tutorialDescription": "チュートリアルでアプリの使い方を学ぶ",
     "homeTitle": "ホーム",
     "appearance": "外観",
+    "aiCredits": {
+      "section": "AI クレジット",
+      "rowTitle": "AI 抽出クレジットを管理",
+      "rowDescription": "残高の確認とクレジット追加を行います。",
+      "title": "AI 抽出クレジット",
+      "remainingTitle": "残りクレジット",
+      "remainingCount": "{count, plural, =0 {0 クレジット} other {# クレジット}}",
+      "description": "クレジットは AI による商品情報の抽出にのみ使用されます。",
+      "addCredits": "クレジットを追加",
+      "packsTitle": "クレジットパック",
+      "costNote": "1回払いのクレジットパックは AI 処理コストをまかなうためのものです。サブスクリプションではありません。",
+      "starterPack": "$1 / 100 クレジット",
+      "valuePack": "$3 / 350 クレジット",
+      "redirecting": "移動中...",
+      "checkoutFailed": "クレジット購入画面を開始できませんでした。"
+    },
     "developedBy": "{name} が開発"
   },
   "Sidebar": {

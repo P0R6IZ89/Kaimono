@@ -1,7 +1,7 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
-const AI_EXTRACT_LIMIT = 20;
+const AI_EXTRACT_LIMIT = 30;
 const AI_EXTRACT_WINDOW = "1 h";
 
 export type RateLimitCheckResult = {
