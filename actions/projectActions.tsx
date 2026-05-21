@@ -351,7 +351,7 @@ export async function editProjectAction(
 export async function deleteProjectAction(
   subdomain: string,
   projectId: string,
-) {
+): Promise<ActionResult> {
   const { appId } = await requireMembership(subdomain);
 
   const project = await prisma.project.findFirst({

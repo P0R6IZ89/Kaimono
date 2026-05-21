@@ -1,11 +1,14 @@
 import { cn } from "@/lib/utils";
 import { HomeTopBarImage } from "./HomeTopBarImage";
+import { PlusCircle } from "lucide-react";
+import { ProjectCreateDialog } from "../projects/components/project-create-dialog";
 
 type HomeTopBarItem = {
   id: string;
-  name: string;
+  name?: string | null | undefined;
   image?: string | null;
   icon?: string | null;
+  type?: string | undefined;
 }[];
 
 export function HomeTopBar({
@@ -28,9 +31,9 @@ export function HomeTopBar({
           className="group flex max-w-20 flex-col items-center gap-2 rounded-lg focus-visible:outline-none overflow-clip"
         >
           <HomeTopBarImage
-            isDefaultImage={!!project.id && project.id === "1"}
+            projectType={project.type}
             imageSrc={project.image}
-            alt={project.name}
+            alt={project.name || "Project Image"}
             selected={activeProjectId === project.id}
           />
 
@@ -44,6 +47,12 @@ export function HomeTopBar({
           </p>
         </button>
       ))}
+      <ProjectCreateDialog
+        buttonVariant="ghost"
+        className="size-20 border border-dashed border-border flex items-center justify-center text-muted-foreground hover:text-foreground"
+      >
+        <PlusCircle className="size-5" />
+      </ProjectCreateDialog>
     </div>
   );
 }
