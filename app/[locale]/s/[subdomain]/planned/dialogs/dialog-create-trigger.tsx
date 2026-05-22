@@ -56,9 +56,9 @@ export function CreatePlannedDialogTrigger({
       open={open}
       onOpenChange={handleOpenChange}
       title={t("create.title")}
-      // description={t("create.description")}
+      description={t("create.description")}
       preventClose={uploadWidgetOpen}
-      contentClassName={contentClassName ?? "sm:max-w-106.25"}
+      contentClassName={contentClassName ?? "sm:max-w-[34rem]"}
       trigger={
         trigger ?? (
           <Button

@@ -17,7 +17,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Link } from "@/i18n/navigation";
-import { ChevronRight, GraduationCap, UserPlus2 } from "lucide-react";
+import { ChevronRight, Coins, GraduationCap, UserPlus2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import ThemeToggler from "./theme";
 import { protocol, rootDomain } from "@/lib/variables";
@@ -61,6 +61,30 @@ export default async function Settings({
                 <ItemTitle>{t("inviteMembers")}</ItemTitle>
                 <ItemDescription className="text-xs">
                   {t("inviteDescription")}
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
+          </Item>
+        </ItemGroup>
+      </div>
+      <div>
+        <p className="py-2">{t("aiCredits.section")}</p>
+        <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
+          <Item className="p-2 gap-4" asChild>
+            <Link href={"/settings/ai-credits"}>
+              <ItemMedia
+                variant={"icon"}
+                className="bg-muted rounded-lg size-8"
+              >
+                <Coins />
+              </ItemMedia>
+              <ItemContent className="gap-0">
+                <ItemTitle>{t("aiCredits.rowTitle")}</ItemTitle>
+                <ItemDescription className="text-xs">
+                  {t("aiCredits.rowDescription")}
                 </ItemDescription>
               </ItemContent>
               <ItemActions>

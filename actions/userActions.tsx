@@ -2,11 +2,13 @@ import { auth } from "@/auth";
 import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
 import generatedPrisma from "@/lib/generated-prisma";
+import { getAiCreditBalance } from "@/lib/ai-credits";
 
 export type CurrentUserCapabilities = {
   id: string;
   isBetaTester: boolean;
   isProUser: boolean;
+  aiCreditBalance: number;
   canUseAiProductExtraction: boolean;
 };
 
@@ -29,9 +31,12 @@ export async function getCurrentUserCapabilities(): Promise<CurrentUserCapabilit
     return null;
   }
 
+  const aiCreditBalance = await getAiCreditBalance(user.id);
+
   return {
     ...user,
-    canUseAiProductExtraction: user.isBetaTester && user.isProUser,
+    aiCreditBalance,
+    canUseAiProductExtraction: aiCreditBalance > 0,
   };
 }
 

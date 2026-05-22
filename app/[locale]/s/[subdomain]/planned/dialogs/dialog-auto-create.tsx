@@ -1,14 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { ChevronDown, Wand2, X } from "lucide-react";
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Link2, Loader2, Sparkles, Wand2, X } from "lucide-react";
+import { FieldError } from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -16,11 +11,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Badge } from "@/components/ui/badge";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Button } from "@/components/ui/button";
 
 type ExtractedProduct = {
   name: string | null;
@@ -33,12 +24,19 @@ type ExtractedProduct = {
 type ExtractProductResponse = {
   source: string;
   product: ExtractedProduct;
+  creditsRemaining: number;
 };
 
 type ExtractProductErrorResponse = {
   code?: string;
   error?: string;
   retryAfterSeconds?: number;
+  debugId?: string;
+  debugStage?: string;
+};
+
+type AiCreditsResponse = {
+  credits: number;
 };
 
 type AutoCreateFormProps = {
@@ -95,15 +93,40 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [isExtracting, setIsExtracting] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
+  const [credits, setCredits] = useState<number | null>(null);
   const hasUrl = url.trim().length > 0;
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCredits() {
+      try {
+        const response = await fetch("/api/ai-credits");
+        if (!response.ok) return;
+
+        const data = (await response.json()) as AiCreditsResponse;
+        if (isMounted) {
+          setCredits(data.credits);
+        }
+      } catch {
+        return;
+      }
+    }
+
+    void loadCredits();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const getErrorMessage = (data: ExtractProductErrorResponse) => {
     switch (data.code) {
       case "UNAUTHORIZED":
         return t("ai.loginRequired");
       case "AI_EXTRACTION_NOT_ALLOWED":
-        return t("ai.proBetaOnly");
+      case "AI_CREDITS_REQUIRED":
+        return t("ai.creditsRequired");
       case "BLOCKED_URL":
         return t("ai.blockedUrl");
       case "INVALID_URL":
@@ -142,7 +165,24 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
         | ExtractProductErrorResponse;
 
       if (!response.ok) {
-        setError(getErrorMessage(data as ExtractProductErrorResponse));
+        const remaining = response.headers.get("X-AI-Credits-Remaining");
+        if (remaining !== null) {
+          setCredits(Number(remaining));
+        }
+        const errorData = data as ExtractProductErrorResponse;
+        console.error("[ai-extract]", {
+          status: response.status,
+          code: errorData.code,
+          debugId: errorData.debugId,
+          debugStage: errorData.debugStage,
+          error: errorData.error,
+        });
+        const errorMessage = getErrorMessage(errorData);
+        setError(
+          errorData.debugId
+            ? `${errorMessage} Debug: ${errorData.debugId}/${errorData.debugStage ?? "unknown"}`
+            : errorMessage,
+        );
         return;
       }
 
@@ -162,6 +202,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
         source: data.source,
         product: normalizedProduct,
       });
+      setCredits(data.creditsRemaining);
 
       setStatus(
         normalizedProduct.name &&
@@ -170,7 +211,10 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
           ? t("ai.extractComplete")
           : t("ai.partialExtract"),
       );
-    } catch {
+    } catch (error) {
+      console.error("[ai-extract]", {
+        error,
+      });
       setError(t("ai.extractFailed"));
     } finally {
       setIsExtracting(false);
@@ -178,40 +222,37 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
   };
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <Field>
-        <CollapsibleTrigger asChild>
-          <FieldLabel htmlFor="input-group-url">
-            <Badge className="bg-amber-300 text-background">
+    <section className="rounded-lg border border-primary/40 bg-linear-to-br from-primary/10 via-card to-card p-4 shadow-sm">
+      <div className="flex items-start gap-3">
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+          <Sparkles className="size-5" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-base font-semibold leading-tight">
+              {t("ai.label")}
+            </h3>
+            <Badge className="bg-primary text-foreground hover:bg-primary/15">
               {t("ai.beta")}
             </Badge>
-            {t("ai.label")}
-            <ChevronDown
-              className={`size-4 text-muted-foreground transition duration-300 ease-in-out ${isOpen ? "rotate-180" : null}`}
-            />
-          </FieldLabel>
-        </CollapsibleTrigger>
-        <CollapsibleContent>
-          <InputGroup>
+          </div>
+          <p className="mt-1 text-sm leading-5 text-muted-foreground">
+            {t("ai.description")}
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-4 space-y-3">
+        <div className="space-y-2">
+          <label
+            htmlFor="input-group-url"
+            className="text-sm font-medium leading-none"
+          >
+            {t("fields.link")}
+          </label>
+          <InputGroup className="bg-background/80">
             <InputGroupAddon>
-              <InputGroupButton
-                variant={hasUrl ? "outline" : "secondary"}
-                size="icon-xs"
-                onClick={() => void handleExtract()}
-                disabled={isExtracting}
-                className={
-                  hasUrl
-                    ? "shadow-sm transition-[color,box-shadow,background-color] text-foreground"
-                    : "text-muted-foreground transition-[color,box-shadow,background-color]"
-                }
-                aria-label={t("ai.extract")}
-              >
-                {isExtracting ? (
-                  <Wand2 className="animate-spin" />
-                ) : (
-                  <Wand2 className={hasUrl ? "opacity-100" : "opacity-75"} />
-                )}
-              </InputGroupButton>
+              <Link2 className="size-4" />
             </InputGroupAddon>
             <InputGroupInput
               id="input-group-url"
@@ -241,12 +282,30 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
               ) : null}
             </InputGroupAddon>
           </InputGroup>
-          <FieldDescription className="pt-2">
-            {status ?? t("ai.description")}
-          </FieldDescription>
-          <FieldError>{error}</FieldError>
-        </CollapsibleContent>
-      </Field>
-    </Collapsible>
+        </div>
+
+        <Button
+          type="button"
+          className="w-full"
+          onClick={() => void handleExtract()}
+          disabled={!hasUrl || isExtracting}
+        >
+          {isExtracting ? <Loader2 className="animate-spin" /> : <Wand2 />}
+          {t("ai.generateDetails")}
+        </Button>
+      </div>
+
+      <div className="mt-3 space-y-2 text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground">
+          <span>{status ?? t("ai.reviewHint")}</span>
+          <span>
+            {credits === null
+              ? t("ai.creditsLoading")
+              : t("ai.creditsRemaining", { count: credits })}
+          </span>
+        </div>
+        <FieldError>{error}</FieldError>
+      </div>
+    </section>
   );
 }

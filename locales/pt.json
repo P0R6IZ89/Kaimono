@@ -197,6 +197,7 @@
       "deleteConfirmTitle": "Excluir item planejado",
       "markAsPurchased": "Marcar como comprado",
       "revertToPending": "Voltar para pendente",
+      "add": "Adicionar item",
       "save": "Salvar",
       "markAsPurchasedDescription": "Deseja marcar este item como comprado?",
       "revertToPendingDescription": "Deseja voltar este item para pendente?"
@@ -205,6 +206,7 @@
       "blockedUrl": "Esta URL de produto não é permitida.",
       "description": "Cole a URL do produto para preencher o formulário com os dados extraídos.",
       "extract": "Extrair",
+      "generateDetails": "Gerar detalhes do item",
       "extractComplete": "Os detalhes do produto foram adicionados ao formulário.",
       "extractFailed": "Não foi possível extrair os detalhes do produto.",
       "invalidUrl": "Digite uma URL de produto válida.",
@@ -214,8 +216,15 @@
       "placeholder": "https://example.com/produto",
       "rateLimited": "Você atingiu o limite por hora da extração com IA. Aguarde um pouco e tente novamente.",
       "proBetaOnly": "Este recurso está disponível apenas para usuários Pro beta.",
+      "creditsRequired": "Adicione créditos de extração com IA para usar este recurso.",
+      "creditsLoading": "Verificando créditos...",
+      "creditsRemaining": "{count, plural, =0 {Sem créditos de IA} one {# crédito de IA} other {# créditos de IA}}",
+      "addStarterCredits": "$1 / 100",
+      "addValueCredits": "$3 / 350",
+      "checkoutFailed": "Não foi possível iniciar o checkout de créditos.",
       "clearUrl": "Limpar URL",
       "extractedImage": "Imagem extraída",
+      "reviewHint": "A IA preencherá o que conseguir. Revise antes de salvar.",
       "beta": "Beta"
     },
     "comments": {
@@ -226,6 +235,9 @@
     },
     "create": {
       "description": "Adicione um novo item à sua lista de planejados.",
+      "manualDescription": "Insira os detalhes do item manualmente.",
+      "manualTitle": "Preencher manualmente",
+      "separator": "ou",
       "title": "Adicionar planejado"
     },
     "description": "Seus itens de compra planejados. Você pode enviar para um projeto existente ou manter no backlog para melhor organização.",
@@ -241,13 +253,19 @@
     "fields": {
       "description": "Descrição (opcional)",
       "descriptionPlaceholder": "Adicione descrição ou notas (opcional)",
+      "decreaseQuantity": "Diminuir quantidade",
+      "imageHint": "JPG ou PNG até 5MB",
+      "increaseQuantity": "Aumentar quantidade",
       "itemName": "Nome do item",
+      "itemNamePlaceholder": "ex.: Tênis de corrida",
       "link": "Link (opcional)",
-      "linkPlaceholder": "Digite o link do produto (opcional)",
+      "linkPlaceholder": "https://example.com/produto",
       "price": "Preço",
+      "pricePlaceholder": "0.00",
       "priority": "Prioridade",
       "priorityPlaceholder": "Selecionar prioridade",
       "quantity": "Quantidade",
+      "quantityPlaceholder": "1",
       "image": "Imagem"
     },
     "title": "Planejados",
@@ -322,6 +340,22 @@
     "tutorialDescription": "Faça o tutorial para dominar o app",
     "homeTitle": "Início",
     "appearance": "Aparência",
+    "aiCredits": {
+      "section": "Créditos de IA",
+      "rowTitle": "Gerenciar créditos de extração com IA",
+      "rowDescription": "Ver saldo e adicionar créditos.",
+      "title": "Créditos de extração com IA",
+      "remainingTitle": "Créditos restantes",
+      "remainingCount": "{count, plural, =0 {0 créditos} one {# crédito} other {# créditos}}",
+      "description": "Os créditos são usados apenas para extração de produtos com IA.",
+      "addCredits": "Adicionar créditos",
+      "packsTitle": "Pacotes de créditos",
+      "costNote": "Pacotes de créditos avulsos ajudam a cobrir os custos de processamento de IA. Isto não é uma assinatura.",
+      "starterPack": "$1 / 100 créditos",
+      "valuePack": "$3 / 350 créditos",
+      "redirecting": "Redirecionando...",
+      "checkoutFailed": "Não foi possível iniciar o checkout de créditos."
+    },
     "developedBy": "Desenvolvido por {name}"
   },
   "Sidebar": {

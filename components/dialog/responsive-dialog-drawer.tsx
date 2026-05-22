@@ -81,10 +81,11 @@ export function ResponsiveDialogDrawer({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange} modal={modal}>
+      {open && <div className="fixed inset-0 w-dvw h-dvh z-10 bg-black/50 " />}
       {trigger ? <DialogTrigger asChild>{trigger}</DialogTrigger> : null}
       <DialogContent
         className={cn(
-          "max-h-[90vh] overflow-y-auto sm:max-w-lg",
+          "max-h-[90vh] overflow-y-auto min-w-160",
           contentClassName,
         )}
         onInteractOutside={(event) => {
