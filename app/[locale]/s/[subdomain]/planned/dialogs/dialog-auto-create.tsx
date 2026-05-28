@@ -232,7 +232,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
             <h3 className="text-base font-semibold leading-tight">
               {t("ai.label")}
             </h3>
-            <Badge className="bg-primary text-foreground hover:bg-primary/15">
+            <Badge className="bg-primary text-background hover:bg-primary/15">
               {t("ai.beta")}
             </Badge>
           </div>
