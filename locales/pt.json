@@ -461,7 +461,7 @@
     },
     "hero": {
       "badge": "Planejamento de compras a partir de links",
-      "description": "Kaimono transforma links de produto em itens estruturados, mantém a página original a um clique e permite compartilhar planos de compra com família, amigos ou equipes.",
+      "description": "Sem notas bagunçadas, sem copiar tudo manualmente. Tudo que você precisa é o link do produto.",
       "points": {
         "ai": "IA ajuda a preencher detalhes do produto",
         "sharing": "Espaços separados para família, amigos e equipes",

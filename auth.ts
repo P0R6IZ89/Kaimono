@@ -90,5 +90,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
   },
+  events: {
+    async createUser({ user }) {
+      if (!user.id) return;
+
+      const { createDemoTeamForUser } = await import("@/lib/demo-team-seed");
+      await createDemoTeamForUser({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      });
+    },
+  },
 });
 export const { GET, POST } = handlers;

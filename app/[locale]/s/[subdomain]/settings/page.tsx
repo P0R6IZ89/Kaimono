@@ -17,7 +17,14 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Link } from "@/i18n/navigation";
-import { ChevronRight, Coins, GraduationCap, UserPlus2 } from "lucide-react";
+import NextLink from "next/link";
+import {
+  ChevronRight,
+  Coins,
+  GraduationCap,
+  Home,
+  UserPlus2,
+} from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import ThemeToggler from "./theme";
 import { protocol, rootDomain } from "@/lib/variables";
@@ -98,12 +105,12 @@ export default async function Settings({
         <p className="py-2">{t("help")}</p>
         <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
           <Item className="p-2 gap-4" asChild>
-            <Link href={`${protocol}://${rootDomain}/${locale}/home`}>
+            <NextLink href={`${protocol}://${rootDomain}/${locale}/home`}>
               <ItemMedia
                 variant={"icon"}
                 className="bg-muted rounded-lg size-8"
               >
-                <GraduationCap />
+                <Home />
               </ItemMedia>
               <ItemContent className="gap-0">
                 <ItemTitle>{t("homeTitle")}</ItemTitle>
@@ -111,7 +118,7 @@ export default async function Settings({
               <ItemActions>
                 <ChevronRight className="size-4" />
               </ItemActions>
-            </Link>
+            </NextLink>
           </Item>
         </ItemGroup>
       </div>
