@@ -15,12 +15,10 @@ function UserDialog() {
   const t = useTranslations("UserDialog");
   const tCommon = useTranslations("Common");
   return (
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-106.25">
       <DialogHeader>
         <DialogTitle>{t("title")}</DialogTitle>
-        <DialogDescription>
-          {t("description")}
-        </DialogDescription>
+        <DialogDescription>{t("description")}</DialogDescription>
       </DialogHeader>
       <div className="grid gap-4">
         <Avatar></Avatar>

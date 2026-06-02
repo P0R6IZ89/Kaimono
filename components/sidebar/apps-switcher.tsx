@@ -101,12 +101,12 @@ export function AppSwitcher({ apps, currentApp }: AppSwitcherProps) {
             ))}
 
             <DropdownMenuItem asChild className="gap-2 p-2">
-              <Link href={`${protocol}://${rootDomain}/new-team`}>
+              <Link href={`${protocol}://${rootDomain}/new-workspace`}>
                 <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                   <Plus className="size-4" />
                 </div>
                 <div className="font-medium text-muted-foreground">
-                  {t("navSite.createTeam")}
+                  {t("navSite.createWorkspace")}
                 </div>
               </Link>
             </DropdownMenuItem>

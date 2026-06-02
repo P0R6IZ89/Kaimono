@@ -58,8 +58,8 @@ export const plannedSchema = z.object({
 const SUBDOMAIN_REGEX = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 
 export const appSchema = z.object({
-  name: z.string().min(1, "team-name-required"),
-  description: z.string().max(500, "team-description-max").optional(),
+  name: z.string().min(1, "workspace-name-required"),
+  description: z.string().max(500, "workspace-description-max").optional(),
   subdomain: z
     .string()
     .min(1, "subdomain-required")

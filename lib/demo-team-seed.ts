@@ -49,7 +49,7 @@ export async function createDemoTeamForUser(user: DemoSeedUser): Promise<void> {
       where: { subdomain },
       update: {},
       create: {
-        name: "Demo Team",
+        name: "Demo Workspace",
         description:
           "Starter workspace with sample shopping lists, planned purchases, and projects.",
         subdomain,

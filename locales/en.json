@@ -118,7 +118,7 @@
       "genericError": "Something went wrong",
       "label": "Actions",
       "remove": {
-        "description": "Remove this member from the team permanently?",
+        "description": "Remove this member from the workspace permanently?",
         "title": "Remove Member"
       },
       "resend": {
@@ -130,7 +130,7 @@
         "title": "Revoke Invite"
       }
     },
-    "description": "Share access to your team's spending workspace by sending an invitation link or email.",
+    "description": "Share access to this spending workspace by sending an invitation link or email.",
     "fields": {
       "email": "Email",
       "role": "Invite as:",
@@ -140,14 +140,14 @@
       "submit": "Send Invite"
     },
     "pendingInvites": {
-      "description": "Manage your team invites here.",
+      "description": "Manage your workspace invites here.",
       "title": "Pending Invites"
     },
-    "teamMembers": {
-      "description": "Members of this team.",
-      "title": "Team {userCount, plural, =0 {Members} =1 {Member} other {Members (#)}}"
+    "workspaceMembers": {
+      "description": "Members of this workspace.",
+      "title": "Workspace {userCount, plural, =0 {Members} =1 {Member} other {Members (#)}}"
     },
-    "title": "Invite team members to align spending!"
+    "title": "Invite workspace members to align spending!"
   },
   "KoFiWidget": {
     "alt-text": "Ko-fi",
@@ -166,7 +166,7 @@
   "MembersCard": {
     "manage": "Manage",
     "memberCount": "{members, plural, =0 {No members yet.} =1 {1 member} other {# members}}",
-    "title": "Team Members"
+    "title": "Workspace Members"
   },
   "Meta": {
     "description": "An application to manage your shopping lists.",
@@ -180,16 +180,16 @@
     "ariaLabel": "Bottom navigation",
     "profile": "Profile"
   },
-  "NewTeam": {
-    "createButton": "Create Team",
+  "NewWorkspace": {
+    "createButton": "Create Workspace",
     "description": "Description (optional)",
-    "descriptionContent": "Teams help you organize spending by purpose — whether it's household expenses, family projects, or business budgets. Each team gives visibility into where money goes.",
+    "descriptionContent": "Workspaces help you organize spending by purpose — whether it's household expenses, family projects, or business budgets. Each workspace gives visibility into where money goes.",
     "descriptionPlaceholder": "e.g. Workspace for tracking household expenses and company spending.",
     "subdomain": "Subdomain",
     "subdomainHelp": "A subdomain is a unique web address that separates your workspace and data from other users.",
-    "teamName": "Team Name",
-    "teamNamePlaceholder": "e.g. Family Home, Marketing Budget, Vacation Planning",
-    "title": "Create New Team"
+    "workspaceName": "Workspace Name",
+    "workspaceNamePlaceholder": "e.g. Family Home, Marketing Budget, Vacation Planning",
+    "title": "Create New Workspace"
   },
   "Planned": {
     "actions": {
@@ -336,7 +336,7 @@
     "inviteDescription": "Send an invite email",
     "inviteMembers": "Invite Members",
     "support": "Support",
-    "team": "Team",
+    "workspace": "Workspace",
     "tutorialDescription": "Go through the tutorial to master the app",
     "homeTitle": "Home",
     "appearance": "Appearance",
@@ -385,10 +385,10 @@
     },
     "navSite": {
       "items": {
-        "home": "Teams"
+        "home": "Workspaces"
       },
       "title": "Workspaces",
-      "createTeam": "Create team",
+      "createWorkspace": "Create workspace",
       "switchWorkspace": "Switch to"
     },
     "platform": "Platform",
@@ -408,19 +408,19 @@
     "view": "View",
     "toggleColumns": "Toggle columns"
   },
-  "Teams": {
-    "create-team": "Create team",
+  "Workspaces": {
+    "create-workspace": "Create workspace",
     "description": "Collaborative workspaces for families and organizations.",
-    "new-team-card": {
-      "description": "Create a new team to collaborate with others",
-      "title": "Create a new team"
+    "new-workspace-card": {
+      "description": "Create a new workspace to collaborate with others",
+      "title": "Create a new workspace"
     },
-    "title": "Select a Team",
-    "add-team": "Add team"
+    "title": "Select a Workspace",
+    "add-workspace": "Add workspace"
   },
   "HomePage": {
     "cta": {
-      "createTeam": "Create a team",
+      "createWorkspace": "Create a workspace",
       "dashboard": "Open dashboard",
       "features": "View features",
       "signIn": "Sign in to start"
@@ -438,9 +438,9 @@
       "badge": "Why it is more than notes",
       "description": "Kaimono keeps the source, the item details, and the people involved together, so purchase ideas can turn into decisions.",
       "sharing": {
-        "description": "Create separate workspaces for family, friends, or teams, then invite the right people into each buying plan.",
+        "description": "Create separate workspaces for family, friends, or projects, then invite the right people into each buying plan.",
         "placeholder": {
-          "description": "Create separate workspaces for family, friends, or teams and invite only the people involved in each buying plan.",
+          "description": "Create separate workspaces for family, friends, or projects and invite only the people involved in each buying plan.",
           "title": "Shared planning workspaces"
         },
         "title": "Share by workspace"
@@ -464,10 +464,11 @@
       "description": "No messy notes, no manual copying. All you need is the product link.",
       "points": {
         "ai": "AI-assisted product detail entry",
-        "sharing": "Separate spaces for family, friends, and teams",
+        "sharing": "Separate spaces for family, friends, and projects",
         "source": "Original product pages stay attached"
       },
-      "title": "Plan what to buy, easy mode."
+      "titleLine1": "Plan what to buy",
+      "titleLine2": "in easy mode"
     },
     "supporting": {
       "badge": "What stays organized",
@@ -491,14 +492,14 @@
       "description": "Kaimono is designed for private shared planning after sign-in, with isolated tenants, clear roles, and invitation-based access.",
       "invitations": {
         "description": "Invite the right people into each workspace and manage pending, accepted, expired, or revoked access.",
-        "title": "Team invitations"
+        "title": "Workspace invitations"
       },
       "roles": {
         "description": "Owner, admin, and member roles keep workspace responsibilities clear.",
         "title": "Role-based access"
       },
       "tenant": {
-        "description": "Each family, friend group, or team gets its own subdomain-based workspace.",
+        "description": "Each family, friend group, or project gets its own subdomain-based workspace.",
         "title": "Tenant isolation"
       },
       "title": "Private by default, shareable when you choose"
@@ -511,11 +512,11 @@
         "title": "Paste the source link"
       },
       "review": {
-        "description": "Keep the source page attached so the team can jump back before comparing, confirming, or buying.",
+        "description": "Keep the source page attached so the workspace can jump back before comparing, confirming, or buying.",
         "title": "Review from the original page"
       },
       "share": {
-        "description": "Invite family, friends, or teammates into the workspace and decide together.",
+        "description": "Invite family, friends, or collaborators into the workspace and decide together.",
         "title": "Share the buying plan"
       },
       "title": "From product link to shared purchase plan"
@@ -524,27 +525,27 @@
   "UserGuide": {
     "collaboration": {
       "admin": {
-        "description": "Can invite users and manage most features. Perfect for team leads and managers.",
+        "description": "Can invite users and manage most features. Perfect for workspace leads and managers.",
         "title": "Admin"
       },
       "collaborateStep": {
         "description": "See updates instantly, comment on planned items, and like purchases. Everyone stays in sync.",
         "title": "Collaborate in Real-Time"
       },
-      "description": "Work together seamlessly with your team, family, or project partners.",
+      "description": "Work together seamlessly with family, friends, or project partners.",
       "inviteStep": {
-        "description": "Send email invitations directly from the app. Assign roles and let your team join the shopping mission.",
-        "title": "Invite Team Members"
+        "description": "Send email invitations directly from the app. Assign roles and let collaborators join the shopping mission.",
+        "title": "Invite Workspace Members"
       },
       "member": {
-        "description": "Full access to add and edit items. Ideal for contributors and team members.",
+        "description": "Full access to add and edit items. Ideal for contributors and workspace members.",
         "title": "Member"
       },
       "owner": {
         "description": "Complete control. Can manage apps, invite users, and handle all administrative tasks.",
         "title": "Owner"
       },
-      "title": "Team Collaboration"
+      "title": "Workspace Collaboration"
     },
     "coreFeatures": {
       "description": "Discover powerful tools that make Kaimono perfect for project-based purchasing.",
@@ -621,7 +622,7 @@
       "features": {
         "collaboration": {
           "description": "Work together with family, friends, or colleagues in real-time",
-          "title": "Team Collaboration"
+          "title": "Workspace Collaboration"
         },
         "decisions": {
           "description": "Make informed choices with priority-based planning and analysis",
@@ -647,10 +648,10 @@
     },
     "stepLabel": "Step {step}"
   },
-  "team-layout": {
+  "workspace-layout": {
     "check-email-for-details": "Check your email for details.",
-    "new-invite-content": "You're invited to join {teamName} with the role of {inviteRole}.",
-    "new-invite-to-invite-team-name": "New invite to {teamName}",
+    "new-invite-content": "You're invited to join {workspaceName} with the role of {inviteRole}.",
+    "new-invite-to-invite-workspace-name": "New invite to {workspaceName}",
     "no-invites": "No invites."
   },
   "RadialMenu": {
@@ -741,7 +742,7 @@
     "actionCompleted": "Action completed.",
     "somethingWentWrong": "Something went wrong.",
     "unexpectedWithError": "Something went wrong: {error}",
-    "teamNotFound": "Team does not exist.",
+    "workspaceNotFound": "Workspace does not exist.",
     "itemNotFoundForApp": "Item not found for this app.",
     "essentialDeleted": "Shopping list item deleted successfully.",
     "plannedCreated": "Item created successfully.",

@@ -144,7 +144,7 @@ export default async function UserGuide() {
                   title={t("gettingStarted.step2.title")}
                   description={t("gettingStarted.step2.description")}
                   actionText={t("gettingStarted.step2.action")}
-                  actionLink="/new-team"
+                  actionLink="/new-workspace"
                   icon={<FolderOpen className="h-5 w-5" />}
                 />
                 <StepCard
@@ -371,7 +371,7 @@ export default async function UserGuide() {
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Button asChild size="lg" variant="secondary">
-                  <Link href="/new-team">
+                  <Link href="/new-workspace">
                     <Plus />
                     {t("cta.createApp")}
                   </Link>

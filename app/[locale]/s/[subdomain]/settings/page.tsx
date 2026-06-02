@@ -18,13 +18,7 @@ import {
 } from "@/components/ui/item";
 import { Link } from "@/i18n/navigation";
 import NextLink from "next/link";
-import {
-  ChevronRight,
-  Coins,
-  GraduationCap,
-  Home,
-  UserPlus2,
-} from "lucide-react";
+import { ChevronRight, Coins, Home, UserPlus2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import ThemeToggler from "./theme";
 import { protocol, rootDomain } from "@/lib/variables";
@@ -53,7 +47,7 @@ export default async function Settings({
         />
       </div>
       <div>
-        <p className="py-2">{t("team")}</p>
+        <p className="py-2">{t("workspace")}</p>
         <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
           <AppSwitcher apps={apps} currentApp={currentApp} />
           <Item className="p-2 gap-4" asChild>

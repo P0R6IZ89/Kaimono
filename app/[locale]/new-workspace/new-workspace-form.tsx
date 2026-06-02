@@ -44,8 +44,12 @@ import { rootDomain } from "@/lib/variables";
 
 type FormValues = { name: string; subdomain: string; description: string };
 
-export default function NewTeamForm({ session }: { session: Session | null }) {
-  const t = useTranslations("NewTeam");
+export default function NewWorkspaceForm({
+  session,
+}: {
+  session: Session | null;
+}) {
+  const t = useTranslations("NewWorkspace");
   const tErrors = useTranslations("Errors");
   const form = useForm<FormValues>({
     defaultValues: { name: "", subdomain: "", description: "" },
@@ -87,10 +91,10 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                 rules={{ required: tErrors("required-field") }}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("teamName")}</FormLabel>
+                    <FormLabel>{t("workspaceName")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("teamNamePlaceholder")}
+                        placeholder={t("workspaceNamePlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -109,7 +113,10 @@ export default function NewTeamForm({ session }: { session: Session | null }) {
                     <FormControl className="w-full">
                       <ButtonGroup>
                         <InputGroup>
-                          <InputGroupInput placeholder="your-team" {...field} />
+                          <InputGroupInput
+                            placeholder="your-workspace"
+                            {...field}
+                          />
                           <InputGroupAddon align="inline-end">
                             <InputGroupText>.{rootDomain}</InputGroupText>
                           </InputGroupAddon>
