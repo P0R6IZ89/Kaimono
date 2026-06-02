@@ -25,6 +25,7 @@ import {
   ShoppingCart,
   UsersRound,
 } from "lucide-react";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 type PageProps = { params: Promise<{ locale: string }> };
@@ -38,7 +39,7 @@ export default async function Home({ params }: PageProps) {
   const primaryCta = session?.user
     ? hasApps
       ? { href: "/", label: t("cta.dashboard") }
-      : { href: "/new-team", label: t("cta.createTeam") }
+      : { href: "/new-workspace", label: t("cta.createWorkspace") }
     : { href: "/login", label: t("cta.signIn") };
 
   const differentiators = [
@@ -57,9 +58,7 @@ export default async function Home({ params }: PageProps) {
       description: t("differentiators.source.description"),
       videoSource: "/videos/feature02.mov",
       fallbackTitle: t("differentiators.source.placeholder.title"),
-      fallbackDescription: t(
-        "differentiators.source.placeholder.description",
-      ),
+      fallbackDescription: t("differentiators.source.placeholder.description"),
     },
     {
       icon: UsersRound,
@@ -67,9 +66,7 @@ export default async function Home({ params }: PageProps) {
       description: t("differentiators.sharing.description"),
       videoSource: "/videos/feature03.mov",
       fallbackTitle: t("differentiators.sharing.placeholder.title"),
-      fallbackDescription: t(
-        "differentiators.sharing.placeholder.description",
-      ),
+      fallbackDescription: t("differentiators.sharing.placeholder.description"),
     },
   ];
 
@@ -130,34 +127,53 @@ export default async function Home({ params }: PageProps) {
   return (
     <main className="min-h-svh bg-background">
       <section className="mx-auto flex min-h-[82svh] w-full max-w-6xl flex-col justify-center px-6 py-16 md:px-10">
-        <div className="max-w-3xl space-y-8">
-          <div className="space-y-5">
-            <Badge variant="secondary" className="w-fit">
-              {t("hero.badge")}
-            </Badge>
-            <h1 className="text-4xl uppercase font-semibold leading-15 tracking-tighter text-balance md:text-6xl">
-              {t("hero.title")}
-            </h1>
-            <p className="max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
-              {t("hero.description")}
-            </p>
+        <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_minmax(300px,1fr)]">
+          <div className="max-w-3xl space-y-8">
+            <div className="space-y-5">
+              <Badge variant="secondary" className="w-fit">
+                {t("hero.badge")}
+              </Badge>
+              <h1 className="text-4xl uppercase font-semibold leading-15 tracking-tighter md:text-5xl md:leading-14">
+                <span className="block whitespace-nowrap">
+                  {t("hero.titleLine1")}
+                </span>
+                <span className="block whitespace-nowrap">
+                  {t("hero.titleLine2")}
+                </span>
+              </h1>
+              <p className="max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+                {t("hero.description")}
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" className="w-full sm:w-fit">
+                <Link href={primaryCta.href}>
+                  {primaryCta.label}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-fit"
+              >
+                <Link href="#features">{t("cta.features")}</Link>
+              </Button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="w-full sm:w-fit">
-              <Link href={primaryCta.href}>
-                {primaryCta.label}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-fit"
-            >
-              <Link href="#features">{t("cta.features")}</Link>
-            </Button>
+          <div className="flex justify-center md:justify-end">
+            <Image
+              src="/images/Mockup.png"
+              alt="Kaimono app mockup"
+              width={666}
+              height={942}
+              priority
+              sizes="(min-width: 768px) 46vw, 86vw"
+              className="h-auto max-h-[62svh] w-full max-w-88 object-contain drop-shadow-2xl md:max-h-[70svh] md:max-w-136 lg:max-w-152"
+            />
           </div>
         </div>
 

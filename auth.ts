@@ -9,16 +9,14 @@ const isEdge = process.env.NEXT_RUNTIME === "edge";
 export const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 const isProd = process.env.NODE_ENV === "production";
 
-const resolvedCookieDomain = (
-  rootDomainHost || process.env.VERCEL_URL?.split(":")[0]
-)?.replace(/^\./, "");
-const shouldShareCookieAcrossSubdomains =
-  !!resolvedCookieDomain &&
-  resolvedCookieDomain !== "localhost" &&
-  resolvedCookieDomain !== "127.0.0.1";
-const cookieDomain = shouldShareCookieAcrossSubdomains
-  ? resolvedCookieDomain
+const cookieDomain = isProd
+  ? rootDomainHost
+    ? `.${rootDomainHost}`
+    : process.env.VERCEL_URL
+      ? `.${process.env.VERCEL_URL}`
+      : undefined
   : undefined;
+
 const authAdapter = isEdge
   ? undefined
   : PrismaAdapter(prisma as unknown as Parameters<typeof PrismaAdapter>[0]);

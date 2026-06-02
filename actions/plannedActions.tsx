@@ -237,7 +237,7 @@ export async function getPlannedCount(subdomain: string) {
 
   const app = await isUserBelongsTheApp(subdomain);
   if (!app) {
-    throw new Error("Team not found for subdomain: " + subdomain);
+    throw new Error("Workspace not found for subdomain: " + subdomain);
   }
   const { _count } = await prisma.planned.aggregate({
     where: {

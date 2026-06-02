@@ -1,7 +1,10 @@
-import { requireSession } from "@/actions/appActions";
-import NewTeamForm from "./new-team-form";
+import { redirect } from "@/i18n/navigation";
 
-export default async function NewTeam() {
-  const session = await requireSession();
-  return <NewTeamForm session={session} />;
+export default async function NewWorkspaceRedirect({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  redirect({ href: "/new-workspace", locale });
 }

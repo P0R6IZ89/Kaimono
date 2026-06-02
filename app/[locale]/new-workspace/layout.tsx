@@ -6,7 +6,7 @@ type Props = Readonly<{
 }>;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params; // <- await the Promise
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Meta" });
 
   return {
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function CreateWorkspaceLegacyLayout({
+export default function CreateWorkspaceLayout({
   children,
 }: {
   children: React.ReactNode;

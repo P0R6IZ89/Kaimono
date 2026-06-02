@@ -118,7 +118,7 @@
       "genericError": "問題が発生しました",
       "label": "操作",
       "remove": {
-        "description": "このメンバーをチームから完全に削除しますか？",
+        "description": "このメンバーをワークスペースから完全に削除しますか？",
         "title": "メンバーを削除"
       },
       "resend": {
@@ -130,7 +130,7 @@
         "title": "招待を取り消す"
       }
     },
-    "description": "招待リンクまたはメールを送って、チームの支出ワークスペースへのアクセスを共有します。",
+    "description": "招待リンクまたはメールを送って、この支出ワークスペースへのアクセスを共有します。",
     "fields": {
       "email": "メール",
       "role": "招待する役割:",
@@ -140,14 +140,14 @@
       "submit": "招待を送信"
     },
     "pendingInvites": {
-      "description": "ここでチーム招待を管理できます。",
+      "description": "ここでワークスペース招待を管理できます。",
       "title": "保留中の招待"
     },
-    "teamMembers": {
-      "description": "このチームのメンバーです。",
-      "title": "チーム {userCount, plural, =0 {メンバー} =1 {メンバー} other {メンバー（#）}}"
+    "workspaceMembers": {
+      "description": "このワークスペースのメンバーです。",
+      "title": "ワークスペース {userCount, plural, =0 {メンバー} =1 {メンバー} other {メンバー（#）}}"
     },
-    "title": "チームメンバーを招待して支出管理をそろえましょう！"
+    "title": "ワークスペースメンバーを招待して支出管理をそろえましょう！"
   },
   "KoFiWidget": {
     "alt-text": "Ko-fi",
@@ -166,7 +166,7 @@
   "MembersCard": {
     "manage": "管理",
     "memberCount": "{members, plural, =0 {まだメンバーがいません。} =1 {1人} other {#人}}",
-    "title": "チームメンバー"
+    "title": "ワークスペースメンバー"
   },
   "Meta": {
     "description": "買い物リストを管理するためのアプリケーションです。",
@@ -180,16 +180,16 @@
     "ariaLabel": "下部ナビゲーション",
     "profile": "プロフィール"
   },
-  "NewTeam": {
-    "createButton": "チームを作成",
+  "NewWorkspace": {
+    "createButton": "ワークスペースを作成",
     "description": "説明（任意）",
-    "descriptionContent": "チームを使うと目的ごとに支出を整理できます。家計、家族プロジェクト、ビジネス予算など、どの用途でもお金の流れを可視化できます。",
+    "descriptionContent": "ワークスペースを使うと目的ごとに支出を整理できます。家計、家族プロジェクト、ビジネス予算など、どの用途でもお金の流れを可視化できます。",
     "descriptionPlaceholder": "例: 家計の出費と会社の支出を管理するワークスペース",
     "subdomain": "サブドメイン",
     "subdomainHelp": "サブドメインは、あなたのワークスペースとデータを他のユーザーから分けるための一意のウェブアドレスです。",
-    "teamName": "チーム名",
-    "teamNamePlaceholder": "例: 家族の家、マーケ予算、旅行計画",
-    "title": "新しいチームを作成"
+    "workspaceName": "ワークスペース名",
+    "workspaceNamePlaceholder": "例: 家族の家、マーケ予算、旅行計画",
+    "title": "新しいワークスペースを作成"
   },
   "Planned": {
     "actions": {
@@ -336,7 +336,7 @@
     "inviteDescription": "招待メールを送信",
     "inviteMembers": "メンバーを招待",
     "support": "サポート",
-    "team": "チーム",
+    "workspace": "ワークスペース",
     "tutorialDescription": "チュートリアルでアプリの使い方を学ぶ",
     "homeTitle": "ホーム",
     "appearance": "外観",
@@ -385,10 +385,10 @@
     },
     "navSite": {
       "items": {
-        "home": "チーム"
+        "home": "ワークスペース"
       },
       "title": "ワークスペース",
-      "createTeam": "チームを作成",
+      "createWorkspace": "ワークスペースを作成",
       "switchWorkspace": "切り替え"
     },
     "platform": "プラットフォーム",
@@ -408,19 +408,19 @@
     "view": "表示",
     "toggleColumns": "列を切り替え"
   },
-  "Teams": {
-    "create-team": "チームを作成",
+  "Workspaces": {
+    "create-workspace": "ワークスペースを作成",
     "description": "家族や組織向けの共同ワークスペース。",
-    "new-team-card": {
-      "description": "他のメンバーと協力するための新しいチームを作成",
-      "title": "新しいチームを作成"
+    "new-workspace-card": {
+      "description": "他のメンバーと協力するための新しいワークスペースを作成",
+      "title": "新しいワークスペースを作成"
     },
-    "title": "チームを選択",
-    "add-team": "チームを追加"
+    "title": "ワークスペースを選択",
+    "add-workspace": "ワークスペースを追加"
   },
   "HomePage": {
     "cta": {
-      "createTeam": "チームを作成",
+      "createWorkspace": "ワークスペースを作成",
       "dashboard": "ダッシュボードを開く",
       "features": "機能を見る",
       "signIn": "サインインして始める"
@@ -436,11 +436,11 @@
         "title": "リンクから商品情報をAI入力"
       },
       "badge": "ノート以上の購入計画",
-      "description": "Kaimonoは、元ページ、商品情報、関わる人をまとめて残すので、思いついた購入候補をチームの判断に変えられます。",
+      "description": "Kaimonoは、元ページ、商品情報、関わる人をまとめて残すので、思いついた購入候補を共有判断に変えられます。",
       "sharing": {
-        "description": "家族、友達、チームごとに分かれたワークスペースを作り、必要な人だけを購入計画に招待できます。",
+        "description": "家族、友達、プロジェクトごとに分かれたワークスペースを作り、必要な人だけを購入計画に招待できます。",
         "placeholder": {
-          "description": "家族、友達、チームごとにワークスペースを分け、各購入計画に関わる人だけを招待できます。",
+          "description": "家族、友達、プロジェクトごとにワークスペースを分け、各購入計画に関わる人だけを招待できます。",
           "title": "共有できる計画ワークスペース"
         },
         "title": "ワークスペースごとに共有"
@@ -464,10 +464,11 @@
       "description": "ごちゃごちゃしたメモも、手作業のコピーも不要。必要なのは商品リンクだけです。",
       "points": {
         "ai": "AIが商品情報の入力を補助",
-        "sharing": "家族・友達・チームごとに分けて共有",
+        "sharing": "家族・友達・プロジェクトごとに分けて共有",
         "source": "元の商品ページをアイテムに保持"
       },
-      "title": "買うもの計画、イージーモード。"
+      "titleLine1": "買うもの計画",
+      "titleLine2": "イージーモードで。"
     },
     "supporting": {
       "badge": "整理できること",
@@ -491,14 +492,14 @@
       "description": "Kaimonoはログイン後の非公開な共有計画を前提に、分離されたテナント、明確な役割、招待ベースのアクセスで設計されています。",
       "invitations": {
         "description": "必要な人だけをワークスペースに招待し、保留中、承認済み、期限切れ、取り消し済みのアクセスを管理できます。",
-        "title": "チーム招待"
+        "title": "ワークスペース招待"
       },
       "roles": {
         "description": "オーナー、管理者、メンバーの役割でワークスペース内の責任を明確にします。",
         "title": "役割ベースのアクセス"
       },
       "tenant": {
-        "description": "家族、友達グループ、チームごとにサブドメインベースのワークスペースを持てます。",
+        "description": "家族、友達グループ、プロジェクトごとにサブドメインベースのワークスペースを持てます。",
         "title": "テナント分離"
       },
       "title": "基本は非公開、必要な相手とだけ共有"
@@ -511,11 +512,11 @@
         "title": "ソースリンクを貼る"
       },
       "review": {
-        "description": "元ページを残しておくことで、比較、確認、購入前の見直しにチーム全員が戻れます。",
+        "description": "元ページを残しておくことで、比較、確認、購入前の見直しにメンバー全員が戻れます。",
         "title": "元ページから確認"
       },
       "share": {
-        "description": "家族、友達、チームメンバーをワークスペースに招待し、一緒に購入判断できます。",
+        "description": "家族、友達、共同作業者をワークスペースに招待し、一緒に購入判断できます。",
         "title": "購入計画を共有"
       },
       "title": "商品リンクから共有購入計画へ"
@@ -524,27 +525,27 @@
   "UserGuide": {
     "collaboration": {
       "admin": {
-        "description": "ユーザー招待と主要機能の管理ができます。チームリーダーや管理者に最適です。",
+        "description": "ユーザー招待と主要機能の管理ができます。管理者に最適です。",
         "title": "管理者"
       },
       "collaborateStep": {
         "description": "更新をリアルタイムで確認し、計画アイテムにコメントし、購入にいいねできます。全員が同期された状態を保てます。",
         "title": "リアルタイムで共同作業"
       },
-      "description": "チーム、家族、プロジェクトメンバーとスムーズに協力できます。",
+      "description": "家族、友人、プロジェクトメンバーとスムーズに協力できます。",
       "inviteStep": {
-        "description": "アプリから直接メール招待を送信。役割を割り当て、チームに参加してもらいましょう。",
-        "title": "チームメンバーを招待"
+        "description": "アプリから直接メール招待を送信。役割を割り当て、ワークスペースに参加してもらいましょう。",
+        "title": "ワークスペースメンバーを招待"
       },
       "member": {
-        "description": "アイテムの追加・編集が可能。共同作業者やチームメンバーに最適です。",
+        "description": "アイテムの追加・編集が可能。共同作業者やワークスペースメンバーに最適です。",
         "title": "メンバー"
       },
       "owner": {
         "description": "すべてを管理できる完全権限。アプリ管理、ユーザー招待、管理タスク全般に対応。",
         "title": "オーナー"
       },
-      "title": "チームコラボレーション"
+      "title": "ワークスペースコラボレーション"
     },
     "coreFeatures": {
       "description": "Kaimonoをプロジェクト単位の購買管理に最適化する強力な機能を紹介します。",
@@ -621,7 +622,7 @@
       "features": {
         "collaboration": {
           "description": "家族・友人・同僚とリアルタイムで共同作業",
-          "title": "チームコラボレーション"
+          "title": "ワークスペースコラボレーション"
         },
         "decisions": {
           "description": "優先度ベースの計画と分析で、納得感ある意思決定を",
@@ -647,10 +648,10 @@
     },
     "stepLabel": "ステップ {step}"
   },
-  "team-layout": {
+  "workspace-layout": {
     "check-email-for-details": "詳細はメールをご確認ください。",
-    "new-invite-content": "{inviteRole} として {teamName} への招待が届いています。",
-    "new-invite-to-invite-team-name": "{teamName} への新しい招待",
+    "new-invite-content": "{inviteRole} として {workspaceName} への招待が届いています。",
+    "new-invite-to-invite-workspace-name": "{workspaceName} への新しい招待",
     "no-invites": "招待はありません。"
   },
   "RadialMenu": {
@@ -741,7 +742,7 @@
     "actionCompleted": "操作が完了しました。",
     "somethingWentWrong": "問題が発生しました。",
     "unexpectedWithError": "問題が発生しました: {error}",
-    "teamNotFound": "チームが存在しません。",
+    "workspaceNotFound": "ワークスペースが存在しません。",
     "itemNotFoundForApp": "このアプリのアイテムが見つかりません。",
     "essentialDeleted": "買い物リストアイテムを削除しました。",
     "plannedCreated": "アイテムを作成しました。",

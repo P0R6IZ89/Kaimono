@@ -118,7 +118,7 @@
       "genericError": "Algo deu errado",
       "label": "Ações",
       "remove": {
-        "description": "Remover este membro da equipe permanentemente?",
+        "description": "Remover este membro do workspace permanentemente?",
         "title": "Remover membro"
       },
       "resend": {
@@ -130,7 +130,7 @@
         "title": "Revogar convite"
       }
     },
-    "description": "Compartilhe acesso ao workspace de gastos da sua equipe enviando um link de convite ou e-mail.",
+    "description": "Compartilhe acesso a este workspace de gastos enviando um link de convite ou e-mail.",
     "fields": {
       "email": "E-mail",
       "role": "Convidar como:",
@@ -140,12 +140,12 @@
       "submit": "Enviar convite"
     },
     "pendingInvites": {
-      "description": "Gerencie os convites da sua equipe aqui.",
+      "description": "Gerencie os convites do seu workspace aqui.",
       "title": "Convites pendentes"
     },
-    "teamMembers": {
-      "description": "Membros desta equipe.",
-      "title": "Equipe {userCount, plural, =0 {Membros} =1 {Membro} other {Membros (#)}}"
+    "workspaceMembers": {
+      "description": "Membros deste workspace.",
+      "title": "Workspace {userCount, plural, =0 {Membros} =1 {Membro} other {Membros (#)}}"
     },
     "title": "Convide membros para alinhar os gastos!"
   },
@@ -166,7 +166,7 @@
   "MembersCard": {
     "manage": "Gerenciar",
     "memberCount": "{members, plural, =0 {Ainda sem membros.} =1 {1 membro} other {# membros}}",
-    "title": "Membros da equipe"
+    "title": "Membros do workspace"
   },
   "Meta": {
     "description": "Um aplicativo para gerenciar suas listas de compras.",
@@ -180,16 +180,16 @@
     "ariaLabel": "Navegação inferior",
     "profile": "Perfil"
   },
-  "NewTeam": {
-    "createButton": "Criar equipe",
+  "NewWorkspace": {
+    "createButton": "Criar workspace",
     "description": "Descrição (opcional)",
-    "descriptionContent": "As equipes ajudam você a organizar gastos por objetivo — seja despesas domésticas, projetos em família ou orçamentos de negócios. Cada equipe dá visibilidade de para onde o dinheiro vai.",
+    "descriptionContent": "Os workspaces ajudam você a organizar gastos por objetivo — seja despesas domésticas, projetos em família ou orçamentos de negócios. Cada workspace dá visibilidade de para onde o dinheiro vai.",
     "descriptionPlaceholder": "ex.: Workspace para acompanhar despesas da casa e gastos da empresa.",
     "subdomain": "Subdomínio",
     "subdomainHelp": "Um subdomínio é um endereço da web exclusivo que separa seu espaço de trabalho e seus dados dos outros usuários.",
-    "teamName": "Nome da equipe",
-    "teamNamePlaceholder": "ex.: Casa da Família, Orçamento de Marketing, Planejamento de Viagem",
-    "title": "Criar nova equipe"
+    "workspaceName": "Nome do workspace",
+    "workspaceNamePlaceholder": "ex.: Casa da Família, Orçamento de Marketing, Planejamento de Viagem",
+    "title": "Criar novo workspace"
   },
   "Planned": {
     "actions": {
@@ -336,7 +336,7 @@
     "inviteDescription": "Enviar um e-mail de convite",
     "inviteMembers": "Convidar membros",
     "support": "Suporte",
-    "team": "Equipe",
+    "workspace": "Workspace",
     "tutorialDescription": "Faça o tutorial para dominar o app",
     "homeTitle": "Início",
     "appearance": "Aparência",
@@ -385,10 +385,10 @@
     },
     "navSite": {
       "items": {
-        "home": "Equipes"
+        "home": "Workspaces"
       },
       "title": "Espaços de trabalho",
-      "createTeam": "Criar equipe",
+      "createWorkspace": "Criar workspace",
       "switchWorkspace": "Mudar para"
     },
     "platform": "Plataforma",
@@ -408,19 +408,19 @@
     "view": "Ver",
     "toggleColumns": "Alternar colunas"
   },
-  "Teams": {
-    "create-team": "Criar equipe",
-    "description": "Workspaces colaborativos para famílias e organizações. ",
-    "new-team-card": {
-      "description": "Crie uma nova equipe para colaborar com outras pessoas",
-      "title": "Criar uma nova equipe"
+  "Workspaces": {
+    "create-workspace": "Criar workspace",
+    "description": "Workspaces colaborativos para famílias e organizações.",
+    "new-workspace-card": {
+      "description": "Crie um novo workspace para colaborar com outras pessoas",
+      "title": "Criar um novo workspace"
     },
-    "title": " Escolha um Time",
-    "add-team": "Adicionar equipe"
+    "title": "Escolha um workspace",
+    "add-workspace": "Adicionar workspace"
   },
   "HomePage": {
     "cta": {
-      "createTeam": "Criar equipe",
+      "createWorkspace": "Criar workspace",
       "dashboard": "Abrir dashboard",
       "features": "Ver recursos",
       "signIn": "Entrar para começar"
@@ -438,9 +438,9 @@
       "badge": "Por que é mais que notas",
       "description": "Kaimono mantém a fonte, os detalhes do item e as pessoas envolvidas juntos, para transformar ideias de compra em decisões.",
       "sharing": {
-        "description": "Crie workspaces separados para família, amigos ou equipes, e convide as pessoas certas para cada plano de compra.",
+        "description": "Crie workspaces separados para família, amigos ou projetos, e convide as pessoas certas para cada plano de compra.",
         "placeholder": {
-          "description": "Crie workspaces separados para família, amigos ou equipes e convide apenas as pessoas envolvidas em cada plano de compra.",
+          "description": "Crie workspaces separados para família, amigos ou projetos e convide apenas as pessoas envolvidas em cada plano de compra.",
           "title": "Workspaces de planejamento compartilhado"
         },
         "title": "Compartilhe por workspace"
@@ -464,10 +464,11 @@
       "description": "Sem notas bagunçadas, sem copiar tudo manualmente. Tudo que você precisa é o link do produto.",
       "points": {
         "ai": "IA ajuda a preencher detalhes do produto",
-        "sharing": "Espaços separados para família, amigos e equipes",
+        "sharing": "Espaços separados para família, amigos e projetos",
         "source": "As páginas originais ficam anexadas aos itens"
       },
-      "title": "Planeje o que comprar no modo fácil."
+      "titleLine1": "Planeje o que comprar",
+      "titleLine2": "no modo fácil."
     },
     "supporting": {
       "badge": "O que fica organizado",
@@ -491,14 +492,14 @@
       "description": "Kaimono foi pensado para planejamento privado compartilhado após login, com tenants isolados, papéis claros e acesso por convite.",
       "invitations": {
         "description": "Convide as pessoas certas para cada workspace e gerencie acessos pendentes, aceitos, expirados ou revogados.",
-        "title": "Convites de equipe"
+        "title": "Convites de workspace"
       },
       "roles": {
         "description": "Papéis de proprietário, administrador e membro deixam claras as responsabilidades no workspace.",
         "title": "Acesso por função"
       },
       "tenant": {
-        "description": "Cada família, grupo de amigos ou equipe tem seu próprio workspace por subdomínio.",
+        "description": "Cada família, grupo de amigos ou projeto tem seu próprio workspace por subdomínio.",
         "title": "Isolamento por tenant"
       },
       "title": "Privado por padrão, compartilhável quando você quiser"
@@ -511,7 +512,7 @@
         "title": "Cole o link fonte"
       },
       "review": {
-        "description": "Mantenha a página fonte anexada para a equipe voltar antes de comparar, confirmar ou comprar.",
+        "description": "Mantenha a página fonte anexada para o workspace voltar antes de comparar, confirmar ou comprar.",
         "title": "Revise pela página original"
       },
       "share": {
@@ -531,20 +532,20 @@
         "description": "Veja atualizações instantaneamente, comente em itens planejados e curta compras. Todos ficam sincronizados.",
         "title": "Colabore em tempo real"
       },
-      "description": "Trabalhe junto sem atrito com sua equipe, família ou parceiros de projeto.",
+      "description": "Trabalhe junto sem atrito com família, amigos ou parceiros de projeto.",
       "inviteStep": {
-        "description": "Envie convites por e-mail diretamente pelo app. Defina papéis e deixe sua equipe entrar na missão de compras.",
-        "title": "Convide membros da equipe"
+        "description": "Envie convites por e-mail diretamente pelo app. Defina papéis e deixe colaboradores entrarem na missão de compras.",
+        "title": "Convide membros do workspace"
       },
       "member": {
-        "description": "Acesso completo para adicionar e editar itens. Ideal para colaboradores e membros da equipe.",
+        "description": "Acesso completo para adicionar e editar itens. Ideal para colaboradores e membros do workspace.",
         "title": "Membro"
       },
       "owner": {
         "description": "Controle total. Pode gerenciar apps, convidar usuários e cuidar de todas as tarefas administrativas.",
         "title": "Proprietário"
       },
-      "title": "Colaboração em equipe"
+      "title": "Colaboração em workspace"
     },
     "coreFeatures": {
       "description": "Descubra ferramentas poderosas que tornam o Kaimono perfeito para compras por projeto.",
@@ -621,7 +622,7 @@
       "features": {
         "collaboration": {
           "description": "Trabalhe em tempo real com família, amigos ou colegas",
-          "title": "Colaboração em equipe"
+          "title": "Colaboração em workspace"
         },
         "decisions": {
           "description": "Tome decisões informadas com planejamento e análise por prioridade",
@@ -647,10 +648,10 @@
     },
     "stepLabel": "Passo {step}"
   },
-  "team-layout": {
+  "workspace-layout": {
     "check-email-for-details": "Verifique seu e-mail para mais detalhes.",
-    "new-invite-content": "Você foi convidado para entrar em {teamName} com o papel de {inviteRole}.",
-    "new-invite-to-invite-team-name": "Novo convite para {teamName}",
+    "new-invite-content": "Você foi convidado para entrar em {workspaceName} com o papel de {inviteRole}.",
+    "new-invite-to-invite-workspace-name": "Novo convite para {workspaceName}",
     "no-invites": "Sem convites."
   },
   "RadialMenu": {
@@ -741,7 +742,7 @@
     "actionCompleted": "Ação concluída.",
     "somethingWentWrong": "Algo deu errado.",
     "unexpectedWithError": "Algo deu errado: {error}",
-    "teamNotFound": "A equipe não existe.",
+    "workspaceNotFound": "O workspace não existe.",
     "itemNotFoundForApp": "Item não encontrado neste app.",
     "essentialDeleted": "Item da lista excluído com sucesso.",
     "plannedCreated": "Item criado com sucesso.",

@@ -44,8 +44,8 @@ export default async function Invite({
     <div className="grid grid-cols-1 lg:grid-cols-2 justify-center gap-4 p-4 mb-24 md:mb-0">
       <Card>
         <CardHeader>
-          <CardTitle>{t("teamMembers.title", { userCount })}</CardTitle>
-          <CardDescription>{t("teamMembers.description")}</CardDescription>
+          <CardTitle>{t("workspaceMembers.title", { userCount })}</CardTitle>
+          <CardDescription>{t("workspaceMembers.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>

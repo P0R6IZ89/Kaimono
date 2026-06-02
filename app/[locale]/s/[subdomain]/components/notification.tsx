@@ -11,7 +11,7 @@ import { getTranslations } from "next-intl/server";
 export async function Notification() {
   const invitedApp = await getMyInvitationsAction();
 
-  const t = await getTranslations("team-layout");
+  const t = await getTranslations("workspace-layout");
 
   return (
     <div className="flex">
@@ -37,14 +37,14 @@ export async function Notification() {
                   <p className="text-sm font-bold flex items-center gap-2">
                     <Mail className="size-4" />
                     <span>
-                      {t("new-invite-to-invite-team-name", {
-                        teamName: invite.app.name,
+                      {t("new-invite-to-invite-workspace-name", {
+                        workspaceName: invite.app.name,
                       })}
                     </span>
                   </p>
                   <p className="text-xs pt-1">
                     {t("new-invite-content", {
-                      teamName: invite.app.name,
+                      workspaceName: invite.app.name,
                       inviteRole: invite.role,
                     })}
                   </p>

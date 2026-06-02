@@ -79,6 +79,7 @@ type SessionWithUser = Session & {
 export async function requireSession(): Promise<SessionWithUser> {
   const s = await auth();
   const locale = await getCurrentLocale();
+
   if (!s?.user?.id) redirect({ href: "/login", locale });
   return s as SessionWithUser;
 }
@@ -90,16 +91,23 @@ export async function requireMembership(subdomain: string) {
     select: { id: true },
   });
   const locale = await getCurrentLocale();
-  if (!app) redirect({ href: "/new-team", locale });
+  // if (!app) redirect({ href: "/new-workspace", locale });
 
+  if (!app) {
+    throw new Error("Error: App not found");
+  }
   const membership = await prisma.membership.findUnique({
-    where: { appId_userId: { appId: app!.id, userId: session.user.id } },
+    where: { appId_userId: { appId: app.id, userId: session.user.id } },
     select: { role: true },
   });
   if (!membership) {
-    redirect({ href: "/new-team", locale });
+    throw new Error("Error: Not a member of the app");
+    // redirect({ href: "/new-workspace", locale });
   }
-  return { appId: app!.id, role: membership!.role as Role, session };
+  if (!membership?.role) {
+    throw new Error("Error: User has no role in the app");
+  }
+  return { appId: app!.id, role: membership.role as Role, session };
 }
 
 export async function getAllAppsAction() {
@@ -149,8 +157,8 @@ export async function getCurrentAppAction(subdomain: string): Promise<{
   });
 
   if (!app) {
-    const locale = await getCurrentLocale();
-    redirect({ href: "/new-team", locale });
+    // const locale = await getCurrentLocale();
+    // redirect({ href: "/new-workspace", locale });
     throw new Error("Redirected to new-app");
   }
 

@@ -30,7 +30,7 @@ export async function createEssentials(
   try {
     const app = await requireMembership(subdomain);
     if (!app.appId) {
-      return { error: "teamNotFound" };
+      return { error: "workspaceNotFound" };
     }
     await prisma.essential.create({
       data: {
