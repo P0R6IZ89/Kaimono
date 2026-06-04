@@ -1,22 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { routing, type Locale } from "@/i18n/routing";
 import { getAiCreditPack } from "@/lib/ai-credits";
+import { protocol, rootDomain } from "@/lib/variables";
 
 type CheckoutRequestBody = {
   packId?: unknown;
-  returnUrl?: unknown;
+  subdomain?: unknown;
+  locale?: unknown;
 };
 
-function normalizeReturnUrl(value: unknown, origin: string) {
-  if (typeof value !== "string") return origin;
+function isValidSubdomain(value: unknown): value is string {
+  return (
+    typeof value === "string" &&
+    value.length >= 1 &&
+    value.length <= 63 &&
+    /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(value)
+  );
+}
 
-  try {
-    const url = new URL(value, origin);
-    if (url.origin !== origin) return origin;
-    return url.toString();
-  } catch {
-    return origin;
-  }
+function isValidLocale(value: unknown): value is Locale {
+  return (
+    typeof value === "string" &&
+    (routing.locales as readonly string[]).includes(value)
+  );
+}
+
+function buildTenantCreditsUrl(input: {
+  subdomain: string;
+  locale: Locale;
+  status: "success" | "cancelled";
+}) {
+  const url = new URL(
+    `${protocol}://${input.subdomain}.${rootDomain}/${input.locale}/settings/ai-credits`,
+  );
+  url.searchParams.set("aiCredits", input.status);
+  return url.toString();
 }
 
 export async function POST(req: NextRequest) {
@@ -57,23 +76,36 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const origin = req.nextUrl.origin;
-  const returnUrl = normalizeReturnUrl(
-    body.returnUrl ?? req.headers.get("referer"),
-    origin,
-  );
-  const successUrl = new URL(returnUrl);
-  successUrl.searchParams.set("aiCredits", "success");
-  const cancelUrl = new URL(returnUrl);
-  cancelUrl.searchParams.set("aiCredits", "cancelled");
+  if (!isValidSubdomain(body.subdomain) || !isValidLocale(body.locale)) {
+    return NextResponse.json(
+      {
+        code: "INVALID_RETURN_TARGET",
+        error: "Choose a valid return destination.",
+      },
+      { status: 400 },
+    );
+  }
+
+  const successUrl = buildTenantCreditsUrl({
+    subdomain: body.subdomain,
+    locale: body.locale,
+    status: "success",
+  });
+  const cancelUrl = buildTenantCreditsUrl({
+    subdomain: body.subdomain,
+    locale: body.locale,
+    status: "cancelled",
+  });
 
   const params = new URLSearchParams({
     mode: "payment",
-    success_url: successUrl.toString(),
-    cancel_url: cancelUrl.toString(),
+    success_url: successUrl,
+    cancel_url: cancelUrl,
     "metadata[userId]": session.user.id,
     "metadata[packId]": pack.id,
     "metadata[credits]": String(pack.credits),
+    "metadata[subdomain]": body.subdomain,
+    "metadata[locale]": body.locale,
     "line_items[0][quantity]": "1",
     "line_items[0][price_data][currency]": "usd",
     "line_items[0][price_data][unit_amount]": String(pack.amountCents),

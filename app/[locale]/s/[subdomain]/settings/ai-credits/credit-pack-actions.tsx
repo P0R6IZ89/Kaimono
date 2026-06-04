@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { CreditCard } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
 type CreditPack = {
@@ -15,7 +15,15 @@ type CheckoutResponse = {
   error?: string;
 };
 
-export function CreditPackActions({ packs }: { packs: CreditPack[] }) {
+export function CreditPackActions({
+  packs,
+  subdomain,
+  locale,
+}: {
+  packs: CreditPack[];
+  subdomain: string;
+  locale: string;
+}) {
   const t = useTranslations("Settings");
   const [pendingPackId, setPendingPackId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -32,19 +40,24 @@ export function CreditPackActions({ packs }: { packs: CreditPack[] }) {
         },
         body: JSON.stringify({
           packId,
-          returnUrl: window.location.href,
+          subdomain,
+          locale,
         }),
       });
       const data = (await response.json()) as CheckoutResponse;
 
       if (!response.ok || !data.url) {
-        setError(data.error || t("aiCredits.checkoutFailed"));
+        const message = data.error || t("aiCredits.checkoutFailed");
+        setError(message);
+        toast.error(message);
         return;
       }
 
       window.location.href = data.url;
     } catch {
-      setError(t("aiCredits.checkoutFailed"));
+      const message = t("aiCredits.checkoutFailed");
+      setError(message);
+      toast.error(message);
     } finally {
       setPendingPackId(null);
     }
@@ -57,12 +70,11 @@ export function CreditPackActions({ packs }: { packs: CreditPack[] }) {
           <Button
             key={pack.id}
             type="button"
-            variant={pack.id === "starter" ? "default" : "outline"}
+            variant="outline"
             onClick={() => void handleCheckout(pack.id)}
             disabled={pendingPackId !== null}
             className="w-full justify-center gap-2"
           >
-            <CreditCard className="size-4" />
             {pendingPackId === pack.id
               ? t("aiCredits.redirecting")
               : pack.label}

@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import type { Prisma } from "@/prisma/generated/prisma";
 
 export const AI_EXTRACTION_CREDIT_COST = 1;
+export const FREE_SIGNUP_CREDITS = 20;
 
 export const AI_CREDIT_PACKS = {
   starter: {
@@ -58,6 +59,35 @@ export async function grantAiCredits(input: {
       metadata: input.metadata,
     },
   });
+}
+
+function isUniqueConstraintError(error: unknown) {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    error.code === "P2002"
+  );
+}
+
+export async function grantSignupAiCredits(userId: string) {
+  try {
+    await prisma.aiCreditLedger.create({
+      data: {
+        userId,
+        type: "ADJUSTMENT",
+        amount: FREE_SIGNUP_CREDITS,
+        description: "New user AI extraction credits",
+        externalId: `free_signup:${userId}`,
+      },
+    });
+  } catch (error) {
+    if (isUniqueConstraintError(error)) {
+      return;
+    }
+
+    throw error;
+  }
 }
 
 export async function deductAiExtractionCredit(userId: string) {

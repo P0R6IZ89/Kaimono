@@ -16,6 +16,23 @@ type StripeWebhookEvent = {
   };
 };
 
+function logStripeWebhook(message: string, details?: Record<string, unknown>) {
+  console.info("[stripe-webhook]", {
+    message,
+    ...details,
+  });
+}
+
+function logStripeWebhookError(
+  message: string,
+  details?: Record<string, unknown>,
+) {
+  console.error("[stripe-webhook]", {
+    message,
+    ...details,
+  });
+}
+
 function parseStripeSignature(header: string | null) {
   if (!header) return null;
 
@@ -62,6 +79,12 @@ function isValidStripeSignature(input: {
 async function handleCheckoutCompleted(event: StripeWebhookEvent) {
   const session = event.data.object;
   if (!session.id || session.payment_status !== "paid") {
+    logStripeWebhook("Skipping checkout session because payment is not paid.", {
+      eventId: event.id,
+      eventType: event.type,
+      sessionId: session.id,
+      paymentStatus: session.payment_status,
+    });
     return;
   }
 
@@ -71,6 +94,17 @@ async function handleCheckoutCompleted(event: StripeWebhookEvent) {
   const pack = packId ? getAiCreditPack(packId) : null;
 
   if (!userId || !pack || credits !== pack.credits) {
+    logStripeWebhookError("Checkout session metadata is invalid.", {
+      eventId: event.id,
+      eventType: event.type,
+      sessionId: session.id,
+      hasUserId: !!userId,
+      packId,
+      credits,
+      expectedCredits: pack?.credits,
+      subdomain: session.metadata?.subdomain,
+      locale: session.metadata?.locale,
+    });
     throw new Error(
       "Stripe checkout session is missing valid credit metadata.",
     );
@@ -86,7 +120,19 @@ async function handleCheckoutCompleted(event: StripeWebhookEvent) {
         stripeEventId: event.id,
         stripeCheckoutSessionId: session.id,
         packId: pack.id,
+        subdomain: session.metadata?.subdomain,
+        locale: session.metadata?.locale,
       },
+    });
+    logStripeWebhook("Granted AI credits for checkout session.", {
+      eventId: event.id,
+      eventType: event.type,
+      sessionId: session.id,
+      userId,
+      packId: pack.id,
+      credits: pack.credits,
+      subdomain: session.metadata?.subdomain,
+      locale: session.metadata?.locale,
     });
   } catch (error) {
     if (
@@ -95,9 +141,24 @@ async function handleCheckoutCompleted(event: StripeWebhookEvent) {
       "code" in error &&
       error.code === "P2002"
     ) {
+      logStripeWebhook("Skipping duplicate checkout credit grant.", {
+        eventId: event.id,
+        eventType: event.type,
+        sessionId: session.id,
+        userId,
+        packId: pack.id,
+      });
       return;
     }
 
+    logStripeWebhookError("Failed to grant AI credits.", {
+      eventId: event.id,
+      eventType: event.type,
+      sessionId: session.id,
+      userId,
+      packId: pack.id,
+      error: error instanceof Error ? error.message : String(error),
+    });
     throw error;
   }
 }
@@ -105,6 +166,7 @@ async function handleCheckoutCompleted(event: StripeWebhookEvent) {
 export async function POST(req: NextRequest) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!webhookSecret) {
+    logStripeWebhookError("Webhook secret is not configured.");
     return NextResponse.json(
       {
         code: "WEBHOOK_NOT_CONFIGURED",
@@ -122,6 +184,9 @@ export async function POST(req: NextRequest) {
   });
 
   if (!isValid) {
+    logStripeWebhookError("Webhook signature verification failed.", {
+      hasSignatureHeader: !!req.headers.get("stripe-signature"),
+    });
     return NextResponse.json(
       { code: "INVALID_SIGNATURE", error: "Invalid Stripe signature." },
       { status: 400 },
@@ -129,12 +194,21 @@ export async function POST(req: NextRequest) {
   }
 
   const event = JSON.parse(body) as StripeWebhookEvent;
+  logStripeWebhook("Received Stripe webhook event.", {
+    eventId: event.id,
+    eventType: event.type,
+  });
 
   if (
     event.type === "checkout.session.completed" ||
     event.type === "checkout.session.async_payment_succeeded"
   ) {
     await handleCheckoutCompleted(event);
+  } else {
+    logStripeWebhook("Ignoring unsupported Stripe webhook event.", {
+      eventId: event.id,
+      eventType: event.type,
+    });
   }
 
   return NextResponse.json({ received: true });
