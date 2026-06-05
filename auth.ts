@@ -93,11 +93,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (!user.id) return;
 
       const { createDemoTeamForUser } = await import("@/lib/demo-team-seed");
+      const { grantSignupAiCredits } = await import("@/lib/ai-credits");
       await createDemoTeamForUser({
         id: user.id,
         name: user.name,
         email: user.email,
       });
+      await grantSignupAiCredits(user.id);
     },
   },
 });

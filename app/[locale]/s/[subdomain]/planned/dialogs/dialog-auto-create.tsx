@@ -222,19 +222,17 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
   };
 
   return (
-    <section className="rounded-lg border border-primary/40 bg-linear-to-br from-primary/10 via-card to-card p-4 shadow-sm">
+    <section className="rounded-lg border border-primary/40 bg-card p-4 shadow-sm">
       <div className="flex items-start gap-3">
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/40 text-background shadow-sm">
           <Sparkles className="size-5" />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
+            <Badge variant={"outline"}>{t("ai.beta")}</Badge>
             <h3 className="text-base font-semibold leading-tight">
               {t("ai.label")}
             </h3>
-            <Badge className="bg-primary text-background hover:bg-primary/15">
-              {t("ai.beta")}
-            </Badge>
           </div>
           <p className="mt-1 text-sm leading-5 text-muted-foreground">
             {t("ai.description")}

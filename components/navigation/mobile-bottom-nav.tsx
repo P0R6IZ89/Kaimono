@@ -1,12 +1,10 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Home, Layers, ShoppingCart, User } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Link } from "@/i18n/navigation";
-import { stripLeadingLocale } from "@/middleware";
+import { Link, usePathname as useLocalizedPathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { CreateEssentialDialogTrigger } from "@/app/[locale]/s/[subdomain]/essentials/dialogs/dialog-create-trigger";
 import { CreatePlannedDialogTrigger } from "@/app/[locale]/s/[subdomain]/planned/dialogs/dialog-create-trigger";
@@ -29,13 +27,17 @@ type MobileBottomNavProps = {
 };
 
 export function MobileBottomNav({ user }: MobileBottomNavProps) {
-  const pathname = usePathname() ?? "";
-  const { rest } = stripLeadingLocale(pathname);
+  const pathname = useLocalizedPathname();
+  const [activePathname, setActivePathname] = useState<string | null>(null);
   const t = useTranslations("MobileNav");
   const essentialTriggerRef = useRef<HTMLButtonElement>(null);
   const plannedTriggerRef = useRef<HTMLButtonElement>(null);
   const projectTriggerRef = useRef<HTMLButtonElement>(null);
   const profileAlt = user.name ?? user.email ?? t("profile");
+
+  useEffect(() => {
+    setActivePathname(pathname);
+  }, [pathname]);
 
   const items: NavItem[] = [
     { href: "/", label: t("home"), icon: Home },
@@ -69,14 +71,15 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
           <ul className="grid grid-cols-4 items-center">
             {items.map((item) => {
               const active =
-                rest === item.href || rest.startsWith(item.href + "/");
+                activePathname === item.href ||
+                activePathname?.startsWith(item.href + "/");
               const Icon = item.icon ?? User;
               return (
                 <li key={item.href} className="py-2 flex-1">
                   <Link
                     prefetch={true}
                     href={item.href}
-                    aria-current={"page"}
+                    aria-current={active ? "page" : undefined}
                     className={cn(
                       "flex flex-col items-center justify-center gap-1 py-3 text-xs rounded-2xl transition-colors",
                       active

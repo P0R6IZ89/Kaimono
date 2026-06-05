@@ -354,6 +354,10 @@
       "starterPack": "$1 / 100 クレジット",
       "valuePack": "$3 / 350 クレジット",
       "redirecting": "移動中...",
+      "paymentSuccess": "支払いが完了しました。Stripe による確認後、クレジットが反映されます。",
+      "paymentCancelled": "チェックアウトをキャンセルしました。",
+      "refreshBalance": "残高を更新",
+      "refreshing": "更新中...",
       "checkoutFailed": "クレジット購入画面を開始できませんでした。"
     },
     "developedBy": "{name} が開発"

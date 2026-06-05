@@ -354,6 +354,10 @@
       "starterPack": "$1 / 100 créditos",
       "valuePack": "$3 / 350 créditos",
       "redirecting": "Redirecionando...",
+      "paymentSuccess": "Pagamento concluído. Seus créditos aparecerão depois que a Stripe confirmar a compra.",
+      "paymentCancelled": "O checkout foi cancelado.",
+      "refreshBalance": "Atualizar saldo",
+      "refreshing": "Atualizando...",
       "checkoutFailed": "Não foi possível iniciar o checkout de créditos."
     },
     "developedBy": "Desenvolvido por {name}"
