@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { HomeTopBarImage } from "./HomeTopBarImage";
 import { PlusCircle } from "lucide-react";
 import { ProjectCreateDialog } from "../projects/components/project-create-dialog";
+import RandomShape from "./randomshapes";
 
 type HomeTopBarItem = {
   id: string;
@@ -28,7 +29,7 @@ export function HomeTopBar({
           type="button"
           aria-pressed={activeProjectId === project.id}
           onClick={() => setActiveProjectId(project.id)}
-          className="group flex max-w-20 flex-col items-center gap-2 rounded-lg focus-visible:outline-none overflow-clip"
+          className="group flex max-w-20 flex-col items-center gap-2 focus-visible:outline-none overflow-clip"
         >
           <HomeTopBarImage
             projectType={project.type}

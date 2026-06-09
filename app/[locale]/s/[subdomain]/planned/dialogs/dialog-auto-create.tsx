@@ -13,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AI_EXTRACTION_CREDIT_COST } from "@/lib/ai-credits";
+import RandomShape from "../../components/randomshapes";
 
 type ExtractedProduct = {
   name: string | null;
@@ -225,12 +226,10 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
   return (
     <section className="rounded-lg border border-primary/40 bg-card p-4 shadow-sm">
       <div className="flex items-start gap-3">
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/40 text-background shadow-sm">
-          <Sparkles className="size-5" />
-        </div>
+        <RandomShape />
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge variant={"outline"}>{t("ai.beta")}</Badge>
+          <div className="flex flex-wrap items-center gap-1">
+            {/* <Badge variant={"outline"}>{t("ai.beta")}</Badge> */}
             <h3 className="text-base font-semibold leading-tight">
               {t("ai.label")}
             </h3>
