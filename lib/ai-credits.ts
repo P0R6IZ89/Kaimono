@@ -1,8 +1,8 @@
 import prisma from "@/lib/prisma";
 import type { Prisma } from "@/prisma/generated/prisma";
 
-export const AI_EXTRACTION_CREDIT_COST = 1;
-export const FREE_SIGNUP_CREDITS = 20;
+export const AI_EXTRACTION_CREDIT_COST = 10;
+export const FREE_SIGNUP_CREDITS = 200;
 
 export const AI_CREDIT_PACKS = {
   starter: {
