@@ -340,6 +340,14 @@
     "tutorialDescription": "Faça o tutorial para dominar o app",
     "homeTitle": "Início",
     "appearance": "Aparência",
+    "security": {
+      "rowTitle": "Segurança",
+      "rowDescription": "Gerencie a autenticação de dois fatores."
+    },
+    "contact": {
+      "rowTitle": "Contato",
+      "rowDescription": "Envie uma mensagem para nós."
+    },
     "aiCredits": {
       "section": "Créditos de IA",
       "rowTitle": "Gerenciar créditos de extração com IA",
@@ -362,6 +370,60 @@
     },
     "developedBy": "Desenvolvido por {name}"
   },
+  "TwoFactor": {
+    "title": "Segurança",
+    "description": "Adicione um código de aplicativo autenticador para proteger sua conta após o login.",
+    "success": "Sucesso",
+    "error": "Erro",
+    "app": {
+      "title": "Aplicativo autenticador",
+      "description": "Use um código temporário de apps como 1Password, Google Authenticator ou Authy."
+    },
+    "status": {
+      "enabled": "Ativado",
+      "disabled": "Desativado"
+    },
+    "setup": {
+      "start": "Configurar autenticação de dois fatores",
+      "scanTitle": "Escaneie este QR code",
+      "scanDescription": "Abra seu aplicativo autenticador, adicione um novo login e digite o código de 6 dígitos exibido.",
+      "qrAlt": "QR code da autenticação de dois fatores",
+      "manualEntry": "Inserir link de configuração manualmente",
+      "confirm": "Ativar autenticação de dois fatores"
+    },
+    "enabled": {
+      "title": "A autenticação de dois fatores está ativada",
+      "description": "Você tem {count, plural, =0 {nenhum código reserva não usado} one {# código reserva não usado} other {# códigos reserva não usados}}."
+    },
+    "disable": {
+      "submit": "Desativar autenticação de dois fatores"
+    },
+    "recoveryCodes": {
+      "title": "Salve seus códigos reserva",
+      "description": "Cada código reserva pode ser usado uma vez se você perder acesso ao aplicativo autenticador.",
+      "regenerate": "Gerar novos códigos reserva"
+    },
+    "challenge": {
+      "title": "Digite seu código de autenticação",
+      "description": "Use seu aplicativo autenticador ou um código reserva não usado para continuar.",
+      "placeholder": "123456 ou código reserva",
+      "submit": "Verificar"
+    },
+    "fields": {
+      "code": "Código de autenticação",
+      "codeOrRecovery": "Código de autenticação ou reserva",
+      "currentCode": "Código de autenticação ou reserva atual"
+    },
+    "messages": {
+      "alreadyEnabled": "A autenticação de dois fatores já está ativada.",
+      "setupMissing": "Inicie a configuração novamente antes de confirmar o código.",
+      "invalidCode": "O código é inválido ou já foi usado.",
+      "enabled": "A autenticação de dois fatores está ativada.",
+      "disabled": "A autenticação de dois fatores está desativada.",
+      "recoveryCodesRegenerated": "Os códigos reserva foram gerados novamente.",
+      "serverError": "Algo deu errado. Tente novamente."
+    }
+  },
   "Sidebar": {
     "config": {
       "theme": {
@@ -373,19 +435,15 @@
       },
       "title": "Configuração"
     },
-    "invitation": {
-      "inviteUser": "Convidar usuário",
-      "title": "Convites"
-    },
     "navPages": {
       "essentials": "Lista de compras",
       "home": "Início",
-      "planned": "Planejados",
       "projects": "Projetos",
       "title": "Páginas"
     },
-    "navSecondary": {
-      "contact": "Contato"
+    "settings": {
+      "title": "Configurações",
+      "workspace": "Configurações do workspace"
     },
     "navSite": {
       "items": {
@@ -684,7 +742,15 @@
       "subject": "Pergunta sobre o app",
       "message": "Escreva sua mensagem aqui..."
     },
-    "submit": "Enviar mensagem"
+    "submit": "Enviar mensagem",
+    "sending": "Enviando...",
+    "messages": {
+      "sent": "Sua mensagem foi enviada com sucesso.",
+      "invalid": "Verifique o formulário e tente novamente.",
+      "rateLimited": "Você enviou muitas mensagens. Tente novamente mais tarde.",
+      "configuration": "O e-mail de contato não está configurado. Tente novamente mais tarde.",
+      "failed": "Não foi possível enviar sua mensagem. Tente novamente."
+    }
   },
   "DashboardHome": {
     "recentlyAdded": "Adicionados recentemente",
@@ -805,6 +871,14 @@
     "descriptionMax500": "Use 500 caracteres ou menos.",
     "min2": "Digite pelo menos 2 caracteres.",
     "titleRequired": "Digite um título.",
-    "min10": "Digite pelo menos 10 caracteres."
+    "min10": "Digite pelo menos 10 caracteres.",
+    "contactNameMin2": "Digite pelo menos 2 caracteres.",
+    "contactNameMax100": "Use no máximo 100 caracteres.",
+    "contactEmailMax254": "Use no máximo 254 caracteres.",
+    "contactSubjectMin3": "Digite pelo menos 3 caracteres.",
+    "contactSubjectMax160": "Use no máximo 160 caracteres.",
+    "contactSubjectSingleLine": "Digite o assunto em uma única linha.",
+    "contactMessageMin10": "Digite pelo menos 10 caracteres.",
+    "contactMessageMax5000": "Use no máximo 5.000 caracteres."
   }
 }

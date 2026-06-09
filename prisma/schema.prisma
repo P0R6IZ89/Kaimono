@@ -55,6 +55,8 @@ model User {
   accounts        Account[]
   sessions        Session[]
   Authenticator   Authenticator[]
+  twoFactor       UserTwoFactor?
+  recoveryCodes   TwoFactorRecoveryCode[]
   memberships     Membership[]
   invitationsSent Invitation[]     @relation("InvitationSender")
   essentials      Essential[]
@@ -163,6 +165,28 @@ model Authenticator {
   user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model UserTwoFactor {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  secret    String
+  enabledAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TwoFactorRecoveryCode {
+  id        String    @id @default(cuid())
+  userId    String
+  codeHash  String
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, codeHash])
+  @@index([userId, usedAt])
 }
 
 model Project {

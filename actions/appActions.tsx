@@ -74,6 +74,8 @@ function assertAllowedSubdomain(sub: string) {
 
 type SessionWithUser = Session & {
   user: { id: string; name: string | null; email: string };
+  requiresTwoFactor?: boolean;
+  twoFactorVerified?: boolean;
 };
 
 export async function requireSession(): Promise<SessionWithUser> {
@@ -81,7 +83,11 @@ export async function requireSession(): Promise<SessionWithUser> {
   const locale = await getCurrentLocale();
 
   if (!s?.user?.id) redirect({ href: "/login", locale });
-  return s as SessionWithUser;
+  const session = s as SessionWithUser;
+  if (session.requiresTwoFactor && !session.twoFactorVerified) {
+    redirect({ href: "/two-factor", locale });
+  }
+  return session;
 }
 
 export async function requireMembership(subdomain: string) {

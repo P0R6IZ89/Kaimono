@@ -88,6 +88,7 @@ AUTH_RESEND_KEY="your-resend-api-key"
 LOGIN_FROM_EMAIL="login@yourdomain.com"
 INVITE_FROM_EMAIL="invites@yourdomain.com"
 INVITE_LOGIN_FROM_EMAIL="reminders@yourdomain.com"
+CONTACT_TO_EMAIL="support@yourdomain.com"
 
 # Domains, server actions, and cron
 NEXT_PUBLIC_ROOT_DOMAIN="localhost:3000"

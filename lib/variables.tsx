@@ -12,6 +12,7 @@ export const publicPaths = [
   "/home",
   "/logout",
   "/welcome",
+  "/two-factor",
   "/api/auth",
 ];
 

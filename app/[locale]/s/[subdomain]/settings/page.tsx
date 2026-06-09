@@ -18,7 +18,14 @@ import {
 } from "@/components/ui/item";
 import { Link } from "@/i18n/navigation";
 import NextLink from "next/link";
-import { ChevronRight, Coins, Home, UserPlus2 } from "lucide-react";
+import {
+  ChevronRight,
+  Coins,
+  Home,
+  MessageCircle,
+  ShieldCheck,
+  UserPlus2,
+} from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import ThemeToggler from "./theme";
 import { protocol, rootDomain } from "@/lib/variables";
@@ -62,6 +69,25 @@ export default async function Settings({
                 <ItemTitle>{t("inviteMembers")}</ItemTitle>
                 <ItemDescription className="text-xs">
                   {t("inviteDescription")}
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
+          </Item>
+          <Item className="p-2 gap-4" asChild>
+            <Link href={"/settings/security"}>
+              <ItemMedia
+                variant={"icon"}
+                className="bg-muted rounded-lg size-8"
+              >
+                <ShieldCheck />
+              </ItemMedia>
+              <ItemContent className="gap-0">
+                <ItemTitle>{t("security.rowTitle")}</ItemTitle>
+                <ItemDescription className="text-xs">
+                  {t("security.rowDescription")}
                 </ItemDescription>
               </ItemContent>
               <ItemActions>
@@ -113,6 +139,25 @@ export default async function Settings({
                 <ChevronRight className="size-4" />
               </ItemActions>
             </NextLink>
+          </Item>
+          <Item className="p-2 gap-4" asChild>
+            <Link href={"/settings/contact"}>
+              <ItemMedia
+                variant={"icon"}
+                className="bg-muted rounded-lg size-8"
+              >
+                <MessageCircle />
+              </ItemMedia>
+              <ItemContent className="gap-0">
+                <ItemTitle>{t("contact.rowTitle")}</ItemTitle>
+                <ItemDescription className="text-xs">
+                  {t("contact.rowDescription")}
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <ChevronRight className="size-4" />
+              </ItemActions>
+            </Link>
           </Item>
         </ItemGroup>
       </div>

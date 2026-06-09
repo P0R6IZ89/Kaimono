@@ -340,6 +340,14 @@
     "tutorialDescription": "Go through the tutorial to master the app",
     "homeTitle": "Home",
     "appearance": "Appearance",
+    "security": {
+      "rowTitle": "Security",
+      "rowDescription": "Manage two-factor authentication."
+    },
+    "contact": {
+      "rowTitle": "Contact",
+      "rowDescription": "Send us a message."
+    },
     "aiCredits": {
       "section": "AI credits",
       "rowTitle": "Manage AI extraction credits",
@@ -362,6 +370,60 @@
     },
     "developedBy": "Developed by {name}"
   },
+  "TwoFactor": {
+    "title": "Security",
+    "description": "Add an authenticator app code to protect your account after sign-in.",
+    "success": "Success",
+    "error": "Error",
+    "app": {
+      "title": "Authenticator app",
+      "description": "Use a time-based code from apps like 1Password, Google Authenticator, or Authy."
+    },
+    "status": {
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
+    "setup": {
+      "start": "Set up two-factor authentication",
+      "scanTitle": "Scan this QR code",
+      "scanDescription": "Open your authenticator app, add a new login, then enter the 6-digit code it shows.",
+      "qrAlt": "Two-factor authentication QR code",
+      "manualEntry": "Enter setup link manually",
+      "confirm": "Enable two-factor authentication"
+    },
+    "enabled": {
+      "title": "Two-factor authentication is enabled",
+      "description": "You have {count, plural, =0 {no unused backup codes} one {# unused backup code} other {# unused backup codes}}."
+    },
+    "disable": {
+      "submit": "Disable two-factor authentication"
+    },
+    "recoveryCodes": {
+      "title": "Save your backup codes",
+      "description": "Each backup code can be used once if you lose access to your authenticator app.",
+      "regenerate": "Regenerate backup codes"
+    },
+    "challenge": {
+      "title": "Enter your authentication code",
+      "description": "Use your authenticator app or one unused backup code to continue.",
+      "placeholder": "123456 or backup code",
+      "submit": "Verify"
+    },
+    "fields": {
+      "code": "Authentication code",
+      "codeOrRecovery": "Authentication or backup code",
+      "currentCode": "Current authentication or backup code"
+    },
+    "messages": {
+      "alreadyEnabled": "Two-factor authentication is already enabled.",
+      "setupMissing": "Start setup again before confirming your code.",
+      "invalidCode": "The code is invalid or has already been used.",
+      "enabled": "Two-factor authentication is enabled.",
+      "disabled": "Two-factor authentication is disabled.",
+      "recoveryCodesRegenerated": "Backup codes were regenerated.",
+      "serverError": "Something went wrong. Please try again."
+    }
+  },
   "Sidebar": {
     "config": {
       "theme": {
@@ -373,19 +435,15 @@
       },
       "title": "Configuration"
     },
-    "invitation": {
-      "inviteUser": "Invite User",
-      "title": "Invitations"
-    },
     "navPages": {
       "essentials": "Shopping List",
       "home": "Home",
-      "planned": "All Project Items",
       "projects": "Projects",
       "title": "Pages"
     },
-    "navSecondary": {
-      "contact": "Contact"
+    "settings": {
+      "title": "Settings",
+      "workspace": "Workspace settings"
     },
     "navSite": {
       "items": {
@@ -684,7 +742,15 @@
       "subject": "Question about the app",
       "message": "Write your message here..."
     },
-    "submit": "Send message"
+    "submit": "Send message",
+    "sending": "Sending...",
+    "messages": {
+      "sent": "Your message was sent successfully.",
+      "invalid": "Check the form and try again.",
+      "rateLimited": "You have sent too many messages. Try again later.",
+      "configuration": "Contact email is not configured. Please try again later.",
+      "failed": "We could not send your message. Please try again."
+    }
   },
   "DashboardHome": {
     "recentlyAdded": "Recently added",
@@ -805,6 +871,14 @@
     "descriptionMax500": "Use 500 characters or fewer.",
     "min2": "Please enter at least 2 characters.",
     "titleRequired": "Please enter a title.",
-    "min10": "Please enter at least 10 characters."
+    "min10": "Please enter at least 10 characters.",
+    "contactNameMin2": "Please enter at least 2 characters.",
+    "contactNameMax100": "Use 100 characters or fewer.",
+    "contactEmailMax254": "Use 254 characters or fewer.",
+    "contactSubjectMin3": "Please enter at least 3 characters.",
+    "contactSubjectMax160": "Use 160 characters or fewer.",
+    "contactSubjectSingleLine": "Enter the subject on one line.",
+    "contactMessageMin10": "Please enter at least 10 characters.",
+    "contactMessageMax5000": "Use 5,000 characters or fewer."
   }
 }

@@ -72,6 +72,14 @@ function getLocaleHeaders(req: NextRequest, locale: Locale) {
   return headers;
 }
 
+function getSafeCallbackPath(value: string | null, fallback: string) {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) {
+    return fallback;
+  }
+
+  return value;
+}
+
 export default auth(async function middleware(req) {
   if (KILL_SWITCH) {
     return new NextResponse("Service Unavailable", { status: 503 });
@@ -90,11 +98,36 @@ export default auth(async function middleware(req) {
   const user = req.auth?.user;
   const isPublic = publicPaths.includes(rest);
   const isLoginPath = rest === "/login" || rest === "/login/magic-link";
+  const isTwoFactorPath = rest === "/two-factor";
+  const requiresTwoFactor = Boolean(req.auth?.requiresTwoFactor);
+  const twoFactorVerified =
+    !requiresTwoFactor || Boolean(req.auth?.twoFactorVerified);
 
   if (!user && !isLoginPath && !isPublic) {
     const url = req.nextUrl.clone();
     url.pathname = `/${locale}/login`;
     url.search = search;
+    return NextResponse.redirect(url);
+  }
+
+  if (user && isTwoFactorPath && twoFactorVerified) {
+    const fallback = `/${locale}/`;
+    const callbackPath = getSafeCallbackPath(
+      req.nextUrl.searchParams.get("callbackUrl"),
+      fallback,
+    );
+    const callbackUrl = new URL(callbackPath, req.nextUrl.origin);
+    const url = req.nextUrl.clone();
+    url.pathname = callbackUrl.pathname;
+    url.search = callbackUrl.search;
+    return NextResponse.redirect(url);
+  }
+
+  if (user && requiresTwoFactor && !twoFactorVerified && !isPublic) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${locale}/two-factor`;
+    url.search = "";
+    url.searchParams.set("callbackUrl", `${pathname}${search}`);
     return NextResponse.redirect(url);
   }
 
@@ -105,7 +138,7 @@ export default auth(async function middleware(req) {
     return NextResponse.redirect(url);
   }
 
-  if (subdomain) {
+  if (subdomain && !isPublic) {
     const expectedPrefix = `/${locale}/s/${subdomain}`;
     if (!pathname.startsWith(expectedPrefix)) {
       const dest = req.nextUrl.clone();
