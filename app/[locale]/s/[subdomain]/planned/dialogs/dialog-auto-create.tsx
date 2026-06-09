@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/input-group";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { AI_EXTRACTION_CREDIT_COST } from "@/lib/ai-credits";
 
 type ExtractedProduct = {
   name: string | null;
@@ -289,7 +290,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
           disabled={!hasUrl || isExtracting}
         >
           {isExtracting ? <Loader2 className="animate-spin" /> : <Wand2 />}
-          {t("ai.generateDetails")}
+          {t("ai.generateDetails")} · {t("ai.creditCost", { count: 10 })}
         </Button>
       </div>
 
