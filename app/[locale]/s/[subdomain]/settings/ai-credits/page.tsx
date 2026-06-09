@@ -1,10 +1,18 @@
 import { requireMembership, requireSession } from "@/actions/appActions";
 import { Item, ItemContent, ItemGroup, ItemTitle } from "@/components/ui/item";
-import { getAiCreditBalance, AI_CREDIT_PACKS } from "@/lib/ai-credits";
+import {
+  AI_CREDIT_PACKS,
+  FREE_SIGNUP_CREDITS,
+  getAiCreditBalance,
+} from "@/lib/ai-credits";
 import { getTranslations } from "next-intl/server";
 import { CreditPackActions } from "./credit-pack-actions";
 import { AiCreditToastHandler } from "./ai-credit-toast-handler";
 import { RefreshBalanceButton } from "./refresh-balance-button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { Badge } from "@/components/ui/badge";
 
 export default async function AiCreditsSettingsPage({
   params,
@@ -31,18 +39,39 @@ export default async function AiCreditsSettingsPage({
     <div className="grid grid-cols-1 gap-4 px-4 pt-8 mb-24 md:mb-0">
       <AiCreditToastHandler />
       <div>
+        <Alert className="mb-4">
+          <AlertCircle />
+          <AlertTitle>{t("aiCredits.purchaseNoticeTitle")}</AlertTitle>
+          <AlertDescription>
+            {t.rich("aiCredits.purchaseNoticeDescription", {
+              contact: (chunks) => (
+                <Link
+                  href="/settings/contact"
+                  className="underline text-foreground"
+                >
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </AlertDescription>
+        </Alert>
         <ItemGroup className="bg-muted/50 border rounded-sm gap-0">
           <Item className="p-4">
             <ItemContent className="gap-2">
+              <Badge variant="outline" className="">
+                {t("aiCredits.signupBonus", {
+                  count: FREE_SIGNUP_CREDITS,
+                })}
+              </Badge>
               <ItemTitle className="text-base">
-                {t("aiCredits.remainingTitle")}
+                <p>{t("aiCredits.remainingTitle")}</p>
               </ItemTitle>
               <p className="text-4xl font-semibold tracking-normal">
                 {t("aiCredits.remainingCount", { count: credits })}
               </p>
-              <p className="text-sm text-muted-foreground">
+              {/* <p className="text-sm text-muted-foreground">
                 {t("aiCredits.description")}
-              </p>
+              </p> */}
               <RefreshBalanceButton />
             </ItemContent>
           </Item>
