@@ -133,7 +133,7 @@ export default async function Home({ params }: PageProps) {
               <Badge variant="secondary" className="w-fit">
                 {t("hero.badge")}
               </Badge>
-              <h1 className="text-4xl uppercase font-semibold leading-15 tracking-tighter md:text-5xl md:leading-14">
+              <h1 className="text-4xl uppercase font-black leading-9 tracking-tighter md:text-5xl md:leading-12">
                 <span className="block whitespace-nowrap">
                   {t("hero.titleLine1")}
                 </span>
@@ -141,7 +141,7 @@ export default async function Home({ params }: PageProps) {
                   {t("hero.titleLine2")}
                 </span>
               </h1>
-              <p className="max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+              <p className="max-w-2xl text-base leading-5 text-muted-foreground md:text-lg">
                 {t("hero.description")}
               </p>
             </div>
