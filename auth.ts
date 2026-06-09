@@ -21,7 +21,18 @@ const authAdapter = isEdge
   ? undefined
   : PrismaAdapter(prisma as unknown as Parameters<typeof PrismaAdapter>[0]);
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+async function getUserRequiresTwoFactor(userId: string) {
+  if (isEdge) return false;
+
+  const twoFactor = await prisma.userTwoFactor.findUnique({
+    where: { userId },
+    select: { enabledAt: true },
+  });
+
+  return Boolean(twoFactor?.enabledAt);
+}
+
+export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   adapter: authAdapter,
 
   session: { strategy: "jwt" },
@@ -55,17 +66,42 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   callbacks: {
-    async jwt({ token, user, trigger }) {
-      if (!token.sub) return token;
-
+    async jwt({ token, user, trigger, session }) {
       if (user) {
-        token.id = user.id as string;
+        const userId = user.id as string;
+        token.id = userId;
         token.name = user.name ?? token.name;
         token.email = user.email ?? token.email;
         token.image = user.image ?? token.image;
+        token.requiresTwoFactor = await getUserRequiresTwoFactor(userId);
+        token.twoFactorVerified = !token.requiresTwoFactor;
+        token.twoFactorVerifiedAt = token.requiresTwoFactor
+          ? null
+          : new Date().toISOString();
         return token;
       }
+
+      if (!token.sub) return token;
+
       if (!isEdge && trigger === "update") {
+        const twoFactorSession = session as
+          | {
+              requiresTwoFactor?: boolean;
+              twoFactorVerified?: boolean;
+              twoFactorVerifiedAt?: string | null;
+            }
+          | undefined;
+
+        if (twoFactorSession?.requiresTwoFactor !== undefined) {
+          token.requiresTwoFactor = twoFactorSession.requiresTwoFactor;
+        }
+        if (twoFactorSession?.twoFactorVerified !== undefined) {
+          token.twoFactorVerified = twoFactorSession.twoFactorVerified;
+        }
+        if (twoFactorSession?.twoFactorVerifiedAt !== undefined) {
+          token.twoFactorVerifiedAt = twoFactorSession.twoFactorVerifiedAt;
+        }
+
         const { getUserById } = await import("./actions/authActions");
         const u = await getUserById(token.sub);
         if (u) {
@@ -73,6 +109,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.name = u.name ?? token.name;
           token.email = u.email ?? token.email;
           token.image = u.image ?? token.image;
+        }
+        if (twoFactorSession?.requiresTwoFactor === undefined) {
+          token.requiresTwoFactor = await getUserRequiresTwoFactor(token.sub);
         }
         return token;
       }
@@ -83,7 +122,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token.id) session.user.id = token.id as string;
       if (token.name) session.user.name = token.name as string;
       if (token.email) session.user.email = token.email as string;
+      if (token.image) session.user.image = token.image as string;
       if (token.picture) session.user.image = token.picture as string;
+
+      session.requiresTwoFactor = Boolean(token.requiresTwoFactor);
+      session.twoFactorVerified =
+        !session.requiresTwoFactor || Boolean(token.twoFactorVerified);
+      session.twoFactorVerifiedAt =
+        typeof token.twoFactorVerifiedAt === "string"
+          ? token.twoFactorVerifiedAt
+          : null;
 
       return session;
     },

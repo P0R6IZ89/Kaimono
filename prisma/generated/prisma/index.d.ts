@@ -54,6 +54,16 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type Authenticator = $Result.DefaultSelection<Prisma.$AuthenticatorPayload>
 /**
+ * Model UserTwoFactor
+ * 
+ */
+export type UserTwoFactor = $Result.DefaultSelection<Prisma.$UserTwoFactorPayload>
+/**
+ * Model TwoFactorRecoveryCode
+ * 
+ */
+export type TwoFactorRecoveryCode = $Result.DefaultSelection<Prisma.$TwoFactorRecoveryCodePayload>
+/**
  * Model Project
  * 
  */
@@ -354,6 +364,26 @@ export class PrismaClient<
     * ```
     */
   get authenticator(): Prisma.AuthenticatorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userTwoFactor`: Exposes CRUD operations for the **UserTwoFactor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserTwoFactors
+    * const userTwoFactors = await prisma.userTwoFactor.findMany()
+    * ```
+    */
+  get userTwoFactor(): Prisma.UserTwoFactorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.twoFactorRecoveryCode`: Exposes CRUD operations for the **TwoFactorRecoveryCode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TwoFactorRecoveryCodes
+    * const twoFactorRecoveryCodes = await prisma.twoFactorRecoveryCode.findMany()
+    * ```
+    */
+  get twoFactorRecoveryCode(): Prisma.TwoFactorRecoveryCodeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.project`: Exposes CRUD operations for the **Project** model.
@@ -863,6 +893,8 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     Authenticator: 'Authenticator',
+    UserTwoFactor: 'UserTwoFactor',
+    TwoFactorRecoveryCode: 'TwoFactorRecoveryCode',
     Project: 'Project',
     Essential: 'Essential',
     Planned: 'Planned',
@@ -887,7 +919,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "app" | "membership" | "invitation" | "account" | "session" | "verificationToken" | "authenticator" | "project" | "essential" | "planned" | "plannedComment" | "plannedLike" | "aiCreditLedger"
+      modelProps: "user" | "app" | "membership" | "invitation" | "account" | "session" | "verificationToken" | "authenticator" | "userTwoFactor" | "twoFactorRecoveryCode" | "project" | "essential" | "planned" | "plannedComment" | "plannedLike" | "aiCreditLedger"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1483,6 +1515,154 @@ export namespace Prisma {
           }
         }
       }
+      UserTwoFactor: {
+        payload: Prisma.$UserTwoFactorPayload<ExtArgs>
+        fields: Prisma.UserTwoFactorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserTwoFactorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserTwoFactorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>
+          }
+          findFirst: {
+            args: Prisma.UserTwoFactorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserTwoFactorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>
+          }
+          findMany: {
+            args: Prisma.UserTwoFactorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>[]
+          }
+          create: {
+            args: Prisma.UserTwoFactorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>
+          }
+          createMany: {
+            args: Prisma.UserTwoFactorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserTwoFactorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>[]
+          }
+          delete: {
+            args: Prisma.UserTwoFactorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>
+          }
+          update: {
+            args: Prisma.UserTwoFactorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserTwoFactorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserTwoFactorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserTwoFactorUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserTwoFactorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTwoFactorPayload>
+          }
+          aggregate: {
+            args: Prisma.UserTwoFactorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserTwoFactor>
+          }
+          groupBy: {
+            args: Prisma.UserTwoFactorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserTwoFactorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserTwoFactorCountArgs<ExtArgs>
+            result: $Utils.Optional<UserTwoFactorCountAggregateOutputType> | number
+          }
+        }
+      }
+      TwoFactorRecoveryCode: {
+        payload: Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>
+        fields: Prisma.TwoFactorRecoveryCodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TwoFactorRecoveryCodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TwoFactorRecoveryCodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>
+          }
+          findFirst: {
+            args: Prisma.TwoFactorRecoveryCodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TwoFactorRecoveryCodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>
+          }
+          findMany: {
+            args: Prisma.TwoFactorRecoveryCodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>[]
+          }
+          create: {
+            args: Prisma.TwoFactorRecoveryCodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>
+          }
+          createMany: {
+            args: Prisma.TwoFactorRecoveryCodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TwoFactorRecoveryCodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>[]
+          }
+          delete: {
+            args: Prisma.TwoFactorRecoveryCodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>
+          }
+          update: {
+            args: Prisma.TwoFactorRecoveryCodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>
+          }
+          deleteMany: {
+            args: Prisma.TwoFactorRecoveryCodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TwoFactorRecoveryCodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TwoFactorRecoveryCodeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>[]
+          }
+          upsert: {
+            args: Prisma.TwoFactorRecoveryCodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TwoFactorRecoveryCodePayload>
+          }
+          aggregate: {
+            args: Prisma.TwoFactorRecoveryCodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTwoFactorRecoveryCode>
+          }
+          groupBy: {
+            args: Prisma.TwoFactorRecoveryCodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TwoFactorRecoveryCodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TwoFactorRecoveryCodeCountArgs<ExtArgs>
+            result: $Utils.Optional<TwoFactorRecoveryCodeCountAggregateOutputType> | number
+          }
+        }
+      }
       Project: {
         payload: Prisma.$ProjectPayload<ExtArgs>
         fields: Prisma.ProjectFieldRefs
@@ -2031,6 +2211,8 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     authenticator?: AuthenticatorOmit
+    userTwoFactor?: UserTwoFactorOmit
+    twoFactorRecoveryCode?: TwoFactorRecoveryCodeOmit
     project?: ProjectOmit
     essential?: EssentialOmit
     planned?: PlannedOmit
@@ -2120,6 +2302,7 @@ export namespace Prisma {
     accounts: number
     sessions: number
     Authenticator: number
+    recoveryCodes: number
     memberships: number
     invitationsSent: number
     essentials: number
@@ -2134,6 +2317,7 @@ export namespace Prisma {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     Authenticator?: boolean | UserCountOutputTypeCountAuthenticatorArgs
+    recoveryCodes?: boolean | UserCountOutputTypeCountRecoveryCodesArgs
     memberships?: boolean | UserCountOutputTypeCountMembershipsArgs
     invitationsSent?: boolean | UserCountOutputTypeCountInvitationsSentArgs
     essentials?: boolean | UserCountOutputTypeCountEssentialsArgs
@@ -2174,6 +2358,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAuthenticatorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuthenticatorWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRecoveryCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TwoFactorRecoveryCodeWhereInput
   }
 
   /**
@@ -2574,6 +2765,8 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
+    twoFactor?: boolean | User$twoFactorArgs<ExtArgs>
+    recoveryCodes?: boolean | User$recoveryCodesArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
     invitationsSent?: boolean | User$invitationsSentArgs<ExtArgs>
     essentials?: boolean | User$essentialsArgs<ExtArgs>
@@ -2626,6 +2819,8 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
+    twoFactor?: boolean | User$twoFactorArgs<ExtArgs>
+    recoveryCodes?: boolean | User$recoveryCodesArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
     invitationsSent?: boolean | User$invitationsSentArgs<ExtArgs>
     essentials?: boolean | User$essentialsArgs<ExtArgs>
@@ -2645,6 +2840,8 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       Authenticator: Prisma.$AuthenticatorPayload<ExtArgs>[]
+      twoFactor: Prisma.$UserTwoFactorPayload<ExtArgs> | null
+      recoveryCodes: Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>[]
       memberships: Prisma.$MembershipPayload<ExtArgs>[]
       invitationsSent: Prisma.$InvitationPayload<ExtArgs>[]
       essentials: Prisma.$EssentialPayload<ExtArgs>[]
@@ -3061,6 +3258,8 @@ export namespace Prisma {
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Authenticator<T extends User$AuthenticatorArgs<ExtArgs> = {}>(args?: Subset<T, User$AuthenticatorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    twoFactor<T extends User$twoFactorArgs<ExtArgs> = {}>(args?: Subset<T, User$twoFactorArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    recoveryCodes<T extends User$recoveryCodesArgs<ExtArgs> = {}>(args?: Subset<T, User$recoveryCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     memberships<T extends User$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invitationsSent<T extends User$invitationsSentArgs<ExtArgs> = {}>(args?: Subset<T, User$invitationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     essentials<T extends User$essentialsArgs<ExtArgs> = {}>(args?: Subset<T, User$essentialsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EssentialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3564,6 +3763,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AuthenticatorScalarFieldEnum | AuthenticatorScalarFieldEnum[]
+  }
+
+  /**
+   * User.twoFactor
+   */
+  export type User$twoFactorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    where?: UserTwoFactorWhereInput
+  }
+
+  /**
+   * User.recoveryCodes
+   */
+  export type User$recoveryCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    where?: TwoFactorRecoveryCodeWhereInput
+    orderBy?: TwoFactorRecoveryCodeOrderByWithRelationInput | TwoFactorRecoveryCodeOrderByWithRelationInput[]
+    cursor?: TwoFactorRecoveryCodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TwoFactorRecoveryCodeScalarFieldEnum | TwoFactorRecoveryCodeScalarFieldEnum[]
   }
 
   /**
@@ -11563,6 +11805,2135 @@ export namespace Prisma {
 
 
   /**
+   * Model UserTwoFactor
+   */
+
+  export type AggregateUserTwoFactor = {
+    _count: UserTwoFactorCountAggregateOutputType | null
+    _min: UserTwoFactorMinAggregateOutputType | null
+    _max: UserTwoFactorMaxAggregateOutputType | null
+  }
+
+  export type UserTwoFactorMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    secret: string | null
+    enabledAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserTwoFactorMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    secret: string | null
+    enabledAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserTwoFactorCountAggregateOutputType = {
+    id: number
+    userId: number
+    secret: number
+    enabledAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserTwoFactorMinAggregateInputType = {
+    id?: true
+    userId?: true
+    secret?: true
+    enabledAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserTwoFactorMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    secret?: true
+    enabledAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserTwoFactorCountAggregateInputType = {
+    id?: true
+    userId?: true
+    secret?: true
+    enabledAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserTwoFactorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserTwoFactor to aggregate.
+     */
+    where?: UserTwoFactorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserTwoFactors to fetch.
+     */
+    orderBy?: UserTwoFactorOrderByWithRelationInput | UserTwoFactorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserTwoFactorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserTwoFactors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserTwoFactors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserTwoFactors
+    **/
+    _count?: true | UserTwoFactorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserTwoFactorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserTwoFactorMaxAggregateInputType
+  }
+
+  export type GetUserTwoFactorAggregateType<T extends UserTwoFactorAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserTwoFactor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserTwoFactor[P]>
+      : GetScalarType<T[P], AggregateUserTwoFactor[P]>
+  }
+
+
+
+
+  export type UserTwoFactorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserTwoFactorWhereInput
+    orderBy?: UserTwoFactorOrderByWithAggregationInput | UserTwoFactorOrderByWithAggregationInput[]
+    by: UserTwoFactorScalarFieldEnum[] | UserTwoFactorScalarFieldEnum
+    having?: UserTwoFactorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserTwoFactorCountAggregateInputType | true
+    _min?: UserTwoFactorMinAggregateInputType
+    _max?: UserTwoFactorMaxAggregateInputType
+  }
+
+  export type UserTwoFactorGroupByOutputType = {
+    id: string
+    userId: string
+    secret: string
+    enabledAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: UserTwoFactorCountAggregateOutputType | null
+    _min: UserTwoFactorMinAggregateOutputType | null
+    _max: UserTwoFactorMaxAggregateOutputType | null
+  }
+
+  type GetUserTwoFactorGroupByPayload<T extends UserTwoFactorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserTwoFactorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserTwoFactorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserTwoFactorGroupByOutputType[P]>
+            : GetScalarType<T[P], UserTwoFactorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserTwoFactorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    secret?: boolean
+    enabledAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userTwoFactor"]>
+
+  export type UserTwoFactorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    secret?: boolean
+    enabledAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userTwoFactor"]>
+
+  export type UserTwoFactorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    secret?: boolean
+    enabledAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userTwoFactor"]>
+
+  export type UserTwoFactorSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    secret?: boolean
+    enabledAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserTwoFactorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "secret" | "enabledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["userTwoFactor"]>
+  export type UserTwoFactorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserTwoFactorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserTwoFactorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserTwoFactorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserTwoFactor"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      secret: string
+      enabledAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userTwoFactor"]>
+    composites: {}
+  }
+
+  type UserTwoFactorGetPayload<S extends boolean | null | undefined | UserTwoFactorDefaultArgs> = $Result.GetResult<Prisma.$UserTwoFactorPayload, S>
+
+  type UserTwoFactorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserTwoFactorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserTwoFactorCountAggregateInputType | true
+    }
+
+  export interface UserTwoFactorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserTwoFactor'], meta: { name: 'UserTwoFactor' } }
+    /**
+     * Find zero or one UserTwoFactor that matches the filter.
+     * @param {UserTwoFactorFindUniqueArgs} args - Arguments to find a UserTwoFactor
+     * @example
+     * // Get one UserTwoFactor
+     * const userTwoFactor = await prisma.userTwoFactor.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserTwoFactorFindUniqueArgs>(args: SelectSubset<T, UserTwoFactorFindUniqueArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserTwoFactor that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserTwoFactorFindUniqueOrThrowArgs} args - Arguments to find a UserTwoFactor
+     * @example
+     * // Get one UserTwoFactor
+     * const userTwoFactor = await prisma.userTwoFactor.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserTwoFactorFindUniqueOrThrowArgs>(args: SelectSubset<T, UserTwoFactorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserTwoFactor that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTwoFactorFindFirstArgs} args - Arguments to find a UserTwoFactor
+     * @example
+     * // Get one UserTwoFactor
+     * const userTwoFactor = await prisma.userTwoFactor.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserTwoFactorFindFirstArgs>(args?: SelectSubset<T, UserTwoFactorFindFirstArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserTwoFactor that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTwoFactorFindFirstOrThrowArgs} args - Arguments to find a UserTwoFactor
+     * @example
+     * // Get one UserTwoFactor
+     * const userTwoFactor = await prisma.userTwoFactor.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserTwoFactorFindFirstOrThrowArgs>(args?: SelectSubset<T, UserTwoFactorFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserTwoFactors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTwoFactorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserTwoFactors
+     * const userTwoFactors = await prisma.userTwoFactor.findMany()
+     * 
+     * // Get first 10 UserTwoFactors
+     * const userTwoFactors = await prisma.userTwoFactor.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userTwoFactorWithIdOnly = await prisma.userTwoFactor.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserTwoFactorFindManyArgs>(args?: SelectSubset<T, UserTwoFactorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserTwoFactor.
+     * @param {UserTwoFactorCreateArgs} args - Arguments to create a UserTwoFactor.
+     * @example
+     * // Create one UserTwoFactor
+     * const UserTwoFactor = await prisma.userTwoFactor.create({
+     *   data: {
+     *     // ... data to create a UserTwoFactor
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserTwoFactorCreateArgs>(args: SelectSubset<T, UserTwoFactorCreateArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserTwoFactors.
+     * @param {UserTwoFactorCreateManyArgs} args - Arguments to create many UserTwoFactors.
+     * @example
+     * // Create many UserTwoFactors
+     * const userTwoFactor = await prisma.userTwoFactor.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserTwoFactorCreateManyArgs>(args?: SelectSubset<T, UserTwoFactorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserTwoFactors and returns the data saved in the database.
+     * @param {UserTwoFactorCreateManyAndReturnArgs} args - Arguments to create many UserTwoFactors.
+     * @example
+     * // Create many UserTwoFactors
+     * const userTwoFactor = await prisma.userTwoFactor.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserTwoFactors and only return the `id`
+     * const userTwoFactorWithIdOnly = await prisma.userTwoFactor.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserTwoFactorCreateManyAndReturnArgs>(args?: SelectSubset<T, UserTwoFactorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserTwoFactor.
+     * @param {UserTwoFactorDeleteArgs} args - Arguments to delete one UserTwoFactor.
+     * @example
+     * // Delete one UserTwoFactor
+     * const UserTwoFactor = await prisma.userTwoFactor.delete({
+     *   where: {
+     *     // ... filter to delete one UserTwoFactor
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserTwoFactorDeleteArgs>(args: SelectSubset<T, UserTwoFactorDeleteArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserTwoFactor.
+     * @param {UserTwoFactorUpdateArgs} args - Arguments to update one UserTwoFactor.
+     * @example
+     * // Update one UserTwoFactor
+     * const userTwoFactor = await prisma.userTwoFactor.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserTwoFactorUpdateArgs>(args: SelectSubset<T, UserTwoFactorUpdateArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserTwoFactors.
+     * @param {UserTwoFactorDeleteManyArgs} args - Arguments to filter UserTwoFactors to delete.
+     * @example
+     * // Delete a few UserTwoFactors
+     * const { count } = await prisma.userTwoFactor.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserTwoFactorDeleteManyArgs>(args?: SelectSubset<T, UserTwoFactorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserTwoFactors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTwoFactorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserTwoFactors
+     * const userTwoFactor = await prisma.userTwoFactor.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserTwoFactorUpdateManyArgs>(args: SelectSubset<T, UserTwoFactorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserTwoFactors and returns the data updated in the database.
+     * @param {UserTwoFactorUpdateManyAndReturnArgs} args - Arguments to update many UserTwoFactors.
+     * @example
+     * // Update many UserTwoFactors
+     * const userTwoFactor = await prisma.userTwoFactor.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserTwoFactors and only return the `id`
+     * const userTwoFactorWithIdOnly = await prisma.userTwoFactor.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserTwoFactorUpdateManyAndReturnArgs>(args: SelectSubset<T, UserTwoFactorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserTwoFactor.
+     * @param {UserTwoFactorUpsertArgs} args - Arguments to update or create a UserTwoFactor.
+     * @example
+     * // Update or create a UserTwoFactor
+     * const userTwoFactor = await prisma.userTwoFactor.upsert({
+     *   create: {
+     *     // ... data to create a UserTwoFactor
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserTwoFactor we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserTwoFactorUpsertArgs>(args: SelectSubset<T, UserTwoFactorUpsertArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserTwoFactors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTwoFactorCountArgs} args - Arguments to filter UserTwoFactors to count.
+     * @example
+     * // Count the number of UserTwoFactors
+     * const count = await prisma.userTwoFactor.count({
+     *   where: {
+     *     // ... the filter for the UserTwoFactors we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserTwoFactorCountArgs>(
+      args?: Subset<T, UserTwoFactorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserTwoFactorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserTwoFactor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTwoFactorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserTwoFactorAggregateArgs>(args: Subset<T, UserTwoFactorAggregateArgs>): Prisma.PrismaPromise<GetUserTwoFactorAggregateType<T>>
+
+    /**
+     * Group by UserTwoFactor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTwoFactorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserTwoFactorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserTwoFactorGroupByArgs['orderBy'] }
+        : { orderBy?: UserTwoFactorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserTwoFactorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserTwoFactorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserTwoFactor model
+   */
+  readonly fields: UserTwoFactorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserTwoFactor.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserTwoFactorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserTwoFactor model
+   */
+  interface UserTwoFactorFieldRefs {
+    readonly id: FieldRef<"UserTwoFactor", 'String'>
+    readonly userId: FieldRef<"UserTwoFactor", 'String'>
+    readonly secret: FieldRef<"UserTwoFactor", 'String'>
+    readonly enabledAt: FieldRef<"UserTwoFactor", 'DateTime'>
+    readonly createdAt: FieldRef<"UserTwoFactor", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserTwoFactor", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserTwoFactor findUnique
+   */
+  export type UserTwoFactorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTwoFactor to fetch.
+     */
+    where: UserTwoFactorWhereUniqueInput
+  }
+
+  /**
+   * UserTwoFactor findUniqueOrThrow
+   */
+  export type UserTwoFactorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTwoFactor to fetch.
+     */
+    where: UserTwoFactorWhereUniqueInput
+  }
+
+  /**
+   * UserTwoFactor findFirst
+   */
+  export type UserTwoFactorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTwoFactor to fetch.
+     */
+    where?: UserTwoFactorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserTwoFactors to fetch.
+     */
+    orderBy?: UserTwoFactorOrderByWithRelationInput | UserTwoFactorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserTwoFactors.
+     */
+    cursor?: UserTwoFactorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserTwoFactors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserTwoFactors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserTwoFactors.
+     */
+    distinct?: UserTwoFactorScalarFieldEnum | UserTwoFactorScalarFieldEnum[]
+  }
+
+  /**
+   * UserTwoFactor findFirstOrThrow
+   */
+  export type UserTwoFactorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTwoFactor to fetch.
+     */
+    where?: UserTwoFactorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserTwoFactors to fetch.
+     */
+    orderBy?: UserTwoFactorOrderByWithRelationInput | UserTwoFactorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserTwoFactors.
+     */
+    cursor?: UserTwoFactorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserTwoFactors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserTwoFactors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserTwoFactors.
+     */
+    distinct?: UserTwoFactorScalarFieldEnum | UserTwoFactorScalarFieldEnum[]
+  }
+
+  /**
+   * UserTwoFactor findMany
+   */
+  export type UserTwoFactorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTwoFactors to fetch.
+     */
+    where?: UserTwoFactorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserTwoFactors to fetch.
+     */
+    orderBy?: UserTwoFactorOrderByWithRelationInput | UserTwoFactorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserTwoFactors.
+     */
+    cursor?: UserTwoFactorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserTwoFactors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserTwoFactors.
+     */
+    skip?: number
+    distinct?: UserTwoFactorScalarFieldEnum | UserTwoFactorScalarFieldEnum[]
+  }
+
+  /**
+   * UserTwoFactor create
+   */
+  export type UserTwoFactorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserTwoFactor.
+     */
+    data: XOR<UserTwoFactorCreateInput, UserTwoFactorUncheckedCreateInput>
+  }
+
+  /**
+   * UserTwoFactor createMany
+   */
+  export type UserTwoFactorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserTwoFactors.
+     */
+    data: UserTwoFactorCreateManyInput | UserTwoFactorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserTwoFactor createManyAndReturn
+   */
+  export type UserTwoFactorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserTwoFactors.
+     */
+    data: UserTwoFactorCreateManyInput | UserTwoFactorCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserTwoFactor update
+   */
+  export type UserTwoFactorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserTwoFactor.
+     */
+    data: XOR<UserTwoFactorUpdateInput, UserTwoFactorUncheckedUpdateInput>
+    /**
+     * Choose, which UserTwoFactor to update.
+     */
+    where: UserTwoFactorWhereUniqueInput
+  }
+
+  /**
+   * UserTwoFactor updateMany
+   */
+  export type UserTwoFactorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserTwoFactors.
+     */
+    data: XOR<UserTwoFactorUpdateManyMutationInput, UserTwoFactorUncheckedUpdateManyInput>
+    /**
+     * Filter which UserTwoFactors to update
+     */
+    where?: UserTwoFactorWhereInput
+    /**
+     * Limit how many UserTwoFactors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserTwoFactor updateManyAndReturn
+   */
+  export type UserTwoFactorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * The data used to update UserTwoFactors.
+     */
+    data: XOR<UserTwoFactorUpdateManyMutationInput, UserTwoFactorUncheckedUpdateManyInput>
+    /**
+     * Filter which UserTwoFactors to update
+     */
+    where?: UserTwoFactorWhereInput
+    /**
+     * Limit how many UserTwoFactors to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserTwoFactor upsert
+   */
+  export type UserTwoFactorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserTwoFactor to update in case it exists.
+     */
+    where: UserTwoFactorWhereUniqueInput
+    /**
+     * In case the UserTwoFactor found by the `where` argument doesn't exist, create a new UserTwoFactor with this data.
+     */
+    create: XOR<UserTwoFactorCreateInput, UserTwoFactorUncheckedCreateInput>
+    /**
+     * In case the UserTwoFactor was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserTwoFactorUpdateInput, UserTwoFactorUncheckedUpdateInput>
+  }
+
+  /**
+   * UserTwoFactor delete
+   */
+  export type UserTwoFactorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+    /**
+     * Filter which UserTwoFactor to delete.
+     */
+    where: UserTwoFactorWhereUniqueInput
+  }
+
+  /**
+   * UserTwoFactor deleteMany
+   */
+  export type UserTwoFactorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserTwoFactors to delete
+     */
+    where?: UserTwoFactorWhereInput
+    /**
+     * Limit how many UserTwoFactors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserTwoFactor without action
+   */
+  export type UserTwoFactorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTwoFactor
+     */
+    select?: UserTwoFactorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTwoFactor
+     */
+    omit?: UserTwoFactorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTwoFactorInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TwoFactorRecoveryCode
+   */
+
+  export type AggregateTwoFactorRecoveryCode = {
+    _count: TwoFactorRecoveryCodeCountAggregateOutputType | null
+    _min: TwoFactorRecoveryCodeMinAggregateOutputType | null
+    _max: TwoFactorRecoveryCodeMaxAggregateOutputType | null
+  }
+
+  export type TwoFactorRecoveryCodeMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    codeHash: string | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type TwoFactorRecoveryCodeMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    codeHash: string | null
+    usedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type TwoFactorRecoveryCodeCountAggregateOutputType = {
+    id: number
+    userId: number
+    codeHash: number
+    usedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type TwoFactorRecoveryCodeMinAggregateInputType = {
+    id?: true
+    userId?: true
+    codeHash?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type TwoFactorRecoveryCodeMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    codeHash?: true
+    usedAt?: true
+    createdAt?: true
+  }
+
+  export type TwoFactorRecoveryCodeCountAggregateInputType = {
+    id?: true
+    userId?: true
+    codeHash?: true
+    usedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type TwoFactorRecoveryCodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TwoFactorRecoveryCode to aggregate.
+     */
+    where?: TwoFactorRecoveryCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TwoFactorRecoveryCodes to fetch.
+     */
+    orderBy?: TwoFactorRecoveryCodeOrderByWithRelationInput | TwoFactorRecoveryCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TwoFactorRecoveryCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TwoFactorRecoveryCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TwoFactorRecoveryCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TwoFactorRecoveryCodes
+    **/
+    _count?: true | TwoFactorRecoveryCodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TwoFactorRecoveryCodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TwoFactorRecoveryCodeMaxAggregateInputType
+  }
+
+  export type GetTwoFactorRecoveryCodeAggregateType<T extends TwoFactorRecoveryCodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateTwoFactorRecoveryCode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTwoFactorRecoveryCode[P]>
+      : GetScalarType<T[P], AggregateTwoFactorRecoveryCode[P]>
+  }
+
+
+
+
+  export type TwoFactorRecoveryCodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TwoFactorRecoveryCodeWhereInput
+    orderBy?: TwoFactorRecoveryCodeOrderByWithAggregationInput | TwoFactorRecoveryCodeOrderByWithAggregationInput[]
+    by: TwoFactorRecoveryCodeScalarFieldEnum[] | TwoFactorRecoveryCodeScalarFieldEnum
+    having?: TwoFactorRecoveryCodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TwoFactorRecoveryCodeCountAggregateInputType | true
+    _min?: TwoFactorRecoveryCodeMinAggregateInputType
+    _max?: TwoFactorRecoveryCodeMaxAggregateInputType
+  }
+
+  export type TwoFactorRecoveryCodeGroupByOutputType = {
+    id: string
+    userId: string
+    codeHash: string
+    usedAt: Date | null
+    createdAt: Date
+    _count: TwoFactorRecoveryCodeCountAggregateOutputType | null
+    _min: TwoFactorRecoveryCodeMinAggregateOutputType | null
+    _max: TwoFactorRecoveryCodeMaxAggregateOutputType | null
+  }
+
+  type GetTwoFactorRecoveryCodeGroupByPayload<T extends TwoFactorRecoveryCodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TwoFactorRecoveryCodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TwoFactorRecoveryCodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TwoFactorRecoveryCodeGroupByOutputType[P]>
+            : GetScalarType<T[P], TwoFactorRecoveryCodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TwoFactorRecoveryCodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    codeHash?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["twoFactorRecoveryCode"]>
+
+  export type TwoFactorRecoveryCodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    codeHash?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["twoFactorRecoveryCode"]>
+
+  export type TwoFactorRecoveryCodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    codeHash?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["twoFactorRecoveryCode"]>
+
+  export type TwoFactorRecoveryCodeSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    codeHash?: boolean
+    usedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type TwoFactorRecoveryCodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "codeHash" | "usedAt" | "createdAt", ExtArgs["result"]["twoFactorRecoveryCode"]>
+  export type TwoFactorRecoveryCodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TwoFactorRecoveryCodeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TwoFactorRecoveryCodeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TwoFactorRecoveryCodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TwoFactorRecoveryCode"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      codeHash: string
+      usedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["twoFactorRecoveryCode"]>
+    composites: {}
+  }
+
+  type TwoFactorRecoveryCodeGetPayload<S extends boolean | null | undefined | TwoFactorRecoveryCodeDefaultArgs> = $Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload, S>
+
+  type TwoFactorRecoveryCodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TwoFactorRecoveryCodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TwoFactorRecoveryCodeCountAggregateInputType | true
+    }
+
+  export interface TwoFactorRecoveryCodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TwoFactorRecoveryCode'], meta: { name: 'TwoFactorRecoveryCode' } }
+    /**
+     * Find zero or one TwoFactorRecoveryCode that matches the filter.
+     * @param {TwoFactorRecoveryCodeFindUniqueArgs} args - Arguments to find a TwoFactorRecoveryCode
+     * @example
+     * // Get one TwoFactorRecoveryCode
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TwoFactorRecoveryCodeFindUniqueArgs>(args: SelectSubset<T, TwoFactorRecoveryCodeFindUniqueArgs<ExtArgs>>): Prisma__TwoFactorRecoveryCodeClient<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TwoFactorRecoveryCode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TwoFactorRecoveryCodeFindUniqueOrThrowArgs} args - Arguments to find a TwoFactorRecoveryCode
+     * @example
+     * // Get one TwoFactorRecoveryCode
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TwoFactorRecoveryCodeFindUniqueOrThrowArgs>(args: SelectSubset<T, TwoFactorRecoveryCodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TwoFactorRecoveryCodeClient<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TwoFactorRecoveryCode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TwoFactorRecoveryCodeFindFirstArgs} args - Arguments to find a TwoFactorRecoveryCode
+     * @example
+     * // Get one TwoFactorRecoveryCode
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TwoFactorRecoveryCodeFindFirstArgs>(args?: SelectSubset<T, TwoFactorRecoveryCodeFindFirstArgs<ExtArgs>>): Prisma__TwoFactorRecoveryCodeClient<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TwoFactorRecoveryCode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TwoFactorRecoveryCodeFindFirstOrThrowArgs} args - Arguments to find a TwoFactorRecoveryCode
+     * @example
+     * // Get one TwoFactorRecoveryCode
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TwoFactorRecoveryCodeFindFirstOrThrowArgs>(args?: SelectSubset<T, TwoFactorRecoveryCodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__TwoFactorRecoveryCodeClient<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TwoFactorRecoveryCodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TwoFactorRecoveryCodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TwoFactorRecoveryCodes
+     * const twoFactorRecoveryCodes = await prisma.twoFactorRecoveryCode.findMany()
+     * 
+     * // Get first 10 TwoFactorRecoveryCodes
+     * const twoFactorRecoveryCodes = await prisma.twoFactorRecoveryCode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const twoFactorRecoveryCodeWithIdOnly = await prisma.twoFactorRecoveryCode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TwoFactorRecoveryCodeFindManyArgs>(args?: SelectSubset<T, TwoFactorRecoveryCodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TwoFactorRecoveryCode.
+     * @param {TwoFactorRecoveryCodeCreateArgs} args - Arguments to create a TwoFactorRecoveryCode.
+     * @example
+     * // Create one TwoFactorRecoveryCode
+     * const TwoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.create({
+     *   data: {
+     *     // ... data to create a TwoFactorRecoveryCode
+     *   }
+     * })
+     * 
+     */
+    create<T extends TwoFactorRecoveryCodeCreateArgs>(args: SelectSubset<T, TwoFactorRecoveryCodeCreateArgs<ExtArgs>>): Prisma__TwoFactorRecoveryCodeClient<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TwoFactorRecoveryCodes.
+     * @param {TwoFactorRecoveryCodeCreateManyArgs} args - Arguments to create many TwoFactorRecoveryCodes.
+     * @example
+     * // Create many TwoFactorRecoveryCodes
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TwoFactorRecoveryCodeCreateManyArgs>(args?: SelectSubset<T, TwoFactorRecoveryCodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TwoFactorRecoveryCodes and returns the data saved in the database.
+     * @param {TwoFactorRecoveryCodeCreateManyAndReturnArgs} args - Arguments to create many TwoFactorRecoveryCodes.
+     * @example
+     * // Create many TwoFactorRecoveryCodes
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TwoFactorRecoveryCodes and only return the `id`
+     * const twoFactorRecoveryCodeWithIdOnly = await prisma.twoFactorRecoveryCode.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TwoFactorRecoveryCodeCreateManyAndReturnArgs>(args?: SelectSubset<T, TwoFactorRecoveryCodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TwoFactorRecoveryCode.
+     * @param {TwoFactorRecoveryCodeDeleteArgs} args - Arguments to delete one TwoFactorRecoveryCode.
+     * @example
+     * // Delete one TwoFactorRecoveryCode
+     * const TwoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.delete({
+     *   where: {
+     *     // ... filter to delete one TwoFactorRecoveryCode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TwoFactorRecoveryCodeDeleteArgs>(args: SelectSubset<T, TwoFactorRecoveryCodeDeleteArgs<ExtArgs>>): Prisma__TwoFactorRecoveryCodeClient<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TwoFactorRecoveryCode.
+     * @param {TwoFactorRecoveryCodeUpdateArgs} args - Arguments to update one TwoFactorRecoveryCode.
+     * @example
+     * // Update one TwoFactorRecoveryCode
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TwoFactorRecoveryCodeUpdateArgs>(args: SelectSubset<T, TwoFactorRecoveryCodeUpdateArgs<ExtArgs>>): Prisma__TwoFactorRecoveryCodeClient<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TwoFactorRecoveryCodes.
+     * @param {TwoFactorRecoveryCodeDeleteManyArgs} args - Arguments to filter TwoFactorRecoveryCodes to delete.
+     * @example
+     * // Delete a few TwoFactorRecoveryCodes
+     * const { count } = await prisma.twoFactorRecoveryCode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TwoFactorRecoveryCodeDeleteManyArgs>(args?: SelectSubset<T, TwoFactorRecoveryCodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TwoFactorRecoveryCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TwoFactorRecoveryCodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TwoFactorRecoveryCodes
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TwoFactorRecoveryCodeUpdateManyArgs>(args: SelectSubset<T, TwoFactorRecoveryCodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TwoFactorRecoveryCodes and returns the data updated in the database.
+     * @param {TwoFactorRecoveryCodeUpdateManyAndReturnArgs} args - Arguments to update many TwoFactorRecoveryCodes.
+     * @example
+     * // Update many TwoFactorRecoveryCodes
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TwoFactorRecoveryCodes and only return the `id`
+     * const twoFactorRecoveryCodeWithIdOnly = await prisma.twoFactorRecoveryCode.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TwoFactorRecoveryCodeUpdateManyAndReturnArgs>(args: SelectSubset<T, TwoFactorRecoveryCodeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TwoFactorRecoveryCode.
+     * @param {TwoFactorRecoveryCodeUpsertArgs} args - Arguments to update or create a TwoFactorRecoveryCode.
+     * @example
+     * // Update or create a TwoFactorRecoveryCode
+     * const twoFactorRecoveryCode = await prisma.twoFactorRecoveryCode.upsert({
+     *   create: {
+     *     // ... data to create a TwoFactorRecoveryCode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TwoFactorRecoveryCode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TwoFactorRecoveryCodeUpsertArgs>(args: SelectSubset<T, TwoFactorRecoveryCodeUpsertArgs<ExtArgs>>): Prisma__TwoFactorRecoveryCodeClient<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TwoFactorRecoveryCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TwoFactorRecoveryCodeCountArgs} args - Arguments to filter TwoFactorRecoveryCodes to count.
+     * @example
+     * // Count the number of TwoFactorRecoveryCodes
+     * const count = await prisma.twoFactorRecoveryCode.count({
+     *   where: {
+     *     // ... the filter for the TwoFactorRecoveryCodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends TwoFactorRecoveryCodeCountArgs>(
+      args?: Subset<T, TwoFactorRecoveryCodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TwoFactorRecoveryCodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TwoFactorRecoveryCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TwoFactorRecoveryCodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TwoFactorRecoveryCodeAggregateArgs>(args: Subset<T, TwoFactorRecoveryCodeAggregateArgs>): Prisma.PrismaPromise<GetTwoFactorRecoveryCodeAggregateType<T>>
+
+    /**
+     * Group by TwoFactorRecoveryCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TwoFactorRecoveryCodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TwoFactorRecoveryCodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TwoFactorRecoveryCodeGroupByArgs['orderBy'] }
+        : { orderBy?: TwoFactorRecoveryCodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TwoFactorRecoveryCodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTwoFactorRecoveryCodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TwoFactorRecoveryCode model
+   */
+  readonly fields: TwoFactorRecoveryCodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TwoFactorRecoveryCode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TwoFactorRecoveryCodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TwoFactorRecoveryCode model
+   */
+  interface TwoFactorRecoveryCodeFieldRefs {
+    readonly id: FieldRef<"TwoFactorRecoveryCode", 'String'>
+    readonly userId: FieldRef<"TwoFactorRecoveryCode", 'String'>
+    readonly codeHash: FieldRef<"TwoFactorRecoveryCode", 'String'>
+    readonly usedAt: FieldRef<"TwoFactorRecoveryCode", 'DateTime'>
+    readonly createdAt: FieldRef<"TwoFactorRecoveryCode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TwoFactorRecoveryCode findUnique
+   */
+  export type TwoFactorRecoveryCodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which TwoFactorRecoveryCode to fetch.
+     */
+    where: TwoFactorRecoveryCodeWhereUniqueInput
+  }
+
+  /**
+   * TwoFactorRecoveryCode findUniqueOrThrow
+   */
+  export type TwoFactorRecoveryCodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which TwoFactorRecoveryCode to fetch.
+     */
+    where: TwoFactorRecoveryCodeWhereUniqueInput
+  }
+
+  /**
+   * TwoFactorRecoveryCode findFirst
+   */
+  export type TwoFactorRecoveryCodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which TwoFactorRecoveryCode to fetch.
+     */
+    where?: TwoFactorRecoveryCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TwoFactorRecoveryCodes to fetch.
+     */
+    orderBy?: TwoFactorRecoveryCodeOrderByWithRelationInput | TwoFactorRecoveryCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TwoFactorRecoveryCodes.
+     */
+    cursor?: TwoFactorRecoveryCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TwoFactorRecoveryCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TwoFactorRecoveryCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TwoFactorRecoveryCodes.
+     */
+    distinct?: TwoFactorRecoveryCodeScalarFieldEnum | TwoFactorRecoveryCodeScalarFieldEnum[]
+  }
+
+  /**
+   * TwoFactorRecoveryCode findFirstOrThrow
+   */
+  export type TwoFactorRecoveryCodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which TwoFactorRecoveryCode to fetch.
+     */
+    where?: TwoFactorRecoveryCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TwoFactorRecoveryCodes to fetch.
+     */
+    orderBy?: TwoFactorRecoveryCodeOrderByWithRelationInput | TwoFactorRecoveryCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TwoFactorRecoveryCodes.
+     */
+    cursor?: TwoFactorRecoveryCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TwoFactorRecoveryCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TwoFactorRecoveryCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TwoFactorRecoveryCodes.
+     */
+    distinct?: TwoFactorRecoveryCodeScalarFieldEnum | TwoFactorRecoveryCodeScalarFieldEnum[]
+  }
+
+  /**
+   * TwoFactorRecoveryCode findMany
+   */
+  export type TwoFactorRecoveryCodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which TwoFactorRecoveryCodes to fetch.
+     */
+    where?: TwoFactorRecoveryCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TwoFactorRecoveryCodes to fetch.
+     */
+    orderBy?: TwoFactorRecoveryCodeOrderByWithRelationInput | TwoFactorRecoveryCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TwoFactorRecoveryCodes.
+     */
+    cursor?: TwoFactorRecoveryCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TwoFactorRecoveryCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TwoFactorRecoveryCodes.
+     */
+    skip?: number
+    distinct?: TwoFactorRecoveryCodeScalarFieldEnum | TwoFactorRecoveryCodeScalarFieldEnum[]
+  }
+
+  /**
+   * TwoFactorRecoveryCode create
+   */
+  export type TwoFactorRecoveryCodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TwoFactorRecoveryCode.
+     */
+    data: XOR<TwoFactorRecoveryCodeCreateInput, TwoFactorRecoveryCodeUncheckedCreateInput>
+  }
+
+  /**
+   * TwoFactorRecoveryCode createMany
+   */
+  export type TwoFactorRecoveryCodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TwoFactorRecoveryCodes.
+     */
+    data: TwoFactorRecoveryCodeCreateManyInput | TwoFactorRecoveryCodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TwoFactorRecoveryCode createManyAndReturn
+   */
+  export type TwoFactorRecoveryCodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * The data used to create many TwoFactorRecoveryCodes.
+     */
+    data: TwoFactorRecoveryCodeCreateManyInput | TwoFactorRecoveryCodeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TwoFactorRecoveryCode update
+   */
+  export type TwoFactorRecoveryCodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TwoFactorRecoveryCode.
+     */
+    data: XOR<TwoFactorRecoveryCodeUpdateInput, TwoFactorRecoveryCodeUncheckedUpdateInput>
+    /**
+     * Choose, which TwoFactorRecoveryCode to update.
+     */
+    where: TwoFactorRecoveryCodeWhereUniqueInput
+  }
+
+  /**
+   * TwoFactorRecoveryCode updateMany
+   */
+  export type TwoFactorRecoveryCodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TwoFactorRecoveryCodes.
+     */
+    data: XOR<TwoFactorRecoveryCodeUpdateManyMutationInput, TwoFactorRecoveryCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which TwoFactorRecoveryCodes to update
+     */
+    where?: TwoFactorRecoveryCodeWhereInput
+    /**
+     * Limit how many TwoFactorRecoveryCodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TwoFactorRecoveryCode updateManyAndReturn
+   */
+  export type TwoFactorRecoveryCodeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * The data used to update TwoFactorRecoveryCodes.
+     */
+    data: XOR<TwoFactorRecoveryCodeUpdateManyMutationInput, TwoFactorRecoveryCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which TwoFactorRecoveryCodes to update
+     */
+    where?: TwoFactorRecoveryCodeWhereInput
+    /**
+     * Limit how many TwoFactorRecoveryCodes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TwoFactorRecoveryCode upsert
+   */
+  export type TwoFactorRecoveryCodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TwoFactorRecoveryCode to update in case it exists.
+     */
+    where: TwoFactorRecoveryCodeWhereUniqueInput
+    /**
+     * In case the TwoFactorRecoveryCode found by the `where` argument doesn't exist, create a new TwoFactorRecoveryCode with this data.
+     */
+    create: XOR<TwoFactorRecoveryCodeCreateInput, TwoFactorRecoveryCodeUncheckedCreateInput>
+    /**
+     * In case the TwoFactorRecoveryCode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TwoFactorRecoveryCodeUpdateInput, TwoFactorRecoveryCodeUncheckedUpdateInput>
+  }
+
+  /**
+   * TwoFactorRecoveryCode delete
+   */
+  export type TwoFactorRecoveryCodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+    /**
+     * Filter which TwoFactorRecoveryCode to delete.
+     */
+    where: TwoFactorRecoveryCodeWhereUniqueInput
+  }
+
+  /**
+   * TwoFactorRecoveryCode deleteMany
+   */
+  export type TwoFactorRecoveryCodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TwoFactorRecoveryCodes to delete
+     */
+    where?: TwoFactorRecoveryCodeWhereInput
+    /**
+     * Limit how many TwoFactorRecoveryCodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TwoFactorRecoveryCode without action
+   */
+  export type TwoFactorRecoveryCodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TwoFactorRecoveryCode
+     */
+    select?: TwoFactorRecoveryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TwoFactorRecoveryCode
+     */
+    omit?: TwoFactorRecoveryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TwoFactorRecoveryCodeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Project
    */
 
@@ -18618,6 +20989,29 @@ export namespace Prisma {
   export type AuthenticatorScalarFieldEnum = (typeof AuthenticatorScalarFieldEnum)[keyof typeof AuthenticatorScalarFieldEnum]
 
 
+  export const UserTwoFactorScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    secret: 'secret',
+    enabledAt: 'enabledAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserTwoFactorScalarFieldEnum = (typeof UserTwoFactorScalarFieldEnum)[keyof typeof UserTwoFactorScalarFieldEnum]
+
+
+  export const TwoFactorRecoveryCodeScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    codeHash: 'codeHash',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type TwoFactorRecoveryCodeScalarFieldEnum = (typeof TwoFactorRecoveryCodeScalarFieldEnum)[keyof typeof TwoFactorRecoveryCodeScalarFieldEnum]
+
+
   export const ProjectScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -18929,6 +21323,8 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     Authenticator?: AuthenticatorListRelationFilter
+    twoFactor?: XOR<UserTwoFactorNullableScalarRelationFilter, UserTwoFactorWhereInput> | null
+    recoveryCodes?: TwoFactorRecoveryCodeListRelationFilter
     memberships?: MembershipListRelationFilter
     invitationsSent?: InvitationListRelationFilter
     essentials?: EssentialListRelationFilter
@@ -18952,6 +21348,8 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     Authenticator?: AuthenticatorOrderByRelationAggregateInput
+    twoFactor?: UserTwoFactorOrderByWithRelationInput
+    recoveryCodes?: TwoFactorRecoveryCodeOrderByRelationAggregateInput
     memberships?: MembershipOrderByRelationAggregateInput
     invitationsSent?: InvitationOrderByRelationAggregateInput
     essentials?: EssentialOrderByRelationAggregateInput
@@ -18978,6 +21376,8 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     Authenticator?: AuthenticatorListRelationFilter
+    twoFactor?: XOR<UserTwoFactorNullableScalarRelationFilter, UserTwoFactorWhereInput> | null
+    recoveryCodes?: TwoFactorRecoveryCodeListRelationFilter
     memberships?: MembershipListRelationFilter
     invitationsSent?: InvitationListRelationFilter
     essentials?: EssentialListRelationFilter
@@ -19517,6 +21917,122 @@ export namespace Prisma {
     transports?: StringNullableWithAggregatesFilter<"Authenticator"> | string | null
   }
 
+  export type UserTwoFactorWhereInput = {
+    AND?: UserTwoFactorWhereInput | UserTwoFactorWhereInput[]
+    OR?: UserTwoFactorWhereInput[]
+    NOT?: UserTwoFactorWhereInput | UserTwoFactorWhereInput[]
+    id?: StringFilter<"UserTwoFactor"> | string
+    userId?: StringFilter<"UserTwoFactor"> | string
+    secret?: StringFilter<"UserTwoFactor"> | string
+    enabledAt?: DateTimeNullableFilter<"UserTwoFactor"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserTwoFactor"> | Date | string
+    updatedAt?: DateTimeFilter<"UserTwoFactor"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserTwoFactorOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    secret?: SortOrder
+    enabledAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserTwoFactorWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: UserTwoFactorWhereInput | UserTwoFactorWhereInput[]
+    OR?: UserTwoFactorWhereInput[]
+    NOT?: UserTwoFactorWhereInput | UserTwoFactorWhereInput[]
+    secret?: StringFilter<"UserTwoFactor"> | string
+    enabledAt?: DateTimeNullableFilter<"UserTwoFactor"> | Date | string | null
+    createdAt?: DateTimeFilter<"UserTwoFactor"> | Date | string
+    updatedAt?: DateTimeFilter<"UserTwoFactor"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type UserTwoFactorOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    secret?: SortOrder
+    enabledAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserTwoFactorCountOrderByAggregateInput
+    _max?: UserTwoFactorMaxOrderByAggregateInput
+    _min?: UserTwoFactorMinOrderByAggregateInput
+  }
+
+  export type UserTwoFactorScalarWhereWithAggregatesInput = {
+    AND?: UserTwoFactorScalarWhereWithAggregatesInput | UserTwoFactorScalarWhereWithAggregatesInput[]
+    OR?: UserTwoFactorScalarWhereWithAggregatesInput[]
+    NOT?: UserTwoFactorScalarWhereWithAggregatesInput | UserTwoFactorScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserTwoFactor"> | string
+    userId?: StringWithAggregatesFilter<"UserTwoFactor"> | string
+    secret?: StringWithAggregatesFilter<"UserTwoFactor"> | string
+    enabledAt?: DateTimeNullableWithAggregatesFilter<"UserTwoFactor"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserTwoFactor"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserTwoFactor"> | Date | string
+  }
+
+  export type TwoFactorRecoveryCodeWhereInput = {
+    AND?: TwoFactorRecoveryCodeWhereInput | TwoFactorRecoveryCodeWhereInput[]
+    OR?: TwoFactorRecoveryCodeWhereInput[]
+    NOT?: TwoFactorRecoveryCodeWhereInput | TwoFactorRecoveryCodeWhereInput[]
+    id?: StringFilter<"TwoFactorRecoveryCode"> | string
+    userId?: StringFilter<"TwoFactorRecoveryCode"> | string
+    codeHash?: StringFilter<"TwoFactorRecoveryCode"> | string
+    usedAt?: DateTimeNullableFilter<"TwoFactorRecoveryCode"> | Date | string | null
+    createdAt?: DateTimeFilter<"TwoFactorRecoveryCode"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type TwoFactorRecoveryCodeOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type TwoFactorRecoveryCodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_codeHash?: TwoFactorRecoveryCodeUserIdCodeHashCompoundUniqueInput
+    AND?: TwoFactorRecoveryCodeWhereInput | TwoFactorRecoveryCodeWhereInput[]
+    OR?: TwoFactorRecoveryCodeWhereInput[]
+    NOT?: TwoFactorRecoveryCodeWhereInput | TwoFactorRecoveryCodeWhereInput[]
+    userId?: StringFilter<"TwoFactorRecoveryCode"> | string
+    codeHash?: StringFilter<"TwoFactorRecoveryCode"> | string
+    usedAt?: DateTimeNullableFilter<"TwoFactorRecoveryCode"> | Date | string | null
+    createdAt?: DateTimeFilter<"TwoFactorRecoveryCode"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_codeHash">
+
+  export type TwoFactorRecoveryCodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    usedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: TwoFactorRecoveryCodeCountOrderByAggregateInput
+    _max?: TwoFactorRecoveryCodeMaxOrderByAggregateInput
+    _min?: TwoFactorRecoveryCodeMinOrderByAggregateInput
+  }
+
+  export type TwoFactorRecoveryCodeScalarWhereWithAggregatesInput = {
+    AND?: TwoFactorRecoveryCodeScalarWhereWithAggregatesInput | TwoFactorRecoveryCodeScalarWhereWithAggregatesInput[]
+    OR?: TwoFactorRecoveryCodeScalarWhereWithAggregatesInput[]
+    NOT?: TwoFactorRecoveryCodeScalarWhereWithAggregatesInput | TwoFactorRecoveryCodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TwoFactorRecoveryCode"> | string
+    userId?: StringWithAggregatesFilter<"TwoFactorRecoveryCode"> | string
+    codeHash?: StringWithAggregatesFilter<"TwoFactorRecoveryCode"> | string
+    usedAt?: DateTimeNullableWithAggregatesFilter<"TwoFactorRecoveryCode"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TwoFactorRecoveryCode"> | Date | string
+  }
+
   export type ProjectWhereInput = {
     AND?: ProjectWhereInput | ProjectWhereInput[]
     OR?: ProjectWhereInput[]
@@ -19990,6 +22506,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -20013,6 +22531,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -20036,6 +22556,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -20059,6 +22581,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -20636,6 +23160,123 @@ export namespace Prisma {
     transports?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type UserTwoFactorCreateInput = {
+    id?: string
+    secret: string
+    enabledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTwoFactorInput
+  }
+
+  export type UserTwoFactorUncheckedCreateInput = {
+    id?: string
+    userId: string
+    secret: string
+    enabledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserTwoFactorUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secret?: StringFieldUpdateOperationsInput | string
+    enabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTwoFactorNestedInput
+  }
+
+  export type UserTwoFactorUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    secret?: StringFieldUpdateOperationsInput | string
+    enabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserTwoFactorCreateManyInput = {
+    id?: string
+    userId: string
+    secret: string
+    enabledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserTwoFactorUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secret?: StringFieldUpdateOperationsInput | string
+    enabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserTwoFactorUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    secret?: StringFieldUpdateOperationsInput | string
+    enabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TwoFactorRecoveryCodeCreateInput = {
+    id?: string
+    codeHash: string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRecoveryCodesInput
+  }
+
+  export type TwoFactorRecoveryCodeUncheckedCreateInput = {
+    id?: string
+    userId: string
+    codeHash: string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TwoFactorRecoveryCodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRecoveryCodesNestedInput
+  }
+
+  export type TwoFactorRecoveryCodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TwoFactorRecoveryCodeCreateManyInput = {
+    id?: string
+    userId: string
+    codeHash: string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TwoFactorRecoveryCodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TwoFactorRecoveryCodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProjectCreateInput = {
     id?: string
     name: string
@@ -21177,6 +23818,17 @@ export namespace Prisma {
     none?: AuthenticatorWhereInput
   }
 
+  export type UserTwoFactorNullableScalarRelationFilter = {
+    is?: UserTwoFactorWhereInput | null
+    isNot?: UserTwoFactorWhereInput | null
+  }
+
+  export type TwoFactorRecoveryCodeListRelationFilter = {
+    every?: TwoFactorRecoveryCodeWhereInput
+    some?: TwoFactorRecoveryCodeWhereInput
+    none?: TwoFactorRecoveryCodeWhereInput
+  }
+
   export type MembershipListRelationFilter = {
     every?: MembershipWhereInput
     some?: MembershipWhereInput
@@ -21239,6 +23891,10 @@ export namespace Prisma {
   }
 
   export type AuthenticatorOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TwoFactorRecoveryCodeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21743,6 +24399,62 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type UserTwoFactorCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    secret?: SortOrder
+    enabledAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserTwoFactorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    secret?: SortOrder
+    enabledAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserTwoFactorMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    secret?: SortOrder
+    enabledAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TwoFactorRecoveryCodeUserIdCodeHashCompoundUniqueInput = {
+    userId: string
+    codeHash: string
+  }
+
+  export type TwoFactorRecoveryCodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TwoFactorRecoveryCodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TwoFactorRecoveryCodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    usedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -22143,6 +24855,19 @@ export namespace Prisma {
     connect?: AuthenticatorWhereUniqueInput | AuthenticatorWhereUniqueInput[]
   }
 
+  export type UserTwoFactorCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserTwoFactorCreateWithoutUserInput, UserTwoFactorUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserTwoFactorCreateOrConnectWithoutUserInput
+    connect?: UserTwoFactorWhereUniqueInput
+  }
+
+  export type TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput = {
+    create?: XOR<TwoFactorRecoveryCodeCreateWithoutUserInput, TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput> | TwoFactorRecoveryCodeCreateWithoutUserInput[] | TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput | TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput[]
+    createMany?: TwoFactorRecoveryCodeCreateManyUserInputEnvelope
+    connect?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+  }
+
   export type MembershipCreateNestedManyWithoutUserInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -22218,6 +24943,19 @@ export namespace Prisma {
     connectOrCreate?: AuthenticatorCreateOrConnectWithoutUserInput | AuthenticatorCreateOrConnectWithoutUserInput[]
     createMany?: AuthenticatorCreateManyUserInputEnvelope
     connect?: AuthenticatorWhereUniqueInput | AuthenticatorWhereUniqueInput[]
+  }
+
+  export type UserTwoFactorUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserTwoFactorCreateWithoutUserInput, UserTwoFactorUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserTwoFactorCreateOrConnectWithoutUserInput
+    connect?: UserTwoFactorWhereUniqueInput
+  }
+
+  export type TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TwoFactorRecoveryCodeCreateWithoutUserInput, TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput> | TwoFactorRecoveryCodeCreateWithoutUserInput[] | TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput | TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput[]
+    createMany?: TwoFactorRecoveryCodeCreateManyUserInputEnvelope
+    connect?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
   }
 
   export type MembershipUncheckedCreateNestedManyWithoutUserInput = {
@@ -22336,6 +25074,30 @@ export namespace Prisma {
     update?: AuthenticatorUpdateWithWhereUniqueWithoutUserInput | AuthenticatorUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AuthenticatorUpdateManyWithWhereWithoutUserInput | AuthenticatorUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AuthenticatorScalarWhereInput | AuthenticatorScalarWhereInput[]
+  }
+
+  export type UserTwoFactorUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserTwoFactorCreateWithoutUserInput, UserTwoFactorUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserTwoFactorCreateOrConnectWithoutUserInput
+    upsert?: UserTwoFactorUpsertWithoutUserInput
+    disconnect?: UserTwoFactorWhereInput | boolean
+    delete?: UserTwoFactorWhereInput | boolean
+    connect?: UserTwoFactorWhereUniqueInput
+    update?: XOR<XOR<UserTwoFactorUpdateToOneWithWhereWithoutUserInput, UserTwoFactorUpdateWithoutUserInput>, UserTwoFactorUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TwoFactorRecoveryCodeCreateWithoutUserInput, TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput> | TwoFactorRecoveryCodeCreateWithoutUserInput[] | TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput | TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput[]
+    upsert?: TwoFactorRecoveryCodeUpsertWithWhereUniqueWithoutUserInput | TwoFactorRecoveryCodeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TwoFactorRecoveryCodeCreateManyUserInputEnvelope
+    set?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+    disconnect?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+    delete?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+    connect?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+    update?: TwoFactorRecoveryCodeUpdateWithWhereUniqueWithoutUserInput | TwoFactorRecoveryCodeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TwoFactorRecoveryCodeUpdateManyWithWhereWithoutUserInput | TwoFactorRecoveryCodeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TwoFactorRecoveryCodeScalarWhereInput | TwoFactorRecoveryCodeScalarWhereInput[]
   }
 
   export type MembershipUpdateManyWithoutUserNestedInput = {
@@ -22490,6 +25252,30 @@ export namespace Prisma {
     update?: AuthenticatorUpdateWithWhereUniqueWithoutUserInput | AuthenticatorUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AuthenticatorUpdateManyWithWhereWithoutUserInput | AuthenticatorUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AuthenticatorScalarWhereInput | AuthenticatorScalarWhereInput[]
+  }
+
+  export type UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserTwoFactorCreateWithoutUserInput, UserTwoFactorUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserTwoFactorCreateOrConnectWithoutUserInput
+    upsert?: UserTwoFactorUpsertWithoutUserInput
+    disconnect?: UserTwoFactorWhereInput | boolean
+    delete?: UserTwoFactorWhereInput | boolean
+    connect?: UserTwoFactorWhereUniqueInput
+    update?: XOR<XOR<UserTwoFactorUpdateToOneWithWhereWithoutUserInput, UserTwoFactorUpdateWithoutUserInput>, UserTwoFactorUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TwoFactorRecoveryCodeCreateWithoutUserInput, TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput> | TwoFactorRecoveryCodeCreateWithoutUserInput[] | TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput | TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput[]
+    upsert?: TwoFactorRecoveryCodeUpsertWithWhereUniqueWithoutUserInput | TwoFactorRecoveryCodeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TwoFactorRecoveryCodeCreateManyUserInputEnvelope
+    set?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+    disconnect?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+    delete?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+    connect?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+    update?: TwoFactorRecoveryCodeUpdateWithWhereUniqueWithoutUserInput | TwoFactorRecoveryCodeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TwoFactorRecoveryCodeUpdateManyWithWhereWithoutUserInput | TwoFactorRecoveryCodeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TwoFactorRecoveryCodeScalarWhereInput | TwoFactorRecoveryCodeScalarWhereInput[]
   }
 
   export type MembershipUncheckedUpdateManyWithoutUserNestedInput = {
@@ -22934,6 +25720,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAuthenticatorInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAuthenticatorInput, UserUpdateWithoutAuthenticatorInput>, UserUncheckedUpdateWithoutAuthenticatorInput>
+  }
+
+  export type UserCreateNestedOneWithoutTwoFactorInput = {
+    create?: XOR<UserCreateWithoutTwoFactorInput, UserUncheckedCreateWithoutTwoFactorInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTwoFactorInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutTwoFactorNestedInput = {
+    create?: XOR<UserCreateWithoutTwoFactorInput, UserUncheckedCreateWithoutTwoFactorInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTwoFactorInput
+    upsert?: UserUpsertWithoutTwoFactorInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTwoFactorInput, UserUpdateWithoutTwoFactorInput>, UserUncheckedUpdateWithoutTwoFactorInput>
+  }
+
+  export type UserCreateNestedOneWithoutRecoveryCodesInput = {
+    create?: XOR<UserCreateWithoutRecoveryCodesInput, UserUncheckedCreateWithoutRecoveryCodesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRecoveryCodesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutRecoveryCodesNestedInput = {
+    create?: XOR<UserCreateWithoutRecoveryCodesInput, UserUncheckedCreateWithoutRecoveryCodesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRecoveryCodesInput
+    upsert?: UserUpsertWithoutRecoveryCodesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRecoveryCodesInput, UserUpdateWithoutRecoveryCodesInput>, UserUncheckedUpdateWithoutRecoveryCodesInput>
   }
 
   export type UserCreateNestedOneWithoutProjectInput = {
@@ -23690,6 +26504,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserTwoFactorCreateWithoutUserInput = {
+    id?: string
+    secret: string
+    enabledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserTwoFactorUncheckedCreateWithoutUserInput = {
+    id?: string
+    secret: string
+    enabledAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserTwoFactorCreateOrConnectWithoutUserInput = {
+    where: UserTwoFactorWhereUniqueInput
+    create: XOR<UserTwoFactorCreateWithoutUserInput, UserTwoFactorUncheckedCreateWithoutUserInput>
+  }
+
+  export type TwoFactorRecoveryCodeCreateWithoutUserInput = {
+    id?: string
+    codeHash: string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput = {
+    id?: string
+    codeHash: string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput = {
+    where: TwoFactorRecoveryCodeWhereUniqueInput
+    create: XOR<TwoFactorRecoveryCodeCreateWithoutUserInput, TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput>
+  }
+
+  export type TwoFactorRecoveryCodeCreateManyUserInputEnvelope = {
+    data: TwoFactorRecoveryCodeCreateManyUserInput | TwoFactorRecoveryCodeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MembershipCreateWithoutUserInput = {
     id?: string
     role?: $Enums.Role
@@ -24029,6 +26888,60 @@ export namespace Prisma {
     credentialDeviceType?: StringFilter<"Authenticator"> | string
     credentialBackedUp?: BoolFilter<"Authenticator"> | boolean
     transports?: StringNullableFilter<"Authenticator"> | string | null
+  }
+
+  export type UserTwoFactorUpsertWithoutUserInput = {
+    update: XOR<UserTwoFactorUpdateWithoutUserInput, UserTwoFactorUncheckedUpdateWithoutUserInput>
+    create: XOR<UserTwoFactorCreateWithoutUserInput, UserTwoFactorUncheckedCreateWithoutUserInput>
+    where?: UserTwoFactorWhereInput
+  }
+
+  export type UserTwoFactorUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserTwoFactorWhereInput
+    data: XOR<UserTwoFactorUpdateWithoutUserInput, UserTwoFactorUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserTwoFactorUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secret?: StringFieldUpdateOperationsInput | string
+    enabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserTwoFactorUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secret?: StringFieldUpdateOperationsInput | string
+    enabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TwoFactorRecoveryCodeUpsertWithWhereUniqueWithoutUserInput = {
+    where: TwoFactorRecoveryCodeWhereUniqueInput
+    update: XOR<TwoFactorRecoveryCodeUpdateWithoutUserInput, TwoFactorRecoveryCodeUncheckedUpdateWithoutUserInput>
+    create: XOR<TwoFactorRecoveryCodeCreateWithoutUserInput, TwoFactorRecoveryCodeUncheckedCreateWithoutUserInput>
+  }
+
+  export type TwoFactorRecoveryCodeUpdateWithWhereUniqueWithoutUserInput = {
+    where: TwoFactorRecoveryCodeWhereUniqueInput
+    data: XOR<TwoFactorRecoveryCodeUpdateWithoutUserInput, TwoFactorRecoveryCodeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TwoFactorRecoveryCodeUpdateManyWithWhereWithoutUserInput = {
+    where: TwoFactorRecoveryCodeScalarWhereInput
+    data: XOR<TwoFactorRecoveryCodeUpdateManyMutationInput, TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TwoFactorRecoveryCodeScalarWhereInput = {
+    AND?: TwoFactorRecoveryCodeScalarWhereInput | TwoFactorRecoveryCodeScalarWhereInput[]
+    OR?: TwoFactorRecoveryCodeScalarWhereInput[]
+    NOT?: TwoFactorRecoveryCodeScalarWhereInput | TwoFactorRecoveryCodeScalarWhereInput[]
+    id?: StringFilter<"TwoFactorRecoveryCode"> | string
+    userId?: StringFilter<"TwoFactorRecoveryCode"> | string
+    codeHash?: StringFilter<"TwoFactorRecoveryCode"> | string
+    usedAt?: DateTimeNullableFilter<"TwoFactorRecoveryCode"> | Date | string | null
+    createdAt?: DateTimeFilter<"TwoFactorRecoveryCode"> | Date | string
   }
 
   export type MembershipUpsertWithWhereUniqueWithoutUserInput = {
@@ -24570,6 +27483,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
@@ -24592,6 +27507,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
@@ -24669,6 +27586,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
@@ -24691,6 +27610,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
@@ -24746,6 +27667,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
@@ -24768,6 +27691,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
@@ -24845,6 +27770,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
@@ -24867,6 +27794,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
@@ -24888,6 +27817,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -24910,6 +27841,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -24948,6 +27881,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -24970,6 +27905,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -24992,6 +27929,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -25014,6 +27953,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -25052,6 +27993,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -25074,6 +28017,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -25096,6 +28041,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -25118,6 +28065,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -25156,6 +28105,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -25178,6 +28129,232 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
+    planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
+    plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
+    Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutTwoFactorInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    isBetaTester?: boolean
+    isProUser?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
+    essentials?: EssentialCreateNestedManyWithoutCreatorInput
+    planneds?: PlannedCreateNestedManyWithoutCreatorInput
+    plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
+    plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
+    Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTwoFactorInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    isBetaTester?: boolean
+    isProUser?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
+    planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
+    plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
+    plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
+    Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTwoFactorInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTwoFactorInput, UserUncheckedCreateWithoutTwoFactorInput>
+  }
+
+  export type UserUpsertWithoutTwoFactorInput = {
+    update: XOR<UserUpdateWithoutTwoFactorInput, UserUncheckedUpdateWithoutTwoFactorInput>
+    create: XOR<UserCreateWithoutTwoFactorInput, UserUncheckedCreateWithoutTwoFactorInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTwoFactorInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTwoFactorInput, UserUncheckedUpdateWithoutTwoFactorInput>
+  }
+
+  export type UserUpdateWithoutTwoFactorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isBetaTester?: BoolFieldUpdateOperationsInput | boolean
+    isProUser?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
+    essentials?: EssentialUpdateManyWithoutCreatorNestedInput
+    planneds?: PlannedUpdateManyWithoutCreatorNestedInput
+    plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
+    plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
+    Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTwoFactorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isBetaTester?: BoolFieldUpdateOperationsInput | boolean
+    isProUser?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
+    planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
+    plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
+    Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutRecoveryCodesInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    isBetaTester?: boolean
+    isProUser?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
+    essentials?: EssentialCreateNestedManyWithoutCreatorInput
+    planneds?: PlannedCreateNestedManyWithoutCreatorInput
+    plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
+    plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
+    Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRecoveryCodesInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    isBetaTester?: boolean
+    isProUser?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
+    planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
+    plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
+    plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
+    Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRecoveryCodesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRecoveryCodesInput, UserUncheckedCreateWithoutRecoveryCodesInput>
+  }
+
+  export type UserUpsertWithoutRecoveryCodesInput = {
+    update: XOR<UserUpdateWithoutRecoveryCodesInput, UserUncheckedUpdateWithoutRecoveryCodesInput>
+    create: XOR<UserCreateWithoutRecoveryCodesInput, UserUncheckedCreateWithoutRecoveryCodesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRecoveryCodesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRecoveryCodesInput, UserUncheckedUpdateWithoutRecoveryCodesInput>
+  }
+
+  export type UserUpdateWithoutRecoveryCodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isBetaTester?: BoolFieldUpdateOperationsInput | boolean
+    isProUser?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
+    essentials?: EssentialUpdateManyWithoutCreatorNestedInput
+    planneds?: PlannedUpdateManyWithoutCreatorNestedInput
+    plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
+    plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
+    Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRecoveryCodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isBetaTester?: BoolFieldUpdateOperationsInput | boolean
+    isProUser?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -25201,6 +28378,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -25223,6 +28402,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -25340,6 +28521,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -25362,6 +28545,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -25472,6 +28657,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
@@ -25494,6 +28681,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
@@ -25571,6 +28760,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
@@ -25593,6 +28784,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
@@ -25648,6 +28841,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -25670,6 +28865,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -25820,6 +29017,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -25842,6 +29041,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -25927,6 +29128,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -25949,6 +29152,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -26029,6 +29234,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -26051,6 +29258,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -26121,6 +29330,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -26143,6 +29354,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -26223,6 +29436,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -26245,6 +29460,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -26315,6 +29532,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -26337,6 +29556,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -26375,6 +29596,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -26397,6 +29620,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -26436,6 +29661,13 @@ export namespace Prisma {
     credentialDeviceType: string
     credentialBackedUp: boolean
     transports?: string | null
+  }
+
+  export type TwoFactorRecoveryCodeCreateManyUserInput = {
+    id?: string
+    codeHash: string
+    usedAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type MembershipCreateManyUserInput = {
@@ -26614,6 +29846,27 @@ export namespace Prisma {
     credentialDeviceType?: StringFieldUpdateOperationsInput | string
     credentialBackedUp?: BoolFieldUpdateOperationsInput | boolean
     transports?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TwoFactorRecoveryCodeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TwoFactorRecoveryCodeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MembershipUpdateWithoutUserInput = {

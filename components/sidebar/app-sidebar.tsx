@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/sidebar";
 import NavPages from "./nav-pages";
 import { NavConfig } from "./nav-config";
-import { NavSecondary } from "./nav-secondary";
 import { AppSwitcher } from "./apps-switcher";
 import { NavUser } from "./nav-user";
 import { SkeletonAvatar } from "../skeleton/avatar";
@@ -19,9 +18,10 @@ import {
   requireSession,
 } from "@/actions/appActions";
 import { getTranslations } from "next-intl/server";
-import { buildSidebarData, MemberRole } from "./buildSidebarData";
+import { buildSidebarData } from "./buildSidebarData";
 import { KoFiPlainButton } from "../kofi/KoFiWidget";
 import { protocol, rootDomain } from "@/lib/variables";
+import { getAiCreditBalance } from "@/lib/ai-credits";
 
 export type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   subdomain: string;
@@ -34,24 +34,20 @@ export async function AppSidebar({
   ...props
 }: AppSidebarProps) {
   const session = await requireSession();
-  const [apps, currentApp, memberRole] = await Promise.all([
+  const [apps, currentApp, memberRole, aiCreditBalance] = await Promise.all([
     getAllAppsAction(),
     getCurrentAppAction(subdomain),
     getMembership(subdomain),
+    getAiCreditBalance(session.user.id),
   ]);
 
   const t = await getTranslations({ locale, namespace: "Sidebar" });
 
   const urls = {
     home: `${protocol}://${rootDomain}/${locale}`,
-    invite: `/invite`,
   };
 
-  const data = buildSidebarData(
-    t,
-    urls,
-    (memberRole as MemberRole) ?? "MEMBER",
-  );
+  const data = buildSidebarData(t, urls);
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -65,15 +61,14 @@ export async function AppSidebar({
       <SidebarContent>
         <NavPages pages={data.navSite} />
         <NavPages pages={data.navPages} />
-        {data.invitation && <NavPages pages={data.invitation} />}
-
+        <NavPages pages={data.settings} />
         <NavConfig items={data.config} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
-        <KoFiPlainButton />
+        <KoFiPlainButton className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         {session.user ? (
           <NavUser
+            aiCreditBalance={aiCreditBalance}
             memberRole={memberRole ?? undefined}
             user={{
               name: session.user.name ?? "",
@@ -85,7 +80,6 @@ export async function AppSidebar({
           <SkeletonAvatar />
         )}
       </SidebarFooter>
-      <div className="pb-10" />
     </Sidebar>
   );
 }

@@ -26,6 +26,7 @@ import DialogLogout from "@/app/[locale]/(auth)/logout/dialog-logout";
 type MemberRole = $Enums.Role;
 
 interface NavUserProps {
+  aiCreditBalance: number;
   user?: {
     name: string;
     email: string;
@@ -34,10 +35,15 @@ interface NavUserProps {
   memberRole?: MemberRole;
 }
 
-export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
+export function NavUser({
+  aiCreditBalance,
+  user,
+  memberRole = "MEMBER",
+}: NavUserProps) {
   const { isMobile } = useSidebar();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const tCommon = useTranslations("Common");
+  const tSettings = useTranslations("Settings");
   if (!user) {
     return (
       <SidebarMenu>
@@ -57,7 +63,7 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="h-auto min-h-12 py-2 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.image} alt={user.email} />
@@ -70,6 +76,11 @@ export function NavUser({ user, memberRole = "MEMBER" }: NavUserProps) {
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate text-xs text-muted-foreground">
+                  {tSettings("aiCredits.remainingCount", {
+                    count: aiCreditBalance,
+                  })}
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>

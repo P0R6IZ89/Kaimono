@@ -1,22 +1,12 @@
-// components/sidebar/buildSidebarData.ts
-export type MemberRole = "OWNER" | "ADMIN" | "MEMBER";
-export type IconKey =
-  | "grip"
-  | "hexagon"
-  | "folder"
-  | "shirt"
-  | "armchair"
-  | "send"
-  | "userPlus";
+export type IconKey = "grip" | "hexagon" | "folder" | "shirt" | "settings";
 
 export type NavItem = { title: string; url: string; icon?: IconKey };
 export type NavGroup = { title: string; url?: string; items: NavItem[] };
 export type SidebarData = {
   navSite: NavGroup;
   navPages: NavGroup;
-  navSecondary: NavItem[];
+  settings: NavGroup;
   config: { name: string; url: string }[];
-  invitation?: NavGroup;
 };
 
 type SidebarMessageKey =
@@ -26,18 +16,15 @@ type SidebarMessageKey =
   | "navPages.home"
   | "navPages.projects"
   | "navPages.essentials"
-  | "navPages.planned"
-  | "navSecondary.contact"
   | "config.theme.title"
-  | "invitation.title"
-  | "invitation.inviteUser";
+  | "settings.title"
+  | "settings.workspace";
 
 export function buildSidebarData(
   t: (key: SidebarMessageKey) => string,
-  urls: { home: string; invite: string },
-  role: MemberRole
+  urls: { home: string },
 ): SidebarData {
-  const data: SidebarData = {
+  return {
     navSite: {
       title: t("navSite.title"),
       url: "",
@@ -64,36 +51,18 @@ export function buildSidebarData(
           url: "/essentials",
           icon: "shirt",
         },
+      ],
+    },
+    settings: {
+      title: t("settings.title"),
+      items: [
         {
-          title: t("navPages.planned"),
-          url: "/planned",
-          icon: "armchair",
+          title: t("settings.workspace"),
+          url: "/settings",
+          icon: "settings",
         },
       ],
     },
-    navSecondary: [
-      {
-        title: t("navSecondary.contact"),
-        url: "/contact",
-        icon: "send",
-      },
-    ],
     config: [{ name: t("config.theme.title"), url: "" }],
   };
-
-  if (role !== "MEMBER") {
-    data.invitation = {
-      title: t("invitation.title"),
-      url: "",
-      items: [
-        {
-          title: t("invitation.inviteUser"),
-          url: urls.invite,
-          icon: "userPlus",
-        },
-      ],
-    };
-  }
-
-  return data;
 }

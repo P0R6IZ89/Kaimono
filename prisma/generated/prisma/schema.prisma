@@ -43,20 +43,22 @@ enum AiCreditLedgerType {
 }
 
 model User {
-  id              String           @id @default(cuid())
-  email           String           @unique @db.Citext
+  id              String                  @id @default(cuid())
+  email           String                  @unique @db.Citext
   name            String?
   image           String?
-  isBetaTester    Boolean          @default(false)
-  isProUser       Boolean          @default(false)
+  isBetaTester    Boolean                 @default(false)
+  isProUser       Boolean                 @default(false)
   emailVerified   DateTime?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
   accounts        Account[]
   sessions        Session[]
   Authenticator   Authenticator[]
+  twoFactor       UserTwoFactor?
+  recoveryCodes   TwoFactorRecoveryCode[]
   memberships     Membership[]
-  invitationsSent Invitation[]     @relation("InvitationSender")
+  invitationsSent Invitation[]            @relation("InvitationSender")
   essentials      Essential[]
   planneds        Planned[]
   plannedComments PlannedComment[]
@@ -163,6 +165,28 @@ model Authenticator {
   user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model UserTwoFactor {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  secret    String
+  enabledAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TwoFactorRecoveryCode {
+  id        String    @id @default(cuid())
+  userId    String
+  codeHash  String
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, codeHash])
+  @@index([userId, usedAt])
 }
 
 model Project {

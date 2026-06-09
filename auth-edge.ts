@@ -28,4 +28,26 @@ export const { auth } = NextAuth({
       },
     },
   },
+  callbacks: {
+    async jwt({ token }) {
+      return token;
+    },
+    async session({ session, token }) {
+      if (token.id) session.user.id = token.id as string;
+      if (token.name) session.user.name = token.name as string;
+      if (token.email) session.user.email = token.email as string;
+      if (token.image) session.user.image = token.image as string;
+      if (token.picture) session.user.image = token.picture as string;
+
+      session.requiresTwoFactor = Boolean(token.requiresTwoFactor);
+      session.twoFactorVerified =
+        !session.requiresTwoFactor || Boolean(token.twoFactorVerified);
+      session.twoFactorVerifiedAt =
+        typeof token.twoFactorVerifiedAt === "string"
+          ? token.twoFactorVerifiedAt
+          : null;
+
+      return session;
+    },
+  },
 });

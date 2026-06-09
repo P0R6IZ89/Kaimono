@@ -1,13 +1,5 @@
 "use client";
-import {
-  Grip,
-  Hexagon,
-  Folder,
-  Shirt,
-  Armchair,
-  Send,
-  UserRoundPlus,
-} from "lucide-react";
+import { Grip, Hexagon, Folder, Shirt, Settings } from "lucide-react";
 import type { IconKey } from "./buildSidebarData";
 
 export const ICONS: Record<
@@ -18,7 +10,5 @@ export const ICONS: Record<
   folder: Folder,
   hexagon: Hexagon,
   shirt: Shirt,
-  armchair: Armchair,
-  send: Send,
-  userPlus: UserRoundPlus,
+  settings: Settings,
 };

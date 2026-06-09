@@ -340,6 +340,14 @@
     "tutorialDescription": "チュートリアルでアプリの使い方を学ぶ",
     "homeTitle": "ホーム",
     "appearance": "外観",
+    "security": {
+      "rowTitle": "セキュリティ",
+      "rowDescription": "二要素認証を管理します。"
+    },
+    "contact": {
+      "rowTitle": "お問い合わせ",
+      "rowDescription": "メッセージを送信します。"
+    },
     "aiCredits": {
       "section": "AI クレジット",
       "rowTitle": "AI 抽出クレジットを管理",
@@ -362,6 +370,60 @@
     },
     "developedBy": "{name} が開発"
   },
+  "TwoFactor": {
+    "title": "セキュリティ",
+    "description": "サインイン後のアカウント保護に、認証アプリのコードを追加します。",
+    "success": "成功",
+    "error": "エラー",
+    "app": {
+      "title": "認証アプリ",
+      "description": "1Password、Google Authenticator、Authy などの時間ベースのコードを使用します。"
+    },
+    "status": {
+      "enabled": "有効",
+      "disabled": "無効"
+    },
+    "setup": {
+      "start": "二要素認証を設定",
+      "scanTitle": "この QR コードをスキャン",
+      "scanDescription": "認証アプリを開いて新しいログインを追加し、表示された 6 桁のコードを入力してください。",
+      "qrAlt": "二要素認証の QR コード",
+      "manualEntry": "設定リンクを手動で入力",
+      "confirm": "二要素認証を有効にする"
+    },
+    "enabled": {
+      "title": "二要素認証が有効です",
+      "description": "未使用のバックアップコードは {count, plural, =0 {ありません} other {# 件あります}}。"
+    },
+    "disable": {
+      "submit": "二要素認証を無効にする"
+    },
+    "recoveryCodes": {
+      "title": "バックアップコードを保存してください",
+      "description": "認証アプリにアクセスできない場合、各バックアップコードは 1 回だけ使用できます。",
+      "regenerate": "バックアップコードを再生成"
+    },
+    "challenge": {
+      "title": "認証コードを入力",
+      "description": "続行するには、認証アプリまたは未使用のバックアップコードを使用してください。",
+      "placeholder": "123456 またはバックアップコード",
+      "submit": "確認"
+    },
+    "fields": {
+      "code": "認証コード",
+      "codeOrRecovery": "認証コードまたはバックアップコード",
+      "currentCode": "現在の認証コードまたはバックアップコード"
+    },
+    "messages": {
+      "alreadyEnabled": "二要素認証はすでに有効です。",
+      "setupMissing": "コードを確認する前に、もう一度設定を開始してください。",
+      "invalidCode": "コードが無効、またはすでに使用されています。",
+      "enabled": "二要素認証が有効になりました。",
+      "disabled": "二要素認証が無効になりました。",
+      "recoveryCodesRegenerated": "バックアップコードを再生成しました。",
+      "serverError": "問題が発生しました。もう一度お試しください。"
+    }
+  },
   "Sidebar": {
     "config": {
       "theme": {
@@ -373,19 +435,15 @@
       },
       "title": "設定"
     },
-    "invitation": {
-      "inviteUser": "ユーザーを招待",
-      "title": "招待"
-    },
     "navPages": {
       "essentials": "買い物リスト",
       "home": "ホーム",
-      "planned": "計画",
       "projects": "プロジェクト",
       "title": "ページ"
     },
-    "navSecondary": {
-      "contact": "お問い合わせ"
+    "settings": {
+      "title": "設定",
+      "workspace": "ワークスペース設定"
     },
     "navSite": {
       "items": {
@@ -684,7 +742,15 @@
       "subject": "アプリについての質問",
       "message": "メッセージを入力してください..."
     },
-    "submit": "送信"
+    "submit": "送信",
+    "sending": "送信中...",
+    "messages": {
+      "sent": "メッセージを送信しました。",
+      "invalid": "入力内容を確認して、もう一度お試しください。",
+      "rateLimited": "送信回数が多すぎます。しばらくしてからもう一度お試しください。",
+      "configuration": "お問い合わせメールが設定されていません。後でもう一度お試しください。",
+      "failed": "メッセージを送信できませんでした。もう一度お試しください。"
+    }
   },
   "DashboardHome": {
     "recentlyAdded": "最近追加",
@@ -805,6 +871,14 @@
     "descriptionMax500": "500文字以内で入力してください。",
     "min2": "2文字以上で入力してください。",
     "titleRequired": "件名を入力してください。",
-    "min10": "10文字以上で入力してください。"
+    "min10": "10文字以上で入力してください。",
+    "contactNameMin2": "2文字以上で入力してください。",
+    "contactNameMax100": "100文字以内で入力してください。",
+    "contactEmailMax254": "254文字以内で入力してください。",
+    "contactSubjectMin3": "3文字以上で入力してください。",
+    "contactSubjectMax160": "160文字以内で入力してください。",
+    "contactSubjectSingleLine": "件名は1行で入力してください。",
+    "contactMessageMin10": "10文字以上で入力してください。",
+    "contactMessageMax5000": "5,000文字以内で入力してください。"
   }
 }
