@@ -2,9 +2,14 @@ import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 export const viewport = {
   minimumScale: 1,
@@ -14,6 +19,26 @@ export const viewport = {
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+
+  const t = await getTranslations({ locale, namespace: "Meta" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
 }
 
 export default async function RootLayout({

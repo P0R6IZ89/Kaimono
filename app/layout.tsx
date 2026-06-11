@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { siteUrl } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Kaimono ver. beta",
-  description: "Ultimate shopping list manager",
+  metadataBase: siteUrl,
+  applicationName: "Kaimono",
+  manifest: "/manifest.json",
   appleWebApp: { capable: true, statusBarStyle: "default" },
 };
 

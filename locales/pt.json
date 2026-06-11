@@ -169,8 +169,9 @@
     "title": "Membros do workspace"
   },
   "Meta": {
-    "description": "Um aplicativo para gerenciar suas listas de compras.",
-    "title": "Kaimono versão beta"
+    "description": "Cole a URL de um produto, organize ideias de compra e decida o que comprar com família, amigos ou sua equipe. O Kaimono está atualmente em beta.",
+    "socialImageAlt": "O Kaimono ajuda pessoas a planejar compras em conjunto a partir de links de produtos.",
+    "title": "Kaimono | Planeje compras em conjunto a partir de links"
   },
   "MobileNav": {
     "essentials": "Lista de compras",
