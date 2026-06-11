@@ -169,8 +169,9 @@
     "title": "ワークスペースメンバー"
   },
   "Meta": {
-    "description": "買い物リストを管理するためのアプリケーションです。",
-    "title": "Kaimono ベータ版"
+    "description": "商品URLを貼り付けて購入候補を整理し、家族や友人、プロジェクトメンバーと一緒に買うものを決められます。Kaimonoは現在ベータ版です。",
+    "socialImageAlt": "Kaimonoなら商品リンクから買うものを一緒に計画できます。",
+    "title": "Kaimono | 商品リンクから始める共有購入計画"
   },
   "MobileNav": {
     "essentials": "買い物リスト",

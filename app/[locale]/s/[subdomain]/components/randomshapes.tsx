@@ -49,7 +49,7 @@ export default function RandomShape({
   }, []);
 
   return (
-    <div className="relative size-12 overflow-hidden rounded-full  ">
+    <div className="relative size-12 overflow-hidden rounded-full">
       <svg viewBox="0 0 500 500" className="absolute inset-0 size-full">
         {shapes.map(([d, fill, blur], index) => {
           const { x, y, rotate, scale } = positions[index];

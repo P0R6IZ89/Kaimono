@@ -169,8 +169,9 @@
     "title": "Workspace Members"
   },
   "Meta": {
-    "description": "An application to manage your shopping lists.",
-    "title": "Kaimono Beta ver."
+    "description": "Paste a product URL, organize purchase ideas, and decide what to buy with family, friends, or project members. Kaimono is currently in beta.",
+    "socialImageAlt": "Kaimono helps people plan purchases together from product links.",
+    "title": "Kaimono | Plan purchases together from product links"
   },
   "MobileNav": {
     "essentials": "Shopping List",
