@@ -1,4 +1,10 @@
-export type IconKey = "grip" | "hexagon" | "folder" | "shirt" | "settings";
+export type IconKey =
+  | "grip"
+  | "hexagon"
+  | "folder"
+  | "shirt"
+  | "settings"
+  | "coins";
 
 export type NavItem = { title: string; url: string; icon?: IconKey };
 export type NavGroup = { title: string; url?: string; items: NavItem[] };
@@ -18,11 +24,12 @@ type SidebarMessageKey =
   | "navPages.essentials"
   | "config.theme.title"
   | "settings.title"
-  | "settings.workspace";
+  | "settings.workspace"
+  | "settings.manageCredits";
 
 export function buildSidebarData(
   t: (key: SidebarMessageKey) => string,
-  urls: { home: string },
+  urls: { home: string; aiCredits: string },
 ): SidebarData {
   return {
     navSite: {
@@ -60,6 +67,11 @@ export function buildSidebarData(
           title: t("settings.workspace"),
           url: "/settings",
           icon: "settings",
+        },
+        {
+          title: t("settings.manageCredits"),
+          url: urls.aiCredits,
+          icon: "coins",
         },
       ],
     },

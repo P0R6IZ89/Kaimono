@@ -13,6 +13,7 @@ export type ProjectWithPlanned = {
   id: string;
   name: string;
   description?: string | null;
+  budget: number | null;
   createdAt: string | Date;
   updatedAt: string | Date;
   counts: {

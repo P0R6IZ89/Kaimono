@@ -45,6 +45,7 @@ export async function AppSidebar({
 
   const urls = {
     home: `${protocol}://${rootDomain}/${locale}`,
+    aiCredits: `${protocol}://${subdomain}.${rootDomain}/${locale}/settings/ai-credits`,
   };
 
   const data = buildSidebarData(t, urls);

@@ -106,6 +106,14 @@ export const projectSchema = z.object({
     (v) => (v === "" ? undefined : v),
     z.string().max(500, "descriptionMax500").optional(),
   ),
+  budget: z.preprocess(
+    (value) => (value === "" || value === null ? undefined : value),
+    z.coerce
+      .number({ invalid_type_error: "projectBudgetNumber" })
+      .positive("projectBudgetPositive")
+      .max(9999999999.99, "projectBudgetTooLarge")
+      .optional(),
+  ),
   subdomain: z.string().min(1, "subdomainRequired"),
 });
 

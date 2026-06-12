@@ -243,6 +243,10 @@
       "title": "計画アイテムを追加"
     },
     "description": "計画中の買い物アイテムです。既存プロジェクトに送るか、整理のためにバックログに残せます。",
+    "edit": {
+      "description": "以下のアイテム情報を更新します。",
+      "title": "アイテム情報を編集"
+    },
     "editDescription": "ここでアイテムを編集できます。保存をお忘れなく！",
     "empty": {
       "search": "結果が見つかりません。"
@@ -305,6 +309,9 @@
       "title": "最初のプロジェクトを作成"
     },
     "form": {
+      "budget": "予算（JPY）",
+      "budgetDescription": "任意。キャンセルしたアイテムは予算に含まれません。",
+      "budgetPlaceholder": "50,000",
       "create": "プロジェクトを作成",
       "description": "説明",
       "descriptionPlaceholder": "成功の状態をどう定義しますか？",
@@ -312,6 +319,15 @@
       "namePlaceholder": "スタジオ構築、パントリー整理..."
     },
     "project": {
+      "budget": {
+        "atLimit": "予算をすべて割り当て済み",
+        "notSet": "予算が設定されていません",
+        "overBy": "予算を {amount} 超過",
+        "percentage": "{percentage}%",
+        "remaining": "残り {amount}",
+        "title": "プロジェクト予算",
+        "usedOfBudget": "{budget} のうち {used} を使用"
+      },
       "badges": {
         "cancelled": "{count, plural, =0 {キャンセル 0件} =1 {キャンセル 1件} other {キャンセル #件}}",
         "pending": "{count, plural, =0 {保留 0件} =1 {保留 1件} other {保留 #件}}",
@@ -447,6 +463,7 @@
       "title": "ページ"
     },
     "settings": {
+      "manageCredits": "クレジットを管理",
       "title": "設定",
       "workspace": "ワークスペース設定"
     },
@@ -873,6 +890,9 @@
     "subdomainInvalidFormat": "サブドメインの形式が無効です。",
     "projectNameRequired": "プロジェクト名は必須です。",
     "projectNameMax120": "120文字以内で入力してください。",
+    "projectBudgetNumber": "予算は数値で入力してください。",
+    "projectBudgetPositive": "予算は0より大きい値を入力してください。",
+    "projectBudgetTooLarge": "予算の金額が大きすぎます。",
     "descriptionMax500": "500文字以内で入力してください。",
     "min2": "2文字以上で入力してください。",
     "titleRequired": "件名を入力してください。",

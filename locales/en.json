@@ -243,6 +243,10 @@
       "title": "Create a new item"
     },
     "description": "Your planned shopping list items.  You can send to an existing project or keep in backlog for better organization.",
+    "edit": {
+      "description": "Update the item information below.",
+      "title": "Edit item details"
+    },
     "editDescription": "You can edit the item here, don't forget to save!",
     "empty": {
       "search": "No results found."
@@ -305,6 +309,9 @@
       "title": "Create your first project"
     },
     "form": {
+      "budget": "Budget (JPY)",
+      "budgetDescription": "Optional. Cancelled items do not count toward the budget.",
+      "budgetPlaceholder": "50,000",
       "create": "Create project",
       "description": "Description",
       "descriptionPlaceholder": "What does success look like?",
@@ -312,6 +319,15 @@
       "namePlaceholder": "Studio setup, Pantry refresh..."
     },
     "project": {
+      "budget": {
+        "atLimit": "Budget fully allocated",
+        "notSet": "No budget set",
+        "overBy": "{amount} over budget",
+        "percentage": "{percentage}%",
+        "remaining": "{amount} remaining",
+        "title": "Project budget",
+        "usedOfBudget": "{used} of {budget} used"
+      },
       "badges": {
         "cancelled": "{count, plural, =0 {0 cancelled} =1 {1 cancelled} other {# cancelled}}",
         "pending": "{count, plural, =0 {0 pending} =1 {1 pending} other {# pending}}",
@@ -447,6 +463,7 @@
       "title": "Pages"
     },
     "settings": {
+      "manageCredits": "Manage credits",
       "title": "Settings",
       "workspace": "Workspace settings"
     },
@@ -873,6 +890,9 @@
     "subdomainInvalidFormat": "Subdomain format is invalid.",
     "projectNameRequired": "Project name is required.",
     "projectNameMax120": "Use 120 characters or fewer.",
+    "projectBudgetNumber": "Budget must be a number.",
+    "projectBudgetPositive": "Budget must be greater than zero.",
+    "projectBudgetTooLarge": "Budget is too large.",
     "descriptionMax500": "Use 500 characters or fewer.",
     "min2": "Please enter at least 2 characters.",
     "titleRequired": "Please enter a title.",

@@ -76,7 +76,9 @@ export async function createDemoTeamForUser(user: DemoSeedUser): Promise<void> {
     const homeRefreshProject = await tx.project.create({
       data: {
         name: "Home Refresh",
-        description: "Furniture and household upgrades to compare before buying.",
+        description:
+          "Furniture and household upgrades to compare before buying.",
+        budget: "15000",
         appId: app.id,
         creatorId: user.id,
       },
@@ -87,6 +89,7 @@ export async function createDemoTeamForUser(user: DemoSeedUser): Promise<void> {
       data: {
         name: "Desk Setup",
         description: "Workstation items grouped into one buying plan.",
+        budget: "50000",
         appId: app.id,
         creatorId: user.id,
       },
