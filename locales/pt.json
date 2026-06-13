@@ -243,6 +243,10 @@
       "title": "Adicionar planejado"
     },
     "description": "Seus itens de compra planejados. Você pode enviar para um projeto existente ou manter no backlog para melhor organização.",
+    "edit": {
+      "description": "Atualize as informações do item abaixo.",
+      "title": "Editar detalhes do item"
+    },
     "editDescription": "Você pode editar o item aqui, não se esqueça de salvar!",
     "empty": {
       "search": "Nenhum resultado encontrado."
@@ -305,6 +309,9 @@
       "title": "Crie seu primeiro projeto"
     },
     "form": {
+      "budget": "Orçamento (JPY)",
+      "budgetDescription": "Opcional. Itens cancelados não contam no orçamento.",
+      "budgetPlaceholder": "50.000",
       "create": "Criar projeto",
       "description": "Descrição",
       "descriptionPlaceholder": "Como é o sucesso para este projeto?",
@@ -312,6 +319,15 @@
       "namePlaceholder": "Montagem de estúdio, renovação da despensa..."
     },
     "project": {
+      "budget": {
+        "atLimit": "Orçamento totalmente alocado",
+        "notSet": "Nenhum orçamento definido",
+        "overBy": "{amount} acima do orçamento",
+        "percentage": "{percentage}%",
+        "remaining": "{amount} restantes",
+        "title": "Orçamento do projeto",
+        "usedOfBudget": "{used} de {budget} usados"
+      },
       "badges": {
         "cancelled": "{count, plural, =0 {0 cancelados} =1 {1 cancelado} other {# cancelados}}",
         "pending": "{count, plural, =0 {0 pendentes} =1 {1 pendente} other {# pendentes}}",
@@ -447,6 +463,7 @@
       "title": "Páginas"
     },
     "settings": {
+      "manageCredits": "Gerenciar créditos",
       "title": "Configurações",
       "workspace": "Configurações do workspace"
     },
@@ -873,6 +890,9 @@
     "subdomainInvalidFormat": "O formato do subdomínio é inválido.",
     "projectNameRequired": "O nome do projeto é obrigatório.",
     "projectNameMax120": "Use 120 caracteres ou menos.",
+    "projectBudgetNumber": "O orçamento deve ser um número.",
+    "projectBudgetPositive": "O orçamento deve ser maior que zero.",
+    "projectBudgetTooLarge": "O orçamento é muito alto.",
     "descriptionMax500": "Use 500 caracteres ou menos.",
     "min2": "Digite pelo menos 2 caracteres.",
     "titleRequired": "Digite um título.",

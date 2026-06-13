@@ -15,6 +15,11 @@ import { ActionResult } from "@/lib/initial-action-return";
 const PLANNED_PLACEHOLDER_IMAGE =
   "https://res.cloudinary.com/dsttcre2h/image/upload/v1751870559/placeholder_dtzhrr.png";
 
+function revalidateProjectSurfaces(subdomain: string) {
+  revalidatePath(`/s/${subdomain}/projects`);
+  revalidatePath(`/s/${subdomain}`);
+}
+
 export async function createProjectAction(
   _prevState: ActionResult,
   formData: FormData,
@@ -22,6 +27,7 @@ export async function createProjectAction(
   const parsed = projectSchema.safeParse({
     name: formData.get("name"),
     description: formData.get("description"),
+    budget: formData.get("budget"),
     subdomain: formData.get("subdomain"),
   });
 
@@ -37,12 +43,13 @@ export async function createProjectAction(
       data: {
         name: parsed.data.name,
         description: parsed.data.description,
+        budget: parsed.data.budget ?? null,
         appId,
         creatorId: session.user.id,
       },
     });
 
-    revalidatePath(`/s/${parsed.data.subdomain}/projects`);
+    revalidateProjectSurfaces(parsed.data.subdomain);
     return { ok: true, message: "projectCreated" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
@@ -88,7 +95,7 @@ export async function attachPlannedToProjectAction(
         projectAppId: project.appId,
       },
     });
-    revalidatePath(`/s/${parsed.data.subdomain}/projects`);
+    revalidateProjectSurfaces(parsed.data.subdomain);
     revalidatePath(`/s/${parsed.data.subdomain}/planned`);
     return { ok: true, message: "plannedAssignedToProject" };
   } catch (error: unknown) {
@@ -124,7 +131,7 @@ export async function unassignPlannedFromProjectAction(
       where: { id: parsed.data.plannedId },
       data: { projectId: null, projectAppId: null },
     });
-    revalidatePath(`/s/${parsed.data.subdomain}/projects`);
+    revalidateProjectSurfaces(parsed.data.subdomain);
     revalidatePath(`/s/${parsed.data.subdomain}/planned`);
     return { ok: true, message: "plannedRemovedFromProject" };
   } catch (error: unknown) {
@@ -171,6 +178,7 @@ export async function getProjectsWithPlanned(subdomain: string) {
       id: project.id,
       name: project.name,
       description: project.description,
+      budget: project.budget?.toNumber() ?? null,
       createdAt: project.createdAt,
       updatedAt: project.updatedAt,
       plannedItems: project.plannedItems.map((item) => ({
@@ -227,6 +235,7 @@ export async function getAllProjectsAndPlanned(subdomain: string) {
       id: project.id,
       name: project.name,
       description: project.description,
+      budget: project.budget?.toNumber() ?? null,
       createdAt: project.createdAt,
       updatedAt: project.updatedAt,
       plannedItems: project.plannedItems.map((item) => ({
@@ -313,6 +322,7 @@ export async function editProjectAction(
   const parsed = projectSchema.safeParse({
     name: formData.get("name"),
     description: formData.get("description"),
+    budget: formData.get("budget"),
     subdomain: formData.get("subdomain"),
   });
 
@@ -338,10 +348,11 @@ export async function editProjectAction(
       data: {
         name: parsed.data.name,
         description: parsed.data.description,
+        budget: parsed.data.budget ?? null,
       },
     });
 
-    revalidatePath(`/s/${parsed.data.subdomain}/projects`);
+    revalidateProjectSurfaces(parsed.data.subdomain);
     return { ok: true, message: "projectUpdated" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
@@ -374,7 +385,7 @@ export async function deleteProjectAction(
       }),
     ]);
 
-    revalidatePath(`/s/${subdomain}/projects`);
+    revalidateProjectSurfaces(subdomain);
     return { ok: true, message: "projectDeleted" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };
@@ -454,9 +465,8 @@ export async function createPlannedInProjectAction(
       },
     });
 
-    revalidatePath(`/s/${subdomain}/projects`);
+    revalidateProjectSurfaces(subdomain);
     revalidatePath(`/s/${subdomain}/planned`);
-    revalidatePath(`/s/${subdomain}`);
     return { ok: true, message: "plannedCreated" };
   } catch (error: unknown) {
     return { ok: false, message: getErrorMessage(error) };

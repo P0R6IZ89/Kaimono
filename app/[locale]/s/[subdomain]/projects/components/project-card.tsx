@@ -6,6 +6,7 @@ import {
 } from "@/app/[locale]/types/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ProjectBudgetStatus } from "@/components/projects/project-budget-status";
 import {
   Card,
   CardContent,
@@ -152,11 +153,15 @@ function ProjectCardHeader({
 }
 
 function ProjectCardSummary({
+  budget,
+  plannedItems,
   totalPendingAmount,
   totalPlannedAmount,
   detailsTrigger,
   t,
 }: {
+  budget: number | null;
+  plannedItems: PlannedBacklogItem[];
   totalPendingAmount: number;
   totalPlannedAmount: number;
   detailsTrigger: ReactNode;
@@ -182,6 +187,8 @@ function ProjectCardSummary({
           </span>
         </div>
       </div>
+
+      <ProjectBudgetStatus budget={budget} items={plannedItems} />
 
       {detailsTrigger}
     </div>
@@ -249,6 +256,8 @@ export function ProjectCard({ project, plannedBacklog, subdomain }: Props) {
 
         <CardContent>
           <ProjectCardSummary
+            budget={project.budget}
+            plannedItems={project.plannedItems}
             totalPendingAmount={totalPendingAmount}
             totalPlannedAmount={totalPlannedAmount}
             t={t}

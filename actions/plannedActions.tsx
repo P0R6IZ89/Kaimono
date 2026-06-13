@@ -12,6 +12,12 @@ import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "@/lib/error-handler";
 import { ActionResult } from "@/lib/initial-action-return";
 
+function revalidatePlannedSurfaces(subdomain: string) {
+  revalidatePath(`/s/${subdomain}/planned`);
+  revalidatePath(`/s/${subdomain}/projects`);
+  revalidatePath(`/s/${subdomain}`);
+}
+
 async function requirePlannedAccess(
   plannedId: string,
   userId: string,
@@ -79,7 +85,7 @@ export async function createPlannedAction(
         creatorId: session.user.id,
       },
     });
-    revalidatePath(`/s/${data.subdomain}/planned`);
+    revalidatePlannedSurfaces(data.subdomain);
     return { ok: true, message: "plannedCreated" };
   } catch {
     return { ok: false, message: "plannedCreateFailed" };
@@ -136,7 +142,7 @@ export async function updatePlanned(
         image: data.image,
       },
     });
-    revalidatePath(`/s/${data.subdomain}/planned`);
+    revalidatePlannedSurfaces(data.subdomain);
     return { ok: true, message: "plannedUpdated" };
   } catch (error: unknown) {
     return {
@@ -265,7 +271,7 @@ export async function completeTask(id: string): Promise<ActionResult> {
       return { ok: false, message: "itemNotFoundForApp" };
     }
     if (subdomain) {
-      revalidatePath(`/s/${subdomain}/planned`);
+      revalidatePlannedSurfaces(subdomain);
     }
     return { ok: true, message: "plannedUpdated" };
   } catch {
@@ -288,7 +294,7 @@ export async function revertTask(id: string): Promise<ActionResult> {
       return { ok: false, message: "itemNotFoundForApp" };
     }
     if (subdomain) {
-      revalidatePath(`/s/${subdomain}/planned`);
+      revalidatePlannedSurfaces(subdomain);
     }
     return { ok: true, message: "plannedUpdated" };
   } catch {
@@ -311,7 +317,7 @@ export async function deleteTask(id: string): Promise<ActionResult> {
       return { ok: false, message: "itemNotFoundForApp" };
     }
     if (subdomain) {
-      revalidatePath(`/s/${subdomain}/planned`);
+      revalidatePlannedSurfaces(subdomain);
     }
     return { ok: true, message: "plannedDeleted" };
   } catch {

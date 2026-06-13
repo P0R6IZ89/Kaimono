@@ -29,21 +29,30 @@ import { useSubdomain } from "@/context/SubdomainContext";
 import { ActionResult, initialState } from "@/lib/initial-action-return";
 import { EllipsisVertical } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useActionState, useEffect, useState, useTransition } from "react";
+import {
+  type ReactNode,
+  useActionState,
+  useEffect,
+  useState,
+  useTransition,
+} from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { translateMessage } from "@/lib/translate-message";
 
 export function ProjectEditDialog({
   project,
+  trigger,
 }: {
   project: ProjectWithPlanned;
+  trigger?: ReactNode;
 }) {
   const t = useTranslations("Projects");
   const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
+  const tErrors = useTranslations("FormErrors");
   const { subdomain } = useSubdomain();
-  const { id, name, description } = project;
+  const { id, name, description, budget } = project;
   const [open, setOpen] = useState(false);
   const [state, action, isPending] = useActionState<ActionResult, FormData>(
     editProjectAction,
@@ -58,9 +67,13 @@ export function ProjectEditDialog({
       toast.success(t("toast.updated"));
       setOpen(false);
     } else if (state.message) {
-      toast.error(translateMessage(tActions, state.message));
+      toast.error(
+        tErrors.has(state.message)
+          ? tErrors(state.message)
+          : translateMessage(tActions, state.message),
+      );
     }
-  }, [state, t, tActions]);
+  }, [state, t, tActions, tErrors]);
 
   useEffect(() => {
     if (!deleteState.message) return;
@@ -86,15 +99,23 @@ export function ProjectEditDialog({
       id,
       name,
       description: description || "",
+      budget: budget?.toString() ?? "",
     },
   });
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <Form {...form}>
         <DialogTrigger asChild>
-          <Button variant={"ghost"} size={"sm"}>
-            <EllipsisVertical className="text-muted-foreground" />
-          </Button>
+          {trigger ?? (
+            <Button
+              variant="ghost"
+              size="sm"
+              aria-label={tCommon("actions.edit")}
+              title={tCommon("actions.edit")}
+            >
+              <EllipsisVertical className="text-muted-foreground" />
+            </Button>
+          )}
         </DialogTrigger>
         <DialogContent>
           <form action={action}>
@@ -130,6 +151,30 @@ export function ProjectEditDialog({
                     <FormControl>
                       <Textarea {...field}></Textarea>
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="budget"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("form.budget")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        inputMode="numeric"
+                        min="1"
+                        max="9999999999.99"
+                        step="1"
+                        placeholder={t("form.budgetPlaceholder")}
+                        {...field}
+                      />
+                    </FormControl>
+                    <p className="text-xs text-muted-foreground">
+                      {t("form.budgetDescription")}
+                    </p>
                     <FormMessage />
                   </FormItem>
                 )}

@@ -1,0 +1,2 @@
+ALTER TABLE "Project"
+ADD COLUMN "budget" DECIMAL(12, 2);

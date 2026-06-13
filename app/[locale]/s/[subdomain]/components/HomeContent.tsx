@@ -18,6 +18,7 @@ export type allProjectType = {
   id: string;
   name: string;
   description: string | null;
+  budget: number | null;
   createdAt: Date;
   updatedAt: Date;
   plannedItems: {

@@ -13,6 +13,7 @@ import {
   Clock,
   Link as LinkIcon,
   Plus,
+  Settings,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -35,19 +36,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { ProjectBudgetStatus } from "@/components/projects/project-budget-status";
+import { ProjectEditDialog } from "../projects/components/project-edit-dialog";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { CldImage } from "next-cloudinary";
 import { Link } from "@/i18n/navigation";
 import { useIsMobile } from "@/hooks/use-mobile";
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemTitle,
-} from "@/components/ui/item";
-import { formatPriceYen } from "@/lib/formatPriceYen";
-
 type HomePlannedItem = allProjectType["plannedItems"][number];
 type HomeProject = allProjectType;
 
@@ -273,6 +268,7 @@ export function FilteredHomeContent({
 
 function ProjectPlannedGrid({ activeProject }: { activeProject: HomeProject }) {
   const t = useTranslations("Table");
+  const tCommon = useTranslations("Common");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     getDefaultColumnFilters,
   );
@@ -322,26 +318,29 @@ function ProjectPlannedGrid({ activeProject }: { activeProject: HomeProject }) {
     setColumnFilters([]);
     setPagination(getDefaultPagination());
   };
-  const filteredTotalPrice = table
-    .getFilteredRowModel()
-    .rows.reduce(
-      (acc, row) => acc + row.original.price * row.original.quantity,
-      0,
-    );
-
   return (
     <div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-4">
-        <Item className="flex-1" variant="muted">
-          <ItemContent>
-            <ItemDescription>Total Price</ItemDescription>
-            <ItemTitle className="flex items-baseline gap-2">
-              <p className="text-xl font-semibold tracking-tight">
-                {formatPriceYen(filteredTotalPrice)}
-              </p>
-            </ItemTitle>
-          </ItemContent>
-        </Item>
+        <ProjectBudgetStatus
+          budget={activeProject.budget}
+          items={activeProject.plannedItems}
+          className="bg-muted/50"
+          action={
+            <ProjectEditDialog
+              project={activeProject}
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  aria-label={tCommon("actions.edit")}
+                  title={tCommon("actions.edit")}
+                >
+                  <Settings className="text-muted-foreground" />
+                </Button>
+              }
+            />
+          }
+        />
       </div>
       <HomePlannedToolbar table={table} onClearFilters={clearFilters} />
       <ResponsiveMasonry

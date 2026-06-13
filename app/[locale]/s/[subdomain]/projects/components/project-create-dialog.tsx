@@ -54,11 +54,13 @@ export function ProjectCreateDialog({
   );
   const t = useTranslations("Projects");
   const tActions = useTranslations("ActionMessages");
+  const tErrors = useTranslations("FormErrors");
 
   const form = useForm({
     defaultValues: {
       name: "",
       description: "",
+      budget: "",
       subdomain,
     },
   });
@@ -68,10 +70,14 @@ export function ProjectCreateDialog({
     if (state.ok) {
       toast.success(t("toast.created"));
     } else if (state.message) {
-      toast.error(translateMessage(tActions, state.message));
+      toast.error(
+        tErrors.has(state.message)
+          ? tErrors(state.message)
+          : translateMessage(tActions, state.message),
+      );
     }
     form.reset();
-  }, [form, state, t, tActions]);
+  }, [form, state, t, tActions, tErrors]);
 
   return (
     <Dialog>
@@ -130,6 +136,30 @@ export function ProjectCreateDialog({
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="budget"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("form.budget")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        inputMode="numeric"
+                        min="1"
+                        max="9999999999.99"
+                        step="1"
+                        placeholder={t("form.budgetPlaceholder")}
+                        {...field}
+                      />
+                    </FormControl>
+                    <p className="text-xs text-muted-foreground">
+                      {t("form.budgetDescription")}
+                    </p>
                     <FormMessage />
                   </FormItem>
                 )}
