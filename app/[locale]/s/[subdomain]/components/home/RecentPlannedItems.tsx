@@ -17,8 +17,8 @@ export function RecentPlannedItems({ items }: { items: recentlyAddedType }) {
   }
 
   return (
-    <section className="">
-      <p className="mb-4 text-sm">{t("recentlyAdded")}</p>
+    <div>
+      <p>{t("recentlyAdded")}</p>
       <ScrollArea className="w-full max-w-full min-w-0 overflow-hidden">
         <div className="flex gap-3 pb-3">
           {items.map((item) => (
@@ -51,6 +51,6 @@ export function RecentPlannedItems({ items }: { items: recentlyAddedType }) {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-    </section>
+    </div>
   );
 }

@@ -15,19 +15,15 @@ const PLANNED_PLACEHOLDER_IMAGE =
 
 dayjs.extend(relativeTime);
 
-export function TimeToTakeAction({
-  items,
-}: {
-  items: oldestPlannedItemsType;
-}) {
+export function TimeToTakeAction({ items }: { items: oldestPlannedItemsType }) {
   const t = useTranslations("DashboardHome");
   if (items.length === 0) {
     return null;
   }
 
   return (
-    <section>
-      <p className="mb-2 text-sm">{t("timeToTakeAction")}</p>
+    <section className="mt-4">
+      <p>{t("timeToTakeAction")}</p>
       <ScrollArea className="w-full max-w-full min-w-0">
         <div className="flex gap-3 pb-3">
           {items.map((item) => {
