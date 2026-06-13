@@ -17,7 +17,7 @@ export function Home({
   recentlyAdded: recentlyAddedType;
 }) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-2">
       <RecentShoppingList items={recentShoppingItems} />
       <TimeToTakeAction items={oldestPlannedItems} />
       <RecentPlannedItems items={recentlyAdded} />

@@ -17,16 +17,14 @@ export function RecentShoppingList({
   if (items.length === 0) {
     return (
       <div>
-        <p className="mb-2 text-sm">{t("recentShoppingItems")}</p>
+        <p>{t("recentShoppingItems")}</p>
         <Link href="/essentials">
           <Card className="h-32 ring-0 border border-dashed">
             <CardContent className="flex flex-col gap-2 items-center justify-center h-full">
               <p className="text-muted-foreground">
                 <PlusCircle />
               </p>
-              <p className="text-muted-foreground">
-                {t("noShoppingItems")}
-              </p>
+              <p className="text-muted-foreground">{t("noShoppingItems")}</p>
             </CardContent>
           </Card>
         </Link>
@@ -35,7 +33,7 @@ export function RecentShoppingList({
   }
   return (
     <div>
-      <p className="mb-2 text-sm">{t("recentShoppingItems")}</p>
+      <p>{t("recentShoppingItems")}</p>
       <Card className="p-0 max-h-32 overflow-y-auto">
         <Link href="/essentials">
           <CardContent className="relative">
