@@ -166,7 +166,7 @@ export default async function Home({ params }: PageProps) {
 
           <div className="flex justify-center md:justify-end">
             <Image
-              src="/images/Mockup.png"
+              src="/images/home.png"
               alt="Kaimono app mockup"
               width={666}
               height={942}
