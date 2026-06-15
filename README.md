@@ -6,11 +6,17 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
 ![Prisma](https://img.shields.io/badge/Prisma-6.x-2D3748)
 
+![Scheenshot](public/images/home.png)
+
 Kaimono is a localized, multi-tenant shopping and purchase-planning application
 for families, shared households, and collaborative groups. Each workspace is
 isolated by subdomain and includes essentials, planned purchases, projects,
 member collaboration, optional two-factor authentication, and AI-assisted
 product extraction from URLs.
+
+## Website
+
+URL: https://p0r6iz89.cloud
 
 ## Features
 

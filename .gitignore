@@ -59,4 +59,4 @@ AGENT.md
 PROJECT_CONTEXT.md
 
 # Prisma generated client/engines
-prisma/generated/
+prisma/generated/prisma/generated/
