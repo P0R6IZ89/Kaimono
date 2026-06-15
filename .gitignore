@@ -57,3 +57,6 @@ ProjectAssets/
 seed.ts
 AGENT.md
 PROJECT_CONTEXT.md
+
+# Prisma generated client/engines
+prisma/generated/
