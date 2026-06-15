@@ -6,7 +6,9 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
 ![Prisma](https://img.shields.io/badge/Prisma-6.x-2D3748)
 
-![Scheenshot](public/images/home.png)
+<p align="center">
+<img src="public/images/home.png" alt="Kaimono screenshot" width="360"/>
+</p>
 
 Kaimono is a localized, multi-tenant shopping and purchase-planning application
 for families, shared households, and collaborative groups. Each workspace is
@@ -16,7 +18,7 @@ product extraction from URLs.
 
 ## Website
 
-URL: https://p0r6iz89.cloud
+Try right now! https://p0r6iz89.cloud
 
 ## Features
 
