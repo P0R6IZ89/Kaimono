@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { InvitationStatus as StatusEnum } from "@prisma/client";
+import { InvitationStatus as StatusEnum } from "@/prisma/generated/prisma";
 import { RefreshCwIcon, UserMinus, Ellipsis, Trash } from "lucide-react";
 
 import {

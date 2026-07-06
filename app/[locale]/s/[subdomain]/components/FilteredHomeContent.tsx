@@ -345,7 +345,7 @@ function ProjectPlannedGrid({ activeProject }: { activeProject: HomeProject }) {
       <HomePlannedToolbar table={table} onClearFilters={clearFilters} />
       <ResponsiveMasonry
         columnsCountBreakPoints={{ 350: 2, 750: 2, 900: 3 }}
-        gutterBreakPoints={{ 350: "12px", 750: "12px", 900: "12px" }}
+        gutterBreakPoints={{ 350: 12, 750: 12, 900: 12 }}
       >
         <Masonry columnsCount={3} gutter="1rem">
           <HomeAddPlannedCard projectId={activeProject.id} />

@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { $Enums } from "@prisma/client";
+import { $Enums } from "@/prisma/generated/prisma";
 import React from "react";
 import { updateStatusEssentials } from "@/actions/essentialsActions";
 import { deleteEssentials } from "@/actions/essentialsActions";

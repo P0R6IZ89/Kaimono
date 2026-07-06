@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { HomeTopBar } from "./HomeTopBar";
-import type { $Enums } from "@prisma/client";
+import type { $Enums } from "@/prisma/generated/prisma";
 import { FilteredHomeContent } from "./FilteredHomeContent";
 
 type projectType = {

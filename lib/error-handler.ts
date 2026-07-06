@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@/prisma/generated/prisma";
 
 export const getErrorMessage = (error: unknown): string => {
   //Prisma errors with a generic message

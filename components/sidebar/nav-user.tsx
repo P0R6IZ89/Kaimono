@@ -20,7 +20,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Dialog } from "@/components/ui/dialog";
-import { $Enums } from "@prisma/client";
+import { $Enums } from "@/prisma/generated/prisma";
 import DialogLogout from "@/app/[locale]/(auth)/logout/dialog-logout";
 
 type MemberRole = $Enums.Role;
