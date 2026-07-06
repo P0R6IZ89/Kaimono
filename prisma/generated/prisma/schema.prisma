@@ -253,8 +253,8 @@ model PlannedComment {
   id        String   @id @default(cuid())
   content   String
   createdAt DateTime @default(now())
-  authorId  String?
-  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: SetNull)
   plannedId String
   planned   Planned  @relation(fields: [plannedId], references: [id], onDelete: Cascade)
 }

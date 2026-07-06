@@ -17771,7 +17771,7 @@ export namespace Prisma {
     id: string
     content: string
     createdAt: Date
-    authorId: string | null
+    authorId: string
     plannedId: string
     _count: PlannedCommentCountAggregateOutputType | null
     _min: PlannedCommentMinAggregateOutputType | null
@@ -17798,7 +17798,7 @@ export namespace Prisma {
     createdAt?: boolean
     authorId?: boolean
     plannedId?: boolean
-    author?: boolean | PlannedComment$authorArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
     planned?: boolean | PlannedDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["plannedComment"]>
 
@@ -17808,7 +17808,7 @@ export namespace Prisma {
     createdAt?: boolean
     authorId?: boolean
     plannedId?: boolean
-    author?: boolean | PlannedComment$authorArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
     planned?: boolean | PlannedDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["plannedComment"]>
 
@@ -17818,7 +17818,7 @@ export namespace Prisma {
     createdAt?: boolean
     authorId?: boolean
     plannedId?: boolean
-    author?: boolean | PlannedComment$authorArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
     planned?: boolean | PlannedDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["plannedComment"]>
 
@@ -17832,29 +17832,29 @@ export namespace Prisma {
 
   export type PlannedCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "createdAt" | "authorId" | "plannedId", ExtArgs["result"]["plannedComment"]>
   export type PlannedCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | PlannedComment$authorArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
     planned?: boolean | PlannedDefaultArgs<ExtArgs>
   }
   export type PlannedCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | PlannedComment$authorArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
     planned?: boolean | PlannedDefaultArgs<ExtArgs>
   }
   export type PlannedCommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    author?: boolean | PlannedComment$authorArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
     planned?: boolean | PlannedDefaultArgs<ExtArgs>
   }
 
   export type $PlannedCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PlannedComment"
     objects: {
-      author: Prisma.$UserPayload<ExtArgs> | null
+      author: Prisma.$UserPayload<ExtArgs>
       planned: Prisma.$PlannedPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       content: string
       createdAt: Date
-      authorId: string | null
+      authorId: string
       plannedId: string
     }, ExtArgs["result"]["plannedComment"]>
     composites: {}
@@ -18250,7 +18250,7 @@ export namespace Prisma {
    */
   export interface Prisma__PlannedCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    author<T extends PlannedComment$authorArgs<ExtArgs> = {}>(args?: Subset<T, PlannedComment$authorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     planned<T extends PlannedDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlannedDefaultArgs<ExtArgs>>): Prisma__PlannedClient<$Result.GetResult<Prisma.$PlannedPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -18679,25 +18679,6 @@ export namespace Prisma {
      * Limit how many PlannedComments to delete.
      */
     limit?: number
-  }
-
-  /**
-   * PlannedComment.author
-   */
-  export type PlannedComment$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -22366,9 +22347,9 @@ export namespace Prisma {
     id?: StringFilter<"PlannedComment"> | string
     content?: StringFilter<"PlannedComment"> | string
     createdAt?: DateTimeFilter<"PlannedComment"> | Date | string
-    authorId?: StringNullableFilter<"PlannedComment"> | string | null
+    authorId?: StringFilter<"PlannedComment"> | string
     plannedId?: StringFilter<"PlannedComment"> | string
-    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
     planned?: XOR<PlannedScalarRelationFilter, PlannedWhereInput>
   }
 
@@ -22376,7 +22357,7 @@ export namespace Prisma {
     id?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
-    authorId?: SortOrderInput | SortOrder
+    authorId?: SortOrder
     plannedId?: SortOrder
     author?: UserOrderByWithRelationInput
     planned?: PlannedOrderByWithRelationInput
@@ -22389,9 +22370,9 @@ export namespace Prisma {
     NOT?: PlannedCommentWhereInput | PlannedCommentWhereInput[]
     content?: StringFilter<"PlannedComment"> | string
     createdAt?: DateTimeFilter<"PlannedComment"> | Date | string
-    authorId?: StringNullableFilter<"PlannedComment"> | string | null
+    authorId?: StringFilter<"PlannedComment"> | string
     plannedId?: StringFilter<"PlannedComment"> | string
-    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
     planned?: XOR<PlannedScalarRelationFilter, PlannedWhereInput>
   }, "id">
 
@@ -22399,7 +22380,7 @@ export namespace Prisma {
     id?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
-    authorId?: SortOrderInput | SortOrder
+    authorId?: SortOrder
     plannedId?: SortOrder
     _count?: PlannedCommentCountOrderByAggregateInput
     _max?: PlannedCommentMaxOrderByAggregateInput
@@ -22413,7 +22394,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"PlannedComment"> | string
     content?: StringWithAggregatesFilter<"PlannedComment"> | string
     createdAt?: DateTimeWithAggregatesFilter<"PlannedComment"> | Date | string
-    authorId?: StringNullableWithAggregatesFilter<"PlannedComment"> | string | null
+    authorId?: StringWithAggregatesFilter<"PlannedComment"> | string
     plannedId?: StringWithAggregatesFilter<"PlannedComment"> | string
   }
 
@@ -23625,7 +23606,7 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
-    author?: UserCreateNestedOneWithoutPlannedCommentsInput
+    author: UserCreateNestedOneWithoutPlannedCommentsInput
     planned: PlannedCreateNestedOneWithoutCommentsInput
   }
 
@@ -23633,7 +23614,7 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
-    authorId?: string | null
+    authorId: string
     plannedId: string
   }
 
@@ -23641,7 +23622,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    author?: UserUpdateOneWithoutPlannedCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutPlannedCommentsNestedInput
     planned?: PlannedUpdateOneRequiredWithoutCommentsNestedInput
   }
 
@@ -23649,7 +23630,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
     plannedId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -23657,7 +23638,7 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
-    authorId?: string | null
+    authorId: string
     plannedId: string
   }
 
@@ -23671,7 +23652,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
     plannedId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -26118,12 +26099,10 @@ export namespace Prisma {
     connect?: PlannedWhereUniqueInput
   }
 
-  export type UserUpdateOneWithoutPlannedCommentsNestedInput = {
+  export type UserUpdateOneRequiredWithoutPlannedCommentsNestedInput = {
     create?: XOR<UserCreateWithoutPlannedCommentsInput, UserUncheckedCreateWithoutPlannedCommentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPlannedCommentsInput
     upsert?: UserUpsertWithoutPlannedCommentsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPlannedCommentsInput, UserUpdateWithoutPlannedCommentsInput>, UserUncheckedUpdateWithoutPlannedCommentsInput>
   }
@@ -27233,7 +27212,7 @@ export namespace Prisma {
     id?: StringFilter<"PlannedComment"> | string
     content?: StringFilter<"PlannedComment"> | string
     createdAt?: DateTimeFilter<"PlannedComment"> | Date | string
-    authorId?: StringNullableFilter<"PlannedComment"> | string | null
+    authorId?: StringFilter<"PlannedComment"> | string
     plannedId?: StringFilter<"PlannedComment"> | string
   }
 
@@ -29052,14 +29031,14 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
-    author?: UserCreateNestedOneWithoutPlannedCommentsInput
+    author: UserCreateNestedOneWithoutPlannedCommentsInput
   }
 
   export type PlannedCommentUncheckedCreateWithoutPlannedInput = {
     id?: string
     content: string
     createdAt?: Date | string
-    authorId?: string | null
+    authorId: string
   }
 
   export type PlannedCommentCreateOrConnectWithoutPlannedInput = {
@@ -30581,7 +30560,7 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
-    authorId?: string | null
+    authorId: string
   }
 
   export type PlannedLikeCreateManyPlannedInput = {
@@ -30595,21 +30574,21 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    author?: UserUpdateOneWithoutPlannedCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutPlannedCommentsNestedInput
   }
 
   export type PlannedCommentUncheckedUpdateWithoutPlannedInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlannedCommentUncheckedUpdateManyWithoutPlannedInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlannedLikeUpdateWithoutPlannedInput = {
