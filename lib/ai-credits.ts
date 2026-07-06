@@ -1,33 +1,18 @@
 import prisma from "@/lib/prisma";
 import type { Prisma } from "@/prisma/generated/prisma";
+import {
+  assertPositiveIntegerCredits,
+  calculateAiExtractionDeduction,
+  FREE_SIGNUP_CREDITS,
+} from "@/lib/ai-credit-policy";
 
-export const AI_EXTRACTION_CREDIT_COST = 10;
-export const FREE_SIGNUP_CREDITS = 200;
-
-export const AI_CREDIT_PACKS = {
-  starter: {
-    id: "starter",
-    credits: 100,
-    amountCents: 100,
-    name: "100 AI extraction credits",
-  },
-  value: {
-    id: "value",
-    credits: 350,
-    amountCents: 300,
-    name: "350 AI extraction credits",
-  },
-} as const;
-
-export type AiCreditPackId = keyof typeof AI_CREDIT_PACKS;
-
-export function getAiCreditPack(packId: string) {
-  if (packId in AI_CREDIT_PACKS) {
-    return AI_CREDIT_PACKS[packId as AiCreditPackId];
-  }
-
-  return null;
-}
+export {
+  AI_CREDIT_PACKS,
+  AI_EXTRACTION_CREDIT_COST,
+  FREE_SIGNUP_CREDITS,
+  getAiCreditPack,
+} from "@/lib/ai-credit-policy";
+export type { AiCreditPackId } from "@/lib/ai-credit-policy";
 
 export async function getAiCreditBalance(userId: string) {
   const result = await prisma.aiCreditLedger.aggregate({
@@ -45,9 +30,7 @@ export async function grantAiCredits(input: {
   externalId?: string;
   metadata?: Prisma.InputJsonValue;
 }) {
-  if (!Number.isInteger(input.credits) || input.credits <= 0) {
-    throw new Error("Credits must be a positive integer.");
-  }
+  assertPositiveIntegerCredits(input.credits);
 
   await prisma.aiCreditLedger.create({
     data: {
@@ -99,23 +82,24 @@ export async function deductAiExtractionCredit(userId: string) {
       _sum: { amount: true },
     });
     const balance = result._sum.amount ?? 0;
+    const deduction = calculateAiExtractionDeduction(balance);
 
-    if (balance < AI_EXTRACTION_CREDIT_COST) {
-      return { ok: false as const, balance };
+    if (!deduction.ok) {
+      return deduction;
     }
 
     await tx.aiCreditLedger.create({
       data: {
         userId,
         type: "DEDUCTION",
-        amount: -AI_EXTRACTION_CREDIT_COST,
+        amount: deduction.deductionAmount,
         description: "AI product extraction",
       },
     });
 
     return {
       ok: true as const,
-      balance: balance - AI_EXTRACTION_CREDIT_COST,
+      balance: deduction.balance,
     };
   });
 }

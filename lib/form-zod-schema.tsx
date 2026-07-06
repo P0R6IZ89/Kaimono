@@ -2,37 +2,37 @@ import { z } from "zod";
 import { PLANNED_IMAGE_DEFAULT } from "@/lib/planned-defaults";
 
 export const essentialsSchema = z.object({
-  title: z
-    .string()
-    .min(1, "productNameRequired")
-    .max(50, "productNameMax50"),
-  price: z.coerce
-    .number({ invalid_type_error: "priceNumber" })
-    .nonnegative("priceNonNegative")
-    .default(0),
+  title: z.string().min(1, "productNameRequired").max(50, "productNameMax50"),
+  price: z.preprocess(
+    (v) => (v === "" || v == null ? 0 : v),
+    z.coerce
+      .number({ invalid_type_error: "priceNumber" })
+      .nonnegative("priceNonNegative")
+      .default(0),
+  ),
+
+  quantity: z.preprocess(
+    (v) => (v === "" || v == null ? 1 : v),
+    z.coerce.number().int("quantityInteger").min(1).default(1),
+  ),
   status: z.enum(["PENDING", "PURCHASED", "CANCELLED"], {
     message: "statusInvalid",
   }),
-  quantity: z.coerce
-    .number()
-    .int("quantityInteger")
-    .default(1),
   subdomain: z.string().min(1, "subdomainRequired"),
   id: z.string().cuid().optional(),
 });
 
 export const plannedSchema = z.object({
-  title: z
-    .string()
-    .min(1, "productNameRequired")
-    .max(500, "productNameMax500"),
+  title: z.string().min(1, "productNameRequired").max(500, "productNameMax500"),
   price: z.preprocess(
     (v) => (v === "" || v == null ? 0 : v),
-    z.coerce.number().nonnegative(),
+    z.coerce
+      .number({ invalid_type_error: "priceNumber" })
+      .nonnegative("priceNonNegative"),
   ),
   quantity: z.preprocess(
     (v) => (v === "" || v == null ? 1 : v),
-    z.coerce.number().nonnegative(),
+    z.coerce.number().int("quantityInteger").min(1),
   ),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"], {
     message: "priorityInvalid",
@@ -98,10 +98,7 @@ export const statusUpdateSchema = z.object({
 });
 
 export const projectSchema = z.object({
-  name: z
-    .string()
-    .min(1, "projectNameRequired")
-    .max(120, "projectNameMax120"),
+  name: z.string().min(1, "projectNameRequired").max(120, "projectNameMax120"),
   description: z.preprocess(
     (v) => (v === "" ? undefined : v),
     z.string().max(500, "descriptionMax500").optional(),
@@ -126,17 +123,16 @@ export const projectLinkSchema = z.object({
 export const projectPlannedCreateSchema = z.object({
   projectId: z.string().cuid(),
   subdomain: z.string().min(1, "subdomainRequired"),
-  title: z
-    .string()
-    .min(1, "productNameRequired")
-    .max(500, "productNameMax500"),
+  title: z.string().min(1, "productNameRequired").max(500, "productNameMax500"),
   price: z.preprocess(
     (v) => (v === "" || v == null ? 0 : v),
-    z.coerce.number().nonnegative(),
+    z.coerce
+      .number({ invalid_type_error: "priceNumber" })
+      .nonnegative("priceNonNegative"),
   ),
   quantity: z.preprocess(
     (v) => (v === "" || v == null ? 1 : v),
-    z.coerce.number().int().nonnegative(),
+    z.coerce.number().int("quantityInteger").min(1),
   ),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"], {
     message: "priorityInvalid",

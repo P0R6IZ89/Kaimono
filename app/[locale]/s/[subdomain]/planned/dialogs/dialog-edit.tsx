@@ -218,7 +218,6 @@ export function EditPlannedDialog({
       description={t("editDescription")}
       preventClose={uploadWidgetOpen}
       contentClassName="sm:max-w-[34rem]"
-      modal
     >
       <Form {...form}>
         <form action={action} className="space-y-4">
@@ -424,7 +423,7 @@ export function EditPlannedDialog({
                   <FormControl>
                     <CldUploadWidget
                       options={{
-                        sources: ["local", "url", "camera"],
+                        sources: ["url", "local", "camera"],
                       }}
                       uploadPreset="test-preset"
                       onOpen={() => setUploadWidgetOpen(true)}

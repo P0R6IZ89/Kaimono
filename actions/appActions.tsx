@@ -3,13 +3,14 @@
 import { auth } from "@/auth";
 import type { Session } from "next-auth";
 import { appSchema } from "@/lib/form-zod-schema";
-import { Prisma, Role } from "@prisma/client";
+import { Prisma, type Role } from "@/prisma/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getCurrentLocale, redirect } from "@/i18n/navigation";
 import prisma from "@/lib/prisma";
 import type { ActionResult } from "@/lib/initial-action-return";
 import { protocol, rootDomain } from "@/lib/variables";
+import { canRemoveMember } from "@/lib/permissions";
 
 export type Result<T = unknown> = ActionResult<T>;
 
@@ -315,13 +316,18 @@ export async function removeMemberAction(
 
   const removingSelf = actingUserId === targetUserId;
 
-  if (!removingSelf) {
-    if (actingRole === "MEMBER") {
-      return { ok: false, message: "insufficientPermission" };
-    }
+  if (
+    !canRemoveMember({
+      actingRole,
+      targetRole: targetMembership.role,
+      removingSelf,
+    })
+  ) {
     if (actingRole === "ADMIN" && targetMembership.role === "ADMIN") {
       return { ok: false, message: "adminCannotRemoveAdmin" };
     }
+
+    return { ok: false, message: "insufficientPermission" };
   }
 
   try {

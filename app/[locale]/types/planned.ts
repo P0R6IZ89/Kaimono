@@ -1,3 +1,5 @@
+import type { AppRole } from "@/lib/permissions";
+
 export type PlannedSchema = {
   id: string;
   title: string;
@@ -13,6 +15,8 @@ export type PlannedSchema = {
   username?: string | null;
   userEmail: string;
   userImage?: string | null;
+  currentUserId: string;
+  currentUserRole: AppRole;
   description?: string | null;
   commentsCount: number;
   project?: {
@@ -21,6 +25,7 @@ export type PlannedSchema = {
   } | null;
   comments: {
     id: string;
+    authorId: string | null;
     content: string;
     createdAt: string | Date;
     authorName?: string | null;

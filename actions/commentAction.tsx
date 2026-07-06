@@ -1,10 +1,10 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { getErrorMessage } from "@/lib/error-handler";
 import { plannedCommentSchema } from "@/lib/form-zod-schema";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "./appActions";
+import { canDeleteComment } from "@/lib/permissions";
 
 async function ensurePlannedAccess(
   plannedId: string,
@@ -98,12 +98,17 @@ export async function deleteComment(id: string) {
   if (!membership) {
     throw new Error("You do not have permission to delete this comment.");
   }
+  if (!comment.authorId) {
+    throw new Error("Comment author not found.");
+  }
 
-  const isAuthor = comment.authorId === session.user.id;
-  const isPrivileged =
-    membership.role === "OWNER" || membership.role === "ADMIN";
-
-  if (!isAuthor && !isPrivileged) {
+  if (
+    !canDeleteComment({
+      role: membership.role,
+      currentUserId: session.user.id,
+      authorId: comment.authorId,
+    })
+  ) {
     throw new Error(
       "Only the comment author or an app admin can delete comments.",
     );

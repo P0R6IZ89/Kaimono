@@ -24,6 +24,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
+import { canDeleteComment } from "@/lib/permissions";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -35,9 +36,13 @@ import { useForm } from "react-hook-form";
 export default function CommentListCell({
   id,
   comments,
+  currentUserId,
+  currentUserRole,
 }: {
   id: string;
   comments: Partial<Pick<PlannedSchema, "comments">>["comments"];
+  currentUserId: PlannedSchema["currentUserId"];
+  currentUserRole: PlannedSchema["currentUserRole"];
 }) {
   const t = useTranslations("Planned");
   const tErrors = useTranslations("Errors");
@@ -73,6 +78,14 @@ export default function CommentListCell({
     <div>
       {comments.map((comment, index) => {
         const { authorImage, authorEmail, authorName } = comment;
+        const canDelete =
+          comment.authorId !== null &&
+          canDeleteComment({
+            role: currentUserRole,
+            currentUserId,
+            authorId: comment.authorId,
+          });
+
         return (
           <Item key={index} className="p-4">
             <ItemMedia variant={"default"}>
@@ -106,21 +119,23 @@ export default function CommentListCell({
                 <p className="text-xs text-muted-foreground">
                   {dayjs(comment.createdAt).fromNow()}
                 </p>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Ellipsis className="size-4" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem
-                      onSelect={() => {
-                        handleDelete(comment.id);
-                      }}
-                    >
-                      <Trash2 />
-                      <span>{t("comments.delete")}</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                {canDelete ? (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Ellipsis className="size-4" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          handleDelete(comment.id);
+                        }}
+                      >
+                        <Trash2 />
+                        <span>{t("comments.delete")}</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : null}
               </div>
             </ItemActions>
           </Item>
