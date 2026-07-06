@@ -8,6 +8,7 @@
     "build": "next build",
     "test": "vitest",
     "test:run": "vitest run",
+    "test:integration": "vitest run test/integration",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "seed": "prisma db seed",
     "start": "next start",

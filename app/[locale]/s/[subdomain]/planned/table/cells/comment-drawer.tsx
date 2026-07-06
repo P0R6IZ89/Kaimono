@@ -16,10 +16,14 @@ export default function CommentsDrawer({
   id,
   comments,
   commentsCount,
+  currentUserId,
+  currentUserRole,
 }: {
   id: string;
   comments: Partial<Pick<PlannedSchema, "comments">>["comments"];
   commentsCount: Partial<Pick<PlannedSchema, "commentsCount">>["commentsCount"];
+  currentUserId: PlannedSchema["currentUserId"];
+  currentUserRole: PlannedSchema["currentUserRole"];
 }) {
   const t = useTranslations("Planned");
   return (
@@ -39,7 +43,12 @@ export default function CommentsDrawer({
           <DrawerHeader>
             <DrawerTitle>{t("comments.title")}</DrawerTitle>
           </DrawerHeader>
-          <CommentListCell id={id} comments={comments} />
+          <CommentListCell
+            id={id}
+            comments={comments}
+            currentUserId={currentUserId}
+            currentUserRole={currentUserRole}
+          />
         </div>
       </DrawerContent>
     </Drawer>

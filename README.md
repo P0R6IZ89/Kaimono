@@ -7,8 +7,10 @@
 ![Prisma](https://img.shields.io/badge/Prisma-6.x-2D3748)
 
 <p align="center">
-<img src="public/images/home.png" alt="Kaimono screenshot" width="360"/>
+<img src="public/images/home.png" alt="Kaimono screenshot" width="280"/>
 </p>
+
+## What is Kaimono?
 
 Kaimono is a localized, multi-tenant shopping and purchase-planning application
 for families, shared households, and collaborative groups. Each workspace is
@@ -16,9 +18,15 @@ isolated by subdomain and includes essentials, planned purchases, projects,
 member collaboration, optional two-factor authentication, and AI-assisted
 product extraction from URLs.
 
-## Website
-
 Try right now! https://p0r6iz89.cloud
+
+## What is Kaimono for?
+
+When you search online for a product you need to buy, you are often faced with too many options: price, quality, materials, colors, brands, and more. The more you research, the more overwhelming it gets. And when you are working on a project, you usually need more than just one product.
+
+Kaimono was created to solve that problem. Instead of saving scattered notes or losing product links in a long list, you can copy and paste a product URL into Kaimono. The app extracts the product information automatically and lets you organize it into projects, with editable details for each item.
+
+That way, you do not have to repeat the same research later or dig through a pile of notes to remember which product you were considering.
 
 ## Features
 

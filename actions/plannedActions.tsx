@@ -188,6 +188,7 @@ export async function getPlannedBySubdomain(subdomain: string) {
           take: 25,
           select: {
             id: true,
+            authorId: true,
             content: true,
             createdAt: true,
             author: { select: { image: true, name: true, email: true } },
@@ -214,6 +215,8 @@ export async function getPlannedBySubdomain(subdomain: string) {
       userEmail: item.creator?.email ?? "",
       username: item.creator?.name ?? "",
       userImage: item.creator?.image ?? "",
+      currentUserId: session.user.id,
+      currentUserRole: app.role,
       commentsCount: item._count.comments,
       project: item.project
         ? {
@@ -223,6 +226,7 @@ export async function getPlannedBySubdomain(subdomain: string) {
         : null,
       comments: item.comments.map((c) => ({
         id: c.id,
+        authorId: c.authorId,
         authorImage: c.author?.image,
         authorName: c.author?.name,
         authorEmail: c.author?.email,

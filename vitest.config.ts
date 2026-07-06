@@ -13,5 +13,7 @@ export default defineConfig({
     include: ["test/**/*.test.ts"],
     clearMocks: true,
     restoreMocks: true,
+    // Integration tests share one physical test database and clean it between tests.
+    fileParallelism: false,
   },
 });

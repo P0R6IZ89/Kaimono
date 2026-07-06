@@ -63,9 +63,6 @@ export function ResponsiveDialogDrawer({
         dismissible={!preventClose}
         modal={modal}
       >
-        {open && (
-          <div className="fixed inset-0 w-dvw h-dvh z-10 bg-black/50 " />
-        )}
         {trigger ? <DrawerTrigger asChild>{trigger}</DrawerTrigger> : null}
         <DrawerContent className={cn("pb-6", contentClassName)}>
           <div className="w-full max-h-[95vh] overflow-y-auto">
@@ -84,7 +81,6 @@ export function ResponsiveDialogDrawer({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange} modal={modal}>
-      {open && <div className="fixed inset-0 w-dvw h-dvh z-10 bg-black/50 " />}
       {trigger ? <DialogTrigger asChild>{trigger}</DialogTrigger> : null}
       <DialogContent
         className={cn(

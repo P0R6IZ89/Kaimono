@@ -5,37 +5,10 @@ import { routing } from "./i18n/routing";
 import { auth } from "@/auth-edge";
 import { Locale } from "next-intl";
 import { publicPaths, rootDomainHost } from "./lib/variables";
+import { extractSubdomainFromHost } from "./lib/subdomain";
 
 const KILL_SWITCH = process.env.KILL_SWITCH;
 const LOCALE_HEADER = "X-NEXT-INTL-LOCALE";
-
-function extractSubdomain(req: NextRequest): string | null {
-  const url = req.url;
-  const host = req.headers.get("host") || "";
-  const hostname = host.split(":")[0];
-
-  // Local dev
-  if (url.includes("localhost") || url.includes("127.0.0.1")) {
-    const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
-    if (fullUrlMatch?.[1]) return fullUrlMatch[1];
-    if (hostname.includes(".localhost")) return hostname.split(".")[0];
-    return null;
-  }
-
-  // Handle preview deployment URLs (tenant---branch-name.vercel.app)
-  if (hostname.includes("---") && hostname.endsWith(".vercel.app")) {
-    const parts = hostname.split("---");
-    return parts.length > 0 ? parts[0] : null;
-  }
-
-  // Regular subdomain detection
-  const isSubdomain =
-    hostname !== rootDomainHost &&
-    hostname !== `www.${rootDomainHost}` &&
-    hostname.endsWith(`.${rootDomainHost}`);
-
-  return isSubdomain ? hostname.replace(`.${rootDomainHost}`, "") : null;
-}
 
 const isLocale = (l: string): l is Locale =>
   (routing.locales as readonly string[]).includes(l);
@@ -92,7 +65,10 @@ export default auth(async function middleware(req) {
   }
 
   const { locale, rest } = stripLeadingLocale(pathname);
-  const subdomain = extractSubdomain(req);
+  const subdomain = extractSubdomainFromHost({
+    host: req.headers.get("host") ?? "",
+    rootDomainHost,
+  });
   const localeHeaders = getLocaleHeaders(req, locale);
 
   const user = req.auth?.user;

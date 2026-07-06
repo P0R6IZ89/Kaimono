@@ -17,14 +17,22 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
   const t = useTranslations("Planned");
   const tActions = useTranslations("ActionMessages");
 
-  const { status, id, comments, commentsCount } = row.original;
+  const {
+    status,
+    id,
+    comments,
+    commentsCount,
+    currentUserId,
+    currentUserRole,
+  } = row.original;
   const [state, setState] = useState<ActionResult>(initialState);
   const [isPending, startTransition] = useTransition();
   useEffect(() => {
     if (!state.message) return;
     if (state.ok) {
       toast.success(
-        translateMessage(tActions, state.message) ?? t("feedback.actionSuccess"),
+        translateMessage(tActions, state.message) ??
+          t("feedback.actionSuccess"),
       );
     } else {
       toast.error(
@@ -85,6 +93,8 @@ function ActionsCell({ row }: { row: Row<PlannedSchema> }) {
         id={id}
         comments={comments}
         commentsCount={commentsCount}
+        currentUserId={currentUserId}
+        currentUserRole={currentUserRole}
       />
       <ActionsButton row={row} />
     </div>

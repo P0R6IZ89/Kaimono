@@ -10,14 +10,10 @@ import { revalidatePath } from "next/cache";
 import { requireMembership, requireSession } from "./appActions";
 import { redirect as NextRedirect } from "next/navigation";
 import type { ActionResult } from "@/lib/initial-action-return";
-import type { Role } from "@prisma/client";
 import { protocol, rootDomain } from "@/lib/variables";
 import { getCurrentLocale } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
-
-function canManageInvites(role: Role) {
-  return role === "OWNER" || role === "ADMIN";
-}
+import { canManageInvites } from "@/lib/permissions";
 
 async function requireInviteManagerBySubdomain(subdomain: string) {
   const membership = await requireMembership(subdomain);
