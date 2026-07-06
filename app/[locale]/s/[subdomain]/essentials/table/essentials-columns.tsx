@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import StatesCell from "./cells/status-cell";
 import TitleCell from "./cells/title-cell";
 import ActionCell from "./cells/action-cell";
-import { Status } from "@prisma/client";
+import { Status } from "@/prisma/generated/prisma";
 import Quantity from "./cells/totalPrice-cell";
 
 export interface TableRowData {

@@ -5,7 +5,7 @@ import React from "react";
 import { TableRowData } from "../essentials-columns";
 import { ItemMedia } from "@/components/ui/item";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Status } from "@prisma/client";
+import { Status } from "@/prisma/generated/prisma";
 import { setEssentialStatusAction } from "@/actions/essentialsActions";
 import { useSubdomain } from "@/context/SubdomainContext";
 

@@ -6,8 +6,8 @@ import { requireMembership, requireSession } from "./appActions";
 import prisma from "@/lib/prisma";
 import { essentialsSchema, statusUpdateSchema } from "@/lib/form-zod-schema";
 import { ActionResult } from "@/lib/initial-action-return";
-import { Status } from "@prisma/client";
 import { getCurrentLocale } from "@/i18n/navigation";
+import { Status } from "@/prisma/generated/prisma";
 
 export async function createEssentials(
   _previousState: unknown,

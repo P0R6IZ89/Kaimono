@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { $Enums } from "@prisma/client";
+import { $Enums } from "@/prisma/generated/prisma";
 import { ChevronsUpDown, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Dialog } from "../ui/dialog";

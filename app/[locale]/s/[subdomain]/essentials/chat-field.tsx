@@ -1,7 +1,7 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChatBubble } from "./bubble";
-import { $Enums } from "@prisma/client";
+import { $Enums } from "@/prisma/generated/prisma";
 import React from "react";
 
 type ChatFieldProps = {
