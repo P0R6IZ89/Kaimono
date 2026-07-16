@@ -781,6 +781,16 @@
     "timeToTakeAction": "Hora de agir",
     "openItem": "Abrir {title}"
   },
+  "InstallAppBanner": {
+    "title": "Instalar o Kaimono",
+    "description": "Adicione o Kaimono para uma experiência melhor.",
+    "install": "Instalar",
+    "notNow": "Agora não",
+    "instructionsTitle": "Adicionar à tela inicial",
+    "iosInstructions": "Toque no botão Compartilhar do navegador e selecione Adicionar à Tela de Início.",
+    "browserInstructions": "Abra o menu do navegador e selecione Instalar aplicativo ou Adicionar à tela inicial.",
+    "gotIt": "Entendi"
+  },
   "ExpenseBar": {
     "title": "Despesas mensais",
     "description": "Edite categorias e informe sua <strong>despesa/orçamento mensal total</strong>. A barra e as tags atualizam instantaneamente.",

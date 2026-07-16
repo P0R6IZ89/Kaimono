@@ -9,6 +9,7 @@ import {
   getOldestPlannedItems,
   getRecentlyAdded,
 } from "@/actions/plannedActions";
+import { InstallAppBanner } from "./components/InstallAppBanner";
 
 export default async function Essentials({
   params,
@@ -43,6 +44,7 @@ export default async function Essentials({
 
   return (
     <div className="flex min-w-0 max-w-full flex-col overflow-x-hidden p-4 mb-24 md:mb-0">
+      <InstallAppBanner />
       <HomeContent
         projects={navItems}
         allProjects={allProject}

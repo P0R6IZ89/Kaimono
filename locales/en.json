@@ -781,6 +781,16 @@
     "timeToTakeAction": "Time to take action",
     "openItem": "Open {title}"
   },
+  "InstallAppBanner": {
+    "title": "Install Kaimono",
+    "description": "Add Kaimono for a better experience.",
+    "install": "Install",
+    "notNow": "Not now",
+    "instructionsTitle": "Add to Home Screen",
+    "iosInstructions": "Tap the Share button in your browser, then select Add to Home Screen.",
+    "browserInstructions": "Open your browser menu, then select Install app or Add to Home Screen.",
+    "gotIt": "Got it"
+  },
   "ExpenseBar": {
     "title": "Monthly Expenses",
     "description": "Edit categories and enter your <strong>total monthly expense/budget</strong>. The bar and tags update instantly.",

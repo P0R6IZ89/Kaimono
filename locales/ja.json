@@ -781,6 +781,16 @@
     "timeToTakeAction": "行動の時間です！",
     "openItem": "{title} を開く"
   },
+  "InstallAppBanner": {
+    "title": "Kaimonoをインストール",
+    "description": "Kaimonoを追加して、より快適に使いましょう。",
+    "install": "インストール",
+    "notNow": "今はしない",
+    "instructionsTitle": "ホーム画面に追加",
+    "iosInstructions": "ブラウザの共有ボタンをタップし、「ホーム画面に追加」を選択してください。",
+    "browserInstructions": "ブラウザのメニューを開き、「アプリをインストール」または「ホーム画面に追加」を選択してください。",
+    "gotIt": "わかりました"
+  },
   "ExpenseBar": {
     "title": "月間支出",
     "description": "カテゴリを編集し、<strong>月間支出/予算の合計</strong>を入力します。バーとタグはすぐに更新されます。",
