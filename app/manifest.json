@@ -1,6 +1,7 @@
 {
   "name": "Kaimono",
   "short_name": "Kaimono",
+  "description": "Manage shared shopping lists and planned purchases.",
   "start_url": "/",
   "display": "standalone",
   "icons": [
