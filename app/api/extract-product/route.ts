@@ -4,7 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUserCapabilities } from "@/actions/userActions";
 import { deductAiExtractionCredit } from "@/lib/ai-credits";
 import { checkAiExtractRateLimit } from "@/lib/rate-limit";
-import { validatePublicHttpUrl } from "@/lib/url-safety";
+import {
+  requestValidatedPublicHttpUrl,
+  validatePublicHttpUrl,
+} from "@/lib/url-safety";
 import { cloudinary } from "@/lib/cloudinary";
 
 export const runtime = "nodejs";
@@ -387,12 +390,11 @@ async function fetchHtmlFromUrl(inputUrl: string) {
     const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-      const response = await fetch(validation.url, {
+      const response = await requestValidatedPublicHttpUrl(validation, {
         headers: {
           "User-Agent": "Mozilla/5.0 ProductExtractorBot/1.0",
           Accept: "text/html,application/xhtml+xml",
         },
-        redirect: "manual",
         signal: controller.signal,
       });
 
@@ -403,6 +405,7 @@ async function fetchHtmlFromUrl(inputUrl: string) {
       ) {
         const location = response.headers.get("location");
         if (!location) {
+          await response.body?.cancel();
           throw new RouteError(
             400,
             "EXTRACTION_FAILED",
@@ -410,11 +413,13 @@ async function fetchHtmlFromUrl(inputUrl: string) {
           );
         }
 
+        await response.body?.cancel();
         currentUrl = new URL(location, validation.url).toString();
         continue;
       }
 
       if (!response.ok) {
+        await response.body?.cancel();
         throw new RouteError(
           400,
           "EXTRACTION_FAILED",
@@ -427,6 +432,7 @@ async function fetchHtmlFromUrl(inputUrl: string) {
         contentType &&
         !ALLOWED_CONTENT_TYPES.some((type) => contentType.includes(type))
       ) {
+        await response.body?.cancel();
         throw new RouteError(
           400,
           "EXTRACTION_FAILED",
@@ -489,13 +495,12 @@ async function fetchImageFromUrl(inputUrl: string) {
     const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-      const response = await fetch(validation.url, {
+      const response = await requestValidatedPublicHttpUrl(validation, {
         headers: {
           "User-Agent": "Mozilla/5.0 ProductExtractorBot/1.0",
           Accept:
             "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
         },
-        redirect: "manual",
         signal: controller.signal,
       });
 
@@ -506,19 +511,23 @@ async function fetchImageFromUrl(inputUrl: string) {
       ) {
         const location = response.headers.get("location");
         if (!location) {
+          await response.body?.cancel();
           throw new Error("Image redirect is missing a location header.");
         }
 
+        await response.body?.cancel();
         currentUrl = new URL(location, validation.url).toString();
         continue;
       }
 
       if (!response.ok) {
+        await response.body?.cancel();
         throw new Error(`Image request failed with status ${response.status}.`);
       }
 
       const contentType = response.headers.get("content-type")?.toLowerCase();
       if (!contentType?.startsWith("image/")) {
+        await response.body?.cancel();
         throw new Error("Image URL did not return an image content type.");
       }
 

@@ -1,9 +1,18 @@
 import { lookup } from "node:dns/promises";
-import { isIP } from "node:net";
+import { request as httpRequest } from "node:http";
+import { request as httpsRequest } from "node:https";
+import { BlockList, isIP } from "node:net";
+import { Readable } from "node:stream";
+
+type PublicIpAddress = {
+  address: string;
+  family: 4 | 6;
+};
 
 type UrlValidationSuccess = {
   ok: true;
   url: URL;
+  addresses: PublicIpAddress[];
 };
 
 type UrlValidationFailure = {
@@ -22,8 +31,48 @@ const BLOCKED_HOST_SUFFIXES = [
   ".lan",
 ];
 
+const BLOCKED_IP_RANGES = new BlockList();
+
+for (const [network, prefix] of [
+  ["0.0.0.0", 8],
+  ["10.0.0.0", 8],
+  ["100.64.0.0", 10],
+  ["127.0.0.0", 8],
+  ["169.254.0.0", 16],
+  ["172.16.0.0", 12],
+  ["192.0.0.0", 24],
+  ["192.0.2.0", 24],
+  ["192.168.0.0", 16],
+  ["198.18.0.0", 15],
+  ["198.51.100.0", 24],
+  ["203.0.113.0", 24],
+  ["224.0.0.0", 4],
+  ["240.0.0.0", 4],
+] as const) {
+  BLOCKED_IP_RANGES.addSubnet(network, prefix, "ipv4");
+}
+
+for (const [network, prefix] of [
+  ["::", 128],
+  ["::1", 128],
+  ["64:ff9b:1::", 48],
+  ["100::", 64],
+  ["2001:db8::", 32],
+  ["fc00::", 7],
+  ["fe80::", 10],
+  ["ff00::", 8],
+] as const) {
+  BLOCKED_IP_RANGES.addSubnet(network, prefix, "ipv6");
+}
+
 function normalizeHostname(hostname: string) {
-  return hostname.replace(/\.$/, "").toLowerCase();
+  const normalized = hostname.replace(/\.$/, "").toLowerCase();
+
+  if (normalized.startsWith("[") && normalized.endsWith("]")) {
+    return normalized.slice(1, -1);
+  }
+
+  return normalized;
 }
 
 function isBlockedHostname(hostname: string) {
@@ -40,55 +89,15 @@ function isBlockedHostname(hostname: string) {
   return BLOCKED_HOST_SUFFIXES.some((suffix) => hostname.endsWith(suffix));
 }
 
-function isPrivateIpv4(ip: string): boolean {
-  const octets = ip.split(".").map((part) => Number(part));
-  if (octets.length !== 4 || octets.some((part) => Number.isNaN(part))) {
-    return false;
-  }
-
-  const [a, b] = octets;
-
-  return (
-    a === 0 ||
-    a === 10 ||
-    a === 127 ||
-    (a === 100 && b >= 64 && b <= 127) ||
-    (a === 169 && b === 254) ||
-    (a === 172 && b >= 16 && b <= 31) ||
-    (a === 192 && b === 168)
-  );
-}
-
-function isPrivateIpv6(ip: string): boolean {
-  const normalized = ip.toLowerCase();
-
-  if (normalized === "::" || normalized === "::1") {
-    return true;
-  }
-
-  if (normalized.startsWith("::ffff:")) {
-    return isPrivateOrLoopbackIp(normalized.slice(7));
-  }
-
-  return (
-    normalized.startsWith("fc") ||
-    normalized.startsWith("fd") ||
-    normalized.startsWith("fe8") ||
-    normalized.startsWith("fe9") ||
-    normalized.startsWith("fea") ||
-    normalized.startsWith("feb")
-  );
-}
-
 function isPrivateOrLoopbackIp(ip: string): boolean {
   const family = isIP(ip);
 
   if (family === 4) {
-    return isPrivateIpv4(ip);
+    return BLOCKED_IP_RANGES.check(ip, "ipv4");
   }
 
   if (family === 6) {
-    return isPrivateIpv6(ip);
+    return BLOCKED_IP_RANGES.check(ip, "ipv6");
   }
 
   return false;
@@ -142,8 +151,25 @@ export async function validatePublicHttpUrl(
     };
   }
 
+  const addressFamily = isIP(hostname);
+  if (addressFamily === 4 || addressFamily === 6) {
+    return {
+      ok: true,
+      url: parsed,
+      addresses: [
+        {
+          address: hostname,
+          family: addressFamily,
+        },
+      ],
+    };
+  }
+
   try {
-    const addresses = await lookup(hostname, { all: true, verbatim: true });
+    const addresses = (await lookup(hostname, {
+      all: true,
+      verbatim: true,
+    })) as PublicIpAddress[];
 
     if (
       addresses.length === 0 ||
@@ -155,6 +181,10 @@ export async function validatePublicHttpUrl(
         message: "This URL is not allowed.",
       };
     }
+
+    // The validated addresses are returned so the request can connect to one
+    // of these exact IPs instead of performing a second, rebindable DNS lookup.
+    return { ok: true, url: parsed, addresses };
   } catch {
     return {
       ok: false,
@@ -162,6 +192,74 @@ export async function validatePublicHttpUrl(
       message: "Enter a valid product URL.",
     };
   }
+}
 
-  return { ok: true, url: parsed };
+type PublicHttpRequestInit = {
+  headers?: HeadersInit;
+  signal?: AbortSignal;
+};
+
+const NULL_BODY_STATUSES = new Set([101, 204, 205, 304]);
+
+export async function requestValidatedPublicHttpUrl(
+  validation: UrlValidationSuccess,
+  init: PublicHttpRequestInit = {},
+): Promise<Response> {
+  const target = validation.addresses[0];
+  if (!target) {
+    throw new Error("The URL has no validated public address.");
+  }
+
+  const headers = new Headers(init.headers);
+  headers.set("Host", validation.url.host);
+
+  const isHttps = validation.url.protocol === "https:";
+  const request = isHttps ? httpsRequest : httpRequest;
+  const servername = normalizeHostname(validation.url.hostname);
+  const tlsServername = isIP(servername) === 0 ? { servername } : {};
+
+  return new Promise<Response>((resolve, reject) => {
+    const outgoingRequest = request(
+      {
+        protocol: validation.url.protocol,
+        hostname: target.address,
+        family: target.family,
+        port: validation.url.port || undefined,
+        method: "GET",
+        path: `${validation.url.pathname}${validation.url.search}`,
+        headers: Object.fromEntries(headers.entries()),
+        signal: init.signal,
+        ...(isHttps ? tlsServername : {}),
+      },
+      (incomingResponse) => {
+        const status = incomingResponse.statusCode ?? 500;
+        const responseHeaders = new Headers();
+
+        for (const [name, value] of Object.entries(incomingResponse.headers)) {
+          if (Array.isArray(value)) {
+            for (const item of value) {
+              responseHeaders.append(name, item);
+            }
+          } else if (value !== undefined) {
+            responseHeaders.set(name, value);
+          }
+        }
+
+        const body = NULL_BODY_STATUSES.has(status)
+          ? null
+          : (Readable.toWeb(incomingResponse) as ReadableStream<Uint8Array>);
+
+        resolve(
+          new Response(body, {
+            status,
+            statusText: incomingResponse.statusMessage,
+            headers: responseHeaders,
+          }),
+        );
+      },
+    );
+
+    outgoingRequest.on("error", reject);
+    outgoingRequest.end();
+  });
 }
