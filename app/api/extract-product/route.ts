@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import * as cheerio from "cheerio";
+import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUserCapabilities } from "@/actions/userActions";
 import { deductAiExtractionCredit } from "@/lib/ai-credits";
@@ -65,6 +66,8 @@ function createErrorResponse(
   init?: {
     headers?: HeadersInit;
     retryAfterSeconds?: number;
+    debugId?: string;
+    debugStage?: string;
   },
 ) {
   return NextResponse.json(
@@ -74,6 +77,8 @@ function createErrorResponse(
       ...(typeof init?.retryAfterSeconds === "number"
         ? { retryAfterSeconds: init.retryAfterSeconds }
         : {}),
+      ...(init?.debugId ? { debugId: init.debugId } : {}),
+      ...(init?.debugStage ? { debugStage: init.debugStage } : {}),
     },
     {
       status,
@@ -566,6 +571,9 @@ async function importProductImage(imageUrl: string | null) {
 }
 
 export async function POST(req: NextRequest) {
+  const debugId = randomUUID();
+  let debugStage = "capabilities";
+
   try {
     const capabilities = await getCurrentUserCapabilities();
     if (!capabilities) {
@@ -587,6 +595,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    debugStage = "rate-limit";
     const rateLimitResult = await checkAiExtractRateLimit(capabilities.id);
     const rateLimitHeaders = rateLimitResult.enabled
       ? buildRateLimitHeaders(
@@ -616,6 +625,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    debugStage = "request-body";
     let body: { url?: unknown };
     try {
       body = (await req.json()) as { url?: unknown };
@@ -635,18 +645,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    debugStage = "url-validation";
     const url = body.url.trim();
     const validation = await validatePublicHttpUrl(url);
     if (!validation.ok) {
       return createErrorResponse(400, validation.code, validation.message);
     }
 
+    debugStage = "html-fetch";
     const { html, finalUrl } = await fetchHtmlFromUrl(
       validation.url.toString(),
     );
 
+    debugStage = "cheerio-extraction";
     const basic = extractWithCheerio(html, finalUrl);
 
+    debugStage = "image-import";
     const productImage = await importProductImage(basic.image);
     const basicWithImage: ProductData = {
       ...basic,
@@ -658,6 +672,7 @@ export async function POST(req: NextRequest) {
       !!basicWithImage.price &&
       !!basicWithImage.description;
     if (hasEnough) {
+      debugStage = "credit-deduction-cheerio";
       const creditResult = await deductAiExtractionCredit(capabilities.id);
       if (!creditResult.ok) {
         return createErrorResponse(
@@ -670,6 +685,7 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      debugStage = "cheerio-response";
       return NextResponse.json<ExtractSuccessResponse>(
         {
           source: "cheerio",
@@ -685,10 +701,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    debugStage = "llm-input";
     const $ = cheerio.load(html);
     const visibleText = $("body").text().replace(/\s+/g, " ").trim();
+
+    debugStage = "llm-extraction";
     const llmResult = await extractWithLLM(finalUrl, visibleText);
 
+    debugStage = "credit-deduction-llm";
     const creditResult = await deductAiExtractionCredit(capabilities.id);
     if (!creditResult.ok) {
       return createErrorResponse(
@@ -701,6 +721,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    debugStage = "llm-response";
     return NextResponse.json<ExtractSuccessResponse>(
       {
         source: "llm-fallback",
@@ -722,13 +743,33 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     if (error instanceof RouteError) {
-      return createErrorResponse(error.status, error.code, error.message);
+      if (error.status >= 500) {
+        console.error("[ai-extract]", {
+          debugId,
+          debugStage,
+          error,
+        });
+      }
+
+      return createErrorResponse(error.status, error.code, error.message, {
+        ...(error.status >= 500 ? { debugId, debugStage } : {}),
+      });
     }
+
+    console.error("[ai-extract]", {
+      debugId,
+      debugStage,
+      error,
+    });
 
     return createErrorResponse(
       500,
       "EXTRACTION_FAILED",
       "Failed to extract product details.",
+      {
+        debugId,
+        debugStage,
+      },
     );
   }
 }
