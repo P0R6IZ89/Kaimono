@@ -15,6 +15,8 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
+      <meta name="apple-mobile-web-app-title" content="Kaimono" />
+
       <body className="antialiased">{children}</body>
     </html>
   );

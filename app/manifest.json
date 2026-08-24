@@ -1,9 +1,6 @@
 {
   "name": "Kaimono",
   "short_name": "Kaimono",
-  "description": "Manage shared shopping lists and planned purchases.",
-  "start_url": "/",
-  "display": "standalone",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -19,5 +16,6 @@
     }
   ],
   "theme_color": "#ffffff",
-  "background_color": "#000000"
+  "background_color": "#ffffff",
+  "display": "standalone"
 }

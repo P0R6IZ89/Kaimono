@@ -3,6 +3,7 @@ import { request as httpRequest } from "node:http";
 import { request as httpsRequest } from "node:https";
 import { BlockList, isIP } from "node:net";
 import { Readable } from "node:stream";
+import { createBrotliDecompress, createGunzip, createInflate } from "node:zlib";
 
 type PublicIpAddress = {
   address: string;
@@ -201,6 +202,42 @@ type PublicHttpRequestInit = {
 
 const NULL_BODY_STATUSES = new Set([101, 204, 205, 304]);
 
+function decodeResponseBody(
+  body: Readable,
+  contentEncoding: string | null,
+): { body: Readable; decoded: boolean } {
+  const encodings =
+    contentEncoding
+      ?.split(",")
+      .map((encoding) => encoding.trim().toLowerCase())
+      .filter((encoding) => encoding && encoding !== "identity") ?? [];
+
+  let decodedBody = body;
+
+  // Encodings are listed in the order they were applied, so decode them in
+  // reverse order. Most responses contain only one encoding.
+  for (const encoding of encodings.reverse()) {
+    if (encoding === "gzip" || encoding === "x-gzip") {
+      decodedBody = decodedBody.pipe(createGunzip());
+      continue;
+    }
+
+    if (encoding === "deflate") {
+      decodedBody = decodedBody.pipe(createInflate());
+      continue;
+    }
+
+    if (encoding === "br") {
+      decodedBody = decodedBody.pipe(createBrotliDecompress());
+      continue;
+    }
+
+    throw new Error(`Unsupported response content encoding: ${encoding}`);
+  }
+
+  return { body: decodedBody, decoded: encodings.length > 0 };
+}
+
 export async function requestValidatedPublicHttpUrl(
   validation: UrlValidationSuccess,
   init: PublicHttpRequestInit = {},
@@ -212,6 +249,9 @@ export async function requestValidatedPublicHttpUrl(
 
   const headers = new Headers(init.headers);
   headers.set("Host", validation.url.host);
+  if (!headers.has("Accept-Encoding")) {
+    headers.set("Accept-Encoding", "gzip, deflate, br");
+  }
 
   const isHttps = validation.url.protocol === "https:";
   const request = isHttps ? httpsRequest : httpRequest;
@@ -232,30 +272,50 @@ export async function requestValidatedPublicHttpUrl(
         ...(isHttps ? tlsServername : {}),
       },
       (incomingResponse) => {
-        const status = incomingResponse.statusCode ?? 500;
-        const responseHeaders = new Headers();
+        try {
+          const status = incomingResponse.statusCode ?? 500;
+          const responseHeaders = new Headers();
 
-        for (const [name, value] of Object.entries(incomingResponse.headers)) {
-          if (Array.isArray(value)) {
-            for (const item of value) {
-              responseHeaders.append(name, item);
+          for (const [name, value] of Object.entries(
+            incomingResponse.headers,
+          )) {
+            if (Array.isArray(value)) {
+              for (const item of value) {
+                responseHeaders.append(name, item);
+              }
+            } else if (value !== undefined) {
+              responseHeaders.set(name, value);
             }
-          } else if (value !== undefined) {
-            responseHeaders.set(name, value);
           }
+
+          let body: ReadableStream<Uint8Array> | null = null;
+          if (!NULL_BODY_STATUSES.has(status)) {
+            const decodedResponse = decodeResponseBody(
+              incomingResponse,
+              responseHeaders.get("content-encoding"),
+            );
+
+            if (decodedResponse.decoded) {
+              responseHeaders.delete("content-encoding");
+              responseHeaders.delete("content-length");
+            }
+
+            body = Readable.toWeb(
+              decodedResponse.body,
+            ) as ReadableStream<Uint8Array>;
+          }
+
+          resolve(
+            new Response(body, {
+              status,
+              statusText: incomingResponse.statusMessage,
+              headers: responseHeaders,
+            }),
+          );
+        } catch (error) {
+          incomingResponse.destroy();
+          reject(error);
         }
-
-        const body = NULL_BODY_STATUSES.has(status)
-          ? null
-          : (Readable.toWeb(incomingResponse) as ReadableStream<Uint8Array>);
-
-        resolve(
-          new Response(body, {
-            status,
-            statusText: incomingResponse.statusMessage,
-            headers: responseHeaders,
-          }),
-        );
       },
     );
 
