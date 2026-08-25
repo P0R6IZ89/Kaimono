@@ -39,8 +39,8 @@ export default async function AiCreditsSettingsPage({
     <div className="grid grid-cols-1 gap-4 px-4 pt-8 mb-24 md:mb-0">
       <AiCreditToastHandler />
       <div>
-        <Alert className="mb-4">
-          <AlertCircle />
+        <Alert className="mb-4 border-0" variant="default">
+          <AlertCircle color="green" />
           <AlertTitle>{t("aiCredits.purchaseNoticeTitle")}</AlertTitle>
           <AlertDescription>
             {t.rich("aiCredits.purchaseNoticeDescription", {
