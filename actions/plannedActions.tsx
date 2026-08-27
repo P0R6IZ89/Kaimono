@@ -11,6 +11,7 @@ import { plannedSchema } from "@/lib/form-zod-schema";
 import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "@/lib/error-handler";
 import { ActionResult } from "@/lib/initial-action-return";
+import { PLANNED_IMAGE_DEFAULT } from "@/lib/planned-defaults";
 
 function revalidatePlannedSurfaces(subdomain: string) {
   revalidatePath(`/s/${subdomain}/planned`);
@@ -78,7 +79,7 @@ export async function createPlannedAction(
         quantity: data.quantity,
         priority: data.priority,
         status: data.status,
-        image: data.image,
+        image: session.isDemo ? PLANNED_IMAGE_DEFAULT : data.image,
         productUrl: data.productUrl,
         description: data.description,
         appId,
@@ -121,7 +122,7 @@ export async function updatePlanned(
 
   const belongsToApp = await prisma.planned.findFirst({
     where: { id: plannedId, appId: membership.appId },
-    select: { id: true },
+    select: { id: true, image: true },
   });
 
   if (!belongsToApp) {
@@ -139,7 +140,7 @@ export async function updatePlanned(
         priority: data.priority,
         productUrl: data.productUrl,
         description: data.description,
-        image: data.image,
+        image: membership.session.isDemo ? belongsToApp.image : data.image,
       },
     });
     revalidatePlannedSurfaces(data.subdomain);

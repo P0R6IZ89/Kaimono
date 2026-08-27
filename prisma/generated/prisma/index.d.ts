@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model DemoLease
+ * 
+ */
+export type DemoLease = $Result.DefaultSelection<Prisma.$DemoLeasePayload>
+/**
  * Model User
  * 
  */
@@ -174,8 +179,8 @@ export const AiCreditLedgerType: typeof $Enums.AiCreditLedgerType
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more DemoLeases
+ * const demoLeases = await prisma.demoLease.findMany()
  * ```
  *
  *
@@ -195,8 +200,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more DemoLeases
+   * const demoLeases = await prisma.demoLease.findMany()
    * ```
    *
    *
@@ -286,6 +291,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.demoLease`: Exposes CRUD operations for the **DemoLease** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DemoLeases
+    * const demoLeases = await prisma.demoLease.findMany()
+    * ```
+    */
+  get demoLease(): Prisma.DemoLeaseDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -885,6 +900,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    DemoLease: 'DemoLease',
     User: 'User',
     App: 'App',
     Membership: 'Membership',
@@ -919,10 +935,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "app" | "membership" | "invitation" | "account" | "session" | "verificationToken" | "authenticator" | "userTwoFactor" | "twoFactorRecoveryCode" | "project" | "essential" | "planned" | "plannedComment" | "plannedLike" | "aiCreditLedger"
+      modelProps: "demoLease" | "user" | "app" | "membership" | "invitation" | "account" | "session" | "verificationToken" | "authenticator" | "userTwoFactor" | "twoFactorRecoveryCode" | "project" | "essential" | "planned" | "plannedComment" | "plannedLike" | "aiCreditLedger"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      DemoLease: {
+        payload: Prisma.$DemoLeasePayload<ExtArgs>
+        fields: Prisma.DemoLeaseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DemoLeaseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DemoLeaseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>
+          }
+          findFirst: {
+            args: Prisma.DemoLeaseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DemoLeaseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>
+          }
+          findMany: {
+            args: Prisma.DemoLeaseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>[]
+          }
+          create: {
+            args: Prisma.DemoLeaseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>
+          }
+          createMany: {
+            args: Prisma.DemoLeaseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DemoLeaseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>[]
+          }
+          delete: {
+            args: Prisma.DemoLeaseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>
+          }
+          update: {
+            args: Prisma.DemoLeaseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>
+          }
+          deleteMany: {
+            args: Prisma.DemoLeaseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DemoLeaseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DemoLeaseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>[]
+          }
+          upsert: {
+            args: Prisma.DemoLeaseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemoLeasePayload>
+          }
+          aggregate: {
+            args: Prisma.DemoLeaseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDemoLease>
+          }
+          groupBy: {
+            args: Prisma.DemoLeaseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DemoLeaseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DemoLeaseCountArgs<ExtArgs>
+            result: $Utils.Optional<DemoLeaseCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -2203,6 +2293,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    demoLease?: DemoLeaseOmit
     user?: UserOmit
     app?: AppOmit
     membership?: MembershipOmit
@@ -2567,6 +2658,1072 @@ export namespace Prisma {
    */
 
   /**
+   * Model DemoLease
+   */
+
+  export type AggregateDemoLease = {
+    _count: DemoLeaseCountAggregateOutputType | null
+    _min: DemoLeaseMinAggregateOutputType | null
+    _max: DemoLeaseMaxAggregateOutputType | null
+  }
+
+  export type DemoLeaseMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    appId: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type DemoLeaseMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    appId: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type DemoLeaseCountAggregateOutputType = {
+    id: number
+    userId: number
+    appId: number
+    expiresAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DemoLeaseMinAggregateInputType = {
+    id?: true
+    userId?: true
+    appId?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type DemoLeaseMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    appId?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type DemoLeaseCountAggregateInputType = {
+    id?: true
+    userId?: true
+    appId?: true
+    expiresAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DemoLeaseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DemoLease to aggregate.
+     */
+    where?: DemoLeaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemoLeases to fetch.
+     */
+    orderBy?: DemoLeaseOrderByWithRelationInput | DemoLeaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DemoLeaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemoLeases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemoLeases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DemoLeases
+    **/
+    _count?: true | DemoLeaseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DemoLeaseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DemoLeaseMaxAggregateInputType
+  }
+
+  export type GetDemoLeaseAggregateType<T extends DemoLeaseAggregateArgs> = {
+        [P in keyof T & keyof AggregateDemoLease]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDemoLease[P]>
+      : GetScalarType<T[P], AggregateDemoLease[P]>
+  }
+
+
+
+
+  export type DemoLeaseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DemoLeaseWhereInput
+    orderBy?: DemoLeaseOrderByWithAggregationInput | DemoLeaseOrderByWithAggregationInput[]
+    by: DemoLeaseScalarFieldEnum[] | DemoLeaseScalarFieldEnum
+    having?: DemoLeaseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DemoLeaseCountAggregateInputType | true
+    _min?: DemoLeaseMinAggregateInputType
+    _max?: DemoLeaseMaxAggregateInputType
+  }
+
+  export type DemoLeaseGroupByOutputType = {
+    id: string
+    userId: string
+    appId: string
+    expiresAt: Date
+    createdAt: Date
+    _count: DemoLeaseCountAggregateOutputType | null
+    _min: DemoLeaseMinAggregateOutputType | null
+    _max: DemoLeaseMaxAggregateOutputType | null
+  }
+
+  type GetDemoLeaseGroupByPayload<T extends DemoLeaseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DemoLeaseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DemoLeaseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DemoLeaseGroupByOutputType[P]>
+            : GetScalarType<T[P], DemoLeaseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DemoLeaseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    appId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["demoLease"]>
+
+  export type DemoLeaseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    appId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["demoLease"]>
+
+  export type DemoLeaseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    appId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["demoLease"]>
+
+  export type DemoLeaseSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    appId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type DemoLeaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "appId" | "expiresAt" | "createdAt", ExtArgs["result"]["demoLease"]>
+  export type DemoLeaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }
+  export type DemoLeaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }
+  export type DemoLeaseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    app?: boolean | AppDefaultArgs<ExtArgs>
+  }
+
+  export type $DemoLeasePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DemoLease"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      app: Prisma.$AppPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      appId: string
+      expiresAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["demoLease"]>
+    composites: {}
+  }
+
+  type DemoLeaseGetPayload<S extends boolean | null | undefined | DemoLeaseDefaultArgs> = $Result.GetResult<Prisma.$DemoLeasePayload, S>
+
+  type DemoLeaseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DemoLeaseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DemoLeaseCountAggregateInputType | true
+    }
+
+  export interface DemoLeaseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DemoLease'], meta: { name: 'DemoLease' } }
+    /**
+     * Find zero or one DemoLease that matches the filter.
+     * @param {DemoLeaseFindUniqueArgs} args - Arguments to find a DemoLease
+     * @example
+     * // Get one DemoLease
+     * const demoLease = await prisma.demoLease.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DemoLeaseFindUniqueArgs>(args: SelectSubset<T, DemoLeaseFindUniqueArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DemoLease that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DemoLeaseFindUniqueOrThrowArgs} args - Arguments to find a DemoLease
+     * @example
+     * // Get one DemoLease
+     * const demoLease = await prisma.demoLease.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DemoLeaseFindUniqueOrThrowArgs>(args: SelectSubset<T, DemoLeaseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DemoLease that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoLeaseFindFirstArgs} args - Arguments to find a DemoLease
+     * @example
+     * // Get one DemoLease
+     * const demoLease = await prisma.demoLease.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DemoLeaseFindFirstArgs>(args?: SelectSubset<T, DemoLeaseFindFirstArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DemoLease that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoLeaseFindFirstOrThrowArgs} args - Arguments to find a DemoLease
+     * @example
+     * // Get one DemoLease
+     * const demoLease = await prisma.demoLease.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DemoLeaseFindFirstOrThrowArgs>(args?: SelectSubset<T, DemoLeaseFindFirstOrThrowArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DemoLeases that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoLeaseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DemoLeases
+     * const demoLeases = await prisma.demoLease.findMany()
+     * 
+     * // Get first 10 DemoLeases
+     * const demoLeases = await prisma.demoLease.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const demoLeaseWithIdOnly = await prisma.demoLease.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DemoLeaseFindManyArgs>(args?: SelectSubset<T, DemoLeaseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DemoLease.
+     * @param {DemoLeaseCreateArgs} args - Arguments to create a DemoLease.
+     * @example
+     * // Create one DemoLease
+     * const DemoLease = await prisma.demoLease.create({
+     *   data: {
+     *     // ... data to create a DemoLease
+     *   }
+     * })
+     * 
+     */
+    create<T extends DemoLeaseCreateArgs>(args: SelectSubset<T, DemoLeaseCreateArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DemoLeases.
+     * @param {DemoLeaseCreateManyArgs} args - Arguments to create many DemoLeases.
+     * @example
+     * // Create many DemoLeases
+     * const demoLease = await prisma.demoLease.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DemoLeaseCreateManyArgs>(args?: SelectSubset<T, DemoLeaseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DemoLeases and returns the data saved in the database.
+     * @param {DemoLeaseCreateManyAndReturnArgs} args - Arguments to create many DemoLeases.
+     * @example
+     * // Create many DemoLeases
+     * const demoLease = await prisma.demoLease.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DemoLeases and only return the `id`
+     * const demoLeaseWithIdOnly = await prisma.demoLease.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DemoLeaseCreateManyAndReturnArgs>(args?: SelectSubset<T, DemoLeaseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DemoLease.
+     * @param {DemoLeaseDeleteArgs} args - Arguments to delete one DemoLease.
+     * @example
+     * // Delete one DemoLease
+     * const DemoLease = await prisma.demoLease.delete({
+     *   where: {
+     *     // ... filter to delete one DemoLease
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DemoLeaseDeleteArgs>(args: SelectSubset<T, DemoLeaseDeleteArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DemoLease.
+     * @param {DemoLeaseUpdateArgs} args - Arguments to update one DemoLease.
+     * @example
+     * // Update one DemoLease
+     * const demoLease = await prisma.demoLease.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DemoLeaseUpdateArgs>(args: SelectSubset<T, DemoLeaseUpdateArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DemoLeases.
+     * @param {DemoLeaseDeleteManyArgs} args - Arguments to filter DemoLeases to delete.
+     * @example
+     * // Delete a few DemoLeases
+     * const { count } = await prisma.demoLease.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DemoLeaseDeleteManyArgs>(args?: SelectSubset<T, DemoLeaseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DemoLeases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoLeaseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DemoLeases
+     * const demoLease = await prisma.demoLease.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DemoLeaseUpdateManyArgs>(args: SelectSubset<T, DemoLeaseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DemoLeases and returns the data updated in the database.
+     * @param {DemoLeaseUpdateManyAndReturnArgs} args - Arguments to update many DemoLeases.
+     * @example
+     * // Update many DemoLeases
+     * const demoLease = await prisma.demoLease.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DemoLeases and only return the `id`
+     * const demoLeaseWithIdOnly = await prisma.demoLease.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DemoLeaseUpdateManyAndReturnArgs>(args: SelectSubset<T, DemoLeaseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DemoLease.
+     * @param {DemoLeaseUpsertArgs} args - Arguments to update or create a DemoLease.
+     * @example
+     * // Update or create a DemoLease
+     * const demoLease = await prisma.demoLease.upsert({
+     *   create: {
+     *     // ... data to create a DemoLease
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DemoLease we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DemoLeaseUpsertArgs>(args: SelectSubset<T, DemoLeaseUpsertArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DemoLeases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoLeaseCountArgs} args - Arguments to filter DemoLeases to count.
+     * @example
+     * // Count the number of DemoLeases
+     * const count = await prisma.demoLease.count({
+     *   where: {
+     *     // ... the filter for the DemoLeases we want to count
+     *   }
+     * })
+    **/
+    count<T extends DemoLeaseCountArgs>(
+      args?: Subset<T, DemoLeaseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DemoLeaseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DemoLease.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoLeaseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DemoLeaseAggregateArgs>(args: Subset<T, DemoLeaseAggregateArgs>): Prisma.PrismaPromise<GetDemoLeaseAggregateType<T>>
+
+    /**
+     * Group by DemoLease.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemoLeaseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DemoLeaseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DemoLeaseGroupByArgs['orderBy'] }
+        : { orderBy?: DemoLeaseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DemoLeaseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDemoLeaseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DemoLease model
+   */
+  readonly fields: DemoLeaseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DemoLease.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DemoLeaseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    app<T extends AppDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AppDefaultArgs<ExtArgs>>): Prisma__AppClient<$Result.GetResult<Prisma.$AppPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DemoLease model
+   */
+  interface DemoLeaseFieldRefs {
+    readonly id: FieldRef<"DemoLease", 'String'>
+    readonly userId: FieldRef<"DemoLease", 'String'>
+    readonly appId: FieldRef<"DemoLease", 'String'>
+    readonly expiresAt: FieldRef<"DemoLease", 'DateTime'>
+    readonly createdAt: FieldRef<"DemoLease", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DemoLease findUnique
+   */
+  export type DemoLeaseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * Filter, which DemoLease to fetch.
+     */
+    where: DemoLeaseWhereUniqueInput
+  }
+
+  /**
+   * DemoLease findUniqueOrThrow
+   */
+  export type DemoLeaseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * Filter, which DemoLease to fetch.
+     */
+    where: DemoLeaseWhereUniqueInput
+  }
+
+  /**
+   * DemoLease findFirst
+   */
+  export type DemoLeaseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * Filter, which DemoLease to fetch.
+     */
+    where?: DemoLeaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemoLeases to fetch.
+     */
+    orderBy?: DemoLeaseOrderByWithRelationInput | DemoLeaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DemoLeases.
+     */
+    cursor?: DemoLeaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemoLeases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemoLeases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DemoLeases.
+     */
+    distinct?: DemoLeaseScalarFieldEnum | DemoLeaseScalarFieldEnum[]
+  }
+
+  /**
+   * DemoLease findFirstOrThrow
+   */
+  export type DemoLeaseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * Filter, which DemoLease to fetch.
+     */
+    where?: DemoLeaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemoLeases to fetch.
+     */
+    orderBy?: DemoLeaseOrderByWithRelationInput | DemoLeaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DemoLeases.
+     */
+    cursor?: DemoLeaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemoLeases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemoLeases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DemoLeases.
+     */
+    distinct?: DemoLeaseScalarFieldEnum | DemoLeaseScalarFieldEnum[]
+  }
+
+  /**
+   * DemoLease findMany
+   */
+  export type DemoLeaseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * Filter, which DemoLeases to fetch.
+     */
+    where?: DemoLeaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemoLeases to fetch.
+     */
+    orderBy?: DemoLeaseOrderByWithRelationInput | DemoLeaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DemoLeases.
+     */
+    cursor?: DemoLeaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemoLeases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemoLeases.
+     */
+    skip?: number
+    distinct?: DemoLeaseScalarFieldEnum | DemoLeaseScalarFieldEnum[]
+  }
+
+  /**
+   * DemoLease create
+   */
+  export type DemoLeaseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DemoLease.
+     */
+    data: XOR<DemoLeaseCreateInput, DemoLeaseUncheckedCreateInput>
+  }
+
+  /**
+   * DemoLease createMany
+   */
+  export type DemoLeaseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DemoLeases.
+     */
+    data: DemoLeaseCreateManyInput | DemoLeaseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DemoLease createManyAndReturn
+   */
+  export type DemoLeaseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * The data used to create many DemoLeases.
+     */
+    data: DemoLeaseCreateManyInput | DemoLeaseCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DemoLease update
+   */
+  export type DemoLeaseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DemoLease.
+     */
+    data: XOR<DemoLeaseUpdateInput, DemoLeaseUncheckedUpdateInput>
+    /**
+     * Choose, which DemoLease to update.
+     */
+    where: DemoLeaseWhereUniqueInput
+  }
+
+  /**
+   * DemoLease updateMany
+   */
+  export type DemoLeaseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DemoLeases.
+     */
+    data: XOR<DemoLeaseUpdateManyMutationInput, DemoLeaseUncheckedUpdateManyInput>
+    /**
+     * Filter which DemoLeases to update
+     */
+    where?: DemoLeaseWhereInput
+    /**
+     * Limit how many DemoLeases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DemoLease updateManyAndReturn
+   */
+  export type DemoLeaseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * The data used to update DemoLeases.
+     */
+    data: XOR<DemoLeaseUpdateManyMutationInput, DemoLeaseUncheckedUpdateManyInput>
+    /**
+     * Filter which DemoLeases to update
+     */
+    where?: DemoLeaseWhereInput
+    /**
+     * Limit how many DemoLeases to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DemoLease upsert
+   */
+  export type DemoLeaseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DemoLease to update in case it exists.
+     */
+    where: DemoLeaseWhereUniqueInput
+    /**
+     * In case the DemoLease found by the `where` argument doesn't exist, create a new DemoLease with this data.
+     */
+    create: XOR<DemoLeaseCreateInput, DemoLeaseUncheckedCreateInput>
+    /**
+     * In case the DemoLease was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DemoLeaseUpdateInput, DemoLeaseUncheckedUpdateInput>
+  }
+
+  /**
+   * DemoLease delete
+   */
+  export type DemoLeaseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    /**
+     * Filter which DemoLease to delete.
+     */
+    where: DemoLeaseWhereUniqueInput
+  }
+
+  /**
+   * DemoLease deleteMany
+   */
+  export type DemoLeaseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DemoLeases to delete
+     */
+    where?: DemoLeaseWhereInput
+    /**
+     * Limit how many DemoLeases to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DemoLease without action
+   */
+  export type DemoLeaseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model User
    */
 
@@ -2767,6 +3924,7 @@ export namespace Prisma {
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
     twoFactor?: boolean | User$twoFactorArgs<ExtArgs>
     recoveryCodes?: boolean | User$recoveryCodesArgs<ExtArgs>
+    demoLease?: boolean | User$demoLeaseArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
     invitationsSent?: boolean | User$invitationsSentArgs<ExtArgs>
     essentials?: boolean | User$essentialsArgs<ExtArgs>
@@ -2821,6 +3979,7 @@ export namespace Prisma {
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
     twoFactor?: boolean | User$twoFactorArgs<ExtArgs>
     recoveryCodes?: boolean | User$recoveryCodesArgs<ExtArgs>
+    demoLease?: boolean | User$demoLeaseArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
     invitationsSent?: boolean | User$invitationsSentArgs<ExtArgs>
     essentials?: boolean | User$essentialsArgs<ExtArgs>
@@ -2842,6 +4001,7 @@ export namespace Prisma {
       Authenticator: Prisma.$AuthenticatorPayload<ExtArgs>[]
       twoFactor: Prisma.$UserTwoFactorPayload<ExtArgs> | null
       recoveryCodes: Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>[]
+      demoLease: Prisma.$DemoLeasePayload<ExtArgs> | null
       memberships: Prisma.$MembershipPayload<ExtArgs>[]
       invitationsSent: Prisma.$InvitationPayload<ExtArgs>[]
       essentials: Prisma.$EssentialPayload<ExtArgs>[]
@@ -3260,6 +4420,7 @@ export namespace Prisma {
     Authenticator<T extends User$AuthenticatorArgs<ExtArgs> = {}>(args?: Subset<T, User$AuthenticatorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     twoFactor<T extends User$twoFactorArgs<ExtArgs> = {}>(args?: Subset<T, User$twoFactorArgs<ExtArgs>>): Prisma__UserTwoFactorClient<$Result.GetResult<Prisma.$UserTwoFactorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     recoveryCodes<T extends User$recoveryCodesArgs<ExtArgs> = {}>(args?: Subset<T, User$recoveryCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TwoFactorRecoveryCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    demoLease<T extends User$demoLeaseArgs<ExtArgs> = {}>(args?: Subset<T, User$demoLeaseArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     memberships<T extends User$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invitationsSent<T extends User$invitationsSentArgs<ExtArgs> = {}>(args?: Subset<T, User$invitationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     essentials<T extends User$essentialsArgs<ExtArgs> = {}>(args?: Subset<T, User$essentialsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EssentialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3809,6 +4970,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.demoLease
+   */
+  export type User$demoLeaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    where?: DemoLeaseWhereInput
+  }
+
+  /**
    * User.memberships
    */
   export type User$membershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4199,6 +5379,7 @@ export namespace Prisma {
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    demoLease?: boolean | App$demoLeaseArgs<ExtArgs>
     memberships?: boolean | App$membershipsArgs<ExtArgs>
     projects?: boolean | App$projectsArgs<ExtArgs>
     invitations?: boolean | App$invitationsArgs<ExtArgs>
@@ -4239,6 +5420,7 @@ export namespace Prisma {
 
   export type AppOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "subdomain" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["app"]>
   export type AppInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    demoLease?: boolean | App$demoLeaseArgs<ExtArgs>
     memberships?: boolean | App$membershipsArgs<ExtArgs>
     projects?: boolean | App$projectsArgs<ExtArgs>
     invitations?: boolean | App$invitationsArgs<ExtArgs>
@@ -4252,6 +5434,7 @@ export namespace Prisma {
   export type $AppPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "App"
     objects: {
+      demoLease: Prisma.$DemoLeasePayload<ExtArgs> | null
       memberships: Prisma.$MembershipPayload<ExtArgs>[]
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       invitations: Prisma.$InvitationPayload<ExtArgs>[]
@@ -4660,6 +5843,7 @@ export namespace Prisma {
    */
   export interface Prisma__AppClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    demoLease<T extends App$demoLeaseArgs<ExtArgs> = {}>(args?: Subset<T, App$demoLeaseArgs<ExtArgs>>): Prisma__DemoLeaseClient<$Result.GetResult<Prisma.$DemoLeasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     memberships<T extends App$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, App$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     projects<T extends App$projectsArgs<ExtArgs> = {}>(args?: Subset<T, App$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invitations<T extends App$invitationsArgs<ExtArgs> = {}>(args?: Subset<T, App$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5086,6 +6270,25 @@ export namespace Prisma {
      * Limit how many Apps to delete.
      */
     limit?: number
+  }
+
+  /**
+   * App.demoLease
+   */
+  export type App$demoLeaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemoLease
+     */
+    select?: DemoLeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemoLease
+     */
+    omit?: DemoLeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemoLeaseInclude<ExtArgs> | null
+    where?: DemoLeaseWhereInput
   }
 
   /**
@@ -20907,6 +22110,17 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const DemoLeaseScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    appId: 'appId',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
+  };
+
+  export type DemoLeaseScalarFieldEnum = (typeof DemoLeaseScalarFieldEnum)[keyof typeof DemoLeaseScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
@@ -21187,13 +22401,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -21204,6 +22411,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -21336,6 +22550,64 @@ export namespace Prisma {
    */
 
 
+  export type DemoLeaseWhereInput = {
+    AND?: DemoLeaseWhereInput | DemoLeaseWhereInput[]
+    OR?: DemoLeaseWhereInput[]
+    NOT?: DemoLeaseWhereInput | DemoLeaseWhereInput[]
+    id?: StringFilter<"DemoLease"> | string
+    userId?: StringFilter<"DemoLease"> | string
+    appId?: StringFilter<"DemoLease"> | string
+    expiresAt?: DateTimeFilter<"DemoLease"> | Date | string
+    createdAt?: DateTimeFilter<"DemoLease"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    app?: XOR<AppScalarRelationFilter, AppWhereInput>
+  }
+
+  export type DemoLeaseOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    appId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    app?: AppOrderByWithRelationInput
+  }
+
+  export type DemoLeaseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    appId?: string
+    AND?: DemoLeaseWhereInput | DemoLeaseWhereInput[]
+    OR?: DemoLeaseWhereInput[]
+    NOT?: DemoLeaseWhereInput | DemoLeaseWhereInput[]
+    expiresAt?: DateTimeFilter<"DemoLease"> | Date | string
+    createdAt?: DateTimeFilter<"DemoLease"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    app?: XOR<AppScalarRelationFilter, AppWhereInput>
+  }, "id" | "userId" | "appId">
+
+  export type DemoLeaseOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    appId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: DemoLeaseCountOrderByAggregateInput
+    _max?: DemoLeaseMaxOrderByAggregateInput
+    _min?: DemoLeaseMinOrderByAggregateInput
+  }
+
+  export type DemoLeaseScalarWhereWithAggregatesInput = {
+    AND?: DemoLeaseScalarWhereWithAggregatesInput | DemoLeaseScalarWhereWithAggregatesInput[]
+    OR?: DemoLeaseScalarWhereWithAggregatesInput[]
+    NOT?: DemoLeaseScalarWhereWithAggregatesInput | DemoLeaseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DemoLease"> | string
+    userId?: StringWithAggregatesFilter<"DemoLease"> | string
+    appId?: StringWithAggregatesFilter<"DemoLease"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"DemoLease"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"DemoLease"> | Date | string
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -21354,6 +22626,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorListRelationFilter
     twoFactor?: XOR<UserTwoFactorNullableScalarRelationFilter, UserTwoFactorWhereInput> | null
     recoveryCodes?: TwoFactorRecoveryCodeListRelationFilter
+    demoLease?: XOR<DemoLeaseNullableScalarRelationFilter, DemoLeaseWhereInput> | null
     memberships?: MembershipListRelationFilter
     invitationsSent?: InvitationListRelationFilter
     essentials?: EssentialListRelationFilter
@@ -21379,6 +22652,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorOrderByRelationAggregateInput
     twoFactor?: UserTwoFactorOrderByWithRelationInput
     recoveryCodes?: TwoFactorRecoveryCodeOrderByRelationAggregateInput
+    demoLease?: DemoLeaseOrderByWithRelationInput
     memberships?: MembershipOrderByRelationAggregateInput
     invitationsSent?: InvitationOrderByRelationAggregateInput
     essentials?: EssentialOrderByRelationAggregateInput
@@ -21407,6 +22681,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorListRelationFilter
     twoFactor?: XOR<UserTwoFactorNullableScalarRelationFilter, UserTwoFactorWhereInput> | null
     recoveryCodes?: TwoFactorRecoveryCodeListRelationFilter
+    demoLease?: XOR<DemoLeaseNullableScalarRelationFilter, DemoLeaseWhereInput> | null
     memberships?: MembershipListRelationFilter
     invitationsSent?: InvitationListRelationFilter
     essentials?: EssentialListRelationFilter
@@ -21458,6 +22733,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"App"> | string | null
     createdAt?: DateTimeFilter<"App"> | Date | string
     updatedAt?: DateTimeFilter<"App"> | Date | string
+    demoLease?: XOR<DemoLeaseNullableScalarRelationFilter, DemoLeaseWhereInput> | null
     memberships?: MembershipListRelationFilter
     projects?: ProjectListRelationFilter
     invitations?: InvitationListRelationFilter
@@ -21473,6 +22749,7 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    demoLease?: DemoLeaseOrderByWithRelationInput
     memberships?: MembershipOrderByRelationAggregateInput
     projects?: ProjectOrderByRelationAggregateInput
     invitations?: InvitationOrderByRelationAggregateInput
@@ -21491,6 +22768,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"App"> | string | null
     createdAt?: DateTimeFilter<"App"> | Date | string
     updatedAt?: DateTimeFilter<"App"> | Date | string
+    demoLease?: XOR<DemoLeaseNullableScalarRelationFilter, DemoLeaseWhereInput> | null
     memberships?: MembershipListRelationFilter
     projects?: ProjectListRelationFilter
     invitations?: InvitationListRelationFilter
@@ -22529,6 +23807,60 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AiCreditLedger"> | Date | string
   }
 
+  export type DemoLeaseCreateInput = {
+    id?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutDemoLeaseInput
+    app: AppCreateNestedOneWithoutDemoLeaseInput
+  }
+
+  export type DemoLeaseUncheckedCreateInput = {
+    id?: string
+    userId: string
+    appId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DemoLeaseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDemoLeaseNestedInput
+    app?: AppUpdateOneRequiredWithoutDemoLeaseNestedInput
+  }
+
+  export type DemoLeaseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    appId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DemoLeaseCreateManyInput = {
+    id?: string
+    userId: string
+    appId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DemoLeaseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DemoLeaseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    appId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -22544,6 +23876,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -22569,6 +23902,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -22594,6 +23928,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -22619,6 +23954,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -22673,6 +24009,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseCreateNestedOneWithoutAppInput
     memberships?: MembershipCreateNestedManyWithoutAppInput
     projects?: ProjectCreateNestedManyWithoutAppInput
     invitations?: InvitationCreateNestedManyWithoutAppInput
@@ -22688,6 +24025,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutAppInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutAppInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAppInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutAppInput
@@ -22703,6 +24041,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUpdateOneWithoutAppNestedInput
     memberships?: MembershipUpdateManyWithoutAppNestedInput
     projects?: ProjectUpdateManyWithoutAppNestedInput
     invitations?: InvitationUpdateManyWithoutAppNestedInput
@@ -22718,6 +24057,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutAppNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutAppNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutAppNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutAppNestedInput
@@ -23801,6 +25141,83 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type AppScalarRelationFilter = {
+    is?: AppWhereInput
+    isNot?: AppWhereInput
+  }
+
+  export type DemoLeaseCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    appId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DemoLeaseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    appId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DemoLeaseMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    appId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -23832,17 +25249,6 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type AccountListRelationFilter = {
     every?: AccountWhereInput
     some?: AccountWhereInput
@@ -23870,6 +25276,11 @@ export namespace Prisma {
     every?: TwoFactorRecoveryCodeWhereInput
     some?: TwoFactorRecoveryCodeWhereInput
     none?: TwoFactorRecoveryCodeWhereInput
+  }
+
+  export type DemoLeaseNullableScalarRelationFilter = {
+    is?: DemoLeaseWhereInput | null
+    isNot?: DemoLeaseWhereInput | null
   }
 
   export type MembershipListRelationFilter = {
@@ -24009,24 +25420,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -24067,20 +25460,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type AppCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -24116,16 +25495,6 @@ export namespace Prisma {
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
-  export type AppScalarRelationFilter = {
-    is?: AppWhereInput
-    isNot?: AppWhereInput
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type MembershipAppIdUserIdCompoundUniqueInput = {
@@ -24915,6 +26284,42 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type UserCreateNestedOneWithoutDemoLeaseInput = {
+    create?: XOR<UserCreateWithoutDemoLeaseInput, UserUncheckedCreateWithoutDemoLeaseInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDemoLeaseInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AppCreateNestedOneWithoutDemoLeaseInput = {
+    create?: XOR<AppCreateWithoutDemoLeaseInput, AppUncheckedCreateWithoutDemoLeaseInput>
+    connectOrCreate?: AppCreateOrConnectWithoutDemoLeaseInput
+    connect?: AppWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type UserUpdateOneRequiredWithoutDemoLeaseNestedInput = {
+    create?: XOR<UserCreateWithoutDemoLeaseInput, UserUncheckedCreateWithoutDemoLeaseInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDemoLeaseInput
+    upsert?: UserUpsertWithoutDemoLeaseInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDemoLeaseInput, UserUpdateWithoutDemoLeaseInput>, UserUncheckedUpdateWithoutDemoLeaseInput>
+  }
+
+  export type AppUpdateOneRequiredWithoutDemoLeaseNestedInput = {
+    create?: XOR<AppCreateWithoutDemoLeaseInput, AppUncheckedCreateWithoutDemoLeaseInput>
+    connectOrCreate?: AppCreateOrConnectWithoutDemoLeaseInput
+    upsert?: AppUpsertWithoutDemoLeaseInput
+    connect?: AppWhereUniqueInput
+    update?: XOR<XOR<AppUpdateToOneWithWhereWithoutDemoLeaseInput, AppUpdateWithoutDemoLeaseInput>, AppUncheckedUpdateWithoutDemoLeaseInput>
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -24947,6 +26352,12 @@ export namespace Prisma {
     connectOrCreate?: TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput | TwoFactorRecoveryCodeCreateOrConnectWithoutUserInput[]
     createMany?: TwoFactorRecoveryCodeCreateManyUserInputEnvelope
     connect?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
+  }
+
+  export type DemoLeaseCreateNestedOneWithoutUserInput = {
+    create?: XOR<DemoLeaseCreateWithoutUserInput, DemoLeaseUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DemoLeaseCreateOrConnectWithoutUserInput
+    connect?: DemoLeaseWhereUniqueInput
   }
 
   export type MembershipCreateNestedManyWithoutUserInput = {
@@ -25039,6 +26450,12 @@ export namespace Prisma {
     connect?: TwoFactorRecoveryCodeWhereUniqueInput | TwoFactorRecoveryCodeWhereUniqueInput[]
   }
 
+  export type DemoLeaseUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<DemoLeaseCreateWithoutUserInput, DemoLeaseUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DemoLeaseCreateOrConnectWithoutUserInput
+    connect?: DemoLeaseWhereUniqueInput
+  }
+
   export type MembershipUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -25095,10 +26512,6 @@ export namespace Prisma {
     connect?: AiCreditLedgerWhereUniqueInput | AiCreditLedgerWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -25109,10 +26522,6 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -25179,6 +26588,16 @@ export namespace Prisma {
     update?: TwoFactorRecoveryCodeUpdateWithWhereUniqueWithoutUserInput | TwoFactorRecoveryCodeUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: TwoFactorRecoveryCodeUpdateManyWithWhereWithoutUserInput | TwoFactorRecoveryCodeUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: TwoFactorRecoveryCodeScalarWhereInput | TwoFactorRecoveryCodeScalarWhereInput[]
+  }
+
+  export type DemoLeaseUpdateOneWithoutUserNestedInput = {
+    create?: XOR<DemoLeaseCreateWithoutUserInput, DemoLeaseUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DemoLeaseCreateOrConnectWithoutUserInput
+    upsert?: DemoLeaseUpsertWithoutUserInput
+    disconnect?: DemoLeaseWhereInput | boolean
+    delete?: DemoLeaseWhereInput | boolean
+    connect?: DemoLeaseWhereUniqueInput
+    update?: XOR<XOR<DemoLeaseUpdateToOneWithWhereWithoutUserInput, DemoLeaseUpdateWithoutUserInput>, DemoLeaseUncheckedUpdateWithoutUserInput>
   }
 
   export type MembershipUpdateManyWithoutUserNestedInput = {
@@ -25359,6 +26778,16 @@ export namespace Prisma {
     deleteMany?: TwoFactorRecoveryCodeScalarWhereInput | TwoFactorRecoveryCodeScalarWhereInput[]
   }
 
+  export type DemoLeaseUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<DemoLeaseCreateWithoutUserInput, DemoLeaseUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DemoLeaseCreateOrConnectWithoutUserInput
+    upsert?: DemoLeaseUpsertWithoutUserInput
+    disconnect?: DemoLeaseWhereInput | boolean
+    delete?: DemoLeaseWhereInput | boolean
+    connect?: DemoLeaseWhereUniqueInput
+    update?: XOR<XOR<DemoLeaseUpdateToOneWithWhereWithoutUserInput, DemoLeaseUpdateWithoutUserInput>, DemoLeaseUncheckedUpdateWithoutUserInput>
+  }
+
   export type MembershipUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -25471,6 +26900,12 @@ export namespace Prisma {
     deleteMany?: AiCreditLedgerScalarWhereInput | AiCreditLedgerScalarWhereInput[]
   }
 
+  export type DemoLeaseCreateNestedOneWithoutAppInput = {
+    create?: XOR<DemoLeaseCreateWithoutAppInput, DemoLeaseUncheckedCreateWithoutAppInput>
+    connectOrCreate?: DemoLeaseCreateOrConnectWithoutAppInput
+    connect?: DemoLeaseWhereUniqueInput
+  }
+
   export type MembershipCreateNestedManyWithoutAppInput = {
     create?: XOR<MembershipCreateWithoutAppInput, MembershipUncheckedCreateWithoutAppInput> | MembershipCreateWithoutAppInput[] | MembershipUncheckedCreateWithoutAppInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutAppInput | MembershipCreateOrConnectWithoutAppInput[]
@@ -25506,6 +26941,12 @@ export namespace Prisma {
     connect?: PlannedWhereUniqueInput | PlannedWhereUniqueInput[]
   }
 
+  export type DemoLeaseUncheckedCreateNestedOneWithoutAppInput = {
+    create?: XOR<DemoLeaseCreateWithoutAppInput, DemoLeaseUncheckedCreateWithoutAppInput>
+    connectOrCreate?: DemoLeaseCreateOrConnectWithoutAppInput
+    connect?: DemoLeaseWhereUniqueInput
+  }
+
   export type MembershipUncheckedCreateNestedManyWithoutAppInput = {
     create?: XOR<MembershipCreateWithoutAppInput, MembershipUncheckedCreateWithoutAppInput> | MembershipCreateWithoutAppInput[] | MembershipUncheckedCreateWithoutAppInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutAppInput | MembershipCreateOrConnectWithoutAppInput[]
@@ -25539,6 +26980,16 @@ export namespace Prisma {
     connectOrCreate?: PlannedCreateOrConnectWithoutAppInput | PlannedCreateOrConnectWithoutAppInput[]
     createMany?: PlannedCreateManyAppInputEnvelope
     connect?: PlannedWhereUniqueInput | PlannedWhereUniqueInput[]
+  }
+
+  export type DemoLeaseUpdateOneWithoutAppNestedInput = {
+    create?: XOR<DemoLeaseCreateWithoutAppInput, DemoLeaseUncheckedCreateWithoutAppInput>
+    connectOrCreate?: DemoLeaseCreateOrConnectWithoutAppInput
+    upsert?: DemoLeaseUpsertWithoutAppInput
+    disconnect?: DemoLeaseWhereInput | boolean
+    delete?: DemoLeaseWhereInput | boolean
+    connect?: DemoLeaseWhereUniqueInput
+    update?: XOR<XOR<DemoLeaseUpdateToOneWithWhereWithoutAppInput, DemoLeaseUpdateWithoutAppInput>, DemoLeaseUncheckedUpdateWithoutAppInput>
   }
 
   export type MembershipUpdateManyWithoutAppNestedInput = {
@@ -25609,6 +27060,16 @@ export namespace Prisma {
     update?: PlannedUpdateWithWhereUniqueWithoutAppInput | PlannedUpdateWithWhereUniqueWithoutAppInput[]
     updateMany?: PlannedUpdateManyWithWhereWithoutAppInput | PlannedUpdateManyWithWhereWithoutAppInput[]
     deleteMany?: PlannedScalarWhereInput | PlannedScalarWhereInput[]
+  }
+
+  export type DemoLeaseUncheckedUpdateOneWithoutAppNestedInput = {
+    create?: XOR<DemoLeaseCreateWithoutAppInput, DemoLeaseUncheckedCreateWithoutAppInput>
+    connectOrCreate?: DemoLeaseCreateOrConnectWithoutAppInput
+    upsert?: DemoLeaseUpsertWithoutAppInput
+    disconnect?: DemoLeaseWhereInput | boolean
+    delete?: DemoLeaseWhereInput | boolean
+    connect?: DemoLeaseWhereUniqueInput
+    update?: XOR<XOR<DemoLeaseUpdateToOneWithWhereWithoutAppInput, DemoLeaseUpdateWithoutAppInput>, DemoLeaseUncheckedUpdateWithoutAppInput>
   }
 
   export type MembershipUncheckedUpdateManyWithoutAppNestedInput = {
@@ -26175,36 +27636,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -26242,6 +27673,50 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -26292,20 +27767,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
@@ -26524,6 +27985,198 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type UserCreateWithoutDemoLeaseInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    isBetaTester?: boolean
+    isProUser?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
+    essentials?: EssentialCreateNestedManyWithoutCreatorInput
+    planneds?: PlannedCreateNestedManyWithoutCreatorInput
+    plannedComments?: PlannedCommentCreateNestedManyWithoutAuthorInput
+    plannedLikes?: PlannedLikeCreateNestedManyWithoutCreatorInput
+    Project?: ProjectCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDemoLeaseInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    isBetaTester?: boolean
+    isProUser?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
+    essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
+    planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
+    plannedComments?: PlannedCommentUncheckedCreateNestedManyWithoutAuthorInput
+    plannedLikes?: PlannedLikeUncheckedCreateNestedManyWithoutCreatorInput
+    Project?: ProjectUncheckedCreateNestedManyWithoutCreatorInput
+    aiCreditLedger?: AiCreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDemoLeaseInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDemoLeaseInput, UserUncheckedCreateWithoutDemoLeaseInput>
+  }
+
+  export type AppCreateWithoutDemoLeaseInput = {
+    id?: string
+    name: string
+    description?: string | null
+    subdomain: string
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipCreateNestedManyWithoutAppInput
+    projects?: ProjectCreateNestedManyWithoutAppInput
+    invitations?: InvitationCreateNestedManyWithoutAppInput
+    essentials?: EssentialCreateNestedManyWithoutAppInput
+    planneds?: PlannedCreateNestedManyWithoutAppInput
+  }
+
+  export type AppUncheckedCreateWithoutDemoLeaseInput = {
+    id?: string
+    name: string
+    description?: string | null
+    subdomain: string
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutAppInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutAppInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutAppInput
+    essentials?: EssentialUncheckedCreateNestedManyWithoutAppInput
+    planneds?: PlannedUncheckedCreateNestedManyWithoutAppInput
+  }
+
+  export type AppCreateOrConnectWithoutDemoLeaseInput = {
+    where: AppWhereUniqueInput
+    create: XOR<AppCreateWithoutDemoLeaseInput, AppUncheckedCreateWithoutDemoLeaseInput>
+  }
+
+  export type UserUpsertWithoutDemoLeaseInput = {
+    update: XOR<UserUpdateWithoutDemoLeaseInput, UserUncheckedUpdateWithoutDemoLeaseInput>
+    create: XOR<UserCreateWithoutDemoLeaseInput, UserUncheckedCreateWithoutDemoLeaseInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDemoLeaseInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDemoLeaseInput, UserUncheckedUpdateWithoutDemoLeaseInput>
+  }
+
+  export type UserUpdateWithoutDemoLeaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isBetaTester?: BoolFieldUpdateOperationsInput | boolean
+    isProUser?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
+    essentials?: EssentialUpdateManyWithoutCreatorNestedInput
+    planneds?: PlannedUpdateManyWithoutCreatorNestedInput
+    plannedComments?: PlannedCommentUpdateManyWithoutAuthorNestedInput
+    plannedLikes?: PlannedLikeUpdateManyWithoutCreatorNestedInput
+    Project?: ProjectUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDemoLeaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isBetaTester?: BoolFieldUpdateOperationsInput | boolean
+    isProUser?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
+    essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
+    planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
+    plannedComments?: PlannedCommentUncheckedUpdateManyWithoutAuthorNestedInput
+    plannedLikes?: PlannedLikeUncheckedUpdateManyWithoutCreatorNestedInput
+    Project?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput
+    aiCreditLedger?: AiCreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AppUpsertWithoutDemoLeaseInput = {
+    update: XOR<AppUpdateWithoutDemoLeaseInput, AppUncheckedUpdateWithoutDemoLeaseInput>
+    create: XOR<AppCreateWithoutDemoLeaseInput, AppUncheckedCreateWithoutDemoLeaseInput>
+    where?: AppWhereInput
+  }
+
+  export type AppUpdateToOneWithWhereWithoutDemoLeaseInput = {
+    where?: AppWhereInput
+    data: XOR<AppUpdateWithoutDemoLeaseInput, AppUncheckedUpdateWithoutDemoLeaseInput>
+  }
+
+  export type AppUpdateWithoutDemoLeaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUpdateManyWithoutAppNestedInput
+    projects?: ProjectUpdateManyWithoutAppNestedInput
+    invitations?: InvitationUpdateManyWithoutAppNestedInput
+    essentials?: EssentialUpdateManyWithoutAppNestedInput
+    planneds?: PlannedUpdateManyWithoutAppNestedInput
+  }
+
+  export type AppUncheckedUpdateWithoutDemoLeaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    subdomain?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUncheckedUpdateManyWithoutAppNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutAppNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutAppNestedInput
+    essentials?: EssentialUncheckedUpdateManyWithoutAppNestedInput
+    planneds?: PlannedUncheckedUpdateManyWithoutAppNestedInput
+  }
+
   export type AccountCreateWithoutUserInput = {
     type: string
     provider: string
@@ -26661,6 +28314,25 @@ export namespace Prisma {
   export type TwoFactorRecoveryCodeCreateManyUserInputEnvelope = {
     data: TwoFactorRecoveryCodeCreateManyUserInput | TwoFactorRecoveryCodeCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type DemoLeaseCreateWithoutUserInput = {
+    id?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    app: AppCreateNestedOneWithoutDemoLeaseInput
+  }
+
+  export type DemoLeaseUncheckedCreateWithoutUserInput = {
+    id?: string
+    appId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DemoLeaseCreateOrConnectWithoutUserInput = {
+    where: DemoLeaseWhereUniqueInput
+    create: XOR<DemoLeaseCreateWithoutUserInput, DemoLeaseUncheckedCreateWithoutUserInput>
   }
 
   export type MembershipCreateWithoutUserInput = {
@@ -27060,6 +28732,31 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TwoFactorRecoveryCode"> | Date | string
   }
 
+  export type DemoLeaseUpsertWithoutUserInput = {
+    update: XOR<DemoLeaseUpdateWithoutUserInput, DemoLeaseUncheckedUpdateWithoutUserInput>
+    create: XOR<DemoLeaseCreateWithoutUserInput, DemoLeaseUncheckedCreateWithoutUserInput>
+    where?: DemoLeaseWhereInput
+  }
+
+  export type DemoLeaseUpdateToOneWithWhereWithoutUserInput = {
+    where?: DemoLeaseWhereInput
+    data: XOR<DemoLeaseUpdateWithoutUserInput, DemoLeaseUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DemoLeaseUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    app?: AppUpdateOneRequiredWithoutDemoLeaseNestedInput
+  }
+
+  export type DemoLeaseUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MembershipUpsertWithWhereUniqueWithoutUserInput = {
     where: MembershipWhereUniqueInput
     update: XOR<MembershipUpdateWithoutUserInput, MembershipUncheckedUpdateWithoutUserInput>
@@ -27303,6 +29000,25 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AiCreditLedger"> | Date | string
   }
 
+  export type DemoLeaseCreateWithoutAppInput = {
+    id?: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutDemoLeaseInput
+  }
+
+  export type DemoLeaseUncheckedCreateWithoutAppInput = {
+    id?: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type DemoLeaseCreateOrConnectWithoutAppInput = {
+    where: DemoLeaseWhereUniqueInput
+    create: XOR<DemoLeaseCreateWithoutAppInput, DemoLeaseUncheckedCreateWithoutAppInput>
+  }
+
   export type MembershipCreateWithoutAppInput = {
     id?: string
     role?: $Enums.Role
@@ -27476,6 +29192,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DemoLeaseUpsertWithoutAppInput = {
+    update: XOR<DemoLeaseUpdateWithoutAppInput, DemoLeaseUncheckedUpdateWithoutAppInput>
+    create: XOR<DemoLeaseCreateWithoutAppInput, DemoLeaseUncheckedCreateWithoutAppInput>
+    where?: DemoLeaseWhereInput
+  }
+
+  export type DemoLeaseUpdateToOneWithWhereWithoutAppInput = {
+    where?: DemoLeaseWhereInput
+    data: XOR<DemoLeaseUpdateWithoutAppInput, DemoLeaseUncheckedUpdateWithoutAppInput>
+  }
+
+  export type DemoLeaseUpdateWithoutAppInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDemoLeaseNestedInput
+  }
+
+  export type DemoLeaseUncheckedUpdateWithoutAppInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MembershipUpsertWithWhereUniqueWithoutAppInput = {
     where: MembershipWhereUniqueInput
     update: XOR<MembershipUpdateWithoutAppInput, MembershipUncheckedUpdateWithoutAppInput>
@@ -27564,6 +29305,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseCreateNestedOneWithoutAppInput
     projects?: ProjectCreateNestedManyWithoutAppInput
     invitations?: InvitationCreateNestedManyWithoutAppInput
     essentials?: EssentialCreateNestedManyWithoutAppInput
@@ -27578,6 +29320,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutAppInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAppInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutAppInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutAppInput
@@ -27604,6 +29347,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
@@ -27628,6 +29372,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
@@ -27661,6 +29406,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUpdateOneWithoutAppNestedInput
     projects?: ProjectUpdateManyWithoutAppNestedInput
     invitations?: InvitationUpdateManyWithoutAppNestedInput
     essentials?: EssentialUpdateManyWithoutAppNestedInput
@@ -27675,6 +29421,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutAppNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutAppNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutAppNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutAppNestedInput
@@ -27707,6 +29454,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
@@ -27731,6 +29479,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
@@ -27748,6 +29497,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseCreateNestedOneWithoutAppInput
     memberships?: MembershipCreateNestedManyWithoutAppInput
     projects?: ProjectCreateNestedManyWithoutAppInput
     essentials?: EssentialCreateNestedManyWithoutAppInput
@@ -27762,6 +29512,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutAppInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutAppInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAppInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutAppInput
@@ -27788,6 +29539,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
@@ -27812,6 +29564,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
@@ -27845,6 +29598,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUpdateOneWithoutAppNestedInput
     memberships?: MembershipUpdateManyWithoutAppNestedInput
     projects?: ProjectUpdateManyWithoutAppNestedInput
     essentials?: EssentialUpdateManyWithoutAppNestedInput
@@ -27859,6 +29613,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutAppNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutAppNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutAppNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutAppNestedInput
@@ -27891,6 +29646,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
@@ -27915,6 +29671,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
@@ -27938,6 +29695,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -27962,6 +29720,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -28002,6 +29761,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -28026,6 +29786,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28050,6 +29811,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -28074,6 +29836,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -28114,6 +29877,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -28138,6 +29902,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28162,6 +29927,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -28186,6 +29952,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -28226,6 +29993,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -28250,6 +30018,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28274,6 +30043,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -28298,6 +30068,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -28338,6 +30109,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -28362,6 +30134,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28386,6 +30159,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -28410,6 +30184,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -28450,6 +30225,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -28474,6 +30250,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28499,6 +30276,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -28523,6 +30301,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -28591,6 +30370,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseCreateNestedOneWithoutAppInput
     memberships?: MembershipCreateNestedManyWithoutAppInput
     invitations?: InvitationCreateNestedManyWithoutAppInput
     essentials?: EssentialCreateNestedManyWithoutAppInput
@@ -28605,6 +30385,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutAppInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutAppInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutAppInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutAppInput
@@ -28642,6 +30423,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -28666,6 +30448,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28710,6 +30493,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUpdateOneWithoutAppNestedInput
     memberships?: MembershipUpdateManyWithoutAppNestedInput
     invitations?: InvitationUpdateManyWithoutAppNestedInput
     essentials?: EssentialUpdateManyWithoutAppNestedInput
@@ -28724,6 +30508,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutAppNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutAppNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutAppNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutAppNestedInput
@@ -28738,6 +30523,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseCreateNestedOneWithoutAppInput
     memberships?: MembershipCreateNestedManyWithoutAppInput
     projects?: ProjectCreateNestedManyWithoutAppInput
     invitations?: InvitationCreateNestedManyWithoutAppInput
@@ -28752,6 +30538,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutAppInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutAppInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAppInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutAppInput
@@ -28778,6 +30565,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     planneds?: PlannedCreateNestedManyWithoutCreatorInput
@@ -28802,6 +30590,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     planneds?: PlannedUncheckedCreateNestedManyWithoutCreatorInput
@@ -28835,6 +30624,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUpdateOneWithoutAppNestedInput
     memberships?: MembershipUpdateManyWithoutAppNestedInput
     projects?: ProjectUpdateManyWithoutAppNestedInput
     invitations?: InvitationUpdateManyWithoutAppNestedInput
@@ -28849,6 +30639,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutAppNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutAppNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutAppNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutAppNestedInput
@@ -28881,6 +30672,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     planneds?: PlannedUpdateManyWithoutCreatorNestedInput
@@ -28905,6 +30697,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     planneds?: PlannedUncheckedUpdateManyWithoutCreatorNestedInput
@@ -28922,6 +30715,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseCreateNestedOneWithoutAppInput
     memberships?: MembershipCreateNestedManyWithoutAppInput
     projects?: ProjectCreateNestedManyWithoutAppInput
     invitations?: InvitationCreateNestedManyWithoutAppInput
@@ -28936,6 +30730,7 @@ export namespace Prisma {
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutAppInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutAppInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAppInput
     invitations?: InvitationUncheckedCreateNestedManyWithoutAppInput
@@ -28962,6 +30757,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -28986,6 +30782,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -29094,6 +30891,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUpdateOneWithoutAppNestedInput
     memberships?: MembershipUpdateManyWithoutAppNestedInput
     projects?: ProjectUpdateManyWithoutAppNestedInput
     invitations?: InvitationUpdateManyWithoutAppNestedInput
@@ -29108,6 +30906,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutAppNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutAppNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutAppNestedInput
     invitations?: InvitationUncheckedUpdateManyWithoutAppNestedInput
@@ -29140,6 +30939,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -29164,6 +30964,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -29253,6 +31054,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -29277,6 +31079,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -29359,6 +31162,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -29383,6 +31187,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -29455,6 +31260,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -29479,6 +31285,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -29561,6 +31368,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -29585,6 +31393,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput
@@ -29657,6 +31466,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseCreateNestedOneWithoutUserInput
     memberships?: MembershipCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationCreateNestedManyWithoutInviterInput
     essentials?: EssentialCreateNestedManyWithoutCreatorInput
@@ -29681,6 +31491,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     twoFactor?: UserTwoFactorUncheckedCreateNestedOneWithoutUserInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedCreateNestedManyWithoutUserInput
+    demoLease?: DemoLeaseUncheckedCreateNestedOneWithoutUserInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
     invitationsSent?: InvitationUncheckedCreateNestedManyWithoutInviterInput
     essentials?: EssentialUncheckedCreateNestedManyWithoutCreatorInput
@@ -29721,6 +31532,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUpdateOneWithoutUserNestedInput
     memberships?: MembershipUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUpdateManyWithoutCreatorNestedInput
@@ -29745,6 +31557,7 @@ export namespace Prisma {
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     twoFactor?: UserTwoFactorUncheckedUpdateOneWithoutUserNestedInput
     recoveryCodes?: TwoFactorRecoveryCodeUncheckedUpdateManyWithoutUserNestedInput
+    demoLease?: DemoLeaseUncheckedUpdateOneWithoutUserNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
     invitationsSent?: InvitationUncheckedUpdateManyWithoutInviterNestedInput
     essentials?: EssentialUncheckedUpdateManyWithoutCreatorNestedInput

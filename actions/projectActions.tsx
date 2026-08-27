@@ -455,7 +455,7 @@ export async function createPlannedInProjectAction(
         quantity,
         priority,
         status: "PENDING",
-        image,
+        image: session.isDemo ? PLANNED_PLACEHOLDER_IMAGE : image,
         productUrl,
         description,
         appId,

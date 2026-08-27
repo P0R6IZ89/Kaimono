@@ -73,10 +73,13 @@ function assertAllowedSubdomain(sub: string) {
   if (/--/.test(sub)) throw new ActionError("subdomain-consecutive-hyphens");
 }
 
-type SessionWithUser = Session & {
+export type SessionWithUser = Session & {
   user: { id: string; name: string | null; email: string };
   requiresTwoFactor?: boolean;
   twoFactorVerified?: boolean;
+  isDemo?: boolean;
+  demoExpiresAt?: string | null;
+  demoSubdomain?: string | null;
 };
 
 export async function requireSession(): Promise<SessionWithUser> {
@@ -85,8 +88,23 @@ export async function requireSession(): Promise<SessionWithUser> {
 
   if (!s?.user?.id) redirect({ href: "/login", locale });
   const session = s as SessionWithUser;
+  if (
+    session.isDemo &&
+    (!session.demoExpiresAt ||
+      new Date(session.demoExpiresAt).getTime() <= Date.now())
+  ) {
+    redirect({ href: "/home", locale });
+  }
   if (session.requiresTwoFactor && !session.twoFactorVerified) {
     redirect({ href: "/two-factor", locale });
+  }
+  return session;
+}
+
+export async function requirePermanentSession(): Promise<SessionWithUser> {
+  const session = await requireSession();
+  if (session.isDemo) {
+    throw new Error("DEMO_RESTRICTED");
   }
   return session;
 }
@@ -193,6 +211,9 @@ export async function createAppAction(prevState: unknown, formData: FormData) {
   }
 
   const session = await requireSession();
+  if (session.isDemo) {
+    return { ok: false, message: "demoRestricted" } satisfies Result;
+  }
   const userId = session.user.id;
   const locale = await getCurrentLocale();
 
@@ -269,6 +290,9 @@ export async function isUserBelongsTheApp(subdomain: string) {
 
 export async function deleteApp(id: string): Promise<Result> {
   const session = await requireSession();
+  if (session.isDemo) {
+    return { ok: false, message: "demoRestricted" };
+  }
 
   const membership = await prisma.membership.findUnique({
     where: { appId_userId: { appId: id, userId: session.user.id } },
@@ -303,6 +327,9 @@ export async function removeMemberAction(
     session,
   } = await requireMembership(subdomain);
   const actingUserId = session.user.id;
+  if (session.isDemo) {
+    return { ok: false, message: "demoRestricted" };
+  }
 
   const targetMembership = await prisma.membership.findUnique({
     where: { appId_userId: { appId, userId: targetUserId } },

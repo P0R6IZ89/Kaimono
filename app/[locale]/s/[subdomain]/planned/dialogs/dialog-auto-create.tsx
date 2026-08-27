@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link2, Loader2, Sparkles, Wand2, X } from "lucide-react";
+import { Link2, Loader2, Wand2, X } from "lucide-react";
 import { FieldError } from "@/components/ui/field";
 import {
   InputGroup,
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/input-group";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AI_EXTRACTION_CREDIT_COST } from "@/lib/ai-credits";
+import { AI_EXTRACTION_CREDIT_COST } from "@/lib/ai-credit-policy";
 import RandomShape from "../../components/randomshapes";
 
 type ExtractedProduct = {
@@ -47,6 +47,7 @@ type AutoCreateFormProps = {
     source: string;
     product: ExtractedProduct;
   }) => void;
+  unavailable?: boolean;
 };
 
 function isValidUrl(value: string) {
@@ -89,7 +90,10 @@ function normalizeExtractedPrice(value?: string | null) {
   return normalized;
 }
 
-export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
+export function AutoCreateForm({
+  onExtracted,
+  unavailable = false,
+}: AutoCreateFormProps) {
   const t = useTranslations("Planned");
   const [url, setUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -99,6 +103,8 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
   const hasUrl = url.trim().length > 0;
 
   useEffect(() => {
+    if (unavailable) return;
+
     let isMounted = true;
 
     async function loadCredits() {
@@ -120,7 +126,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [unavailable]);
 
   const getErrorMessage = (data: ExtractProductErrorResponse) => {
     switch (data.code) {
@@ -141,6 +147,8 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
   };
 
   const handleExtract = async () => {
+    if (unavailable) return;
+
     const trimmedUrl = url.trim();
 
     if (!isValidUrl(trimmedUrl)) {
@@ -163,8 +171,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
       });
 
       const data = (await response.json()) as
-        | ExtractProductResponse
-        | ExtractProductErrorResponse;
+        ExtractProductResponse | ExtractProductErrorResponse;
 
       if (!response.ok) {
         const remaining = response.headers.get("X-AI-Credits-Remaining");
@@ -229,10 +236,12 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
         <RandomShape />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1">
-            {/* <Badge variant={"outline"}>{t("ai.beta")}</Badge> */}
             <h3 className="text-base font-semibold leading-tight">
               {t("ai.label")}
             </h3>
+            {unavailable ? (
+              <Badge variant="outline">{t("ai.unavailableInDemo")}</Badge>
+            ) : null}
           </div>
           <p className="mt-1 text-sm leading-5 text-muted-foreground">
             {t("ai.description")}
@@ -259,7 +268,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
               placeholder={t("ai.placeholder")}
               onChange={(event) => setUrl(event.target.value)}
               aria-invalid={!!error}
-              disabled={isExtracting}
+              disabled={unavailable || isExtracting}
             />
             <InputGroupAddon align="inline-end">
               {hasUrl ? (
@@ -271,7 +280,7 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
                     setError(null);
                     setStatus(null);
                   }}
-                  disabled={isExtracting}
+                  disabled={unavailable || isExtracting}
                   aria-label={t("ai.clearUrl")}
                   className="text-muted-foreground hover:text-foreground"
                 >
@@ -286,21 +295,28 @@ export function AutoCreateForm({ onExtracted }: AutoCreateFormProps) {
           type="button"
           className="w-full"
           onClick={() => void handleExtract()}
-          disabled={!hasUrl || isExtracting}
+          disabled={unavailable || !hasUrl || isExtracting}
         >
           {isExtracting ? <Loader2 className="animate-spin" /> : <Wand2 />}
-          {t("ai.generateDetails")} · {t("ai.creditCost", { count: 10 })}
+          {t("ai.generateDetails")} ·{" "}
+          {t("ai.creditCost", { count: AI_EXTRACTION_CREDIT_COST })}
         </Button>
       </div>
 
       <div className="mt-3 space-y-2 text-sm">
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground">
-          <span>{status ?? t("ai.reviewHint")}</span>
           <span>
-            {credits === null
-              ? t("ai.creditsLoading")
-              : t("ai.creditsRemaining", { count: credits })}
+            {unavailable
+              ? t("ai.unavailableInDemoHint")
+              : (status ?? t("ai.reviewHint"))}
           </span>
+          {!unavailable ? (
+            <span>
+              {credits === null
+                ? t("ai.creditsLoading")
+                : t("ai.creditsRemaining", { count: credits })}
+            </span>
+          ) : null}
         </div>
         <FieldError>{error}</FieldError>
       </div>

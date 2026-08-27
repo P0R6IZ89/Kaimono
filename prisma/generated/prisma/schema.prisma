@@ -42,6 +42,19 @@ enum AiCreditLedgerType {
   ADJUSTMENT
 }
 
+model DemoLease {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  appId     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  app  App  @relation(fields: [appId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
 model User {
   id              String                  @id @default(cuid())
   email           String                  @unique @db.Citext
@@ -57,6 +70,7 @@ model User {
   Authenticator   Authenticator[]
   twoFactor       UserTwoFactor?
   recoveryCodes   TwoFactorRecoveryCode[]
+  demoLease       DemoLease?
   memberships     Membership[]
   invitationsSent Invitation[]            @relation("InvitationSender")
   essentials      Essential[]
@@ -75,6 +89,7 @@ model App {
   image       String?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+  demoLease   DemoLease?
   memberships Membership[]
   projects    Project[]
   invitations Invitation[]

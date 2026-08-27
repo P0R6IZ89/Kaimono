@@ -12,6 +12,10 @@ const cookieDomain = isProd
       : undefined
   : undefined;
 
+function isExpiredDemo(expiresAt: string | null | undefined) {
+  return !expiresAt || new Date(expiresAt).getTime() <= Date.now();
+}
+
 export const { auth } = NextAuth({
   ...authConfig,
   session: { strategy: "jwt" },
@@ -30,6 +34,9 @@ export const { auth } = NextAuth({
   },
   callbacks: {
     async jwt({ token }) {
+      if (token.isDemo && isExpiredDemo(token.demoExpiresAt)) {
+        return null;
+      }
       return token;
     },
     async session({ session, token }) {
@@ -46,6 +53,11 @@ export const { auth } = NextAuth({
         typeof token.twoFactorVerifiedAt === "string"
           ? token.twoFactorVerifiedAt
           : null;
+      session.isDemo = Boolean(token.isDemo);
+      session.demoExpiresAt =
+        typeof token.demoExpiresAt === "string" ? token.demoExpiresAt : null;
+      session.demoSubdomain =
+        typeof token.demoSubdomain === "string" ? token.demoSubdomain : null;
 
       return session;
     },

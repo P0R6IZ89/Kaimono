@@ -124,6 +124,7 @@ export function PlannedCreateForm({
   const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
   const tErrors = useTranslations("Errors");
+  const { isDemo } = useSubdomain();
   const router = useRouter();
   const isProjectMode = mode === "project";
 
@@ -365,68 +366,70 @@ export function PlannedCreateForm({
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem className="mb-4">
-                <FormLabel>{t("fields.image")}</FormLabel>
-                <FormControl>
-                  <CldUploadWidget
-                    options={{
-                      sources: ["local", "url", "camera"],
-                    }}
-                    uploadPreset="test-preset"
-                    onOpen={() => onUploadWidgetOpenChange?.(true)}
-                    onClose={() => onUploadWidgetOpenChange?.(false)}
-                    onSuccess={(result, { widget }) => {
-                      const info = result.info;
-                      if (!info || typeof info === "string") {
+          {!isDemo ? (
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem className="mb-4">
+                  <FormLabel>{t("fields.image")}</FormLabel>
+                  <FormControl>
+                    <CldUploadWidget
+                      options={{
+                        sources: ["local", "url", "camera"],
+                      }}
+                      uploadPreset="test-preset"
+                      onOpen={() => onUploadWidgetOpenChange?.(true)}
+                      onClose={() => onUploadWidgetOpenChange?.(false)}
+                      onSuccess={(result, { widget }) => {
+                        const info = result.info;
+                        if (!info || typeof info === "string") {
+                          widget.close();
+                          onUploadWidgetOpenChange?.(false);
+                          return;
+                        }
+                        field.onChange(info.secure_url);
+                        setSelectedImage({ source: "upload", info });
                         widget.close();
                         onUploadWidgetOpenChange?.(false);
-                        return;
-                      }
-                      field.onChange(info.secure_url);
-                      setSelectedImage({ source: "upload", info });
-                      widget.close();
-                      onUploadWidgetOpenChange?.(false);
-                    }}
-                  >
-                    {({ open }) => {
-                      return (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="h-auto min-h-20 w-full flex-col gap-2 border-dashed bg-background/60 px-4 py-4 text-center whitespace-normal hover:bg-muted/60"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            onUploadWidgetOpenChange?.(true);
-                            open();
-                          }}
-                        >
-                          <span className="flex items-center gap-2 font-medium">
-                            {selectedImage ? (
-                              <ImageIcon className="size-4" />
-                            ) : (
-                              <Upload className="size-4" />
-                            )}
-                            <span className="max-w-full truncate">
-                              {uploadButtonLabel}
+                      }}
+                    >
+                      {({ open }) => {
+                        return (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="h-auto min-h-20 w-full flex-col gap-2 border-dashed bg-background/60 px-4 py-4 text-center whitespace-normal hover:bg-muted/60"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              onUploadWidgetOpenChange?.(true);
+                              open();
+                            }}
+                          >
+                            <span className="flex items-center gap-2 font-medium">
+                              {selectedImage ? (
+                                <ImageIcon className="size-4" />
+                              ) : (
+                                <Upload className="size-4" />
+                              )}
+                              <span className="max-w-full truncate">
+                                {uploadButtonLabel}
+                              </span>
                             </span>
-                          </span>
-                          <span className="text-xs font-normal text-muted-foreground">
-                            {t("fields.imageHint")}
-                          </span>
-                        </Button>
-                      );
-                    }}
-                  </CldUploadWidget>
-                </FormControl>
-                <input type="hidden" name="image" value={field.value ?? ""} />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                            <span className="text-xs font-normal text-muted-foreground">
+                              {t("fields.imageHint")}
+                            </span>
+                          </Button>
+                        );
+                      }}
+                    </CldUploadWidget>
+                  </FormControl>
+                  <input type="hidden" name="image" value={field.value ?? ""} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ) : null}
 
           <FormField
             control={form.control}
@@ -493,7 +496,7 @@ export function CreatePlannedDialog({
   projectId?: string;
   showAutoCreate?: boolean;
 }) {
-  const { subdomain } = useSubdomain();
+  const { subdomain, isDemo } = useSubdomain();
   const t = useTranslations("Planned");
   const plannedForm = useForm<PlannedCreateFormValues>({
     defaultValues: getDefaultValues(subdomain),
@@ -504,6 +507,7 @@ export function CreatePlannedDialog({
       {showAutoCreate ? (
         <>
           <AutoCreateForm
+            unavailable={isDemo}
             onExtracted={({ url, product }) => {
               plannedForm.setValue("productUrl", url, {
                 shouldDirty: true,

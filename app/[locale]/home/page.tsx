@@ -12,6 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
 import { FeatureMedia } from "./components/feature-media";
+import { StartDemoButton } from "./components/start-demo-button";
 import {
   ArrowRight,
   Bot,
@@ -35,6 +36,7 @@ export default async function Home({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: "HomePage" });
   const session = await auth();
   const hasApps = session?.user ? await userHasApps() : false;
+  const demoEnabled = process.env.DEMO_MODE_ENABLED === "true";
 
   const primaryCta = session?.user
     ? hasApps
@@ -147,16 +149,30 @@ export default async function Home({ params }: PageProps) {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="w-full sm:w-fit">
-                <Link href={primaryCta.href}>
-                  {primaryCta.label}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+              {!session?.user && demoEnabled ? (
+                <StartDemoButton />
+              ) : (
+                <Button asChild size="lg" className="w-full sm:w-fit">
+                  <Link href={primaryCta.href}>
+                    {primaryCta.label}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              )}
+              {!session?.user && demoEnabled ? (
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-fit"
+                >
+                  <Link href="/login">{t("cta.signIn")}</Link>
+                </Button>
+              ) : null}
               <Button
                 asChild
                 size="lg"
-                variant="outline"
+                variant={!session?.user && demoEnabled ? "ghost" : "outline"}
                 className="w-full sm:w-fit"
               >
                 <Link href="#features">{t("cta.features")}</Link>
@@ -361,12 +377,21 @@ export default async function Home({ params }: PageProps) {
                 {t("finalCta.description")}
               </p>
             </div>
-            <Button asChild size="lg" variant="secondary" className="shrink-0">
-              <Link href={primaryCta.href}>
-                {primaryCta.label}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+            {!session?.user && demoEnabled ? (
+              <StartDemoButton className="shrink-0" variant="secondary" />
+            ) : (
+              <Button
+                asChild
+                size="lg"
+                variant="secondary"
+                className="shrink-0"
+              >
+                <Link href={primaryCta.href}>
+                  {primaryCta.label}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            )}
           </CardContent>
         </Card>
       </section>

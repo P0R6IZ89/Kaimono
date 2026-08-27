@@ -11,6 +11,10 @@ export async function GET() {
     );
   }
 
+  if (session.isDemo) {
+    return NextResponse.json({ credits: 0 });
+  }
+
   const credits = await getAiCreditBalance(session.user.id);
 
   return NextResponse.json({ credits });

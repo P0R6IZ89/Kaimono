@@ -65,6 +65,9 @@ export async function createInviteAction(
   formData: FormData,
 ): Promise<ActionResult> {
   const session = await requireSession();
+  if (session.isDemo) {
+    return { ok: false, message: "demoRestricted" };
+  }
   const appName = String(formData.get("appName") ?? "");
   const raw = {
     appId: formData.get("appId"),
@@ -138,6 +141,9 @@ export async function acceptInviteAction(token: string) {
     const returnTo = encodeURIComponent(`/invite/accept?token=${token}`);
     NextRedirect(`${protocol}://${rootDomain}/login?callbackUrl=${returnTo}`);
   }
+  if (session.isDemo) {
+    return { error: "demoRestricted" };
+  }
   const userId = session.user.id;
 
   const invite = await prisma.invitation.findUnique({
@@ -196,6 +202,9 @@ export async function resendInviteAction(
   const session = await auth();
   if (!session?.user?.id) {
     return { ok: false, message: "loginRequired" };
+  }
+  if (session.isDemo) {
+    return { ok: false, message: "demoRestricted" };
   }
 
   const me = session.user.id;
@@ -258,6 +267,9 @@ export async function revokeInviteAction(
   invitationId: string,
 ): Promise<ActionResult> {
   const session = await requireSession();
+  if (session.isDemo) {
+    return { ok: false, message: "demoRestricted" };
+  }
   const me = session.user.id;
   const invite = await prisma.invitation.findUnique({
     where: { id: invitationId },

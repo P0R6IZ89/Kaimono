@@ -96,7 +96,7 @@ export function EditPlannedDialog({
   const tActions = useTranslations("ActionMessages");
   const tCommon = useTranslations("Common");
   const tErrors = useTranslations("Errors");
-  const { subdomain } = useSubdomain();
+  const { subdomain, isDemo } = useSubdomain();
   const {
     id,
     title,
@@ -419,56 +419,58 @@ export function EditPlannedDialog({
               name="image"
               render={({ field }) => (
                 <FormItem className="mb-4">
-                  <FormLabel>{t("fields.image")}</FormLabel>
-                  <FormControl>
-                    <CldUploadWidget
-                      options={{
-                        sources: ["url", "local", "camera"],
-                      }}
-                      uploadPreset="test-preset"
-                      onOpen={() => setUploadWidgetOpen(true)}
-                      onClose={() => setUploadWidgetOpen(false)}
-                      onSuccess={(result, { widget }) => {
-                        const info = result.info;
-                        if (!info || typeof info === "string") {
+                  {!isDemo ? <FormLabel>{t("fields.image")}</FormLabel> : null}
+                  {!isDemo ? (
+                    <FormControl>
+                      <CldUploadWidget
+                        options={{
+                          sources: ["url", "local", "camera"],
+                        }}
+                        uploadPreset="test-preset"
+                        onOpen={() => setUploadWidgetOpen(true)}
+                        onClose={() => setUploadWidgetOpen(false)}
+                        onSuccess={(result, { widget }) => {
+                          const info = result.info;
+                          if (!info || typeof info === "string") {
+                            widget.close();
+                            setUploadWidgetOpen(false);
+                            return;
+                          }
+                          field.onChange(info.secure_url);
+                          setUploadedInfo(info);
                           widget.close();
                           setUploadWidgetOpen(false);
-                          return;
-                        }
-                        field.onChange(info.secure_url);
-                        setUploadedInfo(info);
-                        widget.close();
-                        setUploadWidgetOpen(false);
-                      }}
-                    >
-                      {({ open: openUploadWidget }) => (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="h-auto min-h-20 w-full flex-col gap-2 border-dashed bg-background/60 px-4 py-4 text-center whitespace-normal hover:bg-muted/60"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            setUploadWidgetOpen(true);
-                            openUploadWidget();
-                          }}
-                        >
-                          <span className="flex items-center gap-2 font-medium">
-                            {field.value ? (
-                              <ImageIcon className="size-4" />
-                            ) : (
-                              <Upload className="size-4" />
-                            )}
-                            <span className="max-w-full truncate">
-                              {uploadButtonLabel}
+                        }}
+                      >
+                        {({ open: openUploadWidget }) => (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="h-auto min-h-20 w-full flex-col gap-2 border-dashed bg-background/60 px-4 py-4 text-center whitespace-normal hover:bg-muted/60"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              setUploadWidgetOpen(true);
+                              openUploadWidget();
+                            }}
+                          >
+                            <span className="flex items-center gap-2 font-medium">
+                              {field.value ? (
+                                <ImageIcon className="size-4" />
+                              ) : (
+                                <Upload className="size-4" />
+                              )}
+                              <span className="max-w-full truncate">
+                                {uploadButtonLabel}
+                              </span>
                             </span>
-                          </span>
-                          <span className="text-xs font-normal text-muted-foreground">
-                            {t("fields.imageHint")}
-                          </span>
-                        </Button>
-                      )}
-                    </CldUploadWidget>
-                  </FormControl>
+                            <span className="text-xs font-normal text-muted-foreground">
+                              {t("fields.imageHint")}
+                            </span>
+                          </Button>
+                        )}
+                      </CldUploadWidget>
+                    </FormControl>
+                  ) : null}
                   <input type="hidden" name="image" value={field.value ?? ""} />
                   <FormMessage />
                 </FormItem>

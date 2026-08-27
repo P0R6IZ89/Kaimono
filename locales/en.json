@@ -227,6 +227,8 @@
       "clearUrl": "Clear URL",
       "extractedImage": "Extracted image",
       "reviewHint": "AI will fill what it can. Review before saving.",
+      "unavailableInDemo": "Unavailable in demo",
+      "unavailableInDemoHint": "AI extraction is shown for the showcase but cannot be used in temporary demo workspaces.",
       "beta": "Beta"
     },
     "comments": {
@@ -501,6 +503,21 @@
     },
     "title": "Select a Workspace",
     "add-workspace": "Add workspace"
+  },
+  "Demo": {
+    "start": "Try live demo",
+    "preparing": "Preparing demo…",
+    "startError": "The demo could not start. Please try again.",
+    "guestName": "Demo Guest",
+    "temporaryGuest": "Temporary workspace",
+    "reset": "Reset demo",
+    "createAccount": "Create account",
+    "end": "End demo",
+    "banner": {
+      "title": "Temporary demo workspace",
+      "expiresAt": "Demo access ends at {time}. Changes will be deleted.",
+      "temporary": "Changes in this workspace are temporary."
+    }
   },
   "HomePage": {
     "cta": {
@@ -843,6 +860,7 @@
   "ActionMessages": {
     "actionCompleted": "Action completed.",
     "somethingWentWrong": "Something went wrong.",
+    "demoRestricted": "This action is not available in the temporary demo.",
     "unexpectedWithError": "Something went wrong: {error}",
     "workspaceNotFound": "Workspace does not exist.",
     "itemNotFoundForApp": "Item not found for this app.",

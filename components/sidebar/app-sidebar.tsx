@@ -38,7 +38,7 @@ export async function AppSidebar({
     getAllAppsAction(),
     getCurrentAppAction(subdomain),
     getMembership(subdomain),
-    getAiCreditBalance(session.user.id),
+    session.isDemo ? Promise.resolve(0) : getAiCreditBalance(session.user.id),
   ]);
 
   const t = await getTranslations({ locale, namespace: "Sidebar" });
@@ -53,7 +53,9 @@ export async function AppSidebar({
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
-        {apps && currentApp ? (
+        {session.isDemo ? (
+          <div className="px-3 py-2 text-sm font-medium">{currentApp.name}</div>
+        ) : apps && currentApp ? (
           <AppSwitcher apps={apps} currentApp={currentApp} />
         ) : (
           <SkeletonAvatar />
@@ -62,15 +64,16 @@ export async function AppSidebar({
       <SidebarContent>
         <NavPages pages={data.navSite} />
         <NavPages pages={data.navPages} />
-        <NavPages pages={data.settings} />
+        {!session.isDemo ? <NavPages pages={data.settings} /> : null}
         <NavConfig items={data.config} />
-        <KoFiPlainButton className="mt-auto" />
+        {!session.isDemo ? <KoFiPlainButton className="mt-auto" /> : null}
       </SidebarContent>
       <SidebarFooter>
         {session.user ? (
           <NavUser
             aiCreditBalance={aiCreditBalance}
             memberRole={memberRole ?? undefined}
+            isDemo={session.isDemo}
             user={{
               name: session.user.name ?? "",
               email: session.user.email ?? "",
