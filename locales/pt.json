@@ -507,7 +507,7 @@
   "Demo": {
     "start": "Testar demo ao vivo",
     "preparing": "Preparando a demo…",
-    "startError": "Não foi possível iniciar a demo. Tente novamente.",
+    "startError": "Algo deu errado.",
     "guestName": "Visitante da demo",
     "temporaryGuest": "Workspace temporário",
     "reset": "Redefinir demo",
