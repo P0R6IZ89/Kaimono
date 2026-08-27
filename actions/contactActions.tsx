@@ -22,6 +22,9 @@ export async function sendContactMessage(
   const { subdomain, fullName, email, title, description } = parsed.data;
   const membership = await requireMembership(subdomain);
   const { session, appId, role } = membership;
+  if (session.isDemo) {
+    return { ok: false, message: "demoRestricted" };
+  }
   const [workspace, rateLimit] = await Promise.all([
     prisma.app.findUnique({
       where: { id: appId },

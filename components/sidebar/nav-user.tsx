@@ -27,6 +27,7 @@ type MemberRole = $Enums.Role;
 
 interface NavUserProps {
   aiCreditBalance: number;
+  isDemo?: boolean;
   user?: {
     name: string;
     email: string;
@@ -39,11 +40,13 @@ export function NavUser({
   aiCreditBalance,
   user,
   memberRole = "MEMBER",
+  isDemo = false,
 }: NavUserProps) {
   const { isMobile } = useSidebar();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const tCommon = useTranslations("Common");
   const tSettings = useTranslations("Settings");
+  const tDemo = useTranslations("Demo");
   if (!user) {
     return (
       <SidebarMenu>
@@ -74,13 +77,19 @@ export function NavUser({
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
-                <span className="truncate text-xs text-muted-foreground">
-                  {tSettings("aiCredits.remainingCount", {
-                    count: aiCreditBalance,
-                  })}
+                <span className="truncate font-semibold">
+                  {isDemo ? tDemo("guestName") : user.name}
                 </span>
+                <span className="truncate text-xs">
+                  {isDemo ? tDemo("temporaryGuest") : user.email}
+                </span>
+                {!isDemo ? (
+                  <span className="truncate text-xs text-muted-foreground">
+                    {tSettings("aiCredits.remainingCount", {
+                      count: aiCreditBalance,
+                    })}
+                  </span>
+                ) : null}
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -105,7 +114,11 @@ export function NavUser({
                   <span className="text-xs">
                     {tCommon(`roles.${memberRole}`)}
                   </span>
-                  {user.name ? (
+                  {isDemo ? (
+                    <span className="truncate font-semibold">
+                      {tDemo("guestName")}
+                    </span>
+                  ) : user.name ? (
                     <span className="truncate font-semibold">{user.name}</span>
                   ) : (
                     <span className="truncate">{user.email}</span>

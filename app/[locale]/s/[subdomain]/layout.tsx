@@ -12,6 +12,7 @@ import React from "react";
 import { Notification } from "./components/notification";
 import { SettingIcon } from "./components/settingIcon";
 import { UsersInfo } from "./components/UsersInfo";
+import { DemoModeBanner } from "@/components/demo/demo-mode-banner";
 
 export default async function AppLayout({
   params,
@@ -24,7 +25,7 @@ export default async function AppLayout({
   const session = await requireSession();
   const app = await getCurrentAppAction(subdomain);
   return (
-    <SubdomainContextProvider>
+    <SubdomainContextProvider isDemo={session.isDemo}>
       <SidebarProvider
         style={
           {
@@ -41,11 +42,18 @@ export default async function AppLayout({
               <Separator orientation="vertical" />
               <h1 className="ml-2 text-base ">{app.name}</h1>
             </div>
-            <UsersInfo />
-            <Notification />
-            <SettingIcon />
+            {!session.isDemo ? (
+              <>
+                <UsersInfo />
+                <Notification />
+                <SettingIcon />
+              </>
+            ) : null}
           </header>
-          <MobileBottomNav user={session.user} />
+          {session.isDemo ? (
+            <DemoModeBanner expiresAt={session.demoExpiresAt} locale={locale} />
+          ) : null}
+          <MobileBottomNav user={session.user} isDemo={session.isDemo} />
           <div className="pb-[calc(env(safe-area-inset-bottom)+96px)] md:pb-0">
             {children}
           </div>

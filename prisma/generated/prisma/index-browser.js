@@ -121,6 +121,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.DemoLeaseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  appId: 'appId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -351,6 +359,7 @@ exports.AiCreditLedgerType = exports.$Enums.AiCreditLedgerType = {
 };
 
 exports.Prisma.ModelName = {
+  DemoLease: 'DemoLease',
   User: 'User',
   App: 'App',
   Membership: 'Membership',

@@ -124,6 +124,7 @@ NEXT_PUBLIC_ALLOWED_ORIGINS=""
 ALLOWED_ORIGINS=""
 CRON_SECRET="replace-with-a-cron-secret"
 KILL_SWITCH=""
+DEMO_MODE_ENABLED="false"
 
 # Two-factor authentication
 # Uses AUTH_SECRET as a fallback when this is omitted.
@@ -152,9 +153,10 @@ Notes:
 
 - `NEXT_PUBLIC_ALLOWED_ORIGINS` or `ALLOWED_ORIGINS` can override the default server action origins derived from `NEXT_PUBLIC_ROOT_DOMAIN`.
 - `TWO_FACTOR_SECRET_KEY` should remain stable after users enable two-factor authentication. Changing it prevents existing TOTP secrets and recovery codes from being read.
-- Upstash Redis is optional. Without it, AI extraction and contact support operate without Redis-backed rate limiting.
+- Upstash Redis is optional for AI extraction and contact support. It is required in production when `DEMO_MODE_ENABLED="true"`; demo creation fails closed without it.
 - Stripe variables are required only when AI credit purchases are enabled.
 - `KILL_SWITCH` returns HTTP 503 for middleware-managed application routes when set to a non-empty value.
+- `DEMO_MODE_ENABLED="true"` enables the one-click, temporary showcase workspace. Demo workspaces expire after one hour and cannot use paid or account-management features.
 - Enable `AI_EXTRACT_DEBUG` only for controlled debugging; extraction errors may include additional diagnostic context.
 
 ### 3. Start PostgreSQL
@@ -218,12 +220,12 @@ npx prisma studio          # Open Prisma Studio
 3. Use `npm run vercel-build` as the build command so Prisma generation, migration deployment, and `next build` run together.
 4. Set `AUTH_URL` and `NEXT_PUBLIC_ROOT_DOMAIN` to the production domain.
 5. Configure OAuth callback URLs for the production domain.
-6. Configure the cron secret used by `/api/cron/expire-invites`.
+6. Configure the cron secret used by `/api/cron/expire-invites` and `/api/cron/cleanup-demo-guests`.
 7. Configure the Stripe webhook endpoint as `/api/stripe/webhook` and subscribe
    it to Checkout completion events when AI credit purchases are enabled.
 8. Keep `AUTH_SECRET` and `TWO_FACTOR_SECRET_KEY` stable across deployments.
 
-`vercel.json` schedules the invitation expiration job at `/api/cron/expire-invites` with the cron expression `0 0 */2 * *`.
+`vercel.json` schedules invitation expiration at `/api/cron/expire-invites` every two days and temporary-demo cleanup at `/api/cron/cleanup-demo-guests` every hour.
 
 ### Docker
 

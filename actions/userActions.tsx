@@ -8,6 +8,7 @@ export type CurrentUserCapabilities = {
   id: string;
   isBetaTester: boolean;
   isProUser: boolean;
+  isDemo: boolean;
   aiCreditBalance: number;
   canUseAiProductExtraction: boolean;
 };
@@ -31,10 +32,20 @@ export async function getCurrentUserCapabilities(): Promise<CurrentUserCapabilit
     return null;
   }
 
+  if (session.isDemo) {
+    return {
+      ...user,
+      isDemo: true,
+      aiCreditBalance: 0,
+      canUseAiProductExtraction: false,
+    };
+  }
+
   const aiCreditBalance = await getAiCreditBalance(user.id);
 
   return {
     ...user,
+    isDemo: false,
     aiCreditBalance,
     canUseAiProductExtraction: aiCreditBalance > 0,
   };

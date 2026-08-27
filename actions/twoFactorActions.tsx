@@ -55,6 +55,7 @@ async function requireAuthenticatedUser() {
   const locale = await getCurrentLocale();
 
   if (!session?.user?.id) redirect({ href: "/login", locale });
+  if (session?.isDemo) redirect({ href: "/home", locale });
   const authenticatedSession = session as NonNullable<typeof session> & {
     user: NonNullable<typeof session>["user"] & { id: string };
   };

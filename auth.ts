@@ -2,8 +2,11 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "./auth.config";
 import Resend from "next-auth/providers/resend";
+import Credentials from "next-auth/providers/credentials";
+import { createHash } from "node:crypto";
 import prisma from "./lib/prisma";
 import { rootDomainHost } from "./lib/variables";
+import { checkDemoCreateRateLimit } from "./lib/rate-limit";
 
 const isEdge = process.env.NEXT_RUNTIME === "edge";
 export const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
@@ -32,6 +35,21 @@ async function getUserRequiresTwoFactor(userId: string) {
   return Boolean(twoFactor?.enabledAt);
 }
 
+function isExpiredDemo(expiresAt: string | null | undefined) {
+  return !expiresAt || new Date(expiresAt).getTime() <= Date.now();
+}
+
+function getDemoRequestIdentifier(request: Request) {
+  const forwardedFor = request.headers.get("x-forwarded-for")?.split(",")[0];
+  const source =
+    forwardedFor?.trim() ||
+    request.headers.get("x-real-ip") ||
+    request.headers.get("user-agent") ||
+    "unknown";
+
+  return createHash("sha256").update(source).digest("hex");
+}
+
 export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   adapter: authAdapter,
 
@@ -42,6 +60,36 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
     ...(isEdge
       ? []
       : [
+          Credentials({
+            id: "demo",
+            name: "Demo",
+            credentials: { intent: {} },
+            async authorize(credentials, request) {
+              if (credentials.intent !== "showcase") return null;
+
+              const rateLimit = await checkDemoCreateRateLimit(
+                getDemoRequestIdentifier(request),
+              );
+              if (!rateLimit.success || (isProd && !rateLimit.enabled)) {
+                return null;
+              }
+
+              try {
+                const { createDemoGuest } = await import("@/lib/demo-guest");
+                const demo = await createDemoGuest();
+
+                return {
+                  ...demo.user,
+                  isDemo: true,
+                  demoExpiresAt: demo.lease.expiresAt.toISOString(),
+                  demoSubdomain: demo.workspace.subdomain,
+                };
+              } catch (error) {
+                console.error("[demo-auth] Could not create demo guest", error);
+                return null;
+              }
+            },
+          }),
           Resend({
             apiKey: process.env.AUTH_RESEND_KEY,
             from: process.env.LOGIN_FROM_EMAIL,
@@ -67,13 +115,22 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   },
   callbacks: {
     async jwt({ token, user, trigger, session }) {
+      if (!user && token.isDemo && isExpiredDemo(token.demoExpiresAt)) {
+        return null;
+      }
+
       if (user) {
         const userId = user.id as string;
         token.id = userId;
         token.name = user.name ?? token.name;
         token.email = user.email ?? token.email;
         token.image = user.image ?? token.image;
-        token.requiresTwoFactor = await getUserRequiresTwoFactor(userId);
+        token.isDemo = Boolean(user.isDemo);
+        token.demoExpiresAt = user.demoExpiresAt ?? null;
+        token.demoSubdomain = user.demoSubdomain ?? null;
+        token.requiresTwoFactor = token.isDemo
+          ? false
+          : await getUserRequiresTwoFactor(userId);
         token.twoFactorVerified = !token.requiresTwoFactor;
         token.twoFactorVerifiedAt = token.requiresTwoFactor
           ? null
@@ -132,6 +189,11 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
         typeof token.twoFactorVerifiedAt === "string"
           ? token.twoFactorVerifiedAt
           : null;
+      session.isDemo = Boolean(token.isDemo);
+      session.demoExpiresAt =
+        typeof token.demoExpiresAt === "string" ? token.demoExpiresAt : null;
+      session.demoSubdomain =
+        typeof token.demoSubdomain === "string" ? token.demoSubdomain : null;
 
       return session;
     },
@@ -139,6 +201,7 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   events: {
     async createUser({ user }) {
       if (!user.id) return;
+      if (user.isDemo) return;
 
       const { createDemoTeamForUser } = await import("@/lib/demo-team-seed");
       const { grantSignupAiCredits } = await import("@/lib/ai-credits");

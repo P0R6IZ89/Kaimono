@@ -47,6 +47,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  if (session.isDemo) {
+    return NextResponse.json(
+      {
+        code: "DEMO_RESTRICTED",
+        error: "Credit purchases are not available in the temporary demo.",
+      },
+      { status: 403 },
+    );
+  }
+
   if (!process.env.STRIPE_SECRET_KEY) {
     return NextResponse.json(
       {

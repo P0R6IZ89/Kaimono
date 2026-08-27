@@ -227,6 +227,8 @@
       "clearUrl": "URLをクリア",
       "extractedImage": "抽出した画像",
       "reviewHint": "AI が取得できる情報を入力します。保存前に確認してください。",
+      "unavailableInDemo": "デモでは利用できません",
+      "unavailableInDemoHint": "ショーケースとして表示していますが、一時デモワークスペースでは AI 抽出を利用できません。",
       "beta": "ベータ機能"
     },
     "comments": {
@@ -501,6 +503,21 @@
     },
     "title": "ワークスペースを選択",
     "add-workspace": "ワークスペースを追加"
+  },
+  "Demo": {
+    "start": "ライブデモを試す",
+    "preparing": "デモを準備中…",
+    "startError": "デモを開始できませんでした。もう一度お試しください。",
+    "guestName": "デモゲスト",
+    "temporaryGuest": "一時ワークスペース",
+    "reset": "デモをリセット",
+    "createAccount": "アカウントを作成",
+    "end": "デモを終了",
+    "banner": {
+      "title": "一時デモワークスペース",
+      "expiresAt": "デモは{time}に終了し、変更内容は削除されます。",
+      "temporary": "このワークスペースの変更内容は一時的です。"
+    }
   },
   "HomePage": {
     "cta": {
@@ -843,6 +860,7 @@
   "ActionMessages": {
     "actionCompleted": "操作が完了しました。",
     "somethingWentWrong": "問題が発生しました。",
+    "demoRestricted": "この操作は一時デモでは利用できません。",
     "unexpectedWithError": "問題が発生しました: {error}",
     "workspaceNotFound": "ワークスペースが存在しません。",
     "itemNotFoundForApp": "このアプリのアイテムが見つかりません。",

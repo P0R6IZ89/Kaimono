@@ -53,6 +53,18 @@ function getSafeCallbackPath(value: string | null, fallback: string) {
   return value;
 }
 
+function isDemoRestrictedPath(pathname: string) {
+  return (
+    pathname === "/new-workspace" ||
+    pathname === "/new-team" ||
+    pathname === "/invite" ||
+    pathname.startsWith("/invite/") ||
+    pathname === "/settings" ||
+    pathname.startsWith("/settings/") ||
+    pathname === "/two-factor"
+  );
+}
+
 export default auth(async function middleware(req) {
   if (KILL_SWITCH) {
     return new NextResponse("Service Unavailable", { status: 503 });
@@ -111,6 +123,13 @@ export default auth(async function middleware(req) {
     const url = req.nextUrl.clone();
     url.pathname = `/${locale}/`;
     url.search = search;
+    return NextResponse.redirect(url);
+  }
+
+  if (user && req.auth?.isDemo && isDemoRestrictedPath(rest)) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${locale}/`;
+    url.search = "";
     return NextResponse.redirect(url);
   }
 

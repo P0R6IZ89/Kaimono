@@ -42,6 +42,7 @@ type ExtractSuccessResponse = {
 
 type ExtractErrorCode =
   | "UNAUTHORIZED"
+  | "DEMO_RESTRICTED"
   | "AI_EXTRACTION_NOT_ALLOWED"
   | "AI_CREDITS_REQUIRED"
   | "INVALID_URL"
@@ -581,6 +582,14 @@ export async function POST(req: NextRequest) {
         401,
         "UNAUTHORIZED",
         "Please log in to use AI extraction.",
+      );
+    }
+
+    if (capabilities.isDemo) {
+      return createErrorResponse(
+        403,
+        "DEMO_RESTRICTED",
+        "AI extraction is not available in the temporary demo.",
       );
     }
 

@@ -24,9 +24,13 @@ type MobileBottomNavProps = {
     email?: string | null;
     image?: string | null;
   };
+  isDemo?: boolean;
 };
 
-export function MobileBottomNav({ user }: MobileBottomNavProps) {
+export function MobileBottomNav({
+  user,
+  isDemo = false,
+}: MobileBottomNavProps) {
   const pathname = useLocalizedPathname();
   const [activePathname, setActivePathname] = useState<string | null>(null);
   const t = useTranslations("MobileNav");
@@ -43,12 +47,16 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
     { href: "/", label: t("home"), icon: Home },
     { href: "/projects", label: t("projects"), icon: Layers },
     { href: "/essentials", label: t("essentials"), icon: ShoppingCart },
-    {
-      href: "/settings",
-      label: t("settings"),
-      icon: User,
-      imageSrc: user.image,
-    },
+    ...(!isDemo
+      ? [
+          {
+            href: "/settings",
+            label: t("settings"),
+            icon: User,
+            imageSrc: user.image,
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -68,7 +76,12 @@ export function MobileBottomNav({ user }: MobileBottomNavProps) {
       <ProjectCreateDialog className="hidden" triggerRef={projectTriggerRef} />
       <div className="flex items-center w-full pb-[calc(env(safe-area-inset-bottom)+12px)] ">
         <div className="flex-1 rounded-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/70">
-          <ul className="grid grid-cols-4 items-center">
+          <ul
+            className={cn(
+              "grid items-center",
+              isDemo ? "grid-cols-3" : "grid-cols-4",
+            )}
+          >
             {items.map((item) => {
               const active =
                 activePathname === item.href ||

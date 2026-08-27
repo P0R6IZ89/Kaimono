@@ -12,18 +12,21 @@ import {
 interface SubdomainContextValue {
   subdomain: string;
   setSubdomain: (value: string) => void;
+  isDemo: boolean;
 }
 
 const SubdomainContext = createContext<SubdomainContextValue | undefined>(
-  undefined
+  undefined,
 );
 
 interface SubdomainContextProviderProps {
   children: ReactNode;
+  isDemo?: boolean;
 }
 
 export default function SubdomainContextProvider({
   children,
+  isDemo = false,
 }: SubdomainContextProviderProps) {
   const params = useParams();
   const currentSubdomain = params.subdomain as string;
@@ -34,7 +37,7 @@ export default function SubdomainContextProvider({
     }
   }, [currentSubdomain, subdomain]);
   return (
-    <SubdomainContext.Provider value={{ subdomain, setSubdomain }}>
+    <SubdomainContext.Provider value={{ subdomain, setSubdomain, isDemo }}>
       {children}
     </SubdomainContext.Provider>
   );
@@ -43,7 +46,7 @@ export function useSubdomain(): SubdomainContextValue {
   const context = useContext(SubdomainContext);
   if (!context) {
     throw new Error(
-      "useSubdomain must be used within a SubdomainContextProvider"
+      "useSubdomain must be used within a SubdomainContextProvider",
     );
   }
   return context;
