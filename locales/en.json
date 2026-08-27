@@ -507,7 +507,7 @@
   "Demo": {
     "start": "Try live demo",
     "preparing": "Preparing demo…",
-    "startError": "The demo could not start. Please try again.",
+    "startError": "Something wrong.",
     "guestName": "Demo Guest",
     "temporaryGuest": "Temporary workspace",
     "reset": "Reset demo",

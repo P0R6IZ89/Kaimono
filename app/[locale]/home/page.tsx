@@ -22,6 +22,7 @@ import {
   ListChecks,
   LockKeyhole,
   MailPlus,
+  Play,
   ShieldCheck,
   ShoppingCart,
   UsersRound,
@@ -150,7 +151,20 @@ export default async function Home({ params }: PageProps) {
 
             <div className="flex flex-col gap-3 sm:flex-row">
               {!session?.user && demoEnabled ? (
-                <StartDemoButton />
+                <Button
+                  asChild
+                  size="lg"
+                  variant="default"
+                  className="w-full sm:w-fit"
+                >
+                  <Link href="/login">
+                    <Play />
+                    {t("cta.signIn")}
+                  </Link>
+                </Button>
+              ) : null}
+              {!session?.user && demoEnabled ? (
+                <StartDemoButton variant="outline" />
               ) : (
                 <Button asChild size="lg" className="w-full sm:w-fit">
                   <Link href={primaryCta.href}>
@@ -159,16 +173,7 @@ export default async function Home({ params }: PageProps) {
                   </Link>
                 </Button>
               )}
-              {!session?.user && demoEnabled ? (
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="w-full sm:w-fit"
-                >
-                  <Link href="/login">{t("cta.signIn")}</Link>
-                </Button>
-              ) : null}
+
               <Button
                 asChild
                 size="lg"

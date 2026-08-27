@@ -507,7 +507,7 @@
   "Demo": {
     "start": "ライブデモを試す",
     "preparing": "デモを準備中…",
-    "startError": "デモを開始できませんでした。もう一度お試しください。",
+    "startError": "エラー。",
     "guestName": "デモゲスト",
     "temporaryGuest": "一時ワークスペース",
     "reset": "デモをリセット",
